@@ -41,7 +41,7 @@ const Login = () => {
             <Button
               color="#FFFFFF"
               title="Sign In"
-              onPress={() => Actions.home()}
+              onPress={() => Actions.homeuser()}
             />
           </TouchableHighlight>
           <Text style={styles.sectionOption}>Forgot Password</Text>
