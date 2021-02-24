@@ -49,17 +49,12 @@ const Register = () => {
           />
           <TextInput
             style={styles.textbox}
-            placeholder={"Middle Name"}
-            placeholderTextColor={"#898989"}
-          />
-          <TextInput
-            style={styles.textbox}
             placeholder={"Last Name"}
             placeholderTextColor={"#898989"}
           />
           <TextInput
             style={styles.textbox}
-            placeholder={"Year of birth (eg. 2020)"}
+            placeholder={"Date of birth"}
             placeholderTextColor={"#898989"}
           />
           <TextInput

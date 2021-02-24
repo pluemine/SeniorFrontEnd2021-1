@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   sectionSubtitle: {
-    marginTop: 8,
     fontSize: 14,
     fontWeight: "800",
     color: "#f49608",
@@ -45,7 +44,22 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "400",
     color: Colors.dark,
-    textAlign: 'center',
+    textAlign: "center",
+  },
+  cardHeader: {
+    fontSize: 20,
+    fontWeight: "600",
+    color: Colors.black,
+    marginBottom: 10,
+  },
+  cardSubtitle: {
+    fontSize: 12,
+    fontWeight: "800",
+    color: "#f49608",
+  },
+  cardDes: {
+    fontSize: 12,
+    color: Colors.dark,
   },
   highlight: {
     fontWeight: "700",
@@ -96,7 +110,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#444444",
     borderRadius: 6,
     width: "100%",
-    marginTop: 40,
     marginBottom: 0,
     height: 40,
   },
@@ -120,6 +133,37 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     height: 40,
   },
+  filter: {
+    //backgroundColor: "#444444",
+    borderWidth: 1,
+    borderColor: "#444444",
+    borderRadius: 6,
+    width: "100%",
+    marginTop: 10,
+    marginBottom: 0,
+    height: 40,
+  },
+  itemcard: {
+    borderRadius: 10,
+    backgroundColor: "#ffffff",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    height: 150,
+    maxWidth: 500,
+    width: "100%",
+    margin: "auto",
+    marginTop: 20,
+    padding: 20,
+  },
+  space10: {
+    margin: 10,
+  }
 });
 
-module.exports = styles
+module.exports = styles;

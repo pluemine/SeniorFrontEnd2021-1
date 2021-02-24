@@ -37,6 +37,7 @@ const Login = () => {
             placeholder={"Password"}
             placeholderTextColor={"#898989"}
           />
+          <Text style={styles.sectionDescription}></Text>
           <TouchableHighlight style={styles.button}>
             <Button
               color="#FFFFFF"

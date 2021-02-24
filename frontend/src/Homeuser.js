@@ -37,34 +37,98 @@ const Homeuser = () => {
     <View style={styles.body}>
       <View style={styles.sectionContainer}>
         <View style={styles.mainarea}>
-          <Text style={styles.sectionSubtitle}>Welcome</Text>
-          <Text style={styles.sectionTitle}>Firstname</Text>
+          <Text style={styles.sectionSubtitle}></Text>
+          <Text style={styles.sectionTitle}>My Parking Access</Text>
           <View style={styles1.content}>
-            <Image
-              style={styles1.logo}
-              source={require("../assets/logo.png")}
-            />
+            <View style={styles1.container}>
+              <View style={styles1.item1}>
+                <TextInput
+                  style={styles.textbox}
+                  placeholder={"Search by place name"}
+                  placeholderTextColor={"#898989"}
+                />
+              </View>
+              <View style={styles1.item2}>
+                <TouchableHighlight style={styles.filter}>
+                  <Button
+                    color="#444444"
+                    title="Filter"
+                    onPress={() => Actions.register()}
+                  />
+                </TouchableHighlight>
+              </View>
+              <View style={styles.space10} />
+              <TouchableHighlight style={styles.button}>
+                <Button
+                  color="#FFFFFF"
+                  title="Search"
+                  onPress={() => Actions.homeuser()}
+                />
+              </TouchableHighlight>
+              <View>
+                <View style={styles.itemcard}>
+                  <View style={styles1.container}>
+                    <View style={styles1.col50}>
+                      <Image
+                        style={styles1.pic}
+                        source={require("../assets/logo.png")}
+                      />
+                    </View>
+                    <View style={styles1.col50}>
+                      <Text style={styles.cardSubtitle}>Property Type</Text>
+                      <Text style={styles.cardHeader}>Place name</Text>
+                      <Text style={styles.cardDes}>
+                        Address (only province)
+                      </Text>
+                      <Text style={styles.cardDes}>Valid : Date</Text>
+                      <Text style={styles.cardDes}>Expire : Date</Text>
+                      <Text style={styles.cardDes}>Time</Text>
+                    </View>
+                  </View>
+                </View>
+                <View style={styles.itemcard}>
+                  <View style={styles1.container}>
+                    <View style={styles1.col50}>
+                      <Image
+                        style={styles1.pic}
+                        source={require("../assets/logo.png")}
+                      />
+                    </View>
+                    <View style={styles1.col50}>
+                      <Text style={styles.cardSubtitle}>Property Type</Text>
+                      <Text style={styles.cardHeader}>Place name</Text>
+                      <Text style={styles.cardDes}>
+                        Address (only province)
+                      </Text>
+                      <Text style={styles.cardDes}>Valid : Date</Text>
+                      <Text style={styles.cardDes}>Expire : Date</Text>
+                      <Text style={styles.cardDes}>Time</Text>
+                    </View>
+                  </View>
+                </View>
+                <View style={styles.itemcard}>
+                  <View style={styles1.container}>
+                    <View style={styles1.col50}>
+                      <Image
+                        style={styles1.pic}
+                        source={require("../assets/logo.png")}
+                      />
+                    </View>
+                    <View style={styles1.col50}>
+                      <Text style={styles.cardSubtitle}>Property Type</Text>
+                      <Text style={styles.cardHeader}>Place name</Text>
+                      <Text style={styles.cardDes}>
+                        Address (only province)
+                      </Text>
+                      <Text style={styles.cardDes}>Valid : Date</Text>
+                      <Text style={styles.cardDes}>Expire : Date</Text>
+                      <Text style={styles.cardDes}>Time</Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
           </View>
-            <Scene key="root">
-              {/* Tab Container */}
-              <Scene
-                key="tabbar"
-                tabs={true}
-                tabBarStyle={{ backgroundColor: "#FFFFFF" }}
-              >
-                {/* Tab and it's scenes */}
-                <Scene key="osu" title="OSU" icon={TabIcon}>
-                  <Scene key="scarlet" component={Profile} title="Scarlet" />
-                  <Scene key="gray" component={Login} title="Gray" />
-                </Scene>
-
-                {/* Tab and it's scenes */}
-                <Scene key="um" title="UM" icon={TabIcon}>
-                  <Scene key="blue" component={Profile} title="Blue" />
-                  <Scene key="maize" component={Login} title="Maize" />
-                </Scene>
-              </Scene>
-            </Scene>
         </View>
       </View>
     </View>
@@ -93,6 +157,28 @@ const styles1 = StyleSheet.create({
     textAlign: "center",
     fontSize: 12,
     marginBottom: 40,
+  },
+  container: {
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "flex-start", // if you want to fill rows left to right
+  },
+  item1: {
+    paddingRight: 10,
+    width: "70%",
+  },
+  item2: {
+    width: "30%",
+  },
+  col50: {
+    width: "50%",
+  },
+  pic: {
+    width: 110,
+    height: 110,
+    margin: "auto",
+    //resizeMode: "stretch",
   },
 });
 
