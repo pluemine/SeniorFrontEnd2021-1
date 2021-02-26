@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Actions } from "react-native-router-flux";
 import {
   Header,
@@ -21,28 +21,37 @@ import {
 import styles from "./Styles";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <View style={styles.body}>
       <View style={styles.sectionContainer}>
         <View style={styles.mainarea}>
           <Text style={styles.sectionSubtitle}>WELCOME</Text>
           <Text style={styles.sectionTitle}>Sign In</Text>
+          <Text style={{ padding: 10, fontSize: 42 }}>
+            {password}
+          </Text>
           <TextInput
             style={styles.textbox}
             placeholder={"Email"}
             placeholderTextColor={"#898989"}
+            onChangeText={(text) => setEmail(text)}
           />
           <TextInput
             style={styles.textbox}
+            secureTextEntry={true}
             placeholder={"Password"}
             placeholderTextColor={"#898989"}
+            onChangeText={(text) => setPassword(text)}
           />
           <Text style={styles.sectionDescription}></Text>
           <TouchableHighlight style={styles.button}>
             <Button
               color="#FFFFFF"
               title="Sign In"
-              onPress={() => Actions.homeuser()}
+              //onPress={() => Actions.homeuser()}
             />
           </TouchableHighlight>
           <Text style={styles.sectionOption}>Forgot Password</Text>
