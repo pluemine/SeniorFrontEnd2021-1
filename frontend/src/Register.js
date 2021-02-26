@@ -64,6 +64,7 @@ const Register = () => {
           <TextInput
             style={styles.textbox}
             secureTextEntry={true}
+            textContentType={'oneTimeCode'}
             placeholder={"Password"}
             placeholderTextColor={"#898989"}
             onChangeText={(text) => setPassword(text)}
@@ -71,6 +72,7 @@ const Register = () => {
           <TextInput
             style={styles.textbox}
             secureTextEntry={true}
+            textContentType={'oneTimeCode'}
             placeholder={"Confirm Password"}
             placeholderTextColor={"#898989"}
             onChangeText={(text) => setConfirm(text)}
