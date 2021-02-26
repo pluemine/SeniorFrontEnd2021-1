@@ -24,6 +24,21 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const loginUser = async () => {
+
+    const user = {
+      email: email,
+      password: password,
+    };
+
+    axios
+      .post(`http://localhost:4000/users`, { user })
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+      });
+  };
+
   return (
     <View style={styles.body}>
       <View style={styles.sectionContainer}>
