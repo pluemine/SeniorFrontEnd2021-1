@@ -17,9 +17,11 @@ import {
   StatusBar,
   Button,
   TouchableHighlight,
+  Pressable,
 } from "react-native";
 import styles from "./Styles";
 import axios from "axios";
+import DatePicker from "react-native-date-picker";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -29,10 +31,28 @@ const Register = () => {
   const [lastname, setLastname] = useState("");
   const [dateofbirth, setDateofbirth] = useState("");
   const [phone, setPhone] = useState("");
+  const [date, setDate] = useState(new Date());
+  const showDatePicker = () => {
+    return (
+      <DatePicker
+        date={date}
+        mode="date"
+        placeholder="select date"
+        format="DD-MM-YYYY"
+        minDate="01-01-2016"
+        maxDate="01-01-2019"
+        confirmBtnText="Confirm"
+        cancelBtnText="Cancel"
+        onDateChange={(date) => {
+          setDate(date);
+        }}
+      />
+    );
+  };
 
   const createUser = async () => {
     axios
-      .post(`http://localhost:4000/users`, {
+      .post(`http://localhost:4000/v1/uapi`, {
         email: email,
         firstname: firstname,
         lastname: lastname,
@@ -64,7 +84,7 @@ const Register = () => {
           <TextInput
             style={styles.textbox}
             secureTextEntry={true}
-            textContentType={'oneTimeCode'}
+            textContentType={"oneTimeCode"}
             placeholder={"Password"}
             placeholderTextColor={"#898989"}
             onChangeText={(text) => setPassword(text)}
@@ -72,7 +92,7 @@ const Register = () => {
           <TextInput
             style={styles.textbox}
             secureTextEntry={true}
-            textContentType={'oneTimeCode'}
+            textContentType={"oneTimeCode"}
             placeholder={"Confirm Password"}
             placeholderTextColor={"#898989"}
             onChangeText={(text) => setConfirm(text)}
@@ -94,6 +114,19 @@ const Register = () => {
             placeholder={"Date of birth"}
             placeholderTextColor={"#898989"}
             onChangeText={(text) => setDateofbirth(text)}
+          />
+          <DatePicker
+            date={date}
+            mode="date"
+            placeholder="select date"
+            format="DD-MM-YYYY"
+            minDate="01-01-2016"
+            maxDate="01-01-2019"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            onDateChange={(date) => {
+              setDate(date);
+            }}
           />
           <TextInput
             style={styles.textbox}

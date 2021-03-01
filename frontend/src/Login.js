@@ -25,14 +25,11 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const loginUser = async () => {
-
-    const user = {
-      email: email,
-      password: password,
-    };
-
     axios
-      .post(`http://localhost:4000/users`, { user })
+      .post(`http://localhost:4000/v1/uapi`, {
+        email: email,
+        password: password,
+      })
       .then((res) => {
         console.log(res);
         console.log(res.data);
@@ -45,9 +42,7 @@ const Login = () => {
         <View style={styles.mainarea}>
           <Text style={styles.sectionSubtitle}>WELCOME</Text>
           <Text style={styles.sectionTitle}>Sign In</Text>
-          <Text style={{ padding: 10, fontSize: 42 }}>
-            {password}
-          </Text>
+          <Text style={{ padding: 10, fontSize: 42 }}>{password}</Text>
           <TextInput
             style={styles.textbox}
             placeholder={"Email"}
@@ -66,7 +61,7 @@ const Login = () => {
             <Button
               color="#FFFFFF"
               title="Sign In"
-              //onPress={() => Actions.homeuser()}
+              onPress={() => Actions.homeuser()}
             />
           </TouchableHighlight>
           <Text style={styles.sectionOption}>Forgot Password</Text>

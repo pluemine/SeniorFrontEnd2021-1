@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   },
   space10: {
     margin: 10,
-  }
+  },
 });
 
 module.exports = styles;
