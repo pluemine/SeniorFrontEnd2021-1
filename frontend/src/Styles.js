@@ -133,6 +133,16 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     height: 40,
   },
+  buttonhomered: {
+    //backgroundColor: "#444444",
+    borderWidth: 1,
+    borderColor: "#FF2244",
+    borderRadius: 6,
+    width: "100%",
+    marginTop: 10,
+    marginBottom: 0,
+    height: 40,
+  },
   filter: {
     //backgroundColor: "#444444",
     borderWidth: 1,
@@ -163,6 +173,9 @@ const styles = StyleSheet.create({
   },
   space10: {
     margin: 10,
+  },
+  textbold: {
+    fontWeight: "600",
   },
 });
 

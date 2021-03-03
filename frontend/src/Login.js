@@ -19,19 +19,20 @@ import {
   TouchableHighlight,
 } from "react-native";
 import styles from "./Styles";
+import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const loginUser = async () => {
+  const userLogin = async () => {
     axios
-      .post(`http://localhost:4000/v1/uapi`, {
+      .post(`http://localhost:4000/v1/uapi/login`, {
         email: email,
         password: password,
       })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         console.log(res.data);
       });
   };

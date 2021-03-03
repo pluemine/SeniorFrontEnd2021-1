@@ -32,6 +32,30 @@ const Register = () => {
   const [dateofbirth, setDateofbirth] = useState("");
   const [phone, setPhone] = useState("");
   const [date, setDate] = useState(new Date());
+
+  var x = date.getFullYear();
+  var y = date.getMonth();
+  var z = date.getDate();
+
+  function dateTime() {
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+    if (parseInt(day) - 10 >= 0) {
+      if (parseInt(month) - 10 >= 0) {
+        return "" + year + "-" + month + "-" + day;
+      } else {
+        return "" + year + "-0" + month + "-" + day;
+      }
+    } else {
+      if (parseInt(month) - 10 >= 0) {
+        return "" + year + "-" + month + "-0" + day;
+      } else {
+        return "" + year + "-0" + month + "-0" + day;
+      }
+    }
+  }
+
   const showDatePicker = () => {
     return (
       <DatePicker
@@ -56,7 +80,7 @@ const Register = () => {
         email: email,
         firstname: firstname,
         lastname: lastname,
-        birthdate: dateofbirth,
+        birthdate: dateTime(),
         tel_no: phone,
         password: password,
       })
@@ -83,16 +107,18 @@ const Register = () => {
           />
           <TextInput
             style={styles.textbox}
-            secureTextEntry={true}
+            secureTextEntry={false}
             textContentType={"oneTimeCode"}
+            autoCompleteType={"off"}
             placeholder={"Password"}
             placeholderTextColor={"#898989"}
             onChangeText={(text) => setPassword(text)}
           />
           <TextInput
             style={styles.textbox}
-            secureTextEntry={true}
+            secureTextEntry={false}
             textContentType={"oneTimeCode"}
+            autoCompleteType={"off"}
             placeholder={"Confirm Password"}
             placeholderTextColor={"#898989"}
             onChangeText={(text) => setConfirm(text)}
@@ -115,6 +141,7 @@ const Register = () => {
             placeholderTextColor={"#898989"}
             onChangeText={(text) => setDateofbirth(text)}
           />
+          <Text style={styles.sectionSubtitle}>{dateTime()}</Text>
           <DatePicker
             date={date}
             mode="date"

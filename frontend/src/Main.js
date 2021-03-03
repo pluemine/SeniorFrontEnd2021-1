@@ -6,6 +6,8 @@ import Register from "./Register";
 import Login from "./Login";
 import Home from "./Home";
 import Homeuser from "./Homeuser";
+import Time from "./Time";
+import Share from "./Share";
 
 // Simple component to render something in place of icon
 const TabIcon = ({ selected, title }) => {
@@ -19,7 +21,9 @@ const App = () => {
         <Scene key="home" component={Home} title="Home" />
         <Scene key="register" component={Register} title="Register" />
         <Scene key="login" component={Login} title="Sign In" />
-        <Scene key="homeuser" component={Homeuser} title="Home" />
+        <Scene key="homeuser" component={Homeuser} title="HomeUser" />
+        <Scene key="time" component={Time} title="Time" />
+        <Scene key="share" component={Share} title="Share" />
       </Scene>
     </Router>
   );
