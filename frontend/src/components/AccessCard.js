@@ -121,6 +121,7 @@ const styles1 = StyleSheet.create({
     width: "100%",
     height: "100%",
     margin: "auto",
+    overflow: "hidden",
     //resizeMode: "stretch",
   },
   rowcontainer: {

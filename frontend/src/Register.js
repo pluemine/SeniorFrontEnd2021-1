@@ -17,11 +17,16 @@ import {
   StatusBar,
   Button,
   TouchableHighlight,
+  TouchableOpacity,
   Pressable,
+  Image,
 } from "react-native";
 import styles from "./Styles";
 import axios from "axios";
 import DatePicker from "react-native-date-picker";
+import styled from "styled-components";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { FloatingLabelInput } from "react-native-floating-label-input";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -32,10 +37,114 @@ const Register = () => {
   const [dateofbirth, setDateofbirth] = useState("");
   const [phone, setPhone] = useState("");
   const [date, setDate] = useState(new Date());
+  const [show, setShow] = useState(false);
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
-  var x = date.getFullYear();
-  var y = date.getMonth();
-  var z = date.getDate();
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [confirmError, setConfirmError] = useState(false);
+  const [firstnameError, setFirstnameError] = useState(false);
+  const [lastnameError, setLastnameError] = useState(false);
+  const [phoneError, setPhoneError] = useState(false);
+  const [dupEmail, setDupEmail] = useState(false);
+
+  const handleChange_email = (event) => {
+    setEmail(event);
+    setEmailError(false);
+    setDupEmail(false);
+  };
+  const handleChange_password = (event) => {
+    setPassword(event);
+    setPasswordError(false);
+  };
+  const handleChange_confirm = (event) => {
+    setConfirm(event);
+    setConfirmError(false);
+  };
+  const handleChange_firstname = (event) => {
+    setFirstname(event);
+    setFirstnameError(false);
+  };
+  const handleChange_lastname = (event) => {
+    setLastname(event);
+    setLastnameError(false);
+  };
+  const handleChange_phone = (event) => {
+    setPhone(event);
+    setPhoneError(false);
+  };
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+  const handleConfirm = (date) => {
+    console.warn("A date has been picked: ", date);
+    setDate(date);
+    hideDatePicker();
+  };
+  const sent = () => {
+    console.warn(
+      emailError,
+      phone[0],
+      isEmailValid(),
+      email,
+      password,
+      confirm,
+      firstname,
+      lastname,
+      date,
+      phone
+    );
+    if (email === "") {
+      setEmailError(true);
+    }
+    if (password === "") {
+      setPasswordError(true);
+    }
+    if (confirm === "") {
+      setConfirmError(true);
+    }
+    if (firstname === "") {
+      setFirstnameError(true);
+    }
+    if (lastname === "") {
+      setLastnameError(true);
+    }
+    if (phone === "") {
+      setPhoneError(true);
+    }
+    if (!isEmailValid()) {
+      console.warn("Invalid Email");
+      setEmailError(true);
+    }
+    if (password.length < 8) {
+      console.warn("Please add at least 8 charachters.");
+      setPasswordError(true);
+    }
+    if (password != confirm) {
+      console.warn("Password is not same");
+      setPasswordError(true);
+      setConfirmError(true);
+    }
+    if (phone.length < 10 || phone[0] != 0) {
+      console.warn("Telephone Number incorrect");
+      setPhoneError(true);
+    }
+    if (
+      !emailError &&
+      !passwordError &&
+      !confirmError &&
+      !firstnameError &&
+      !lastnameError &&
+      !phoneError
+    ) {
+      console.warn("Complete");
+      createUser();
+    }
+  };
 
   function dateTime() {
     var day = date.getDate();
@@ -56,23 +165,13 @@ const Register = () => {
     }
   }
 
-  const showDatePicker = () => {
-    return (
-      <DatePicker
-        date={date}
-        mode="date"
-        placeholder="select date"
-        format="DD-MM-YYYY"
-        minDate="01-01-2016"
-        maxDate="01-01-2019"
-        confirmBtnText="Confirm"
-        cancelBtnText="Cancel"
-        onDateChange={(date) => {
-          setDate(date);
-        }}
-      />
-    );
-  };
+  function emailStatus() {
+    if (emailError) {
+      return "* Please enter a valid email address.";
+    } else if (dupEmail) {
+      return "* This email is already in-use, please try again.";
+    }
+  }
 
   const createUser = async () => {
     axios
@@ -85,12 +184,20 @@ const Register = () => {
         password: password,
       })
       .then((res) => {
-        console.log(res);
-        console.log(res.data);
+        //console.log(res);
+        console.log(res.data.data);
         if (res.data === "Users was added successfully") {
           Actions.login();
         }
+        if (res.data.data === "DUPLICATED EMAIL") {
+          setDupEmail(true);
+        }
       });
+  };
+
+  const isEmailValid = () => {
+    let pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return pattern.test(String(email).toLowerCase());
   };
 
   return (
@@ -99,71 +206,189 @@ const Register = () => {
         <View style={styles.mainarea}>
           <Text style={styles.sectionSubtitle}>WELCOME</Text>
           <Text style={styles.sectionTitle}>Create Account</Text>
-          <TextInput
-            style={styles.textbox}
-            placeholder={"Email"}
-            placeholderTextColor={"#898989"}
-            onChangeText={(text) => setEmail(text)}
+          <FloatingLabelInput
+            label={"Email"}
+            containerStyles={
+              emailError || dupEmail ? styles.textboxerror : styles.textbox
+            }
+            customLabelStyles={
+              emailError || dupEmail
+                ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+                : { colorFocused: "#898989", colorBlurred: "#898989" }
+            }
+            inputStyles={{
+              color: "#000000",
+              paddingHorizontal: 5,
+            }}
+            value={email}
+            hint="example@address.com"
+            isPassword={false}
+            onChangeText={handleChange_email}
           />
-          <TextInput
-            style={styles.textbox}
-            secureTextEntry={false}
-            textContentType={"oneTimeCode"}
+          {emailError || dupEmail ? (
+            <Text style={styles.texterror}>{emailStatus()}</Text>
+          ) : (
+            <Text style={styles.texterror}> </Text>
+          )}
+          <FloatingLabelInput
+            label={"Password"}
+            containerStyles={
+              passwordError ? styles.textboxerror : styles.textbox
+            }
+            customLabelStyles={
+              passwordError
+                ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+                : { colorFocused: "#898989", colorBlurred: "#898989" }
+            }
+            inputStyles={{
+              color: "#000000",
+              paddingHorizontal: 5,
+            }}
+            value={password}
+            isPassword={false}
             autoCompleteType={"off"}
-            placeholder={"Password"}
-            placeholderTextColor={"#898989"}
-            onChangeText={(text) => setPassword(text)}
+            onChangeText={handleChange_password}
           />
-          <TextInput
-            style={styles.textbox}
-            secureTextEntry={false}
-            textContentType={"oneTimeCode"}
+          {passwordError ? (
+            <Text style={styles.texterror}>
+              * Please enter a valid password. (At least 8 characters)
+            </Text>
+          ) : (
+            <Text style={styles.texterror}> </Text>
+          )}
+          <FloatingLabelInput
+            label={"Confirm Password"}
+            containerStyles={
+              confirmError ? styles.textboxerror : styles.textbox
+            }
+            customLabelStyles={
+              confirmError
+                ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+                : { colorFocused: "#898989", colorBlurred: "#898989" }
+            }
+            inputStyles={{
+              color: "#000000",
+              paddingHorizontal: 5,
+            }}
+            value={confirm}
+            isPassword={false}
             autoCompleteType={"off"}
-            placeholder={"Confirm Password"}
-            placeholderTextColor={"#898989"}
-            onChangeText={(text) => setConfirm(text)}
+            onChangeText={handleChange_confirm}
           />
-          <TextInput
-            style={styles.textbox}
-            placeholder={"First Name"}
-            placeholderTextColor={"#898989"}
-            onChangeText={(text) => setFirstname(text)}
+          {confirmError ? (
+            <Text style={styles.texterror}>
+              * Please enter the same password.
+            </Text>
+          ) : (
+            <Text style={styles.texterror}> </Text>
+          )}
+          <FloatingLabelInput
+            label={"First Name"}
+            containerStyles={
+              firstnameError ? styles.textboxerror : styles.textbox
+            }
+            customLabelStyles={
+              firstnameError
+                ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+                : { colorFocused: "#898989", colorBlurred: "#898989" }
+            }
+            inputStyles={{
+              color: "#000000",
+              paddingHorizontal: 5,
+            }}
+            value={firstname}
+            isPassword={false}
+            onChangeText={handleChange_firstname}
           />
-          <TextInput
-            style={styles.textbox}
-            placeholder={"Last Name"}
-            placeholderTextColor={"#898989"}
-            onChangeText={(text) => setLastname(text)}
+          {firstnameError ? (
+            <Text style={styles.texterror}>* Please enter your firstname.</Text>
+          ) : (
+            <Text style={styles.texterror}> </Text>
+          )}
+          <FloatingLabelInput
+            label={"Last Name"}
+            containerStyles={
+              lastnameError ? styles.textboxerror : styles.textbox
+            }
+            customLabelStyles={
+              lastnameError
+                ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+                : { colorFocused: "#898989", colorBlurred: "#898989" }
+            }
+            inputStyles={{
+              color: "#000000",
+              paddingHorizontal: 5,
+            }}
+            value={lastname}
+            isPassword={false}
+            onChangeText={handleChange_lastname}
           />
-          <TextInput
-            style={styles.textbox}
-            placeholder={"Date of birth"}
-            placeholderTextColor={"#898989"}
-            onChangeText={(text) => setDateofbirth(text)}
-          />
-          <Text style={styles.sectionSubtitle}>{dateTime()}</Text>
-          <DatePicker
+          {lastnameError ? (
+            <Text style={styles.texterror}>* Please enter your lastname.</Text>
+          ) : (
+            <Text style={styles.texterror}> </Text>
+          )}
+          <TouchableOpacity onPress={showDatePicker}>
+            <View pointerEvents="none">
+              <FloatingLabelInput
+                label={"Date of birth"}
+                containerStyles={styles.textbox}
+                customLabelStyles={{
+                  colorFocused: "#898989",
+                  colorBlurred: "#898989",
+                }}
+                inputStyles={{
+                  color: "#000000",
+                  paddingHorizontal: 5,
+                }}
+                value={dateTime()}
+                isPassword={false}
+                editable={false}
+              />
+            </View>
+          </TouchableOpacity>
+          <Text style={styles.texterror}> </Text>
+          <DateTimePickerModal
+            isVisible={isDatePickerVisible}
             date={date}
             mode="date"
             placeholder="select date"
             format="DD-MM-YYYY"
-            minDate="01-01-2016"
-            maxDate="01-01-2019"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
             onDateChange={(date) => {
               setDate(date);
             }}
           />
-          <TextInput
-            style={styles.textbox}
-            placeholder={"Phone Number"}
-            placeholderTextColor={"#898989"}
-            onChangeText={(text) => setPhone(text)}
+          <FloatingLabelInput
+            label={"Phone Number"}
+            containerStyles={phoneError ? styles.textboxerror : styles.textbox}
+            customLabelStyles={
+              phoneError
+                ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+                : { colorFocused: "#898989", colorBlurred: "#898989" }
+            }
+            inputStyles={{
+              color: "#000000",
+              paddingHorizontal: 5,
+            }}
+            value={phone}
+            hint="099-999-9999"
+            mask="0999999999"
+            isPassword={false}
+            keyboardType="numeric"
+            onChangeText={handleChange_phone}
           />
+          {phoneError ? (
+            <Text style={styles.texterror}>
+              * Please enter a valid phone number.
+            </Text>
+          ) : (
+            <Text style={styles.texterror}> </Text>
+          )}
           <Text style={styles.sectionDescription}></Text>
           <TouchableHighlight style={styles.button}>
-            <Button color="#FFFFFF" title="Register" onPress={createUser} />
+            <Button color="#FFFFFF" title="Register" onPress={sent} />
           </TouchableHighlight>
         </View>
       </View>
