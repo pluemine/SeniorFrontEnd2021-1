@@ -120,20 +120,19 @@ const Register = () => {
       console.warn("Invalid Email");
       setEmailError(true);
     }
-    if (password.length < 8) {
+    else if (password.length < 8) {
       console.warn("Please add at least 8 charachters.");
       setPasswordError(true);
     }
-    if (password != confirm) {
+    else if (password != confirm) {
       console.warn("Password is not same");
-      setPasswordError(true);
       setConfirmError(true);
     }
-    if (phone.length < 10 || phone[0] != 0) {
+    else if (phone.length < 10 || phone[0] != 0) {
       console.warn("Telephone Number incorrect");
       setPhoneError(true);
     }
-    if (
+    else if (
       !emailError &&
       !passwordError &&
       !confirmError &&
