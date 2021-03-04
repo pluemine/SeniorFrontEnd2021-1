@@ -20,6 +20,8 @@ import {
   Image,
 } from "react-native";
 import styles from "./Styles";
+import axios from "axios";
+import { FloatingLabelInput } from "react-native-floating-label-input";
 
 const Share = () => {
   const [email, setEmail] = useState("");
@@ -30,94 +32,304 @@ const Share = () => {
   const [expire, setExpire] = useState("");
   const [quota, setQuota] = useState("");
 
+  const [emailError, setEmailError] = useState(false);
+  const [categoryError, setCategoryError] = useState(false);
+  const [numberError, setNumberError] = useState(false);
+  const [provinceError, setProvinceError] = useState(false);
+  const [validError, setValidError] = useState(false);
+  const [expireError, setExpireError] = useState(false);
+  const [quotaError, setQuotaError] = useState(false);
+
+  const handleChange_email = (event) => {
+    setEmail(event);
+    setEmailError(false);
+  };
+  const handleChange_category = (event) => {
+    setCategory(event);
+    setCategoryError(false);
+  };
+  const handleChange_number = (event) => {
+    setNumber(event);
+    setNumberError(false);
+  };
+  const handleChange_province = (event) => {
+    setProvince(event);
+    setProvinceError(false);
+  };
+  const handleChange_valid = (event) => {
+    setValid(event);
+    setValidError(false);
+  };
+  const handleChange_expire = (event) => {
+    setExpire(event);
+    setExpireError(false);
+  };
+  const handleChange_quota = (event) => {
+    setQuota(event);
+    setQuotaError(false);
+  };
+
+  const sent = () => {
+    if (email === "") {
+      setEmailError(true);
+    }
+    if (category === "") {
+      setCategoryError(true);
+    }
+    if (number === "") {
+      setNumberError(true);
+    }
+    if (province === "") {
+      setProvinceError(true);
+    }
+    if (valid === "") {
+      setValidError(true);
+    }
+    if (expire === "") {
+      setExpireError(true);
+    }
+    if (quota === "") {
+      setQuotaError(true);
+    }
+    if (!isEmailValid()) {
+      console.warn("Invalid Email");
+      setEmailError(true);
+    } else if (category === "") {
+      setCategoryError(true);
+    } else if (number === "") {
+      setNumberError(true);
+    } else if (province === "") {
+      setProvinceError(true);
+    } else if (valid === "") {
+      setValidError(true);
+    } else if (expire === "") {
+      setExpireError(true);
+    } else if (quota === "") {
+      setQuotaError(true);
+    } else if (
+      !emailError &&
+      !categoryError &&
+      !numberError &&
+      !provinceError &&
+      !validError &&
+      !expireError &&
+      !quotaError
+    ) {
+      console.warn("Complete");
+      shareAccess();
+    }
+  };
+
   const shareAccess = async () => {
     axios
-      .post(`http://localhost:4000/v1/uapi`, {
-        user_id: 1,
-        license_plate_id: 1,
-        property_id: 2,
-        valid_date_time: valid,
-        expired_date_time: expire,
+      .post(`http://localhost:4000/v1/uapi/share`, {
+        email: email,
+        license_plate_category: category,
+        license_plate_number: number,
+        province_id: "1",
+        property_id: "2",
+        valid_date_time: "null",
+        expired_date_time: "null",
         usage_counts: 100,
         mins_per_usage: 120,
         share_qouta: 5,
-        is_access_owner: true,
         is_charged_provider: false,
         is_sharable: false,
-        created_by: 1,
-        modified_by: 1,
       })
       .then((res) => {
         console.log(res);
         console.log(res.data);
-        if (res.data === "Users was added successfully") {
+        if (res.data.status === "OK") {
+          console.warn("OK");
           Actions.login();
         }
       });
+  };
+
+  const isEmailValid = () => {
+    let pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return pattern.test(String(email).toLowerCase());
   };
 
   return (
     <View style={styles.body}>
       <View style={styles.sectionContainer}>
         <View style={styles.mainarea}>
-          <TextInput
-            style={styles.textbox}
-            placeholder={"Email"}
-            placeholderTextColor={"#898989"}
-            onChangeText={(text) => setEmail(text)}
+          <FloatingLabelInput
+            label={"Email"}
+            containerStyles={emailError ? styles.textboxerror : styles.textbox}
+            customLabelStyles={
+              emailError
+                ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+                : { colorFocused: "#898989", colorBlurred: "#898989" }
+            }
+            inputStyles={{
+              color: "#000000",
+              paddingHorizontal: 5,
+            }}
+            value={email}
+            hint="example@address.com"
+            isPassword={false}
+            onChangeText={handleChange_email}
           />
-          <TextInput
-            style={styles.textbox}
-            placeholder={"Category"}
-            placeholderTextColor={"#898989"}
-            onChangeText={(text) => setCategory(text)}
+          {emailError ? (
+            <Text style={styles.texterror}>* Email</Text>
+          ) : (
+            <Text style={styles.texterror}> </Text>
+          )}
+          <FloatingLabelInput
+            label={"Category"}
+            containerStyles={
+              categoryError ? styles.textboxerror : styles.textbox
+            }
+            customLabelStyles={
+              categoryError
+                ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+                : { colorFocused: "#898989", colorBlurred: "#898989" }
+            }
+            inputStyles={{
+              color: "#000000",
+              paddingHorizontal: 5,
+            }}
+            value={category}
+            hint="กก"
+            isPassword={false}
+            onChangeText={handleChange_category}
           />
-          <TextInput
-            style={styles.textbox}
-            placeholder={"Number"}
-            placeholderTextColor={"#898989"}
-            onChangeText={(text) => setNumber(text)}
+          {categoryError ? (
+            <Text style={styles.texterror}>* Category</Text>
+          ) : (
+            <Text style={styles.texterror}> </Text>
+          )}
+          <FloatingLabelInput
+            label={"Number"}
+            containerStyles={numberError ? styles.textboxerror : styles.textbox}
+            customLabelStyles={
+              numberError
+                ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+                : { colorFocused: "#898989", colorBlurred: "#898989" }
+            }
+            inputStyles={{
+              color: "#000000",
+              paddingHorizontal: 5,
+            }}
+            value={number}
+            hint="9999"
+            isPassword={false}
+            onChangeText={handleChange_number}
           />
-          <TextInput
-            style={styles.textbox}
-            placeholder={"Province"}
-            placeholderTextColor={"#898989"}
-            onChangeText={(text) => setProvince(text)}
+          {numberError ? (
+            <Text style={styles.texterror}>* number</Text>
+          ) : (
+            <Text style={styles.texterror}> </Text>
+          )}
+          <FloatingLabelInput
+            label={"Province"}
+            containerStyles={
+              provinceError ? styles.textboxerror : styles.textbox
+            }
+            customLabelStyles={
+              provinceError
+                ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+                : { colorFocused: "#898989", colorBlurred: "#898989" }
+            }
+            inputStyles={{
+              color: "#000000",
+              paddingHorizontal: 5,
+            }}
+            value={province}
+            hint="กรุงเทพมหานคร"
+            isPassword={false}
+            onChangeText={handleChange_province}
           />
-          <TextInput
-            style={styles.textbox}
-            placeholder={"Valid DateTime"}
-            placeholderTextColor={"#898989"}
-            onChangeText={(text) => setValid(text)}
+          {provinceError ? (
+            <Text style={styles.texterror}>* province</Text>
+          ) : (
+            <Text style={styles.texterror}> </Text>
+          )}
+          <FloatingLabelInput
+            label={"Valid"}
+            containerStyles={validError ? styles.textboxerror : styles.textbox}
+            customLabelStyles={
+              validError
+                ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+                : { colorFocused: "#898989", colorBlurred: "#898989" }
+            }
+            inputStyles={{
+              color: "#000000",
+              paddingHorizontal: 5,
+            }}
+            value={valid}
+            hint=""
+            isPassword={false}
+            onChangeText={handleChange_valid}
           />
-          <TextInput
-            style={styles.textbox}
-            placeholder={"Expire DateTime"}
-            placeholderTextColor={"#898989"}
-            onChangeText={(text) => setExpire(text)}
+          {validError ? (
+            <Text style={styles.texterror}>* valid</Text>
+          ) : (
+            <Text style={styles.texterror}> </Text>
+          )}
+          <FloatingLabelInput
+            label={"Expire"}
+            containerStyles={expireError ? styles.textboxerror : styles.textbox}
+            customLabelStyles={
+              expireError
+                ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+                : { colorFocused: "#898989", colorBlurred: "#898989" }
+            }
+            inputStyles={{
+              color: "#000000",
+              paddingHorizontal: 5,
+            }}
+            value={expire}
+            hint=""
+            isPassword={false}
+            onChangeText={handleChange_expire}
           />
-          <TextInput
-            style={styles.textbox}
-            placeholder={"Share Quota"}
-            placeholderTextColor={"#898989"}
-            onChangeText={(text) => setQuota(text)}
+          {expireError ? (
+            <Text style={styles.texterror}>* expire</Text>
+          ) : (
+            <Text style={styles.texterror}> </Text>
+          )}
+          <FloatingLabelInput
+            label={"Quota"}
+            containerStyles={quotaError ? styles.textboxerror : styles.textbox}
+            customLabelStyles={
+              quotaError
+                ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+                : { colorFocused: "#898989", colorBlurred: "#898989" }
+            }
+            inputStyles={{
+              color: "#000000",
+              paddingHorizontal: 5,
+            }}
+            value={quota}
+            hint=""
+            isPassword={false}
+            onChangeText={handleChange_quota}
           />
+          {quotaError ? (
+            <Text style={styles.texterror}>* quota</Text>
+          ) : (
+            <Text style={styles.texterror}> </Text>
+          )}
           <View style={styles.space10} />
-          <TouchableHighlight style={styles.button}>
-            <Button
-              color="#FFFFFF"
-              title="Share"
-              onPress={() => Actions.homeuser()}
-            />
-          </TouchableHighlight>
-          <Text style={styles1.texthead}></Text>
-          <TouchableHighlight style={styles.button}>
-            <Button
-              color="#FFFFFF"
-              title="Remove"
-              onPress={() => Actions.homeuser()}
-            />
-          </TouchableHighlight>
+          <View style={styles1.container}>
+            <View style={styles1.col50}>
+              <TouchableHighlight style={styles.buttonhomebdr}>
+                <Button
+                  color="#444444"
+                  title="Cancel"
+                  onPress={() => Actions.homeuser()}
+                />
+              </TouchableHighlight>
+            </View>
+            <View style={styles1.col50}>
+              <TouchableHighlight style={styles.buttonhome}>
+                <Button color="#FFFFFF" title="Share" onPress={sent} />
+              </TouchableHighlight>
+            </View>
+          </View>
         </View>
       </View>
     </View>
@@ -162,6 +374,7 @@ const styles1 = StyleSheet.create({
   },
   col50: {
     width: "50%",
+    paddingHorizontal: 4,
   },
   pic: {
     width: 110,

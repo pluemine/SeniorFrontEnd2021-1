@@ -29,14 +29,34 @@ const Login = () => {
 
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [fail, setFail] = useState(false);
 
   const handleChange_email = (event) => {
     setEmail(event);
     setEmailError(false);
+    if (fail) {
+      setFail(false);
+      setPasswordError(false);
+    }
   };
   const handleChange_password = (event) => {
     setPassword(event);
     setPasswordError(false);
+    if (fail) {
+      setFail(false);
+      setEmailError(false);
+    }
+  };
+
+  //Delete this test() after deployed
+  const test = () => {
+    console.warn(email,password);
+    if (email === "Pluem@gmail.com" && password === "12345678") {
+      Actions.homeuser();
+    }
+    else {
+      setFail(true);
+    }
   };
 
   const userLogin = async () => {
@@ -48,6 +68,12 @@ const Login = () => {
       .then((res) => {
         //console.log(res);
         console.log(res.data);
+        if (res.data.status === "OK") {
+          Actions.homeuser();
+        }
+        else {
+          setFail(true);
+        }
       });
   };
 
@@ -62,13 +88,12 @@ const Login = () => {
     if (!isEmailValid()) {
       console.warn("Invalid Email");
       setEmailError(true);
-    }
-    else if (password.length < 8) {
-      console.warn("Please add at least 8 charachters.");
+    } else if (password.length < 8) {
+      console.warn("Please add at least 8 characters.");
       setPasswordError(true);
-    }
-    else if (!emailError && !passwordError) {
-      Actions.homeuser();
+    } else if (!emailError && !passwordError) {
+      //userLogin();
+      test();
     }
   };
 
@@ -76,6 +101,14 @@ const Login = () => {
     let pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return pattern.test(String(email).toLowerCase());
   };
+
+  function loginStatus() {
+    if (passwordError) {
+      return "* Please enter a valid password. (At least 8 characters)";
+    } else if (fail) {
+      return "* Incorrect email or password, please try again.";
+    }
+  }
 
   return (
     <View style={styles.body}>
@@ -85,9 +118,11 @@ const Login = () => {
           <Text style={styles.sectionTitle}>Sign In</Text>
           <FloatingLabelInput
             label={"Email"}
-            containerStyles={emailError ? styles.textboxerror : styles.textbox}
+            containerStyles={
+              emailError || fail ? styles.textboxerror : styles.textbox
+            }
             customLabelStyles={
-              emailError
+              emailError || fail
                 ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
                 : { colorFocused: "#898989", colorBlurred: "#898989" }
             }
@@ -101,17 +136,19 @@ const Login = () => {
             onChangeText={handleChange_email}
           />
           {emailError ? (
-            <Text style={styles.texterror}>* Please enter a valid email address.</Text>
+            <Text style={styles.texterror}>
+              * Please enter a valid email address.
+            </Text>
           ) : (
             <Text style={styles.texterror}> </Text>
           )}
           <FloatingLabelInput
             label={"Password"}
             containerStyles={
-              passwordError ? styles.textboxerror : styles.textbox
+              passwordError || fail ? styles.textboxerror : styles.textbox
             }
             customLabelStyles={
-              passwordError
+              passwordError || fail
                 ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
                 : { colorFocused: "#898989", colorBlurred: "#898989" }
             }
@@ -124,10 +161,8 @@ const Login = () => {
             autoCompleteType={"off"}
             onChangeText={handleChange_password}
           />
-          {passwordError ? (
-            <Text style={styles.texterror}>
-              * Please enter a valid password. (At least 8 characters)
-            </Text>
+          {passwordError || fail ? (
+            <Text style={styles.texterror}>{loginStatus()}</Text>
           ) : (
             <Text style={styles.texterror}> </Text>
           )}

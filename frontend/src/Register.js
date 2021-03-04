@@ -121,7 +121,7 @@ const Register = () => {
       setEmailError(true);
     }
     else if (password.length < 8) {
-      console.warn("Please add at least 8 charachters.");
+      console.warn("Please add at least 8 characters.");
       setPasswordError(true);
     }
     else if (password != confirm) {

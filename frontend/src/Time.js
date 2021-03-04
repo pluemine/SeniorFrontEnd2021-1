@@ -155,6 +155,7 @@ const styles1 = StyleSheet.create({
   },
   col50: {
     width: "50%",
+    paddingHorizontal: 4,
   },
   col70: {
     width: "70%",
