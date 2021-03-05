@@ -185,11 +185,13 @@ const Register = () => {
       .then((res) => {
         //console.log(res);
         console.log(res.data.data);
-        if (res.data === "Users was added successfully") {
+        if (res.data.status === "OK") {
           Actions.login();
         }
-        if (res.data.data === "DUPLICATED EMAIL") {
-          setDupEmail(true);
+        else {
+          if (res.data.data === "DUPLICATED EMAIL") {
+            setDupEmail(true);
+          }
         }
       });
   };
@@ -227,8 +229,8 @@ const Register = () => {
           {emailError || dupEmail ? (
             <Text style={styles.texterror}>{emailStatus()}</Text>
           ) : (
-            <Text style={styles.texterror}> </Text>
-          )}
+              <Text style={styles.texterror}> </Text>
+            )}
           <FloatingLabelInput
             label={"Password"}
             containerStyles={
@@ -253,8 +255,8 @@ const Register = () => {
               * Please enter a valid password. (At least 8 characters)
             </Text>
           ) : (
-            <Text style={styles.texterror}> </Text>
-          )}
+              <Text style={styles.texterror}> </Text>
+            )}
           <FloatingLabelInput
             label={"Confirm Password"}
             containerStyles={
@@ -279,8 +281,8 @@ const Register = () => {
               * Please enter the same password.
             </Text>
           ) : (
-            <Text style={styles.texterror}> </Text>
-          )}
+              <Text style={styles.texterror}> </Text>
+            )}
           <FloatingLabelInput
             label={"First Name"}
             containerStyles={
@@ -302,8 +304,8 @@ const Register = () => {
           {firstnameError ? (
             <Text style={styles.texterror}>* Please enter your firstname.</Text>
           ) : (
-            <Text style={styles.texterror}> </Text>
-          )}
+              <Text style={styles.texterror}> </Text>
+            )}
           <FloatingLabelInput
             label={"Last Name"}
             containerStyles={
@@ -325,8 +327,8 @@ const Register = () => {
           {lastnameError ? (
             <Text style={styles.texterror}>* Please enter your lastname.</Text>
           ) : (
-            <Text style={styles.texterror}> </Text>
-          )}
+              <Text style={styles.texterror}> </Text>
+            )}
           <TouchableOpacity onPress={showDatePicker}>
             <View pointerEvents="none">
               <FloatingLabelInput
@@ -383,8 +385,8 @@ const Register = () => {
               * Please enter a valid phone number.
             </Text>
           ) : (
-            <Text style={styles.texterror}> </Text>
-          )}
+              <Text style={styles.texterror}> </Text>
+            )}
           <Text style={styles.sectionDescription}></Text>
           <TouchableHighlight style={styles.button}>
             <Button color="#FFFFFF" title="Register" onPress={sent} />

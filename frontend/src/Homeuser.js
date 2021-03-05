@@ -1,5 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 import { Actions } from "react-native-router-flux";
+import * as SecureStore from 'expo-secure-store';
 import {
   Header,
   LearnMoreLinks,
@@ -40,7 +41,7 @@ const Homeuser = () => {
   useEffect(() => {
     axios.get(`http://localhost:4000/v1/pamapi?user_id=1`).then((res) => {
       setAccesses(res.data.data);
-      console.log(res.data.data);
+      // console.log(res.data.data);
     });
   }, []);
 
@@ -147,7 +148,7 @@ const Homeuser = () => {
                   mins_per_usage: 360,
                   parking_access_id: 2,
                   property_img:
-                    "https://mpics.mgronline.com/pics/Images/562000009514302.JPEG",
+                    "https://advcloudfiles.advantech.com/cms/825eb685-aef1-4e3f-b573-57d074acfd00/Content/content-image-1564312208213.jpg",
                   property_name: "Samyan",
                   property_type_id: 1,
                   share_qouta: 5,

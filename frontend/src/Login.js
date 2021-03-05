@@ -1,4 +1,5 @@
 import React, { Component, useState } from "react";
+import * as SecureStore from 'expo-secure-store';
 import { Actions } from "react-native-router-flux";
 import {
   Header,
@@ -50,7 +51,7 @@ const Login = () => {
 
   //Delete this test() after deployed
   const test = () => {
-    console.warn(email,password);
+    console.warn(email, password);
     if (email === "Pluem@gmail.com" && password === "12345678") {
       Actions.homeuser();
     }
@@ -59,16 +60,24 @@ const Login = () => {
     }
   };
 
+  const saveSecureStoreItem = async (key, value) => {
+    await SecureStore.setItemAsync(key, value);
+  }
+
+   const getSecureStoreItem = async (key) => {
+    return await SecureStore.getItemAsync(key)
+  }
+
   const userLogin = async () => {
     axios
       .post(`http://localhost:4000/v1/uapi/login`, {
         email: email,
         password: password,
       })
-      .then((res) => {
-        //console.log(res);
-        console.log(res.data);
+      .then( async (res) => {
         if (res.data.status === "OK") {
+          saveSecureStoreItem("pms_token", res.data.data.token)
+          alert(await getSecureStoreItem("pms_token"))
           Actions.homeuser();
         }
         else {
@@ -92,8 +101,8 @@ const Login = () => {
       console.warn("Please add at least 8 characters.");
       setPasswordError(true);
     } else if (!emailError && !passwordError) {
-      //userLogin();
-      test();
+      userLogin();
+      // test();
     }
   };
 
@@ -140,8 +149,8 @@ const Login = () => {
               * Please enter a valid email address.
             </Text>
           ) : (
-            <Text style={styles.texterror}> </Text>
-          )}
+              <Text style={styles.texterror}> </Text>
+            )}
           <FloatingLabelInput
             label={"Password"}
             containerStyles={
@@ -164,8 +173,8 @@ const Login = () => {
           {passwordError || fail ? (
             <Text style={styles.texterror}>{loginStatus()}</Text>
           ) : (
-            <Text style={styles.texterror}> </Text>
-          )}
+              <Text style={styles.texterror}> </Text>
+            )}
           <Text style={styles.sectionDescription}></Text>
           <TouchableHighlight style={styles.button}>
             <Button color="#FFFFFF" title="Sign In" onPress={sent} />
