@@ -52,7 +52,7 @@ const Login = () => {
   const test = () => {
     console.warn(email,password);
     if (email === "pluem@gmail.com" && password === "12345678") {
-      Actions.homeuser();
+      Actions.tabbar();
     }
     else {
       setFail(true);
@@ -114,7 +114,7 @@ const Login = () => {
     <View style={styles.body}>
       <View style={styles.sectionContainer}>
         <View style={styles.mainarea}>
-          <Text style={styles.sectionSubtitle}>WELCOME</Text>
+          <Text style={styles.sectionSubtitle}></Text>
           <Text style={styles.sectionTitle}>Sign In</Text>
           <FloatingLabelInput
             label={"Email"}

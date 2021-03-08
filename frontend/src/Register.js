@@ -203,7 +203,7 @@ const Register = () => {
     <View style={styles.body}>
       <View style={styles.sectionContainer}>
         <View style={styles.mainarea}>
-          <Text style={styles.sectionSubtitle}>WELCOME</Text>
+          <Text style={styles.sectionSubtitle}></Text>
           <Text style={styles.sectionTitle}>Create Account</Text>
           <FloatingLabelInput
             label={"Email"}

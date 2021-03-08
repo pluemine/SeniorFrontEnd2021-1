@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
   },
   mainarea: {
     margin: 20,
+    marginHorizontal: 0,
   },
   textbox: {
     color: "#000000",
@@ -188,6 +189,57 @@ const styles = StyleSheet.create({
   },
   textbold: {
     fontWeight: "600",
+  },
+
+  //Other page
+  othertitle: {
+    marginTop: 10,
+    fontSize: 18,
+    fontWeight: "600",
+    textAlign: "center",
+  },
+  otherdes: {
+    fontSize: 12,
+    fontWeight: "400",
+    color: "#444444",
+    textAlign: "center",
+  },
+  buttoncardblock: {
+    marginTop: 15,
+    marginBottom: 15,
+  },
+  buttoncard: {
+    maxWidth: 500,
+    width: "100%",
+    margin: "auto",
+    marginTop: 5,
+    marginBottom: 5,
+    padding: 15,
+    borderRadius: 10,
+    backgroundColor: "#ffffff",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  buttoncardtitle: {
+    fontSize: 15,
+    fontWeight: "600",
+    color: "#000000",
+  },
+  buttoncardtitlered: {
+    fontSize: 15,
+    fontWeight: "600",
+    color: "#8C0000",
+  },
+  buttoncarddes: {
+    fontSize: 12,
+    fontWeight: "400",
+    color: "#444444",
   },
 });
 

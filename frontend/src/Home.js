@@ -26,7 +26,7 @@ const Home = () => {
     <View style={styles.body}>
       <View style={styles.sectionContainer}>
         <View style={styles.mainarea}>
-          <Text style={styles.sectionSubtitle}>BRAND NAME</Text>
+          <Text style={styles.sectionSubtitle}></Text>
           <Text style={styles.sectionTitle}>Welcome</Text>
           <View style={styles1.content}>
             <Image
