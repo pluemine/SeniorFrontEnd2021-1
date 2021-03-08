@@ -51,7 +51,7 @@ const Login = () => {
   //Delete this test() after deployed
   const test = () => {
     console.warn(email,password);
-    if (email === "Pluem@gmail.com" && password === "12345678") {
+    if (email === "pluem@gmail.com" && password === "12345678") {
       Actions.homeuser();
     }
     else {
@@ -134,6 +134,7 @@ const Login = () => {
             hint="example@address.com"
             isPassword={false}
             onChangeText={handleChange_email}
+            autoCapitalize="none"
           />
           {emailError ? (
             <Text style={styles.texterror}>
@@ -160,6 +161,7 @@ const Login = () => {
             isPassword={false}
             autoCompleteType={"off"}
             onChangeText={handleChange_password}
+            autoCapitalize="none"
           />
           {passwordError || fail ? (
             <Text style={styles.texterror}>{loginStatus()}</Text>

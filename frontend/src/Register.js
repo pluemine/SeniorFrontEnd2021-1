@@ -223,6 +223,7 @@ const Register = () => {
             hint="example@address.com"
             isPassword={false}
             onChangeText={handleChange_email}
+            autoCapitalize="none"
           />
           {emailError || dupEmail ? (
             <Text style={styles.texterror}>{emailStatus()}</Text>
@@ -247,6 +248,7 @@ const Register = () => {
             isPassword={false}
             autoCompleteType={"off"}
             onChangeText={handleChange_password}
+            autoCapitalize="none"
           />
           {passwordError ? (
             <Text style={styles.texterror}>
@@ -273,6 +275,7 @@ const Register = () => {
             isPassword={false}
             autoCompleteType={"off"}
             onChangeText={handleChange_confirm}
+            autoCapitalize="none"
           />
           {confirmError ? (
             <Text style={styles.texterror}>
@@ -298,6 +301,7 @@ const Register = () => {
             value={firstname}
             isPassword={false}
             onChangeText={handleChange_firstname}
+            autoCapitalize="none"
           />
           {firstnameError ? (
             <Text style={styles.texterror}>* Please enter your firstname.</Text>
@@ -321,6 +325,7 @@ const Register = () => {
             value={lastname}
             isPassword={false}
             onChangeText={handleChange_lastname}
+            autoCapitalize="none"
           />
           {lastnameError ? (
             <Text style={styles.texterror}>* Please enter your lastname.</Text>
@@ -377,6 +382,7 @@ const Register = () => {
             isPassword={false}
             keyboardType="numeric"
             onChangeText={handleChange_phone}
+            autoCapitalize="none"
           />
           {phoneError ? (
             <Text style={styles.texterror}>

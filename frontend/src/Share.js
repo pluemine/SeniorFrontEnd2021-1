@@ -171,6 +171,7 @@ const Share = () => {
             hint="example@address.com"
             isPassword={false}
             onChangeText={handleChange_email}
+            autoCapitalize="none"
           />
           {emailError ? (
             <Text style={styles.texterror}>* Email</Text>
@@ -195,6 +196,7 @@ const Share = () => {
             hint="กก"
             isPassword={false}
             onChangeText={handleChange_category}
+            autoCapitalize="none"
           />
           {categoryError ? (
             <Text style={styles.texterror}>* Category</Text>
@@ -216,7 +218,9 @@ const Share = () => {
             value={number}
             hint="9999"
             isPassword={false}
+            keyboardType="numeric"
             onChangeText={handleChange_number}
+            autoCapitalize="none"
           />
           {numberError ? (
             <Text style={styles.texterror}>* number</Text>
@@ -241,6 +245,7 @@ const Share = () => {
             hint="กรุงเทพมหานคร"
             isPassword={false}
             onChangeText={handleChange_province}
+            autoCapitalize="none"
           />
           {provinceError ? (
             <Text style={styles.texterror}>* province</Text>
@@ -263,6 +268,7 @@ const Share = () => {
             hint=""
             isPassword={false}
             onChangeText={handleChange_valid}
+            autoCapitalize="none"
           />
           {validError ? (
             <Text style={styles.texterror}>* valid</Text>
@@ -285,6 +291,7 @@ const Share = () => {
             hint=""
             isPassword={false}
             onChangeText={handleChange_expire}
+            autoCapitalize="none"
           />
           {expireError ? (
             <Text style={styles.texterror}>* expire</Text>
@@ -307,6 +314,7 @@ const Share = () => {
             hint=""
             isPassword={false}
             onChangeText={handleChange_quota}
+            autoCapitalize="none"
           />
           {quotaError ? (
             <Text style={styles.texterror}>* quota</Text>
