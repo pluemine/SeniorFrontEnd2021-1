@@ -77,7 +77,6 @@ const Time = (props) => {
               </View>
             </View>
           </View>
-          <View style={styles.space10} />
           <View
             style={{
               borderBottomColor: "#C4C4C4",
@@ -85,19 +84,23 @@ const Time = (props) => {
               marginBottom: 30,
             }}
           />
-          <TouchableHighlight style={styles.buttonhome}>
-            <Button
-              color="#FFFFFF"
-              title="Share"
-              onPress={() => Actions.share()}
-            />
+          <TouchableHighlight
+            style={styles.button}
+            underlayColor="none"
+            onPress={() => Actions.share()}
+          >
+            <View>
+              <Text style={styles.buttonText}>Share</Text>
+            </View>
           </TouchableHighlight>
-          <TouchableHighlight style={styles.buttonhomered}>
-            <Button
-              color="#FF2244"
-              title="Remove"
-              onPress={() => Actions.homeuser()}
-            />
+          <TouchableHighlight
+            style={styles.buttonbdrRed}
+            underlayColor="none"
+            onPress={() => Actions.pop()}
+          >
+            <View>
+              <Text style={styles.buttonTextRed}>Cancel</Text>
+            </View>
           </TouchableHighlight>
         </View>
       </View>
@@ -117,7 +120,7 @@ const styles1 = StyleSheet.create({
     alignItems: "center",
   },
   sectionContainer: {
-    marginTop: 0,
+    marginTop: 20,
     paddingHorizontal: 24,
   },
   cardDes: {

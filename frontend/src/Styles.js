@@ -1,26 +1,24 @@
 import { StyleSheet } from "react-native";
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from "react-native/Libraries/NewAppScreen";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    //backgroundColor: "#ff0000",
+    justifyContent: "space-between",
+    flexDirection: "column",
+  },
+  containerRow: {
+    flex: 1,
+    flexDirection: "row",
+  },
   scrollView: {
     backgroundColor: Colors.lighter,
   },
-  engine: {
-    position: "absolute",
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
   sectionContainer: {
-    marginTop: 32,
     paddingHorizontal: 24,
+    paddingVertical: 48,
+    //backgroundColor: "#00FF00",
   },
   sectionTitle: {
     fontSize: 32,
@@ -77,7 +75,6 @@ const styles = StyleSheet.create({
     width: "100%",
     margin: "auto",
     marginTop: 15,
-    /*marginTop: -160,*/
     marginBottom: 15,
     padding: 20,
     borderRadius: 10,
@@ -91,16 +88,12 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  mainarea: {
-    margin: 20,
-    marginHorizontal: 0,
-  },
   textbox: {
     color: "#000000",
     width: "100%",
     marginTop: 5,
     marginBottom: 0,
-    height: 50,
+    height: 44,
     borderBottomColor: "#F1F1F1",
     borderBottomWidth: 1,
   },
@@ -109,7 +102,7 @@ const styles = StyleSheet.create({
     width: "100%",
     marginTop: 5,
     marginBottom: 0,
-    height: 50,
+    height: 44,
     borderBottomColor: "#FF1111",
     borderBottomWidth: 1,
   },
@@ -120,51 +113,57 @@ const styles = StyleSheet.create({
     color: "#FF0000",
   },
   button: {
-    backgroundColor: "#444444",
-    borderRadius: 6,
-    width: "100%",
-    marginBottom: 0,
-    height: 40,
-  },
-  buttonhome: {
-    backgroundColor: "#444444",
     borderWidth: 1,
-    borderColor: "#444444",
-    borderRadius: 6,
+    borderColor: "#404040",
+    backgroundColor: "#404040",
+    borderRadius: 4,
+    width: "100%",
+    marginTop: 10,
+    padding: 10,
+  },
+  buttonText: {
+    color: "#FFFFFF",
+    textAlign: "center",
+    fontWeight: "600",
+    fontSize: 16,
+  },
+  buttonbdr: {
+    borderWidth: 1,
+    borderColor: "#404040",
+    borderRadius: 4,
+    width: "100%",
+    marginTop: 10,
+    padding: 10,
+  },
+  buttonbdrText: {
+    color: "#404040",
+    textAlign: "center",
+    fontWeight: "600",
+    fontSize: 16,
+  },
+  buttonfilter: {
+    borderWidth: 1,
+    borderColor: "#404040",
+    borderRadius: 4,
+    width: "100%",
+    marginTop: 10,
+    padding: 10,
+    height: 42,
+  },
+  buttonbdrRed: {
+    borderWidth: 1,
+    borderColor: "#8C0000",
+    borderRadius: 4,
     width: "100%",
     marginTop: 10,
     marginBottom: 0,
-    height: 40,
+    padding: 10,
   },
-  buttonhomebdr: {
-    //backgroundColor: "#444444",
-    borderWidth: 1,
-    borderColor: "#444444",
-    borderRadius: 6,
-    width: "100%",
-    marginTop: 10,
-    marginBottom: 0,
-    height: 40,
-  },
-  buttonhomered: {
-    //backgroundColor: "#444444",
-    borderWidth: 1,
-    borderColor: "#FF2244",
-    borderRadius: 6,
-    width: "100%",
-    marginTop: 10,
-    marginBottom: 0,
-    height: 40,
-  },
-  filter: {
-    //backgroundColor: "#444444",
-    borderWidth: 1,
-    borderColor: "#444444",
-    borderRadius: 6,
-    width: "100%",
-    marginTop: 10,
-    marginBottom: 0,
-    height: 40,
+  buttonTextRed: {
+    color: "#8C0000",
+    textAlign: "center",
+    fontWeight: "600",
+    fontSize: 16,
   },
   itemcard: {
     borderRadius: 10,
@@ -184,63 +183,78 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 20,
   },
-  space10: {
-    margin: 10,
-  },
   textbold: {
     fontWeight: "600",
   },
 
+  //Access page
+  accessSearchItem1: {
+    paddingRight: 10,
+    width: "70%",
+  },
+  accessSearchItem2: {
+    width: "30%",
+  },
+
   //Other page
-  othertitle: {
+  otherAvatar: {
+    width: 100,
+    height: 100,
+    resizeMode: "stretch",
+  },
+  otherCenterBlock: {
+    alignItems: "center",
+  },
+  otherTitle: {
     marginTop: 10,
     fontSize: 18,
     fontWeight: "600",
     textAlign: "center",
   },
-  otherdes: {
+  otherDes: {
     fontSize: 12,
     fontWeight: "400",
     color: "#444444",
     textAlign: "center",
   },
-  buttoncardblock: {
+  otherMenuBlock: {
     marginTop: 15,
     marginBottom: 15,
   },
-  buttoncard: {
-    maxWidth: 500,
-    width: "100%",
-    margin: "auto",
-    marginTop: 5,
-    marginBottom: 5,
-    padding: 15,
-    borderRadius: 10,
-    backgroundColor: "#ffffff",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  buttoncardtitle: {
+  otherMenuTitle: {
     fontSize: 15,
     fontWeight: "600",
     color: "#000000",
   },
-  buttoncardtitlered: {
+  otherMenuTitleRed: {
     fontSize: 15,
     fontWeight: "600",
     color: "#8C0000",
   },
-  buttoncarddes: {
+  otherMenuTitleBlue: {
+    fontSize: 15,
+    fontWeight: "600",
+    color: "#003366",
+  },
+  otherMenuDes: {
     fontSize: 12,
     fontWeight: "400",
     color: "#444444",
   },
+  otherMenu: {
+    marginVertical: 15,
+    paddingHorizontal: 15,
+    borderRadius: 4,
+    borderLeftWidth: 4,
+    borderLeftColor: "#003366",
+  },
+  otherMenuRed: {
+    marginVertical: 15,
+    paddingHorizontal: 15,
+    borderRadius: 4,
+    borderLeftWidth: 4,
+    borderLeftColor: "#8C0000",
+  }
 });
 
 module.exports = styles;

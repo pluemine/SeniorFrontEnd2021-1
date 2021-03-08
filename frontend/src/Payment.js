@@ -23,22 +23,11 @@ import axios from "axios";
 import { FloatingLabelInput } from "react-native-floating-label-input";
 
 const Payment = () => {
-
   return (
-    <View style={styles.body}>
+    <View style={styles.container}>
       <View style={styles.sectionContainer}>
-        <View style={styles.mainarea}>
-          <Text style={styles.sectionSubtitle}></Text>
-          <Text style={styles.sectionTitle}>Payment</Text>
-        </View>
-      </View>
-      <View style={{flex: 1}}>
-        <Text style={styles.sectionSubtitle,{flex: 1, backgroundColor: 'skyblue'}} >
-            HHH
-        </Text>
-        <Text style={styles.sectionTitle,{flex: 1, backgroundColor: 'skyblue'}} >
-            Payment
-        </Text>
+        <Text style={styles.sectionSubtitle}></Text>
+        <Text style={styles.sectionTitle}>Payment</Text>
       </View>
     </View>
   );

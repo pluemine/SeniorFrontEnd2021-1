@@ -24,7 +24,6 @@ import { Router, Scene } from "react-native-router-flux";
 import Register from "./Register";
 import Login from "./Login";
 import Home from "./Home";
-import Profile from "./Profile";
 import AccessCard from "./components/AccessCard";
 
 import styles from "./Styles";
@@ -33,7 +32,7 @@ import axios from "axios";
 const Homeuser = () => {
 
   return (
-    <View style={styles.body}>
+    <View style={styles.container}>
       <View style={styles.sectionContainer}>
         <View style={styles.mainarea}>
           <Text style={styles.sectionSubtitle}></Text>
