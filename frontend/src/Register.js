@@ -119,20 +119,16 @@ const Register = () => {
     if (!isEmailValid()) {
       console.warn("Invalid Email");
       setEmailError(true);
-    }
-    else if (password.length < 8) {
+    } else if (password.length < 8) {
       console.warn("Please add at least 8 characters.");
       setPasswordError(true);
-    }
-    else if (password != confirm) {
+    } else if (password != confirm) {
       console.warn("Password is not same");
       setConfirmError(true);
-    }
-    else if (phone.length < 10 || phone[0] != 0) {
+    } else if (phone.length < 10 || phone[0] != 0) {
       console.warn("Telephone Number incorrect");
       setPhoneError(true);
-    }
-    else if (
+    } else if (
       !emailError &&
       !passwordError &&
       !confirmError &&
@@ -202,196 +198,200 @@ const Register = () => {
   };
 
   return (
-    <View style={styles.body}>
+    <View style={styles.container}>
       <View style={styles.sectionContainer}>
-        <View style={styles.mainarea}>
-          <Text style={styles.sectionSubtitle}>WELCOME</Text>
-          <Text style={styles.sectionTitle}>Create Account</Text>
-          <FloatingLabelInput
-            label={"Email"}
-            containerStyles={
-              emailError || dupEmail ? styles.textboxerror : styles.textbox
-            }
-            customLabelStyles={
-              emailError || dupEmail
-                ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-                : { colorFocused: "#898989", colorBlurred: "#898989" }
-            }
-            inputStyles={{
-              color: "#000000",
-              paddingHorizontal: 5,
-            }}
-            value={email}
-            hint="example@address.com"
-            isPassword={false}
-            onChangeText={handleChange_email}
-          />
-          {emailError || dupEmail ? (
-            <Text style={styles.texterror}>{emailStatus()}</Text>
-          ) : (
-              <Text style={styles.texterror}> </Text>
-            )}
-          <FloatingLabelInput
-            label={"Password"}
-            containerStyles={
-              passwordError ? styles.textboxerror : styles.textbox
-            }
-            customLabelStyles={
-              passwordError
-                ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-                : { colorFocused: "#898989", colorBlurred: "#898989" }
-            }
-            inputStyles={{
-              color: "#000000",
-              paddingHorizontal: 5,
-            }}
-            value={password}
-            isPassword={false}
-            autoCompleteType={"off"}
-            onChangeText={handleChange_password}
-          />
-          {passwordError ? (
-            <Text style={styles.texterror}>
-              * Please enter a valid password. (At least 8 characters)
-            </Text>
-          ) : (
-              <Text style={styles.texterror}> </Text>
-            )}
-          <FloatingLabelInput
-            label={"Confirm Password"}
-            containerStyles={
-              confirmError ? styles.textboxerror : styles.textbox
-            }
-            customLabelStyles={
-              confirmError
-                ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-                : { colorFocused: "#898989", colorBlurred: "#898989" }
-            }
-            inputStyles={{
-              color: "#000000",
-              paddingHorizontal: 5,
-            }}
-            value={confirm}
-            isPassword={false}
-            autoCompleteType={"off"}
-            onChangeText={handleChange_confirm}
-          />
-          {confirmError ? (
-            <Text style={styles.texterror}>
-              * Please enter the same password.
-            </Text>
-          ) : (
-              <Text style={styles.texterror}> </Text>
-            )}
-          <FloatingLabelInput
-            label={"First Name"}
-            containerStyles={
-              firstnameError ? styles.textboxerror : styles.textbox
-            }
-            customLabelStyles={
-              firstnameError
-                ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-                : { colorFocused: "#898989", colorBlurred: "#898989" }
-            }
-            inputStyles={{
-              color: "#000000",
-              paddingHorizontal: 5,
-            }}
-            value={firstname}
-            isPassword={false}
-            onChangeText={handleChange_firstname}
-          />
-          {firstnameError ? (
-            <Text style={styles.texterror}>* Please enter your firstname.</Text>
-          ) : (
-              <Text style={styles.texterror}> </Text>
-            )}
-          <FloatingLabelInput
-            label={"Last Name"}
-            containerStyles={
-              lastnameError ? styles.textboxerror : styles.textbox
-            }
-            customLabelStyles={
-              lastnameError
-                ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-                : { colorFocused: "#898989", colorBlurred: "#898989" }
-            }
-            inputStyles={{
-              color: "#000000",
-              paddingHorizontal: 5,
-            }}
-            value={lastname}
-            isPassword={false}
-            onChangeText={handleChange_lastname}
-          />
-          {lastnameError ? (
-            <Text style={styles.texterror}>* Please enter your lastname.</Text>
-          ) : (
-              <Text style={styles.texterror}> </Text>
-            )}
-          <TouchableOpacity onPress={showDatePicker}>
-            <View pointerEvents="none">
-              <FloatingLabelInput
-                label={"Date of birth"}
-                containerStyles={styles.textbox}
-                customLabelStyles={{
-                  colorFocused: "#898989",
-                  colorBlurred: "#898989",
-                }}
-                inputStyles={{
-                  color: "#000000",
-                  paddingHorizontal: 5,
-                }}
-                value={dateTime()}
-                isPassword={false}
-                editable={false}
-              />
-            </View>
-          </TouchableOpacity>
+        <Text style={styles.sectionSubtitle}></Text>
+        <Text style={styles.sectionTitle}>Create Account</Text>
+        <FloatingLabelInput
+          label={"Email"}
+          containerStyles={
+            emailError || dupEmail ? styles.textboxerror : styles.textbox
+          }
+          customLabelStyles={
+            emailError || dupEmail
+              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+              : { colorFocused: "#898989", colorBlurred: "#898989" }
+          }
+          inputStyles={{
+            color: "#000000",
+            paddingHorizontal: 5,
+          }}
+          value={email}
+          hint="example@address.com"
+          isPassword={false}
+          onChangeText={handleChange_email}
+          autoCapitalize="none"
+        />
+        {emailError || dupEmail ? (
+          <Text style={styles.texterror}>{emailStatus()}</Text>
+        ) : (
           <Text style={styles.texterror}> </Text>
-          <DateTimePickerModal
-            isVisible={isDatePickerVisible}
-            date={date}
-            mode="date"
-            placeholder="select date"
-            format="DD-MM-YYYY"
-            onConfirm={handleConfirm}
-            onCancel={hideDatePicker}
-            onDateChange={(date) => {
-              setDate(date);
-            }}
-          />
-          <FloatingLabelInput
-            label={"Phone Number"}
-            containerStyles={phoneError ? styles.textboxerror : styles.textbox}
-            customLabelStyles={
-              phoneError
-                ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-                : { colorFocused: "#898989", colorBlurred: "#898989" }
-            }
-            inputStyles={{
-              color: "#000000",
-              paddingHorizontal: 5,
-            }}
-            value={phone}
-            hint="099-999-9999"
-            mask="0999999999"
-            isPassword={false}
-            keyboardType="numeric"
-            onChangeText={handleChange_phone}
-          />
-          {phoneError ? (
-            <Text style={styles.texterror}>
-              * Please enter a valid phone number.
-            </Text>
-          ) : (
-              <Text style={styles.texterror}> </Text>
-            )}
-          <Text style={styles.sectionDescription}></Text>
-          <TouchableHighlight style={styles.button}>
-            <Button color="#FFFFFF" title="Register" onPress={sent} />
-          </TouchableHighlight>
-        </View>
+        )}
+        <FloatingLabelInput
+          label={"Password"}
+          containerStyles={passwordError ? styles.textboxerror : styles.textbox}
+          customLabelStyles={
+            passwordError
+              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+              : { colorFocused: "#898989", colorBlurred: "#898989" }
+          }
+          inputStyles={{
+            color: "#000000",
+            paddingHorizontal: 5,
+          }}
+          value={password}
+          isPassword={false}
+          autoCompleteType={"off"}
+          onChangeText={handleChange_password}
+          autoCapitalize="none"
+        />
+        {passwordError ? (
+          <Text style={styles.texterror}>
+            * Please enter a valid password. (At least 8 characters)
+          </Text>
+        ) : (
+          <Text style={styles.texterror}> </Text>
+        )}
+        <FloatingLabelInput
+          label={"Confirm Password"}
+          containerStyles={confirmError ? styles.textboxerror : styles.textbox}
+          customLabelStyles={
+            confirmError
+              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+              : { colorFocused: "#898989", colorBlurred: "#898989" }
+          }
+          inputStyles={{
+            color: "#000000",
+            paddingHorizontal: 5,
+          }}
+          value={confirm}
+          isPassword={false}
+          autoCompleteType={"off"}
+          onChangeText={handleChange_confirm}
+          autoCapitalize="none"
+        />
+        {confirmError ? (
+          <Text style={styles.texterror}>
+            * Please enter the same password.
+          </Text>
+        ) : (
+          <Text style={styles.texterror}> </Text>
+        )}
+        <FloatingLabelInput
+          label={"First Name"}
+          containerStyles={
+            firstnameError ? styles.textboxerror : styles.textbox
+          }
+          customLabelStyles={
+            firstnameError
+              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+              : { colorFocused: "#898989", colorBlurred: "#898989" }
+          }
+          inputStyles={{
+            color: "#000000",
+            paddingHorizontal: 5,
+          }}
+          value={firstname}
+          isPassword={false}
+          onChangeText={handleChange_firstname}
+          autoCapitalize="none"
+        />
+        {firstnameError ? (
+          <Text style={styles.texterror}>* Please enter your firstname.</Text>
+        ) : (
+          <Text style={styles.texterror}> </Text>
+        )}
+        <FloatingLabelInput
+          label={"Last Name"}
+          containerStyles={lastnameError ? styles.textboxerror : styles.textbox}
+          customLabelStyles={
+            lastnameError
+              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+              : { colorFocused: "#898989", colorBlurred: "#898989" }
+          }
+          inputStyles={{
+            color: "#000000",
+            paddingHorizontal: 5,
+          }}
+          value={lastname}
+          isPassword={false}
+          onChangeText={handleChange_lastname}
+          autoCapitalize="none"
+        />
+        {lastnameError ? (
+          <Text style={styles.texterror}>* Please enter your lastname.</Text>
+        ) : (
+          <Text style={styles.texterror}> </Text>
+        )}
+        <TouchableOpacity onPress={showDatePicker}>
+          <View pointerEvents="none">
+            <FloatingLabelInput
+              label={"Date of birth"}
+              containerStyles={styles.textbox}
+              customLabelStyles={{
+                colorFocused: "#898989",
+                colorBlurred: "#898989",
+              }}
+              inputStyles={{
+                color: "#000000",
+                paddingHorizontal: 5,
+              }}
+              value={dateTime()}
+              isPassword={false}
+              editable={false}
+            />
+          </View>
+        </TouchableOpacity>
+        <Text style={styles.texterror}> </Text>
+        <DateTimePickerModal
+          isVisible={isDatePickerVisible}
+          date={date}
+          mode="date"
+          placeholder="select date"
+          format="DD-MM-YYYY"
+          onConfirm={handleConfirm}
+          onCancel={hideDatePicker}
+          onDateChange={(date) => {
+            setDate(date);
+          }}
+        />
+        <FloatingLabelInput
+          label={"Phone Number"}
+          containerStyles={phoneError ? styles.textboxerror : styles.textbox}
+          customLabelStyles={
+            phoneError
+              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+              : { colorFocused: "#898989", colorBlurred: "#898989" }
+          }
+          inputStyles={{
+            color: "#000000",
+            paddingHorizontal: 5,
+          }}
+          value={phone}
+          hint="099-999-9999"
+          mask="0999999999"
+          isPassword={false}
+          keyboardType="numeric"
+          onChangeText={handleChange_phone}
+          autoCapitalize="none"
+        />
+        {phoneError ? (
+          <Text style={styles.texterror}>
+            * Please enter a valid phone number.
+          </Text>
+        ) : (
+          <Text style={styles.texterror}> </Text>
+        )}
+        <Text style={styles.sectionDescription}></Text>
+        <TouchableHighlight
+          style={styles.button}
+          underlayColor="none"
+          onPress={sent}
+        >
+          <View>
+            <Text style={styles.buttonText}>Register</Text>
+          </View>
+        </TouchableHighlight>
       </View>
     </View>
   );
