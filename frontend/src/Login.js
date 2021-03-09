@@ -77,7 +77,7 @@ const Login = () => {
         if (res.data.status === "OK") {
           saveSecureStoreItem("pms_token", res.data.data.token)
           alert(await getSecureStoreItem("pms_token"))
-          Actions.homeuser();
+          Actions.tabbar();
         } else {
           setFail(true);
         }

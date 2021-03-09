@@ -328,12 +328,12 @@ const Share = () => {
           </View>
         </TouchableHighlight>
         <TouchableHighlight
-          style={styles.buttonbdrRed}
+          style={styles.buttonbdr}
           underlayColor="none"
           onPress={() => Actions.pop()}
         >
           <View>
-            <Text style={styles.buttonTextRed}>Cancel</Text>
+            <Text style={styles.buttonbdrText}>Cancel</Text>
           </View>
         </TouchableHighlight>
       </View>
