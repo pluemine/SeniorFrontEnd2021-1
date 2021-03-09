@@ -1,4 +1,5 @@
 import React, { Component, useState } from "react";
+import * as SecureStore from 'expo-secure-store';
 import { Actions } from "react-native-router-flux";
 import {
   Header,
@@ -58,16 +59,24 @@ const Login = () => {
     }
   };
 
+  const saveSecureStoreItem = async (key, value) => {
+    await SecureStore.setItemAsync(key, value);
+  }
+
+   const getSecureStoreItem = async (key) => {
+    return await SecureStore.getItemAsync(key)
+  }
+
   const userLogin = async () => {
     axios
       .post(`http://localhost:4000/v1/uapi/login`, {
         email: email,
         password: password,
       })
-      .then((res) => {
-        //console.log(res);
-        console.log(res.data);
+      .then( async (res) => {
         if (res.data.status === "OK") {
+          saveSecureStoreItem("pms_token", res.data.data.token)
+          alert(await getSecureStoreItem("pms_token"))
           Actions.homeuser();
         } else {
           setFail(true);
@@ -90,8 +99,8 @@ const Login = () => {
       console.warn("Please add at least 8 characters.");
       setPasswordError(true);
     } else if (!emailError && !passwordError) {
-      //userLogin();
-      test();
+      userLogin();
+      // test();
     }
   };
 

@@ -181,11 +181,13 @@ const Register = () => {
       .then((res) => {
         //console.log(res);
         console.log(res.data.data);
-        if (res.data === "Users was added successfully") {
+        if (res.data.status === "OK") {
           Actions.login();
         }
-        if (res.data.data === "DUPLICATED EMAIL") {
-          setDupEmail(true);
+        else {
+          if (res.data.data === "DUPLICATED EMAIL") {
+            setDupEmail(true);
+          }
         }
       });
   };
