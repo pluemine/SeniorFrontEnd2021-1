@@ -21,16 +21,16 @@ const App = () => {
   return (
     <Router>
       <Scene key="root">
-        <Scene key="home" component={Home} title="Back" hideTabBar initial={true} hideNavBar />
-        <Scene key="register" component={Register} title="" hideTabBar />
-        <Scene key="login" component={Login} title="" hideTabBar />
+        <Scene key="home" component={Home} initial={true} hideTabBar hideNavBar />
+        <Scene key="register" component={Register} hideTabBar />
+        <Scene key="login" component={Login} hideTabBar />
         <Scene key="tabbar" tabs={true} tabBarStyle={{ backgroundColor: "#FFFFFF" }} hideNavBar>
           <Scene key="homepage" title="Home" icon={TabIcon} component={Homeuser} initial={true} hideNavBar />
           <Scene key="car" title="Car" icon={TabIcon} component={Payment} hideNavBar />
           <Scene key="access" title="Access" icon={TabIcon}>
-            <Scene key="accesshome" component={Access} title="Access" initial={true} hideNavBar />
-            <Scene key="time" component={Time} title="Time" />
-            <Scene key="share" component={Share} title="Share" hideNavBar />
+            <Scene key="accesshome" component={Access} initial={true} hideNavBar />
+            <Scene key="time" component={Time} />
+            <Scene key="share" component={Share} hideNavBar />
           </Scene>
           <Scene key="payment" title="Payment" icon={TabIcon} component={Payment} hideNavBar />
           <Scene key="other" title="Other" icon={TabIcon} component={Other} hideNavBar />

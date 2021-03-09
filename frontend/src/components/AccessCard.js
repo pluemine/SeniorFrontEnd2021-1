@@ -109,6 +109,14 @@ const styles1 = StyleSheet.create({
   },
   col40: {
     width: "40%",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
   },
   col50: {
     width: "50%",
@@ -120,9 +128,7 @@ const styles1 = StyleSheet.create({
   pic: {
     width: "100%",
     height: "100%",
-    margin: "auto",
-    overflow: "hidden",
-    //resizeMode: "stretch",
+    borderRadius: 5,
   },
   rowcontainer: {
     flex: 1,

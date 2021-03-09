@@ -34,7 +34,7 @@ const Homeuser = () => {
   return (
     <View style={styles.container}>
       <View style={styles.sectionContainer}>
-        <View style={styles.mainarea}>
+        <View>
           <Text style={styles.sectionSubtitle}></Text>
           <Text style={styles.sectionTitle}>Home</Text>
         </View>

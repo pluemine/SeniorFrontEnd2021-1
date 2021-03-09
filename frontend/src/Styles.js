@@ -44,24 +44,6 @@ const styles = StyleSheet.create({
     color: Colors.dark,
     textAlign: "center",
   },
-  cardHeader: {
-    fontSize: 20,
-    fontWeight: "600",
-    color: Colors.black,
-    marginBottom: 10,
-  },
-  cardSubtitle: {
-    fontSize: 12,
-    fontWeight: "800",
-    color: "#f49608",
-  },
-  cardDes: {
-    fontSize: 12,
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: "700",
-  },
   footer: {
     color: Colors.dark,
     fontSize: 12,
@@ -119,7 +101,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     width: "100%",
     marginTop: 10,
-    padding: 10,
+    height: 40,
+    justifyContent: "center",
   },
   buttonText: {
     color: "#FFFFFF",
@@ -133,7 +116,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     width: "100%",
     marginTop: 10,
-    padding: 10,
+    height: 40,
+    justifyContent: "center",
   },
   buttonbdrText: {
     color: "#404040",
@@ -147,8 +131,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     width: "100%",
     marginTop: 10,
-    padding: 10,
-    height: 42,
+    height: 38,
+    justifyContent: "center",
   },
   buttonbdrRed: {
     borderWidth: 1,
@@ -164,6 +148,26 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "600",
     fontSize: 16,
+  },
+  textbold: {
+    fontWeight: "600",
+  },
+
+  //AccessCard Page
+  cardHeader: {
+    fontSize: 20,
+    fontWeight: "600",
+    color: Colors.black,
+    marginBottom: 10,
+  },
+  cardSubtitle: {
+    fontSize: 12,
+    fontWeight: "800",
+    color: "#f49608",
+  },
+  cardDes: {
+    fontSize: 12,
+    color: Colors.dark,
   },
   itemcard: {
     borderRadius: 10,
@@ -183,9 +187,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 20,
   },
-  textbold: {
-    fontWeight: "600",
-  },
 
   //Access page
   accessSearchItem1: {
@@ -194,6 +195,25 @@ const styles = StyleSheet.create({
   },
   accessSearchItem2: {
     width: "30%",
+  },
+  accessCard: {
+    borderRadius: 20,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+    backgroundColor: "rgba(255,255,255,0.92)",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  accessContainer: {
+    paddingHorizontal: 24,
+    paddingVertical: 24,
+    //backgroundColor: "#00FF00",
   },
 
   //Other page
@@ -245,16 +265,12 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     paddingHorizontal: 15,
     borderRadius: 4,
-    borderLeftWidth: 4,
-    borderLeftColor: "#003366",
   },
   otherMenuRed: {
     marginVertical: 15,
     paddingHorizontal: 15,
     borderRadius: 4,
-    borderLeftWidth: 4,
-    borderLeftColor: "#8C0000",
-  }
+  },
 });
 
 module.exports = styles;

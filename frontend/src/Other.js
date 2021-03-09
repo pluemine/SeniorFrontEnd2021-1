@@ -40,7 +40,7 @@ const Other = () => {
         <View style={styles.otherMenuBlock}>
           <TouchableHighlight style={styles.otherMenu} underlayColor="none">
             <View>
-              <Text style={styles.otherMenuTitleBlue}>Edit Profile</Text>
+              <Text style={styles.otherMenuTitle}>Edit Profile</Text>
               <Text style={styles.otherMenuDes}>
                 Avatar Email Firstname Lastname Password Phone
               </Text>
@@ -54,7 +54,7 @@ const Other = () => {
           />
           <TouchableHighlight style={styles.otherMenu} underlayColor="none">
             <View>
-              <Text style={styles.otherMenuTitleBlue}>Activity</Text>
+              <Text style={styles.otherMenuTitle}>Activity</Text>
               <Text style={styles.otherMenuDes}>Ongoing and Activity</Text>
             </View>
           </TouchableHighlight>
