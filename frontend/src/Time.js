@@ -34,7 +34,7 @@ const Time = (props) => {
           source={{ uri: propimg }}
           blurRadius={25}
         >
-          <View style={styles.accessContainer}>
+          <View style={styles.accessImageContainer}>
             <View style={styles1.pic1}>
               <Image style={styles1.pic2} source={{ uri: propimg }} />
             </View>
@@ -101,19 +101,19 @@ const Time = (props) => {
               <TouchableHighlight
                 style={styles.button}
                 underlayColor="none"
-                onPress={() => Actions.share()}
+                onPress={() => Actions.share({ propimg, placename, proptype })}
               >
                 <View>
                   <Text style={styles.buttonText}>Share</Text>
                 </View>
               </TouchableHighlight>
               <TouchableHighlight
-                style={styles.buttonbdrRed}
+                style={styles.buttonbdr}
                 underlayColor="none"
                 onPress={() => Actions.pop()}
               >
                 <View>
-                  <Text style={styles.buttonTextRed}>Delete</Text>
+                  <Text style={styles.buttonbdrText}>Close</Text>
                 </View>
               </TouchableHighlight>
             </View>

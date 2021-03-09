@@ -18,12 +18,15 @@ import {
   Button,
   TouchableHighlight,
   Image,
+  ImageBackground,
 } from "react-native";
 import styles from "./Styles";
 import axios from "axios";
 import { FloatingLabelInput } from "react-native-floating-label-input";
 
-const Share = () => {
+const Share = (props) => {
+  const { propimg, placename, proptype } = props;
+
   const [email, setEmail] = useState("");
   const [category, setCategory] = useState("");
   const [number, setNumber] = useState("");
@@ -152,192 +155,230 @@ const Share = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.sectionContainer}>
-        <Text style={styles.sectionSubtitle}></Text>
-        <Text style={styles.sectionTitle}>Confirm Sharing</Text>
-        <FloatingLabelInput
-          label={"Email"}
-          containerStyles={emailError ? styles.textboxerror : styles.textbox}
-          customLabelStyles={
-            emailError
-              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-              : { colorFocused: "#898989", colorBlurred: "#898989" }
-          }
-          inputStyles={{
-            color: "#000000",
-            paddingHorizontal: 5,
-          }}
-          value={email}
-          hint="example@address.com"
-          isPassword={false}
-          onChangeText={handleChange_email}
-          autoCapitalize="none"
-        />
-        {emailError ? (
-          <Text style={styles.texterror}>* Email</Text>
-        ) : (
-          <Text style={styles.texterror}> </Text>
-        )}
-        <FloatingLabelInput
-          label={"Category"}
-          containerStyles={categoryError ? styles.textboxerror : styles.textbox}
-          customLabelStyles={
-            categoryError
-              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-              : { colorFocused: "#898989", colorBlurred: "#898989" }
-          }
-          inputStyles={{
-            color: "#000000",
-            paddingHorizontal: 5,
-          }}
-          value={category}
-          hint="กก"
-          isPassword={false}
-          onChangeText={handleChange_category}
-          autoCapitalize="none"
-        />
-        {categoryError ? (
-          <Text style={styles.texterror}>* Category</Text>
-        ) : (
-          <Text style={styles.texterror}> </Text>
-        )}
-        <FloatingLabelInput
-          label={"Number"}
-          containerStyles={numberError ? styles.textboxerror : styles.textbox}
-          customLabelStyles={
-            numberError
-              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-              : { colorFocused: "#898989", colorBlurred: "#898989" }
-          }
-          inputStyles={{
-            color: "#000000",
-            paddingHorizontal: 5,
-          }}
-          value={number}
-          hint="9999"
-          isPassword={false}
-          keyboardType="numeric"
-          onChangeText={handleChange_number}
-          autoCapitalize="none"
-        />
-        {numberError ? (
-          <Text style={styles.texterror}>* number</Text>
-        ) : (
-          <Text style={styles.texterror}> </Text>
-        )}
-        <FloatingLabelInput
-          label={"Province"}
-          containerStyles={provinceError ? styles.textboxerror : styles.textbox}
-          customLabelStyles={
-            provinceError
-              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-              : { colorFocused: "#898989", colorBlurred: "#898989" }
-          }
-          inputStyles={{
-            color: "#000000",
-            paddingHorizontal: 5,
-          }}
-          value={province}
-          hint="กรุงเทพมหานคร"
-          isPassword={false}
-          onChangeText={handleChange_province}
-          autoCapitalize="none"
-        />
-        {provinceError ? (
-          <Text style={styles.texterror}>* province</Text>
-        ) : (
-          <Text style={styles.texterror}> </Text>
-        )}
-        <FloatingLabelInput
-          label={"Valid"}
-          containerStyles={validError ? styles.textboxerror : styles.textbox}
-          customLabelStyles={
-            validError
-              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-              : { colorFocused: "#898989", colorBlurred: "#898989" }
-          }
-          inputStyles={{
-            color: "#000000",
-            paddingHorizontal: 5,
-          }}
-          value={valid}
-          hint=""
-          isPassword={false}
-          onChangeText={handleChange_valid}
-          autoCapitalize="none"
-        />
-        {validError ? (
-          <Text style={styles.texterror}>* valid</Text>
-        ) : (
-          <Text style={styles.texterror}> </Text>
-        )}
-        <FloatingLabelInput
-          label={"Expire"}
-          containerStyles={expireError ? styles.textboxerror : styles.textbox}
-          customLabelStyles={
-            expireError
-              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-              : { colorFocused: "#898989", colorBlurred: "#898989" }
-          }
-          inputStyles={{
-            color: "#000000",
-            paddingHorizontal: 5,
-          }}
-          value={expire}
-          hint=""
-          isPassword={false}
-          onChangeText={handleChange_expire}
-          autoCapitalize="none"
-        />
-        {expireError ? (
-          <Text style={styles.texterror}>* expire</Text>
-        ) : (
-          <Text style={styles.texterror}> </Text>
-        )}
-        <FloatingLabelInput
-          label={"Quota"}
-          containerStyles={quotaError ? styles.textboxerror : styles.textbox}
-          customLabelStyles={
-            quotaError
-              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-              : { colorFocused: "#898989", colorBlurred: "#898989" }
-          }
-          inputStyles={{
-            color: "#000000",
-            paddingHorizontal: 5,
-          }}
-          value={quota}
-          hint=""
-          isPassword={false}
-          onChangeText={handleChange_quota}
-          autoCapitalize="none"
-        />
-        {quotaError ? (
-          <Text style={styles.texterror}>* quota</Text>
-        ) : (
-          <Text style={styles.texterror}> </Text>
-        )}
-        <TouchableHighlight
-          style={styles.button}
-          underlayColor="none"
-          onPress={sent}
+    <ScrollView
+      contentContainerStyle={{ flexGrow: 1, justifyContent: "space-between" }}
+    >
+      <View style={styles.container}>
+        <ImageBackground
+          style={styles.pic}
+          source={{ uri: propimg }}
+          blurRadius={25}
         >
-          <View>
-            <Text style={styles.buttonText}>Share</Text>
+          <View style={styles.shareImageContainer}>
+            <View style={styles.shareColContainer}>
+              <View style={styles.shareCol40}>
+                <View style={styles.sharePicOuter}>
+                  <Image style={styles.sharePic} source={{ uri: propimg }} />
+                </View>
+              </View>
+              <View style={styles.shareCol60}>
+                <Text style={styles.shareTitle}>{placename}</Text>
+                <Text style={styles.shareSubtitle}>{proptype}</Text>
+              </View>
+            </View>
           </View>
-        </TouchableHighlight>
-        <TouchableHighlight
-          style={styles.buttonbdr}
-          underlayColor="none"
-          onPress={() => Actions.pop()}
-        >
-          <View>
-            <Text style={styles.buttonbdrText}>Cancel</Text>
+          <View style={styles.accessCard}>
+            <View style={styles.accessContainer}>
+              <Text style={styles.sectionTitle}>Confirm Sharing</Text>
+              <FloatingLabelInput
+                label={"Email"}
+                containerStyles={
+                  emailError ? styles.textboxerror : styles.textbox
+                }
+                customLabelStyles={
+                  emailError
+                    ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+                    : { colorFocused: "#898989", colorBlurred: "#898989" }
+                }
+                inputStyles={{
+                  color: "#000000",
+                  paddingHorizontal: 5,
+                }}
+                value={email}
+                hint="example@address.com"
+                isPassword={false}
+                onChangeText={handleChange_email}
+                autoCapitalize="none"
+              />
+              {emailError ? (
+                <Text style={styles.texterror}>* Email</Text>
+              ) : (
+                <Text style={styles.texterror}> </Text>
+              )}
+              <FloatingLabelInput
+                label={"Category"}
+                containerStyles={
+                  categoryError ? styles.textboxerror : styles.textbox
+                }
+                customLabelStyles={
+                  categoryError
+                    ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+                    : { colorFocused: "#898989", colorBlurred: "#898989" }
+                }
+                inputStyles={{
+                  color: "#000000",
+                  paddingHorizontal: 5,
+                }}
+                value={category}
+                hint="กก"
+                isPassword={false}
+                onChangeText={handleChange_category}
+                autoCapitalize="none"
+              />
+              {categoryError ? (
+                <Text style={styles.texterror}>* Category</Text>
+              ) : (
+                <Text style={styles.texterror}> </Text>
+              )}
+              <FloatingLabelInput
+                label={"Number"}
+                containerStyles={
+                  numberError ? styles.textboxerror : styles.textbox
+                }
+                customLabelStyles={
+                  numberError
+                    ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+                    : { colorFocused: "#898989", colorBlurred: "#898989" }
+                }
+                inputStyles={{
+                  color: "#000000",
+                  paddingHorizontal: 5,
+                }}
+                value={number}
+                hint="9999"
+                isPassword={false}
+                keyboardType="numeric"
+                onChangeText={handleChange_number}
+                autoCapitalize="none"
+              />
+              {numberError ? (
+                <Text style={styles.texterror}>* number</Text>
+              ) : (
+                <Text style={styles.texterror}> </Text>
+              )}
+              <FloatingLabelInput
+                label={"Province"}
+                containerStyles={
+                  provinceError ? styles.textboxerror : styles.textbox
+                }
+                customLabelStyles={
+                  provinceError
+                    ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+                    : { colorFocused: "#898989", colorBlurred: "#898989" }
+                }
+                inputStyles={{
+                  color: "#000000",
+                  paddingHorizontal: 5,
+                }}
+                value={province}
+                hint="กรุงเทพมหานคร"
+                isPassword={false}
+                onChangeText={handleChange_province}
+                autoCapitalize="none"
+              />
+              {provinceError ? (
+                <Text style={styles.texterror}>* province</Text>
+              ) : (
+                <Text style={styles.texterror}> </Text>
+              )}
+              <FloatingLabelInput
+                label={"Valid"}
+                containerStyles={
+                  validError ? styles.textboxerror : styles.textbox
+                }
+                customLabelStyles={
+                  validError
+                    ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+                    : { colorFocused: "#898989", colorBlurred: "#898989" }
+                }
+                inputStyles={{
+                  color: "#000000",
+                  paddingHorizontal: 5,
+                }}
+                value={valid}
+                hint=""
+                isPassword={false}
+                onChangeText={handleChange_valid}
+                autoCapitalize="none"
+              />
+              {validError ? (
+                <Text style={styles.texterror}>* valid</Text>
+              ) : (
+                <Text style={styles.texterror}> </Text>
+              )}
+              <FloatingLabelInput
+                label={"Expire"}
+                containerStyles={
+                  expireError ? styles.textboxerror : styles.textbox
+                }
+                customLabelStyles={
+                  expireError
+                    ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+                    : { colorFocused: "#898989", colorBlurred: "#898989" }
+                }
+                inputStyles={{
+                  color: "#000000",
+                  paddingHorizontal: 5,
+                }}
+                value={expire}
+                hint=""
+                isPassword={false}
+                onChangeText={handleChange_expire}
+                autoCapitalize="none"
+              />
+              {expireError ? (
+                <Text style={styles.texterror}>* expire</Text>
+              ) : (
+                <Text style={styles.texterror}> </Text>
+              )}
+              <FloatingLabelInput
+                label={"Quota"}
+                containerStyles={
+                  quotaError ? styles.textboxerror : styles.textbox
+                }
+                customLabelStyles={
+                  quotaError
+                    ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+                    : { colorFocused: "#898989", colorBlurred: "#898989" }
+                }
+                inputStyles={{
+                  color: "#000000",
+                  paddingHorizontal: 5,
+                }}
+                value={quota}
+                hint=""
+                isPassword={false}
+                onChangeText={handleChange_quota}
+                autoCapitalize="none"
+              />
+              {quotaError ? (
+                <Text style={styles.texterror}>* quota</Text>
+              ) : (
+                <Text style={styles.texterror}> </Text>
+              )}
+              <TouchableHighlight
+                style={styles.button}
+                underlayColor="none"
+                onPress={sent}
+              >
+                <View>
+                  <Text style={styles.buttonText}>Share</Text>
+                </View>
+              </TouchableHighlight>
+              <TouchableHighlight
+                style={styles.buttonbdr}
+                underlayColor="none"
+                onPress={() => Actions.pop()}
+              >
+                <View>
+                  <Text style={styles.buttonbdrText}>Cancel</Text>
+                </View>
+              </TouchableHighlight>
+            </View>
           </View>
-        </TouchableHighlight>
+        </ImageBackground>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -386,6 +427,22 @@ const styles1 = StyleSheet.create({
     height: 110,
     margin: "auto",
     //resizeMode: "stretch",
+  },
+  pic1: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.51,
+    shadowRadius: 13.16,
+    elevation: 20,
+  },
+  pic2: {
+    borderRadius: 10,
+    width: 100,
+    height: 100,
+    margin: 20,
   },
 });
 

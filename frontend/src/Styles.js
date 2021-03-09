@@ -26,6 +26,13 @@ const styles = StyleSheet.create({
     color: "#000000",
     marginBottom: 20,
   },
+  sectionTitlewoNav: {
+    fontSize: 32,
+    fontWeight: "600",
+    color: "#000000",
+    marginBottom: 20,
+    paddingTop: 32,
+  },
   sectionSubtitle: {
     fontSize: 14,
     fontWeight: "800",
@@ -43,6 +50,12 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: Colors.dark,
     textAlign: "center",
+  },
+  sectionTitleWhite: {
+    fontSize: 32,
+    fontWeight: "600",
+    color: "#FFFFFF",
+    marginBottom: 20,
   },
   footer: {
     color: Colors.dark,
@@ -149,8 +162,46 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 16,
   },
+  buttonWhite: {
+    borderWidth: 1,
+    borderColor: "#FFFFFF",
+    backgroundColor: "#FFFFFF",
+    borderRadius: 4,
+    width: "100%",
+    marginTop: 10,
+    height: 40,
+    justifyContent: "center",
+  },
+  buttonTextWhite: {
+    color: "#000000",
+    textAlign: "center",
+    fontWeight: "600",
+    fontSize: 16,
+  },
+  buttonbdrWhite: {
+    borderWidth: 1,
+    borderColor: "#FFFFFF",
+    borderRadius: 4,
+    width: "100%",
+    marginTop: 10,
+    height: 40,
+    justifyContent: "center",
+  },
+  buttonbdrTextWhite: {
+    color: "#FFFFFF",
+    textAlign: "center",
+    fontWeight: "600",
+    fontSize: 16,
+  },
   textbold: {
     fontWeight: "600",
+  },
+  pic: {
+    width: "100%",
+    height: "100%",
+    //margin: "auto",
+    justifyContent: "space-between",
+    //alignItems: "center",
   },
 
   //AccessCard Page
@@ -207,6 +258,56 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 24,
     //backgroundColor: "#00FF00",
+  },
+  accessImageContainer: {
+    paddingHorizontal: 24,
+    paddingTop: 96,
+  },
+  shareImageContainer: {
+    paddingTop: 32,
+  },
+  shareColContainer: {
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "flex-start",
+  },
+  shareCol40: {
+    width: "40%",
+    alignItems: "center",
+  },
+  shareCol60: {
+    width: "60%",
+    paddingTop: 32,
+    height: 132,
+    justifyContent: "center",
+  },
+  shareTitle: {
+    fontSize: 28,
+    fontWeight: "600",
+    color: "#FFFFFF",
+  },
+  shareSubtitle: {
+    fontSize: 14,
+    fontWeight: "400",
+    color: "#FFFFFF",
+    marginBottom: 20,
+  },
+  sharePicOuter: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.51,
+    shadowRadius: 13.16,
+    elevation: 20,
+  },
+  sharePic: {
+    borderRadius: 10,
+    width: 100,
+    height: 100,
+    margin: 20,
   },
 
   //Other page

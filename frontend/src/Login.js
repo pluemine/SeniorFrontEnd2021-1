@@ -121,7 +121,7 @@ const Login = () => {
     <View style={styles.container}>
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionSubtitle}></Text>
-        <Text style={styles.sectionTitle}>Sign In</Text>
+        <Text style={styles.sectionTitlewoNav}>Sign In</Text>
         <FloatingLabelInput
           label={"Email"}
           containerStyles={

@@ -22,18 +22,18 @@ const App = () => {
     <Router>
       <Scene key="root">
         <Scene key="home" component={Home} initial={true} hideTabBar hideNavBar />
-        <Scene key="register" component={Register} hideTabBar />
-        <Scene key="login" component={Login} hideTabBar />
+        <Scene key="register" component={Register} navTransparent={true} hideTabBar />
+        <Scene key="login" component={Login} navTransparent={true} hideTabBar />
         <Scene key="tabbar" tabs={true} tabBarStyle={{ backgroundColor: "#FFFFFF" }} hideNavBar>
-          <Scene key="homepage" title="Home" icon={TabIcon} component={Homeuser} initial={true} hideNavBar />
-          <Scene key="activity" title="Activity" icon={TabIcon} component={Activity} hideNavBar />
-          <Scene key="access" title="Access" icon={TabIcon}>
+          <Scene key="Home" icon={TabIcon} component={Homeuser} initial={true} hideNavBar />
+          <Scene key="Activity" icon={TabIcon} component={Activity} hideNavBar />
+          <Scene key="Access" icon={TabIcon}>
             <Scene key="accesshome" component={Access} initial={true} hideNavBar />
-            <Scene key="time" component={Time} />
+            <Scene key="time" component={Time} navTransparent={true} titleStyle={{color:'#FFFFFF'}} hideNavBar />
             <Scene key="share" component={Share} hideNavBar />
           </Scene>
-          <Scene key="search" title="Search" icon={TabIcon} component={Activity} hideNavBar />
-          <Scene key="other" title="Other" icon={TabIcon} component={Other} hideNavBar />
+          <Scene key="Search" icon={TabIcon} component={Activity} hideNavBar />
+          <Scene key="Other" icon={TabIcon} component={Other} hideNavBar />
         </Scene>
       </Scene>
     </Router>
