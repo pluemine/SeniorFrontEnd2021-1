@@ -25,96 +25,102 @@ import styles from "./Styles";
 const Time = (props) => {
   const { propimg, proptype, placename, address, valid, expire, time } = props;
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        style={styles1.pic}
-        source={{ uri: propimg }}
-        blurRadius={25}
-      >
-        <View style={styles.accessContainer}>
-          <View style={styles1.pic1}>
-            <Image style={styles1.pic2} source={{ uri: propimg }} />
-          </View>
-        </View>
-        <View style={styles.accessCard}>
+    <ScrollView
+      contentContainerStyle={{ flexGrow: 1, justifyContent: "space-between" }}
+    >
+      <View style={styles.container}>
+        <ImageBackground
+          style={styles1.pic}
+          source={{ uri: propimg }}
+          blurRadius={25}
+        >
           <View style={styles.accessContainer}>
-            <Text style={styles.sectionTitle}>{placename}</Text>
-            <View style={styles1.item}>
-              <View style={styles1.container}>
-                <View style={styles1.col30}>
-                  <Text style={(styles1.cardDes, styles.textbold)}>Type</Text>
-                </View>
-                <View style={styles1.col70}>
-                  <Text style={styles1.cardDes}>{proptype}</Text>
-                </View>
-              </View>
+            <View style={styles1.pic1}>
+              <Image style={styles1.pic2} source={{ uri: propimg }} />
             </View>
-            <View style={styles1.item}>
-              <View style={styles1.container}>
-                <View style={styles1.col30}>
-                  <Text style={(styles1.cardDes, styles.textbold)}>
-                    Address
-                  </Text>
-                </View>
-                <View style={styles1.col70}>
-                  <Text style={styles1.cardDes}>{address}</Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles1.item}>
-              <View style={styles1.container}>
-                <View style={styles1.col30}>
-                  <Text style={(styles1.cardDes, styles.textbold)}>Valid</Text>
-                </View>
-                <View style={styles1.col70}>
-                  <Text style={styles1.cardDes}>{valid}</Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles1.item}>
-              <View style={styles1.container}>
-                <View style={styles1.col30}>
-                  <Text style={(styles1.cardDes, styles.textbold)}>
-                    Expired
-                  </Text>
-                </View>
-                <View style={styles1.col70}>
-                  <Text style={styles1.cardDes}>{expire}</Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles1.item}>
-              <View style={styles1.container}>
-                <View style={styles1.col30}>
-                  <Text style={(styles1.cardDes, styles.textbold)}>Time</Text>
-                </View>
-                <View style={styles1.col70}>
-                  <Text style={styles1.cardDes}>{time}</Text>
-                </View>
-              </View>
-            </View>
-            <TouchableHighlight
-              style={styles.button}
-              underlayColor="none"
-              onPress={() => Actions.share()}
-            >
-              <View>
-                <Text style={styles.buttonText}>Share</Text>
-              </View>
-            </TouchableHighlight>
-            <TouchableHighlight
-              style={styles.buttonbdrRed}
-              underlayColor="none"
-              onPress={() => Actions.pop()}
-            >
-              <View>
-                <Text style={styles.buttonTextRed}>Delete</Text>
-              </View>
-            </TouchableHighlight>
           </View>
-        </View>
-      </ImageBackground>
-    </View>
+          <View style={styles.accessCard}>
+            <View style={styles.accessContainer}>
+              <Text style={styles.sectionTitle}>{placename}</Text>
+              <View style={styles1.item}>
+                <View style={styles1.container}>
+                  <View style={styles1.col30}>
+                    <Text style={(styles1.cardDes, styles.textbold)}>Type</Text>
+                  </View>
+                  <View style={styles1.col70}>
+                    <Text style={styles1.cardDes}>{proptype}</Text>
+                  </View>
+                </View>
+              </View>
+              <View style={styles1.item}>
+                <View style={styles1.container}>
+                  <View style={styles1.col30}>
+                    <Text style={(styles1.cardDes, styles.textbold)}>
+                      Address
+                    </Text>
+                  </View>
+                  <View style={styles1.col70}>
+                    <Text style={styles1.cardDes}>{address}</Text>
+                  </View>
+                </View>
+              </View>
+              <View style={styles1.item}>
+                <View style={styles1.container}>
+                  <View style={styles1.col30}>
+                    <Text style={(styles1.cardDes, styles.textbold)}>
+                      Valid
+                    </Text>
+                  </View>
+                  <View style={styles1.col70}>
+                    <Text style={styles1.cardDes}>{valid}</Text>
+                  </View>
+                </View>
+              </View>
+              <View style={styles1.item}>
+                <View style={styles1.container}>
+                  <View style={styles1.col30}>
+                    <Text style={(styles1.cardDes, styles.textbold)}>
+                      Expired
+                    </Text>
+                  </View>
+                  <View style={styles1.col70}>
+                    <Text style={styles1.cardDes}>{expire}</Text>
+                  </View>
+                </View>
+              </View>
+              <View style={styles1.item}>
+                <View style={styles1.container}>
+                  <View style={styles1.col30}>
+                    <Text style={(styles1.cardDes, styles.textbold)}>Time</Text>
+                  </View>
+                  <View style={styles1.col70}>
+                    <Text style={styles1.cardDes}>{time}</Text>
+                  </View>
+                </View>
+              </View>
+              <TouchableHighlight
+                style={styles.button}
+                underlayColor="none"
+                onPress={() => Actions.share()}
+              >
+                <View>
+                  <Text style={styles.buttonText}>Share</Text>
+                </View>
+              </TouchableHighlight>
+              <TouchableHighlight
+                style={styles.buttonbdrRed}
+                underlayColor="none"
+                onPress={() => Actions.pop()}
+              >
+                <View>
+                  <Text style={styles.buttonTextRed}>Delete</Text>
+                </View>
+              </TouchableHighlight>
+            </View>
+          </View>
+        </ImageBackground>
+      </View>
+    </ScrollView>
   );
 };
 

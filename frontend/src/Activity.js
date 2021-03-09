@@ -22,12 +22,12 @@ import styles from "./Styles";
 import axios from "axios";
 import { FloatingLabelInput } from "react-native-floating-label-input";
 
-const Payment = () => {
+const Activity = () => {
   return (
     <View style={styles.container}>
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionSubtitle}></Text>
-        <Text style={styles.sectionTitle}>Payment</Text>
+        <Text style={styles.sectionTitle}>Activity</Text>
       </View>
     </View>
   );
@@ -35,4 +35,4 @@ const Payment = () => {
 
 const styles1 = StyleSheet.create({});
 
-export default Payment;
+export default Activity;

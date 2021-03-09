@@ -9,7 +9,7 @@ import Homeuser from "./Homeuser";
 import Time from "./Time";
 import Share from "./Share";
 import Other from "./Other";
-import Payment from "./Payment";
+import Activity from "./Activity";
 import Access from "./Access";
 
 // Simple component to render something in place of icon
@@ -26,13 +26,13 @@ const App = () => {
         <Scene key="login" component={Login} hideTabBar />
         <Scene key="tabbar" tabs={true} tabBarStyle={{ backgroundColor: "#FFFFFF" }} hideNavBar>
           <Scene key="homepage" title="Home" icon={TabIcon} component={Homeuser} initial={true} hideNavBar />
-          <Scene key="car" title="Car" icon={TabIcon} component={Payment} hideNavBar />
+          <Scene key="activity" title="Activity" icon={TabIcon} component={Activity} hideNavBar />
           <Scene key="access" title="Access" icon={TabIcon}>
             <Scene key="accesshome" component={Access} initial={true} hideNavBar />
             <Scene key="time" component={Time} />
             <Scene key="share" component={Share} hideNavBar />
           </Scene>
-          <Scene key="payment" title="Payment" icon={TabIcon} component={Payment} hideNavBar />
+          <Scene key="search" title="Search" icon={TabIcon} component={Activity} hideNavBar />
           <Scene key="other" title="Other" icon={TabIcon} component={Other} hideNavBar />
         </Scene>
       </Scene>

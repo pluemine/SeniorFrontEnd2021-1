@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 32,
     fontWeight: "600",
-    color: Colors.black,
+    color: "#000000",
     marginBottom: 20,
   },
   sectionSubtitle: {
@@ -200,15 +200,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
-    backgroundColor: "rgba(255,255,255,0.92)",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    backgroundColor: "#FFFFFF",
   },
   accessContainer: {
     paddingHorizontal: 24,
@@ -220,7 +212,7 @@ const styles = StyleSheet.create({
   otherAvatar: {
     width: 100,
     height: 100,
-    borderRadius: 50,
+    borderRadius: 100,
     resizeMode: "stretch",
   },
   otherCenterBlock: {
@@ -228,19 +220,22 @@ const styles = StyleSheet.create({
   },
   otherTitle: {
     marginTop: 10,
-    fontSize: 18,
+    //fontSize: 18,
+    fontSize: 20,
     fontWeight: "600",
     textAlign: "center",
+    color: "#FFFFFF",
   },
   otherDes: {
     fontSize: 12,
     fontWeight: "400",
-    color: "#444444",
+    //color: "#444444",
+    color: "#FFFFFF",
     textAlign: "center",
   },
   otherMenuBlock: {
-    marginTop: 15,
-    marginBottom: 15,
+    //marginTop: 15,
+    //marginBottom: 15,
   },
   otherMenuTitle: {
     fontSize: 15,
@@ -264,13 +259,11 @@ const styles = StyleSheet.create({
   },
   otherMenu: {
     marginVertical: 15,
-    paddingHorizontal: 15,
-    borderRadius: 4,
+    //paddingHorizontal: 15,
   },
   otherMenuRed: {
     marginVertical: 15,
-    paddingHorizontal: 15,
-    borderRadius: 4,
+    //paddingHorizontal: 15,
   },
 });
 
