@@ -32,7 +32,7 @@ const Other = () => {
         <View style={styles.otherCenterBlock}>
           <Image
             style={styles.otherAvatar}
-            source={require("../assets/logo.png")}
+            source={require("../assets/avatar.jpg")}
           />
         </View>
         <Text style={styles.otherTitle}>Firstname Lastname</Text>

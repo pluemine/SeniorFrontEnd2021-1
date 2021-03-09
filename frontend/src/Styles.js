@@ -220,6 +220,7 @@ const styles = StyleSheet.create({
   otherAvatar: {
     width: 100,
     height: 100,
+    borderRadius: 50,
     resizeMode: "stretch",
   },
   otherCenterBlock: {
