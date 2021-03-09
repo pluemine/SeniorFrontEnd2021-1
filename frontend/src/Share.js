@@ -122,7 +122,7 @@ const Share = () => {
 
   const shareAccess = async () => {
     axios
-      .post(`http://localhost:4000/v1/uapi/share`, {
+      .post(`http://localhost:4000/v1/pamapi/share`, {
         email: email,
         license_plate_category: category,
         license_plate_number: number,
