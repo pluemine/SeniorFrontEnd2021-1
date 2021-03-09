@@ -110,7 +110,7 @@ const Access = () => {
             </TouchableHighlight>
           </View>
         </View>
-        <View style={{ marginTop: 72 }}>
+        <View style={{ marginTop: 56 }}>
           <TouchableHighlight
             style={styles.button}
             underlayColor="none"
