@@ -60,7 +60,7 @@ const Other = () => {
               </TouchableHighlight>
               <View
                 style={{
-                  borderBottomColor: "#C4C4C4",
+                  borderBottomColor: "#EEEEEE",
                   borderBottomWidth: 1,
                 }}
               />
@@ -74,7 +74,7 @@ const Other = () => {
               </TouchableHighlight>
               <View
                 style={{
-                  borderBottomColor: "#C4C4C4",
+                  borderBottomColor: "#EEEEEE",
                   borderBottomWidth: 1,
                 }}
               />
@@ -88,7 +88,7 @@ const Other = () => {
               </TouchableHighlight>
               <View
                 style={{
-                  borderBottomColor: "#C4C4C4",
+                  borderBottomColor: "#EEEEEE",
                   borderBottomWidth: 1,
                 }}
               />
@@ -102,7 +102,7 @@ const Other = () => {
               </TouchableHighlight>
               <View
                 style={{
-                  borderBottomColor: "#C4C4C4",
+                  borderBottomColor: "#EEEEEE",
                   borderBottomWidth: 1,
                 }}
               />
@@ -114,7 +114,7 @@ const Other = () => {
               </TouchableHighlight>
               <View
                 style={{
-                  borderBottomColor: "#C4C4C4",
+                  borderBottomColor: "#EEEEEE",
                   borderBottomWidth: 1,
                 }}
               />
@@ -123,7 +123,7 @@ const Other = () => {
           <View style={styles.accessContainer}>
             <View
               style={{
-                borderBottomColor: "#C4C4C4",
+                borderBottomColor: "#EEEEEE",
                 borderBottomWidth: 1,
               }}
             />
