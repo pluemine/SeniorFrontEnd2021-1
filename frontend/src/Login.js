@@ -63,7 +63,7 @@ const Login = () => {
     await SecureStore.setItemAsync(key, value);
   }
 
-   const getSecureStoreItem = async (key) => {
+  const getSecureStoreItem = async (key) => {
     return await SecureStore.getItemAsync(key)
   }
 
@@ -73,7 +73,7 @@ const Login = () => {
         email: email,
         password: password,
       })
-      .then( async (res) => {
+      .then(async (res) => {
         if (res.data.status === "OK") {
           saveSecureStoreItem("pms_token", res.data.data.token)
           alert(await getSecureStoreItem("pms_token"))
@@ -81,6 +81,8 @@ const Login = () => {
         } else {
           setFail(true);
         }
+      }).catch(error => {
+        throw error
       });
   };
 
@@ -164,7 +166,8 @@ const Login = () => {
             paddingHorizontal: 5,
           }}
           value={password}
-          isPassword={false}
+          isPassword={true}
+          secureTextEntry={true}
           autoCompleteType={"off"}
           onChangeText={handleChange_password}
           autoCapitalize="none"

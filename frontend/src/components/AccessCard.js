@@ -57,10 +57,10 @@ const AccessCard = (props) => {
           <View style={styles1.col60_flex}>
             {/* <Text style={styles.cardSubtitle}>{proptype}</Text> */}
             <Text style={{ ...styles.cardHeader }}>{placename}</Text>
-            <Text style={styles.cardDes}>
+            {/* <Text style={styles.cardDes}>
               <Text style={styles.textbold}>Address </Text>
               {address}
-            </Text>
+            </Text> */}
             <Text style={styles.cardDes}>
               <Text style={styles.textbold}>Valid </Text>
               {valid}

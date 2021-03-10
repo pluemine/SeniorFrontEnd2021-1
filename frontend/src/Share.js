@@ -129,10 +129,10 @@ const Share = (props) => {
         email: email,
         license_plate_category: category,
         license_plate_number: number,
-        province_id: "1",
-        property_id: "2",
-        valid_date_time: "null",
-        expired_date_time: "null",
+        province_id: 1,
+        property_id: 2,
+        valid_date_time: null,
+        expired_date_time: null,
         usage_counts: 100,
         mins_per_usage: 120,
         share_qouta: 5,
@@ -143,9 +143,14 @@ const Share = (props) => {
         console.log(res);
         console.log(res.data);
         if (res.data.status === "OK") {
-          console.warn("OK");
-          Actions.login();
+          alert("Access was shared!")
+          Actions.Access();
         }
+      }).catch(error => {
+        if (res.data.status === 'FAILED') {
+          alert("Email or License Plate Does not exist")
+        }
+        throw error
       });
   };
 
