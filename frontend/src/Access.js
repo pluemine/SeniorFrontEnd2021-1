@@ -88,7 +88,7 @@ const Access = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.sectionContainer}>
+      <ScrollView style={styles.sectionContainer}>
         <Text style={styles.sectionSubtitle}></Text>
         <Text style={styles.sectionTitle}>Access</Text>
         <View style={styles.containerRow}>
@@ -110,7 +110,7 @@ const Access = () => {
             </TouchableHighlight>
           </View>
         </View>
-        <View style={{ marginTop: 56 }}>
+        <View style={{ marginTop: 8 }}>
           <TouchableHighlight
             style={styles.button}
             underlayColor="none"
@@ -140,7 +140,7 @@ const Access = () => {
             );
           })}
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };

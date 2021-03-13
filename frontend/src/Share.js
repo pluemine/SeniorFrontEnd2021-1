@@ -17,11 +17,13 @@ import {
   StatusBar,
   Button,
   TouchableHighlight,
+  TouchableOpacity,
   Image,
   ImageBackground,
 } from "react-native";
 import styles from "./Styles";
 import axios from "axios";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { FloatingLabelInput } from "react-native-floating-label-input";
 
 const Share = (props) => {
@@ -31,8 +33,8 @@ const Share = (props) => {
   const [category, setCategory] = useState("");
   const [number, setNumber] = useState("");
   const [province, setProvince] = useState("");
-  const [valid, setValid] = useState("");
-  const [expire, setExpire] = useState("");
+  const [valid, setValid] = useState(new Date());
+  const [expire, setExpire] = useState(new Date());
   const [quota, setQuota] = useState("");
 
   const [emailError, setEmailError] = useState(false);
@@ -42,6 +44,9 @@ const Share = (props) => {
   const [validError, setValidError] = useState(false);
   const [expireError, setExpireError] = useState(false);
   const [quotaError, setQuotaError] = useState(false);
+
+  const [isValidPickerVisible, setValidPickerVisibility] = useState(false);
+  const [isExpirePickerVisible, setExpirePickerVisibility] = useState(false);
 
   const handleChange_email = (event) => {
     setEmail(event);
@@ -94,6 +99,10 @@ const Share = (props) => {
     if (quota === "") {
       setQuotaError(true);
     }
+    if (expire < valid) {
+      setValidError(true);
+      setExpireError(true);
+    }
     if (!isEmailValid()) {
       console.warn("Invalid Email");
       setEmailError(true);
@@ -123,6 +132,25 @@ const Share = (props) => {
     }
   };
 
+  function dateTime(date) {
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+    if (parseInt(day) - 10 >= 0) {
+      if (parseInt(month) - 10 >= 0) {
+        return "" + year + "-" + month + "-" + day;
+      } else {
+        return "" + year + "-0" + month + "-" + day;
+      }
+    } else {
+      if (parseInt(month) - 10 >= 0) {
+        return "" + year + "-" + month + "-0" + day;
+      } else {
+        return "" + year + "-0" + month + "-0" + day;
+      }
+    }
+  }
+
   const shareAccess = async () => {
     axios
       .post(`http://localhost:4000/v1/pamapi/share`, {
@@ -143,20 +171,58 @@ const Share = (props) => {
         console.log(res);
         console.log(res.data);
         if (res.data.status === "OK") {
-          alert("Access was shared!")
-          Actions.Access();
+          alert("Access was shared!");
+          Actions.popTo("accesshome");
         }
-      }).catch(error => {
-        if (res.data.status === 'FAILED') {
-          alert("Email or License Plate Does not exist")
+      })
+      .catch((error) => {
+        if (res.data.status === "FAILED") {
+          alert("Email or License Plate Does not exist");
         }
-        throw error
+        throw error;
       });
   };
 
   const isEmailValid = () => {
     let pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return pattern.test(String(email).toLowerCase());
+  };
+
+  const showValidPicker = () => {
+    setValidPickerVisibility(true);
+  };
+  const hideValidPicker = () => {
+    setValidPickerVisibility(false);
+  };
+  const handleValidConfirm = (date) => {
+    setValid(date);
+    hideValidPicker();
+    if (expire < date) {
+      setValidError(true);
+      setExpireError(true);
+    }
+    else {
+      setValidError(false);
+      setExpireError(false);
+    }
+  };
+  const showExpirePicker = () => {
+    setExpirePickerVisibility(true);
+  };
+  const hideExpirePicker = () => {
+    setExpirePickerVisibility(false);
+  };
+  const handleExpireConfirm = (date) => {
+    setExpire(date);
+    hideExpirePicker();
+    if (date < valid) {
+      setValidError(true);
+      setExpireError(true);
+    }
+    else {
+      setValidError(false);
+      setExpireError(false);
+    }
   };
 
   return (
@@ -229,6 +295,7 @@ const Share = (props) => {
                 isPassword={false}
                 onChangeText={handleChange_category}
                 autoCapitalize="none"
+                autoCorrect={false}
               />
               {categoryError ? (
                 <Text style={styles.texterror}>* Category</Text>
@@ -251,6 +318,7 @@ const Share = (props) => {
                 }}
                 value={number}
                 hint="9999"
+                mask="9999"
                 isPassword={false}
                 keyboardType="numeric"
                 onChangeText={handleChange_number}
@@ -286,50 +354,79 @@ const Share = (props) => {
               ) : (
                 <Text style={styles.texterror}> </Text>
               )}
-              <FloatingLabelInput
-                label={"Valid"}
-                containerStyles={
-                  validError ? styles.textboxerror : styles.textbox
-                }
-                customLabelStyles={
-                  validError
-                    ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-                    : { colorFocused: "#898989", colorBlurred: "#898989" }
-                }
-                inputStyles={{
-                  color: "#000000",
-                  paddingHorizontal: 5,
+
+              <TouchableOpacity onPress={showValidPicker}>
+                <View pointerEvents="none">
+                  <FloatingLabelInput
+                    label={"Valid"}
+                    containerStyles={
+                      validError ? styles.textboxerror : styles.textbox
+                    }
+                    customLabelStyles={
+                      validError
+                        ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+                        : { colorFocused: "#898989", colorBlurred: "#898989" }
+                    }
+                    inputStyles={{
+                      color: "#000000",
+                      paddingHorizontal: 5,
+                    }}
+                    value={dateTime(valid)}
+                    isPassword={false}
+                    editable={false}
+                  />
+                </View>
+              </TouchableOpacity>
+              <DateTimePickerModal
+                isVisible={isValidPickerVisible}
+                date={valid}
+                mode="date"
+                placeholder="select date"
+                format="DD-MM-YYYY"
+                onConfirm={handleValidConfirm}
+                onCancel={hideValidPicker}
+                onDateChange={(valid) => {
+                  setValid(valid);
                 }}
-                value={valid}
-                hint=""
-                isPassword={false}
-                onChangeText={handleChange_valid}
-                autoCapitalize="none"
               />
               {validError ? (
                 <Text style={styles.texterror}>* valid</Text>
               ) : (
                 <Text style={styles.texterror}> </Text>
               )}
-              <FloatingLabelInput
-                label={"Expire"}
-                containerStyles={
-                  expireError ? styles.textboxerror : styles.textbox
-                }
-                customLabelStyles={
-                  expireError
-                    ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-                    : { colorFocused: "#898989", colorBlurred: "#898989" }
-                }
-                inputStyles={{
-                  color: "#000000",
-                  paddingHorizontal: 5,
+              <TouchableOpacity onPress={showExpirePicker}>
+                <View pointerEvents="none">
+                  <FloatingLabelInput
+                    label={"Expire"}
+                    containerStyles={
+                      expireError ? styles.textboxerror : styles.textbox
+                    }
+                    customLabelStyles={
+                      expireError
+                        ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+                        : { colorFocused: "#898989", colorBlurred: "#898989" }
+                    }
+                    inputStyles={{
+                      color: "#000000",
+                      paddingHorizontal: 5,
+                    }}
+                    value={dateTime(expire)}
+                    isPassword={false}
+                    editable={false}
+                  />
+                </View>
+              </TouchableOpacity>
+              <DateTimePickerModal
+                isVisible={isExpirePickerVisible}
+                date={expire}
+                mode="date"
+                placeholder="select date"
+                format="DD-MM-YYYY"
+                onConfirm={handleExpireConfirm}
+                onCancel={hideExpirePicker}
+                onDateChange={(expire) => {
+                  setExpire(expire);
                 }}
-                value={expire}
-                hint=""
-                isPassword={false}
-                onChangeText={handleChange_expire}
-                autoCapitalize="none"
               />
               {expireError ? (
                 <Text style={styles.texterror}>* expire</Text>
@@ -353,6 +450,7 @@ const Share = (props) => {
                 value={quota}
                 hint=""
                 isPassword={false}
+                keyboardType="numeric"
                 onChangeText={handleChange_quota}
                 autoCapitalize="none"
               />

@@ -240,8 +240,8 @@ const Register = () => {
             paddingHorizontal: 5,
           }}
           value={password}
-          isPassword={true}
-          secureTextEntry={true}
+          isPassword={false}
+          secureTextEntry={false}
           autoCompleteType={"off"}
           onChangeText={handleChange_password}
           autoCapitalize="none"
@@ -266,8 +266,8 @@ const Register = () => {
             paddingHorizontal: 5,
           }}
           value={confirm}
-          isPassword={true}
-          secureTextEntry={true}
+          isPassword={false}
+          secureTextEntry={false}
           autoCompleteType={"off"}
           onChangeText={handleChange_confirm}
           autoCapitalize="none"
