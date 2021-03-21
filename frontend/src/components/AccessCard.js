@@ -44,7 +44,11 @@ const AccessCard = (props) => {
     >
       <View style={styles1.container}>
         <View style={styles1.col40}>
-          <Image style={styles1.pic} source={{ uri: propimg }} resizeMode="cover" />
+          <Image
+            style={styles1.pic}
+            source={{ uri: propimg }}
+            resizeMode="cover"
+          />
           <View style={styles1.property_type_badge}>
             <Text style={styles1.property_type_badge_text}>{proptype}</Text>
           </View>
@@ -52,11 +56,11 @@ const AccessCard = (props) => {
         <View style={styles1.col60}>
           <View style={styles1.col60_flex}>
             {/* <Text style={styles.cardSubtitle}>{proptype}</Text> */}
-            <Text style={{...styles.cardHeader, color: "#f49608"}}>{placename}</Text>
-            <Text style={styles.cardDes}>
+            <Text style={{ ...styles.cardHeader }}>{placename}</Text>
+            {/* <Text style={styles.cardDes}>
               <Text style={styles.textbold}>Address </Text>
               {address}
-            </Text>
+            </Text> */}
             <Text style={styles.cardDes}>
               <Text style={styles.textbold}>Valid </Text>
               {valid}
@@ -121,7 +125,7 @@ const styles1 = StyleSheet.create({
     backgroundColor: "rgba(244, 150, 8, 0.8)",
     borderRadius: 5,
     padding: 3,
-    textAlign: "center"
+    textAlign: "center",
   },
   property_type_badge_text: {
     fontSize: 10,
@@ -134,7 +138,15 @@ const styles1 = StyleSheet.create({
     height: "100%",
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
-    overflow: 'hidden'
+    overflow: "hidden",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
   },
   col50: {
     width: "50%",
@@ -146,7 +158,7 @@ const styles1 = StyleSheet.create({
     alignItems: "center",
     width: "60%",
     height: "100%",
-    overflow: "scroll"
+    overflow: "scroll",
     // padding: 10,
   },
   col60_flex: {
@@ -154,7 +166,9 @@ const styles1 = StyleSheet.create({
     justifyContent: "center",
     flexWrap: "wrap",
     alignItems: "flex-start",
-    height: "100%"
+    height: "100%",
+    width: "100%",
+    paddingHorizontal: 20,
   },
   pic: {
     width: "100%",

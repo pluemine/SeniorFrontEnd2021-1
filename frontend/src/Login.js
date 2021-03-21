@@ -52,10 +52,9 @@ const Login = () => {
   //Delete this test() after deployed
   const test = () => {
     console.warn(email, password);
-    if (email === "Pluem@gmail.com" && password === "12345678") {
-      Actions.homeuser();
-    }
-    else {
+    if (email === "pluem@gmail.com" && password === "12345678") {
+      Actions.tabbar();
+    } else {
       setFail(true);
     }
   };
@@ -64,25 +63,26 @@ const Login = () => {
     await SecureStore.setItemAsync(key, value);
   }
 
-   const getSecureStoreItem = async (key) => {
+  const getSecureStoreItem = async (key) => {
     return await SecureStore.getItemAsync(key)
   }
 
   const userLogin = async () => {
     axios
-      .post(`http://localhost:4000/v1/uapi/login`, {
+      .post(`http://localhost:4000/public/uapi/login`, {
         email: email,
         password: password,
       })
-      .then( async (res) => {
+      .then(async (res) => {
         if (res.data.status === "OK") {
           saveSecureStoreItem("pms_token", res.data.data.token)
           alert(await getSecureStoreItem("pms_token"))
-          Actions.homeuser();
-        }
-        else {
+          Actions.tabbar();
+        } else {
           setFail(true);
         }
+      }).catch(error => {
+        throw error
       });
   };
 
@@ -120,67 +120,74 @@ const Login = () => {
   }
 
   return (
-    <View style={styles.body}>
+    <View style={styles.container}>
       <View style={styles.sectionContainer}>
-        <View style={styles.mainarea}>
-          <Text style={styles.sectionSubtitle}>WELCOME</Text>
-          <Text style={styles.sectionTitle}>Sign In</Text>
-          <FloatingLabelInput
-            label={"Email"}
-            containerStyles={
-              emailError || fail ? styles.textboxerror : styles.textbox
-            }
-            customLabelStyles={
-              emailError || fail
-                ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-                : { colorFocused: "#898989", colorBlurred: "#898989" }
-            }
-            inputStyles={{
-              color: "#000000",
-              paddingHorizontal: 5,
-            }}
-            value={email}
-            hint="example@address.com"
-            isPassword={false}
-            onChangeText={handleChange_email}
-          />
-          {emailError ? (
-            <Text style={styles.texterror}>
-              * Please enter a valid email address.
-            </Text>
-          ) : (
-              <Text style={styles.texterror}> </Text>
-            )}
-          <FloatingLabelInput
-            label={"Password"}
-            containerStyles={
-              passwordError || fail ? styles.textboxerror : styles.textbox
-            }
-            customLabelStyles={
-              passwordError || fail
-                ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-                : { colorFocused: "#898989", colorBlurred: "#898989" }
-            }
-            inputStyles={{
-              color: "#000000",
-              paddingHorizontal: 5,
-            }}
-            value={password}
-            isPassword={false}
-            autoCompleteType={"off"}
-            onChangeText={handleChange_password}
-          />
-          {passwordError || fail ? (
-            <Text style={styles.texterror}>{loginStatus()}</Text>
-          ) : (
-              <Text style={styles.texterror}> </Text>
-            )}
-          <Text style={styles.sectionDescription}></Text>
-          <TouchableHighlight style={styles.button}>
-            <Button color="#FFFFFF" title="Sign In" onPress={sent} />
-          </TouchableHighlight>
-          <Text style={styles.sectionOption}>Forgot Password</Text>
-        </View>
+        <Text style={styles.sectionSubtitle}></Text>
+        <Text style={styles.sectionTitlewoNav}>Sign In</Text>
+        <FloatingLabelInput
+          label={"Email"}
+          containerStyles={
+            emailError || fail ? styles.textboxerror : styles.textbox
+          }
+          customLabelStyles={
+            emailError || fail
+              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+              : { colorFocused: "#898989", colorBlurred: "#898989" }
+          }
+          inputStyles={{
+            color: "#000000",
+            paddingHorizontal: 5,
+          }}
+          value={email}
+          hint="example@address.com"
+          isPassword={false}
+          onChangeText={handleChange_email}
+          autoCapitalize="none"
+        />
+        {emailError ? (
+          <Text style={styles.texterror}>
+            * Please enter a valid email address.
+          </Text>
+        ) : (
+          <Text style={styles.texterror}> </Text>
+        )}
+        <FloatingLabelInput
+          label={"Password"}
+          containerStyles={
+            passwordError || fail ? styles.textboxerror : styles.textbox
+          }
+          customLabelStyles={
+            passwordError || fail
+              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
+              : { colorFocused: "#898989", colorBlurred: "#898989" }
+          }
+          inputStyles={{
+            color: "#000000",
+            paddingHorizontal: 5,
+          }}
+          value={password}
+          isPassword={true}
+          secureTextEntry={true}
+          autoCompleteType={"off"}
+          onChangeText={handleChange_password}
+          autoCapitalize="none"
+        />
+        {passwordError || fail ? (
+          <Text style={styles.texterror}>{loginStatus()}</Text>
+        ) : (
+          <Text style={styles.texterror}> </Text>
+        )}
+        <Text style={styles.sectionDescription}></Text>
+        <TouchableHighlight
+          style={styles.button}
+          underlayColor="none"
+          onPress={sent}
+        >
+          <View>
+            <Text style={styles.buttonText}>Sign In</Text>
+          </View>
+        </TouchableHighlight>
+        <Text style={styles.sectionOption}>Forgot Password</Text>
       </View>
     </View>
   );

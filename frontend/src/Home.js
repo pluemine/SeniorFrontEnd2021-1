@@ -18,44 +18,48 @@ import {
   Button,
   TouchableHighlight,
   Image,
+  ImageBackground,
 } from "react-native";
 import styles from "./Styles";
 
 const Home = () => {
   return (
-    <View style={styles.body}>
+    <View style={styles.container}>
+      <ImageBackground
+          style={styles.pic}
+          source={require("../assets/main.jpg")}
+          blurRadius={25}
+        >
       <View style={styles.sectionContainer}>
-        <View style={styles.mainarea}>
-          <Text style={styles.sectionSubtitle}>BRAND NAME</Text>
-          <Text style={styles.sectionTitle}>Welcome</Text>
-          <View style={styles1.content}>
-            <Image
-              style={styles1.logo}
-              source={require("../assets/logo.png")}
-            />
-          </View>
-          <Text style={styles1.texthead}>
-              Getting Started
-          </Text>
-          <Text style={styles1.textdes}>
-              To continue, please sign in to the system or if you don't have any account, you can create your own account.
-          </Text>
-          <TouchableHighlight style={styles.buttonhome}>
-            <Button
-              color="#FFFFFF"
-              title="Sign In"
-              onPress={() => Actions.login()}
-            />
-          </TouchableHighlight>
-          <TouchableHighlight style={styles.buttonhomebdr}>
-            <Button
-              color="#444444"
-              title="Register"
-              onPress={() => Actions.register()}
-            />
-          </TouchableHighlight>
-        </View>
+        <Text style={styles.sectionSubtitle}></Text>
+        <Text style={styles.sectionTitle}></Text>
       </View>
+      <View style={styles.sectionContainer}>
+        <Text style={styles1.texthead}>Getting Started</Text>
+        <Text style={styles1.textdes}>
+          To continue, please sign in to the system or if you don't have any
+          account, you can create your own account.
+        </Text>
+        <TouchableHighlight
+          style={styles.buttonWhite}
+          underlayColor="none"
+          onPress={() => Actions.login()}
+        >
+          <View>
+            <Text style={styles.buttonTextWhite}>Sign In</Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight
+          style={styles.buttonbdrWhite}
+          underlayColor="none"
+          onPress={() => Actions.register()}
+        >
+          <View>
+            <Text style={styles.buttonbdrTextWhite}>Create Account</Text>
+          </View>
+        </TouchableHighlight>
+      </View>
+      </ImageBackground>
     </View>
   );
 };
@@ -65,24 +69,25 @@ const styles1 = StyleSheet.create({
     width: 300,
     height: 300,
     resizeMode: "stretch",
-    margin: 50,
   },
   content: {
     justifyContent: "center",
     alignItems: "center",
   },
   texthead: {
-    color: "#444444",
+    //color: "#444444",
+    color: "#FFFFFF",
     fontWeight: "800",
     textAlign: "center",
     marginBottom: 10,
   },
   textdes: {
-      color: "#444444",
-      textAlign: "center",
-      fontSize: 12,
-      marginBottom: 40,
-  }
+    //color: "#444444",
+    color: "#FFFFFF",
+    textAlign: "center",
+    fontSize: 12,
+    marginBottom: 40,
+  },
 });
 
 export default Home;
