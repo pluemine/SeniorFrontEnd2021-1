@@ -69,7 +69,7 @@ const Login = () => {
 
   const userLogin = async () => {
     axios
-      .post(`http://localhost:4000/v1/uapi/login`, {
+      .post(`http://localhost:4000/public/uapi/login`, {
         email: email,
         password: password,
       })

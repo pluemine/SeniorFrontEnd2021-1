@@ -170,7 +170,7 @@ const Register = () => {
 
   const createUser = async () => {
     axios
-      .post(`http://localhost:4000/v1/uapi`, {
+      .post(`http://localhost:4000/public/uapi`, {
         email: email,
         firstname: firstname,
         lastname: lastname,

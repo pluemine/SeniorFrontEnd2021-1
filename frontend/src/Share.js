@@ -1,4 +1,5 @@
 import React, { Component, useState } from "react";
+import * as SecureStore from 'expo-secure-store';
 import { Actions } from "react-native-router-flux";
 import {
   Header,
@@ -152,8 +153,15 @@ const Share = (props) => {
   }
 
   const shareAccess = async () => {
+    const token = await SecureStore.getItemAsync("pms_token");
     axios
+<<<<<<< HEAD
+      .post(`http://localhost:4000/auth/pamapi/share`, {
+||||||| 182166b
+      .post(`http://localhost:4000/v1/uapi/share`, {
+=======
       .post(`http://localhost:4000/v1/pamapi/share`, {
+>>>>>>> 526ee6efa8aafa3a7595bb2da5debe6f63993c6d
         email: email,
         license_plate_category: category,
         license_plate_number: number,
@@ -166,7 +174,7 @@ const Share = (props) => {
         share_qouta: 5,
         is_charged_provider: false,
         is_sharable: false,
-      })
+      }, {headers: {'Authorization': `Bearer ${token}`}})
       .then((res) => {
         console.log(res);
         console.log(res.data);
