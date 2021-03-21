@@ -1,13 +1,13 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component, useState, useEffect } from 'react';
 import * as SecureStore from 'expo-secure-store';
-import { Actions } from "react-native-router-flux";
+import { Actions } from 'react-native-router-flux';
 import {
   Header,
   LearnMoreLinks,
   Colors,
   DebugInstructions,
   ReloadInstructions,
-} from "react-native/Libraries/NewAppScreen";
+} from 'react-native/Libraries/NewAppScreen';
 import {
   SafeAreaView,
   StyleSheet,
@@ -19,53 +19,56 @@ import {
   Button,
   TouchableHighlight,
   Image,
-} from "react-native";
-import { Router, Scene } from "react-native-router-flux";
+} from 'react-native';
+import { Router, Scene } from 'react-native-router-flux';
 
-import Register from "./Register";
-import Login from "./Login";
-import Home from "./Home";
-import AccessCard from "./components/AccessCard";
+import Register from './Register';
+import Login from './Login';
+import Home from './Home';
+import AccessCard from './components/AccessCard';
 
-import styles from "./Styles";
-import axios from "axios";
+import styles from './Styles';
+import axios from 'axios';
 
 const TabIcon = ({ selected, title }) => {
-  return <Text style={{ color: selected ? "red" : "black" }}>{title}</Text>;
+  return <Text style={{ color: selected ? 'red' : 'black' }}>{title}</Text>;
 };
 
 const Access = () => {
   const [accesses, setAccesses] = useState([]);
 
   const getSecureStoreItem = async (key) => {
-    return await SecureStore.getItemAsync(key)
-  }
+    return await SecureStore.getItemAsync(key);
+  };
 
   useEffect(() => {
     const getAccess = async () => {
-      const token = await SecureStore.getItemAsync("pms_token");
-      axios.get(`http://localhost:4000/auth/pamapi`, {headers: {'Authorization': `Bearer ${token}`}}).then((res) => {
-        setAccesses(res.data.data.accesses);
-      });
+      const token = await SecureStore.getItemAsync('pms_token');
+      axios
+        .get(`http://localhost:4000/auth/pamapi`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          setAccesses(res.data.data.accesses);
+        });
     };
-    getAccess()
-    
+    getAccess();
   }, []);
 
   function dateTime(date_time) {
     const monthNames = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
     ];
     var date = new Date(date_time);
     var day = date.getDate();
@@ -75,23 +78,23 @@ const Access = () => {
     var minutes = date.getMinutes();
     if (parseInt(minutes) - 10 >= 0) {
       //return hours + ":" + minutes + " " + monthNames[month] + " " + day + ", " + year;
-      return monthNames[month] + " " + day + ", " + year;
+      return monthNames[month] + ' ' + day + ', ' + year;
     } else {
       //return hours + ":0" + minutes +" " + monthNames[month] + " " + day + ", " + year;
-      return monthNames[month] + " " + day + ", " + year;
+      return monthNames[month] + ' ' + day + ', ' + year;
     }
   }
 
   function propTypeName(prop) {
-    const proptype = ["Home", "Supermarket", "Condominium", "Public"];
+    const proptype = ['Home', 'Supermarket', 'Condominium', 'Public'];
     return proptype[prop];
   }
 
   function mintoH(min) {
     if (min / 60 > 1) {
-      return min / 60 + " Hours";
+      return min / 60 + ' Hours';
     } else {
-      return min / 60 + " Hour";
+      return min / 60 + ' Hour';
     }
   }
 
@@ -104,14 +107,14 @@ const Access = () => {
           <View style={styles.accessSearchItem1}>
             <TextInput
               style={styles.textbox}
-              placeholder={"Search by place name"}
-              placeholderTextColor={"#898989"}
+              placeholder={'Search by place name'}
+              placeholderTextColor={'#898989'}
             />
           </View>
           <View style={styles.accessSearchItem2}>
             <TouchableHighlight
               style={styles.buttonfilter}
-              underlayColor="none"
+              underlayColor='none'
             >
               <View>
                 <Text style={styles.buttonbdrText}>Filter</Text>
@@ -122,7 +125,7 @@ const Access = () => {
         <View style={{ marginTop: 8 }}>
           <TouchableHighlight
             style={styles.button}
-            underlayColor="none"
+            underlayColor='none'
             onPress={() => Actions.time()}
           >
             <View>
@@ -137,7 +140,7 @@ const Access = () => {
 
             return (
               <AccessCard
-                key={"accesscard" + index}
+                key={'accesscard' + index}
                 propimg={access.property_img}
                 proptype={proptype}
                 placename={access.property_name}
