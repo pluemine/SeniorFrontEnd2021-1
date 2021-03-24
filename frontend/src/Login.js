@@ -1,13 +1,13 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
-import { Actions } from "react-native-router-flux";
+import { Actions } from 'react-native-router-flux';
 import {
   Header,
   LearnMoreLinks,
   Colors,
   DebugInstructions,
   ReloadInstructions,
-} from "react-native/Libraries/NewAppScreen";
+} from 'react-native/Libraries/NewAppScreen';
 import {
   SafeAreaView,
   StyleSheet,
@@ -18,16 +18,16 @@ import {
   StatusBar,
   Button,
   TouchableHighlight,
-} from "react-native";
-import styles from "./Styles";
-import axios from "axios";
-import { FloatingLabelInput } from "react-native-floating-label-input";
-import BlackScreen from "../app/BlackScreen";
-import Gateway from "./Gateway";
+} from 'react-native';
+import styles from './Styles';
+import axios from 'axios';
+import { FloatingLabelInput } from 'react-native-floating-label-input';
+import BlackScreen from '../app/BlackScreen';
+import Gateway from './Gateway';
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
@@ -53,7 +53,7 @@ const Login = () => {
   //Delete this test() after deployed
   const test = () => {
     console.warn(email, password);
-    if (email === "pluem@gmail.com" && password === "12345678") {
+    if (email === 'pluem@gmail.com' && password === '12345678') {
       Actions.tabbar();
     } else {
       setFail(true);
@@ -62,44 +62,45 @@ const Login = () => {
 
   const saveSecureStoreItem = async (key, value) => {
     await SecureStore.setItemAsync(key, value);
-  }
+  };
 
   const getSecureStoreItem = async (key) => {
-    return await SecureStore.getItemAsync(key)
-  }
+    return await SecureStore.getItemAsync(key);
+  };
 
   const userLogin = async () => {
     axios
-      .post(`http://localhost:4000/uapi/login`, {
+      .post(`http://localhost:4000/public/uapi/login`, {
         email: email,
         password: password,
       })
       .then(async (res) => {
-        if (res.data.status === "OK") {
-          saveSecureStoreItem("pms_token", res.data.data.token)
-          alert(await getSecureStoreItem("pms_token"))
+        if (res.data.status === 'OK') {
+          saveSecureStoreItem('pms_token', res.data.data.token);
+          alert(await getSecureStoreItem('pms_token'));
           Actions.tabbar();
         } else {
           setFail(true);
         }
-      }).catch(error => {
-        throw error
+      })
+      .catch((error) => {
+        throw error;
       });
   };
 
   const sent = () => {
     console.warn(isEmailValid(), emailError, passwordError);
-    if (email === "") {
+    if (email === '') {
       setEmailError(true);
     }
-    if (password === "") {
+    if (password === '') {
       setPasswordError(true);
     }
     if (!isEmailValid()) {
-      console.warn("Invalid Email");
+      console.warn('Invalid Email');
       setEmailError(true);
     } else if (password.length < 8) {
-      console.warn("Please add at least 8 characters.");
+      console.warn('Please add at least 8 characters.');
       setPasswordError(true);
     } else if (!emailError && !passwordError) {
       userLogin();
@@ -115,9 +116,9 @@ const Login = () => {
 
   function loginStatus() {
     if (passwordError) {
-      return "* Please enter a valid password. (At least 8 characters)";
+      return '* Please enter a valid password. (At least 8 characters)';
     } else if (fail) {
-      return "* Incorrect email or password, please try again.";
+      return '* Incorrect email or password, please try again.';
     }
   }
 
@@ -127,24 +128,24 @@ const Login = () => {
         <Text style={styles.sectionSubtitle}></Text>
         <Text style={styles.sectionTitlewoNav}>Sign In</Text>
         <FloatingLabelInput
-          label={"Email"}
+          label={'Email'}
           containerStyles={
             emailError || fail ? styles.textboxerror : styles.textbox
           }
           customLabelStyles={
             emailError || fail
-              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-              : { colorFocused: "#898989", colorBlurred: "#898989" }
+              ? { colorFocused: '#FF0000', colorBlurred: '#FF0000' }
+              : { colorFocused: '#898989', colorBlurred: '#898989' }
           }
           inputStyles={{
-            color: "#000000",
+            color: '#000000',
             paddingHorizontal: 5,
           }}
           value={email}
-          hint="example@address.com"
+          hint='example@address.com'
           isPassword={false}
           onChangeText={handleChange_email}
-          autoCapitalize="none"
+          autoCapitalize='none'
         />
         {emailError ? (
           <Text style={styles.texterror}>
@@ -154,25 +155,25 @@ const Login = () => {
           <Text style={styles.texterror}> </Text>
         )}
         <FloatingLabelInput
-          label={"Password"}
+          label={'Password'}
           containerStyles={
             passwordError || fail ? styles.textboxerror : styles.textbox
           }
           customLabelStyles={
             passwordError || fail
-              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-              : { colorFocused: "#898989", colorBlurred: "#898989" }
+              ? { colorFocused: '#FF0000', colorBlurred: '#FF0000' }
+              : { colorFocused: '#898989', colorBlurred: '#898989' }
           }
           inputStyles={{
-            color: "#000000",
+            color: '#000000',
             paddingHorizontal: 5,
           }}
           value={password}
           isPassword={true}
           secureTextEntry={true}
-          autoCompleteType={"off"}
+          autoCompleteType={'off'}
           onChangeText={handleChange_password}
-          autoCapitalize="none"
+          autoCapitalize='none'
         />
         {passwordError || fail ? (
           <Text style={styles.texterror}>{loginStatus()}</Text>
@@ -182,7 +183,7 @@ const Login = () => {
         <Text style={styles.sectionDescription}></Text>
         <TouchableHighlight
           style={styles.button}
-          underlayColor="none"
+          underlayColor='none'
           onPress={sent}
         >
           <View>

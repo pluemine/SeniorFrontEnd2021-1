@@ -1,13 +1,13 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
-import { Actions } from "react-native-router-flux";
+import { Actions } from 'react-native-router-flux';
 import {
   Header,
   LearnMoreLinks,
   Colors,
   DebugInstructions,
   ReloadInstructions,
-} from "react-native/Libraries/NewAppScreen";
+} from 'react-native/Libraries/NewAppScreen';
 import {
   SafeAreaView,
   StyleSheet,
@@ -21,22 +21,22 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
-} from "react-native";
-import styles from "./Styles";
-import axios from "axios";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { FloatingLabelInput } from "react-native-floating-label-input";
+} from 'react-native';
+import styles from './Styles';
+import axios from 'axios';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { FloatingLabelInput } from 'react-native-floating-label-input';
 
 const Share = (props) => {
   const { propimg, placename, proptype } = props;
 
-  const [email, setEmail] = useState("");
-  const [category, setCategory] = useState("");
-  const [number, setNumber] = useState("");
-  const [province, setProvince] = useState("");
+  const [email, setEmail] = useState('');
+  const [category, setCategory] = useState('');
+  const [number, setNumber] = useState('');
+  const [province, setProvince] = useState('');
   const [valid, setValid] = useState(new Date());
   const [expire, setExpire] = useState(new Date());
-  const [quota, setQuota] = useState("");
+  const [quota, setQuota] = useState('');
 
   const [emailError, setEmailError] = useState(false);
   const [categoryError, setCategoryError] = useState(false);
@@ -79,25 +79,25 @@ const Share = (props) => {
   };
 
   const sent = () => {
-    if (email === "") {
+    if (email === '') {
       setEmailError(true);
     }
-    if (category === "") {
+    if (category === '') {
       setCategoryError(true);
     }
-    if (number === "") {
+    if (number === '') {
       setNumberError(true);
     }
-    if (province === "") {
+    if (province === '') {
       setProvinceError(true);
     }
-    if (valid === "") {
+    if (valid === '') {
       setValidError(true);
     }
-    if (expire === "") {
+    if (expire === '') {
       setExpireError(true);
     }
-    if (quota === "") {
+    if (quota === '') {
       setQuotaError(true);
     }
     if (expire < valid) {
@@ -105,19 +105,19 @@ const Share = (props) => {
       setExpireError(true);
     }
     if (!isEmailValid()) {
-      console.warn("Invalid Email");
+      console.warn('Invalid Email');
       setEmailError(true);
-    } else if (category === "") {
+    } else if (category === '') {
       setCategoryError(true);
-    } else if (number === "") {
+    } else if (number === '') {
       setNumberError(true);
-    } else if (province === "") {
+    } else if (province === '') {
       setProvinceError(true);
-    } else if (valid === "") {
+    } else if (valid === '') {
       setValidError(true);
-    } else if (expire === "") {
+    } else if (expire === '') {
       setExpireError(true);
-    } else if (quota === "") {
+    } else if (quota === '') {
       setQuotaError(true);
     } else if (
       !emailError &&
@@ -128,7 +128,7 @@ const Share = (props) => {
       !expireError &&
       !quotaError
     ) {
-      console.warn("Complete");
+      console.warn('Complete');
       shareAccess();
     }
   };
@@ -139,47 +139,51 @@ const Share = (props) => {
     var year = date.getFullYear();
     if (parseInt(day) - 10 >= 0) {
       if (parseInt(month) - 10 >= 0) {
-        return "" + year + "-" + month + "-" + day;
+        return '' + year + '-' + month + '-' + day;
       } else {
-        return "" + year + "-0" + month + "-" + day;
+        return '' + year + '-0' + month + '-' + day;
       }
     } else {
       if (parseInt(month) - 10 >= 0) {
-        return "" + year + "-" + month + "-0" + day;
+        return '' + year + '-' + month + '-0' + day;
       } else {
-        return "" + year + "-0" + month + "-0" + day;
+        return '' + year + '-0' + month + '-0' + day;
       }
     }
   }
 
   const shareAccess = async () => {
-    const token = await SecureStore.getItemAsync("pms_token");
+    const token = await SecureStore.getItemAsync('pms_token');
     axios
-      .post(`http://localhost:4000/v1/pamapi/share`, {
-        email: email,
-        license_plate_category: category,
-        license_plate_number: number,
-        province_id: 1,
-        property_id: 2,
-        valid_date_time: null,
-        expired_date_time: null,
-        usage_counts: 100,
-        mins_per_usage: 120,
-        share_qouta: 5,
-        is_charged_provider: false,
-        is_sharable: false,
-      }, {headers: {'Authorization': `Bearer ${token}`}})
+      .post(
+        `http://localhost:4000/auth/pamapi/share`,
+        {
+          email: email,
+          license_plate_category: category,
+          license_plate_number: number,
+          province_id: 1,
+          property_id: 2,
+          valid_date_time: null,
+          expired_date_time: null,
+          usage_counts: 100,
+          mins_per_usage: 120,
+          share_qouta: 5,
+          is_charged_provider: false,
+          is_sharable: false,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
       .then((res) => {
         console.log(res);
         console.log(res.data);
-        if (res.data.status === "OK") {
-          alert("Access was shared!");
-          Actions.popTo("accesshome");
+        if (res.data.status === 'OK') {
+          alert('Access was shared!');
+          Actions.popTo('accesshome');
         }
       })
       .catch((error) => {
-        if (res.data.status === "FAILED") {
-          alert("Email or License Plate Does not exist");
+        if (res.data.status === 'FAILED') {
+          alert('Email or License Plate Does not exist');
         }
         throw error;
       });
@@ -202,8 +206,7 @@ const Share = (props) => {
     if (expire < date) {
       setValidError(true);
       setExpireError(true);
-    }
-    else {
+    } else {
       setValidError(false);
       setExpireError(false);
     }
@@ -220,8 +223,7 @@ const Share = (props) => {
     if (date < valid) {
       setValidError(true);
       setExpireError(true);
-    }
-    else {
+    } else {
       setValidError(false);
       setExpireError(false);
     }
@@ -229,7 +231,7 @@ const Share = (props) => {
 
   return (
     <ScrollView
-      contentContainerStyle={{ flexGrow: 1, justifyContent: "space-between" }}
+      contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}
     >
       <View style={styles.container}>
         <ImageBackground
@@ -254,24 +256,24 @@ const Share = (props) => {
             <View style={styles.accessContainer}>
               <Text style={styles.sectionTitle}>Confirm Sharing</Text>
               <FloatingLabelInput
-                label={"Email"}
+                label={'Email'}
                 containerStyles={
                   emailError ? styles.textboxerror : styles.textbox
                 }
                 customLabelStyles={
                   emailError
-                    ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-                    : { colorFocused: "#898989", colorBlurred: "#898989" }
+                    ? { colorFocused: '#FF0000', colorBlurred: '#FF0000' }
+                    : { colorFocused: '#898989', colorBlurred: '#898989' }
                 }
                 inputStyles={{
-                  color: "#000000",
+                  color: '#000000',
                   paddingHorizontal: 5,
                 }}
                 value={email}
-                hint="example@address.com"
+                hint='example@address.com'
                 isPassword={false}
                 onChangeText={handleChange_email}
-                autoCapitalize="none"
+                autoCapitalize='none'
               />
               {emailError ? (
                 <Text style={styles.texterror}>* Email</Text>
@@ -279,24 +281,24 @@ const Share = (props) => {
                 <Text style={styles.texterror}> </Text>
               )}
               <FloatingLabelInput
-                label={"Category"}
+                label={'Category'}
                 containerStyles={
                   categoryError ? styles.textboxerror : styles.textbox
                 }
                 customLabelStyles={
                   categoryError
-                    ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-                    : { colorFocused: "#898989", colorBlurred: "#898989" }
+                    ? { colorFocused: '#FF0000', colorBlurred: '#FF0000' }
+                    : { colorFocused: '#898989', colorBlurred: '#898989' }
                 }
                 inputStyles={{
-                  color: "#000000",
+                  color: '#000000',
                   paddingHorizontal: 5,
                 }}
                 value={category}
-                hint="กก"
+                hint='กก'
                 isPassword={false}
                 onChangeText={handleChange_category}
-                autoCapitalize="none"
+                autoCapitalize='none'
                 autoCorrect={false}
               />
               {categoryError ? (
@@ -305,26 +307,26 @@ const Share = (props) => {
                 <Text style={styles.texterror}> </Text>
               )}
               <FloatingLabelInput
-                label={"Number"}
+                label={'Number'}
                 containerStyles={
                   numberError ? styles.textboxerror : styles.textbox
                 }
                 customLabelStyles={
                   numberError
-                    ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-                    : { colorFocused: "#898989", colorBlurred: "#898989" }
+                    ? { colorFocused: '#FF0000', colorBlurred: '#FF0000' }
+                    : { colorFocused: '#898989', colorBlurred: '#898989' }
                 }
                 inputStyles={{
-                  color: "#000000",
+                  color: '#000000',
                   paddingHorizontal: 5,
                 }}
                 value={number}
-                hint="9999"
-                mask="9999"
+                hint='9999'
+                mask='9999'
                 isPassword={false}
-                keyboardType="numeric"
+                keyboardType='numeric'
                 onChangeText={handleChange_number}
-                autoCapitalize="none"
+                autoCapitalize='none'
               />
               {numberError ? (
                 <Text style={styles.texterror}>* number</Text>
@@ -332,24 +334,24 @@ const Share = (props) => {
                 <Text style={styles.texterror}> </Text>
               )}
               <FloatingLabelInput
-                label={"Province"}
+                label={'Province'}
                 containerStyles={
                   provinceError ? styles.textboxerror : styles.textbox
                 }
                 customLabelStyles={
                   provinceError
-                    ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-                    : { colorFocused: "#898989", colorBlurred: "#898989" }
+                    ? { colorFocused: '#FF0000', colorBlurred: '#FF0000' }
+                    : { colorFocused: '#898989', colorBlurred: '#898989' }
                 }
                 inputStyles={{
-                  color: "#000000",
+                  color: '#000000',
                   paddingHorizontal: 5,
                 }}
                 value={province}
-                hint="กรุงเทพมหานคร"
+                hint='กรุงเทพมหานคร'
                 isPassword={false}
                 onChangeText={handleChange_province}
-                autoCapitalize="none"
+                autoCapitalize='none'
               />
               {provinceError ? (
                 <Text style={styles.texterror}>* province</Text>
@@ -358,19 +360,19 @@ const Share = (props) => {
               )}
 
               <TouchableOpacity onPress={showValidPicker}>
-                <View pointerEvents="none">
+                <View pointerEvents='none'>
                   <FloatingLabelInput
-                    label={"Valid"}
+                    label={'Valid'}
                     containerStyles={
                       validError ? styles.textboxerror : styles.textbox
                     }
                     customLabelStyles={
                       validError
-                        ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-                        : { colorFocused: "#898989", colorBlurred: "#898989" }
+                        ? { colorFocused: '#FF0000', colorBlurred: '#FF0000' }
+                        : { colorFocused: '#898989', colorBlurred: '#898989' }
                     }
                     inputStyles={{
-                      color: "#000000",
+                      color: '#000000',
                       paddingHorizontal: 5,
                     }}
                     value={dateTime(valid)}
@@ -382,9 +384,9 @@ const Share = (props) => {
               <DateTimePickerModal
                 isVisible={isValidPickerVisible}
                 date={valid}
-                mode="date"
-                placeholder="select date"
-                format="DD-MM-YYYY"
+                mode='date'
+                placeholder='select date'
+                format='DD-MM-YYYY'
                 onConfirm={handleValidConfirm}
                 onCancel={hideValidPicker}
                 onDateChange={(valid) => {
@@ -397,19 +399,19 @@ const Share = (props) => {
                 <Text style={styles.texterror}> </Text>
               )}
               <TouchableOpacity onPress={showExpirePicker}>
-                <View pointerEvents="none">
+                <View pointerEvents='none'>
                   <FloatingLabelInput
-                    label={"Expire"}
+                    label={'Expire'}
                     containerStyles={
                       expireError ? styles.textboxerror : styles.textbox
                     }
                     customLabelStyles={
                       expireError
-                        ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-                        : { colorFocused: "#898989", colorBlurred: "#898989" }
+                        ? { colorFocused: '#FF0000', colorBlurred: '#FF0000' }
+                        : { colorFocused: '#898989', colorBlurred: '#898989' }
                     }
                     inputStyles={{
-                      color: "#000000",
+                      color: '#000000',
                       paddingHorizontal: 5,
                     }}
                     value={dateTime(expire)}
@@ -421,9 +423,9 @@ const Share = (props) => {
               <DateTimePickerModal
                 isVisible={isExpirePickerVisible}
                 date={expire}
-                mode="date"
-                placeholder="select date"
-                format="DD-MM-YYYY"
+                mode='date'
+                placeholder='select date'
+                format='DD-MM-YYYY'
                 onConfirm={handleExpireConfirm}
                 onCancel={hideExpirePicker}
                 onDateChange={(expire) => {
@@ -436,25 +438,25 @@ const Share = (props) => {
                 <Text style={styles.texterror}> </Text>
               )}
               <FloatingLabelInput
-                label={"Quota"}
+                label={'Quota'}
                 containerStyles={
                   quotaError ? styles.textboxerror : styles.textbox
                 }
                 customLabelStyles={
                   quotaError
-                    ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-                    : { colorFocused: "#898989", colorBlurred: "#898989" }
+                    ? { colorFocused: '#FF0000', colorBlurred: '#FF0000' }
+                    : { colorFocused: '#898989', colorBlurred: '#898989' }
                 }
                 inputStyles={{
-                  color: "#000000",
+                  color: '#000000',
                   paddingHorizontal: 5,
                 }}
                 value={quota}
-                hint=""
+                hint=''
                 isPassword={false}
-                keyboardType="numeric"
+                keyboardType='numeric'
                 onChangeText={handleChange_quota}
-                autoCapitalize="none"
+                autoCapitalize='none'
               />
               {quotaError ? (
                 <Text style={styles.texterror}>* quota</Text>
@@ -463,7 +465,7 @@ const Share = (props) => {
               )}
               <TouchableHighlight
                 style={styles.button}
-                underlayColor="none"
+                underlayColor='none'
                 onPress={sent}
               >
                 <View>
@@ -472,7 +474,7 @@ const Share = (props) => {
               </TouchableHighlight>
               <TouchableHighlight
                 style={styles.buttonbdr}
-                underlayColor="none"
+                underlayColor='none'
                 onPress={() => Actions.pop()}
               >
                 <View>
@@ -491,50 +493,50 @@ const styles1 = StyleSheet.create({
   logo: {
     width: 300,
     height: 300,
-    resizeMode: "stretch",
+    resizeMode: 'stretch',
     margin: 50,
   },
   content: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   texthead: {
-    color: "#444444",
-    fontWeight: "800",
-    textAlign: "center",
+    color: '#444444',
+    fontWeight: '800',
+    textAlign: 'center',
     marginBottom: 10,
   },
   textdes: {
-    color: "#444444",
-    textAlign: "center",
+    color: '#444444',
+    textAlign: 'center',
     fontSize: 12,
     marginBottom: 40,
   },
   container: {
     flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "flex-start", // if you want to fill rows left to right
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start', // if you want to fill rows left to right
   },
   item1: {
     paddingRight: 10,
-    width: "70%",
+    width: '70%',
   },
   item2: {
-    width: "30%",
+    width: '30%',
   },
   col50: {
-    width: "50%",
+    width: '50%',
     paddingHorizontal: 4,
   },
   pic: {
     width: 110,
     height: 110,
-    margin: "auto",
+    margin: 'auto',
     //resizeMode: "stretch",
   },
   pic1: {
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 10,
