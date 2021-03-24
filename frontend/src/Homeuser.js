@@ -30,64 +30,55 @@ import styles from "./Styles";
 import axios from "axios";
 
 const Homeuser = () => {
-
   return (
     <View style={styles.container}>
       <View style={styles.sectionContainer}>
         <View>
           <Text style={styles.sectionSubtitle}></Text>
-          <Text style={styles.sectionTitle}>Home</Text>
+          <Text style={styles.sectionTitlewoNav}>Hello, User</Text>
+          <View style={styles.homeuserBalanceCard}>
+            <Text style={styles.cardHeaderColor}>Your Balance</Text>
+            <Text style={styles.cardTitle}>$800.20</Text>
+          </View>
+          <Text style={styles.homeuserTitle}>Shortcut</Text>
+          <View style={styles.homeuserShortcutBlock}>
+            <View style={styles.homeuserColContainer}>
+              <View style={styles.homeuserCol33}>
+                <TouchableHighlight
+                  underlayColor="none"
+                  style={styles.homeuserShortcutCard}
+                  onPress={() => Actions.push("license")}
+                >
+                  <Text style={styles.textbold}>My car</Text>
+                </TouchableHighlight>
+              </View>
+              <View style={styles.homeuserCol33}>
+                <TouchableHighlight
+                  underlayColor="none"
+                  style={styles.homeuserShortcutCard}
+                  onPress={() => Actions.push("accesshome")}
+                >
+                  <Text style={styles.textbold}>Payment</Text>
+                </TouchableHighlight>
+              </View>
+              <View style={styles.homeuserCol33}>
+                <TouchableHighlight
+                  underlayColor="none"
+                  style={styles.homeuserShortcutCard}
+                  onPress={() => Actions.push("accesshome")}
+                >
+                  <Text style={styles.textbold}>Top up</Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          </View>
+          <Text style={styles.homeuserTitle}>Nearby Parking</Text>
         </View>
       </View>
     </View>
   );
 };
 
-const styles1 = StyleSheet.create({
-  logo: {
-    width: 300,
-    height: 300,
-    resizeMode: "stretch",
-    margin: 50,
-  },
-  content: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  texthead: {
-    color: "#444444",
-    fontWeight: "800",
-    textAlign: "center",
-    marginBottom: 10,
-  },
-  textdes: {
-    color: "#444444",
-    textAlign: "center",
-    fontSize: 12,
-    marginBottom: 40,
-  },
-  container: {
-    flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "flex-start", // if you want to fill rows left to right
-  },
-  item1: {
-    paddingRight: 10,
-    width: "70%",
-  },
-  item2: {
-    width: "30%",
-  },
-  col50: {
-    width: "50%",
-  },
-  pic: {
-    width: 110,
-    height: 110,
-    margin: "auto",
-    //resizeMode: "stretch",
-  },
-});
+const styles1 = StyleSheet.create({});
 
 export default Homeuser;

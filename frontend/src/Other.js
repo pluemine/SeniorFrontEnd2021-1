@@ -92,7 +92,11 @@ const Other = () => {
                   borderBottomWidth: 1,
                 }}
               />
-              <TouchableHighlight style={styles.otherMenu} underlayColor="none">
+              <TouchableHighlight
+                style={styles.otherMenu}
+                underlayColor="none"
+                onPress={() => Actions.push('payment')}
+              >
                 <View>
                   <Text style={styles.otherMenuTitle}>Payment Methods</Text>
                   <Text style={styles.otherMenuDes}>
@@ -109,7 +113,9 @@ const Other = () => {
               <TouchableHighlight style={styles.otherMenu} underlayColor="none">
                 <View>
                   <Text style={styles.otherMenuTitle}>Settings</Text>
-                  <Text style={styles.otherMenuDes}>Manage your preferences</Text>
+                  <Text style={styles.otherMenuDes}>
+                    Manage your preferences
+                  </Text>
                 </View>
               </TouchableHighlight>
               <View

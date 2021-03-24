@@ -1,6 +1,22 @@
 import { StyleSheet } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
+export const MyColor = {
+  white: '#fff',
+  black: '#000',
+  gray1: '#444444',
+  gray2: '#888888',
+  gray3: '#cccccc',
+  highlight: '#f49608',
+  gray4: '#f1f1f1',
+  red1: '#ff1111',
+  red2: '#ff0000',
+  red3: '#8c0000',
+  button: '#78aac2',
+  buttonred: '#8c0000',
+  // your colors
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -20,45 +36,50 @@ const styles = StyleSheet.create({
     paddingVertical: 48,
     //backgroundColor: "#00FF00",
   },
+  sectionContainerButton: {
+    paddingHorizontal: 24,
+    paddingVertical: 24,
+    //backgroundColor: "#00FF00",
+  },
   sectionTitle: {
     fontSize: 32,
     fontWeight: "600",
-    color: "#000000",
+    color: MyColor.black,
     marginBottom: 20,
   },
   sectionTitlewoNav: {
     fontSize: 32,
     fontWeight: "600",
-    color: "#000000",
+    color: MyColor.black,
     marginBottom: 20,
     paddingTop: 32,
   },
   sectionSubtitle: {
     fontSize: 14,
     fontWeight: "800",
-    color: "#f49608",
+    color: MyColor.highlight,
   },
   sectionDescription: {
     marginTop: 8,
     fontSize: 14,
     fontWeight: "400",
-    color: Colors.dark,
+    color: MyColor.gray1,
   },
   sectionOption: {
     marginTop: 20,
     fontSize: 14,
     fontWeight: "400",
-    color: Colors.dark,
+    color: MyColor.gray1,
     textAlign: "center",
   },
   sectionTitleWhite: {
     fontSize: 32,
     fontWeight: "600",
-    color: "#FFFFFF",
+    color: MyColor.white,
     marginBottom: 20,
   },
   footer: {
-    color: Colors.dark,
+    color: MyColor.gray1,
     fontSize: 12,
     fontWeight: "600",
     padding: 4,
@@ -73,8 +94,8 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     padding: 20,
     borderRadius: 10,
-    backgroundColor: "#ffffff",
-    shadowColor: "#000",
+    backgroundColor: MyColor.white,
+    shadowColor: MyColor.black,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -84,63 +105,63 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   textbox: {
-    color: "#000000",
+    color: MyColor.black,
     width: "100%",
     marginTop: 5,
     marginBottom: 0,
     height: 44,
-    borderBottomColor: "#F1F1F1",
+    borderBottomColor: MyColor.gray4,
     borderBottomWidth: 1,
   },
   textboxerror: {
-    color: "#000000",
+    color: MyColor.black,
     width: "100%",
     marginTop: 5,
     marginBottom: 0,
     height: 44,
-    borderBottomColor: "#FF1111",
+    borderBottomColor: MyColor.red1,
     borderBottomWidth: 1,
   },
   texterror: {
     paddingTop: 5,
     paddingLeft: 5,
     fontSize: 10,
-    color: "#FF0000",
+    color: MyColor.red2,
   },
   button: {
     borderWidth: 1,
-    borderColor: "#404040",
-    backgroundColor: "#404040",
+    borderColor: MyColor.button,
+    backgroundColor: MyColor.button,
     borderRadius: 4,
     width: "100%",
     marginTop: 10,
-    height: 40,
+    height: 44,
     justifyContent: "center",
   },
   buttonText: {
-    color: "#FFFFFF",
+    color: MyColor.white,
     textAlign: "center",
     fontWeight: "600",
     fontSize: 16,
   },
   buttonbdr: {
     borderWidth: 1,
-    borderColor: "#404040",
+    borderColor: MyColor.button,
     borderRadius: 4,
     width: "100%",
     marginTop: 10,
-    height: 40,
+    height: 44,
     justifyContent: "center",
   },
   buttonbdrText: {
-    color: "#404040",
+    color: MyColor.button,
     textAlign: "center",
     fontWeight: "600",
     fontSize: 16,
   },
   buttonfilter: {
     borderWidth: 1,
-    borderColor: "#404040",
+    borderColor: MyColor.button,
     borderRadius: 4,
     width: "100%",
     marginTop: 10,
@@ -149,7 +170,7 @@ const styles = StyleSheet.create({
   },
   buttonbdrRed: {
     borderWidth: 1,
-    borderColor: "#8C0000",
+    borderColor: MyColor.buttonred,
     borderRadius: 4,
     width: "100%",
     marginTop: 10,
@@ -157,38 +178,38 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   buttonTextRed: {
-    color: "#8C0000",
+    color: MyColor.buttonred,
     textAlign: "center",
     fontWeight: "600",
     fontSize: 16,
   },
   buttonWhite: {
     borderWidth: 1,
-    borderColor: "#FFFFFF",
-    backgroundColor: "#FFFFFF",
+    borderColor: MyColor.white,
+    backgroundColor: MyColor.white,
     borderRadius: 4,
     width: "100%",
     marginTop: 10,
-    height: 40,
+    height: 44,
     justifyContent: "center",
   },
   buttonTextWhite: {
-    color: "#000000",
+    color: MyColor.black,
     textAlign: "center",
     fontWeight: "600",
     fontSize: 16,
   },
   buttonbdrWhite: {
     borderWidth: 1,
-    borderColor: "#FFFFFF",
+    borderColor: MyColor.white,
     borderRadius: 4,
     width: "100%",
     marginTop: 10,
-    height: 40,
+    height: 44,
     justifyContent: "center",
   },
   buttonbdrTextWhite: {
-    color: "#FFFFFF",
+    color: MyColor.white,
     textAlign: "center",
     fontWeight: "600",
     fontSize: 16,
@@ -211,10 +232,21 @@ const styles = StyleSheet.create({
     color: Colors.black,
     marginBottom: 10,
   },
+  cardHeaderColor: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: MyColor.highlight,
+    marginBottom: 5,
+  },
+  cardTitle: {
+    fontSize: 32,
+    fontWeight: "600",
+    color: MyColor.black,
+  },
   cardSubtitle: {
     fontSize: 12,
     fontWeight: "800",
-    color: "#f49608",
+    color: MyColor.highlight,
   },
   cardDes: {
     fontSize: 12,
@@ -222,8 +254,8 @@ const styles = StyleSheet.create({
   },
   itemcard: {
     borderRadius: 10,
-    backgroundColor: "#ffffff",
-    shadowColor: "#000",
+    backgroundColor: MyColor.white,
+    shadowColor: MyColor.black,
     shadowOffset: {
       width: 0,
       height: 0,
@@ -252,7 +284,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: MyColor.white,
   },
   accessContainer: {
     paddingHorizontal: 24,
@@ -285,16 +317,16 @@ const styles = StyleSheet.create({
   shareTitle: {
     fontSize: 28,
     fontWeight: "600",
-    color: "#FFFFFF",
+    color: MyColor.white,
   },
   shareSubtitle: {
     fontSize: 14,
     fontWeight: "400",
-    color: "#FFFFFF",
+    color: MyColor.white,
     marginBottom: 20,
   },
   sharePicOuter: {
-    shadowColor: "#000",
+    shadowColor: MyColor.black,
     shadowOffset: {
       width: 0,
       height: 10,
@@ -326,13 +358,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "600",
     textAlign: "center",
-    color: "#FFFFFF",
+    color: MyColor.white,
   },
   otherDes: {
     fontSize: 12,
     fontWeight: "400",
     //color: "#444444",
-    color: "#FFFFFF",
+    color: MyColor.white,
     textAlign: "center",
   },
   otherMenuBlock: {
@@ -342,12 +374,12 @@ const styles = StyleSheet.create({
   otherMenuTitle: {
     fontSize: 15,
     fontWeight: "600",
-    color: "#000000",
+    color: MyColor.black,
   },
   otherMenuTitleRed: {
     fontSize: 15,
     fontWeight: "600",
-    color: "#8C0000",
+    color: MyColor.red3,
   },
   otherMenuTitleBlue: {
     fontSize: 15,
@@ -357,7 +389,7 @@ const styles = StyleSheet.create({
   otherMenuDes: {
     fontSize: 12,
     fontWeight: "400",
-    color: "#444444",
+    color: MyColor.gray1,
   },
   otherMenu: {
     marginVertical: 15,
@@ -367,6 +399,125 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     //paddingHorizontal: 15,
   },
+
+  //Homeuser
+  homeuserBalanceCard: {
+    maxWidth: 500,
+    width: "100%",
+    margin: "auto",
+    marginTop: 10,
+    marginBottom: 30,
+    padding: 20,
+    borderRadius: 10,
+    backgroundColor: MyColor.white,
+    shadowColor: MyColor.black,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  homeuserShortcutBlock: {
+    height: 100,
+  },
+  homeuserColContainer: {
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "flex-start",
+  },
+  homeuserCol33: {
+    width: "33%",
+    alignItems: "center",
+  },
+  homeuserShortcutCard: {
+    height: 100,
+    width: "90%",
+    margin: "auto",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: MyColor.white,
+    shadowColor: MyColor.black,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
+  },
+  homeuserTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: Colors.black,
+    marginTop: 25,
+    marginBottom: 20,
+  },
+
+  //License
+  licenseTitle: {
+    fontSize: 24,
+    fontWeight: "600",
+    color: MyColor.black,
+  },
+  licenseProvince: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: Colors.black,
+  },
+  licenseCard: {
+    maxWidth: 500,
+    width: "100%",
+    margin: "auto",
+    marginTop: 10,
+    marginBottom: 30,
+    padding: 20,
+    borderRadius: 10,
+    backgroundColor: MyColor.white,
+    shadowColor: MyColor.black,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    alignItems: "center",
+  },
+  licenseColContainer: {
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "flex-start",
+  },
+  licenseCol30: {
+    width: "30%",
+    paddingRight: 10,
+  },
+  licenseCol40: {
+    width: "40%",
+    paddingRight: 10,
+    justifyContent: "center",
+  },
+  licenseCol60: {
+    width: "60%",
+    paddingRight: 10,
+    justifyContent: "center",
+  },
+  licenseCol70: {
+    width: "70%",
+    paddingLeft: 10,
+  },
+  licenseBlock: {
+    height: 70,
+  },
+  licenseCardBlock: {
+    height: 70,
+  }
 });
 
 module.exports = styles;

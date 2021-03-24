@@ -23,6 +23,7 @@ import styles from "./Styles";
 import axios from "axios";
 import { FloatingLabelInput } from "react-native-floating-label-input";
 import BlackScreen from "../app/BlackScreen";
+import Gateway from "./Gateway";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -69,7 +70,7 @@ const Login = () => {
 
   const userLogin = async () => {
     axios
-      .post(`http://localhost:4000/public/uapi/login`, {
+      .post(`http://localhost:4000/uapi/login`, {
         email: email,
         password: password,
       })
@@ -102,6 +103,7 @@ const Login = () => {
       setPasswordError(true);
     } else if (!emailError && !passwordError) {
       userLogin();
+      //Gateway.userLogin();
       // test();
     }
   };

@@ -11,6 +11,9 @@ import Share from "./Share";
 import Other from "./Other";
 import Activity from "./Activity";
 import Access from "./Access";
+import Payment from "./Payment";
+import License from "./License";
+import Addlc from "./Addlc";
 
 // Simple component to render something in place of icon
 const TabIcon = ({ selected, title }) => {
@@ -25,7 +28,11 @@ const App = () => {
         <Scene key="register" component={Register} navTransparent={true} hideTabBar />
         <Scene key="login" component={Login} navTransparent={true} hideTabBar />
         <Scene key="tabbar" tabs={true} tabBarStyle={{ backgroundColor: "#FFFFFF" }} hideNavBar>
-          <Scene key="Home" icon={TabIcon} component={Homeuser} initial={true} hideNavBar />
+          <Scene key="Home" icon={TabIcon}>
+            <Scene key="homehome" component={Homeuser} navTransparent={true} initial={true} />
+            <Scene key="license" component={License} navTransparent={true} />
+            <Scene key="addlc" component={Addlc} navTransparent={true} />
+          </Scene>
           <Scene key="Activity" icon={TabIcon} component={Activity} hideNavBar />
           <Scene key="Access" icon={TabIcon}>
             <Scene key="accesshome" component={Access} initial={true} hideNavBar />
@@ -33,7 +40,10 @@ const App = () => {
             <Scene key="share" component={Share} hideNavBar />
           </Scene>
           <Scene key="Search" icon={TabIcon} component={Activity} hideNavBar />
-          <Scene key="Other" icon={TabIcon} component={Other} hideNavBar />
+          <Scene key="Other" icon={TabIcon}>
+            <Scene key="otherhome" component={Other} hideNavBar />
+            <Scene key="payment" component={Payment} hideNavBar />
+          </Scene>
         </Scene>
       </Scene>
     </Router>
