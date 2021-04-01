@@ -25,40 +25,41 @@ import styles from "./Styles";
 const Home = () => {
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" />
       <ImageBackground
-          style={styles.pic}
-          source={require("../assets/main.jpg")}
-          blurRadius={25}
-        >
-      <View style={styles.sectionContainer}>
-        <Text style={styles.sectionSubtitle}></Text>
-        <Text style={styles.sectionTitle}></Text>
-      </View>
-      <View style={styles.sectionContainer}>
-        <Text style={styles1.texthead}>Getting Started</Text>
-        <Text style={styles1.textdes}>
-          To continue, please sign in to the system or if you don't have any
-          account, you can create your own account.
-        </Text>
-        <TouchableHighlight
-          style={styles.buttonWhite}
-          underlayColor="none"
-          onPress={() => Actions.login()}
-        >
-          <View>
-            <Text style={styles.buttonTextWhite}>Sign In</Text>
-          </View>
-        </TouchableHighlight>
-        <TouchableHighlight
-          style={styles.buttonbdrWhite}
-          underlayColor="none"
-          onPress={() => Actions.register()}
-        >
-          <View>
-            <Text style={styles.buttonbdrTextWhite}>Create Account</Text>
-          </View>
-        </TouchableHighlight>
-      </View>
+        style={styles.pic}
+        source={require("../assets/main.jpg")}
+        blurRadius={25}
+      >
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionSubtitle}></Text>
+          <Text style={styles.sectionTitle}></Text>
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles1.texthead}>Getting Started</Text>
+          <Text style={styles1.textdes}>
+            To continue, please sign in to the system or if you don't have any
+            account, you can create your own account.
+          </Text>
+          <TouchableHighlight
+            style={styles.buttonWhite}
+            underlayColor="none"
+            onPress={() => Actions.login()}
+          >
+            <View>
+              <Text style={styles.buttonTextWhite}>Sign In</Text>
+            </View>
+          </TouchableHighlight>
+          <TouchableHighlight
+            style={styles.buttonbdrWhite}
+            underlayColor="none"
+            onPress={() => Actions.register()}
+          >
+            <View>
+              <Text style={styles.buttonbdrTextWhite}>Create Account</Text>
+            </View>
+          </TouchableHighlight>
+        </View>
       </ImageBackground>
     </View>
   );

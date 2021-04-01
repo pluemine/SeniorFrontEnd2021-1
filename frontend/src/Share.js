@@ -233,6 +233,7 @@ const Share = (props) => {
     <ScrollView
       contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}
     >
+      <StatusBar barStyle="light-content" />
       <View style={styles.container}>
         <ImageBackground
           style={styles.pic}
@@ -470,15 +471,6 @@ const Share = (props) => {
               >
                 <View>
                   <Text style={styles.buttonText}>Share</Text>
-                </View>
-              </TouchableHighlight>
-              <TouchableHighlight
-                style={styles.buttonbdr}
-                underlayColor='none'
-                onPress={() => Actions.pop()}
-              >
-                <View>
-                  <Text style={styles.buttonbdrText}>Cancel</Text>
                 </View>
               </TouchableHighlight>
             </View>

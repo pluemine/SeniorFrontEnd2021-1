@@ -26,105 +26,53 @@ import { FloatingLabelInput } from "react-native-floating-label-input";
 
 const Other = () => {
   return (
-    <ScrollView
+    <View
       contentContainerStyle={{ flexGrow: 1, justifyContent: "space-between" }}
     >
+      <StatusBar barStyle="default" />
       <ImageBackground
         style={styles1.pic}
-        source={require("../assets/avatar.jpg")}
-        blurRadius={25}
+        source={require("../assets/cloud.jpg")}
       >
-        <View style={styles.accessContainer}>
-          <Text style={styles.sectionSubtitle}></Text>
-          <Text style={styles.sectionTitle}></Text>
-          <View style={styles.otherCenterBlock}>
-            <Image
-              style={styles.otherAvatar}
-              source={require("../assets/avatar.jpg")}
-            />
-          </View>
-          <Text style={styles.otherTitle}>Shim Su-ryeon</Text>
-          <Text style={styles.otherDes}>pluem@gmail.com</Text>
-        </View>
+        <View style={styles.accessContainer} />
         <View style={styles.accessCard}>
           <View style={styles.accessContainer}>
-            <View style={styles.otherMenuBlock}>
-              <TouchableHighlight style={styles.otherMenu} underlayColor="none">
-                <View>
-                  <Text style={styles.sectionTitle}>$800.20</Text>
-                  <Text style={styles.otherMenuTitle}>Wallet</Text>
-                  <Text style={styles.otherMenuDes}>
-                    Top up or transfer your balance
-                  </Text>
-                </View>
-              </TouchableHighlight>
-              <View
-                style={{
-                  borderBottomColor: "#EEEEEE",
-                  borderBottomWidth: 1,
-                }}
-              />
-              <TouchableHighlight style={styles.otherMenu} underlayColor="none">
-                <View>
-                  <Text style={styles.otherMenuTitle}>Edit Profile</Text>
-                  <Text style={styles.otherMenuDes}>
-                    Avatar Email Firstname Lastname Password Phone
-                  </Text>
-                </View>
-              </TouchableHighlight>
-              <View
-                style={{
-                  borderBottomColor: "#EEEEEE",
-                  borderBottomWidth: 1,
-                }}
-              />
-              <TouchableHighlight style={styles.otherMenu} underlayColor="none">
-                <View>
-                  <Text style={styles.otherMenuTitle}>Car & License Plate</Text>
-                  <Text style={styles.otherMenuDes}>
-                    Manage car and license plate
-                  </Text>
-                </View>
-              </TouchableHighlight>
-              <View
-                style={{
-                  borderBottomColor: "#EEEEEE",
-                  borderBottomWidth: 1,
-                }}
-              />
-              <TouchableHighlight
-                style={styles.otherMenu}
-                underlayColor="none"
-                onPress={() => Actions.push('payment')}
-              >
-                <View>
-                  <Text style={styles.otherMenuTitle}>Payment Methods</Text>
-                  <Text style={styles.otherMenuDes}>
-                    Manage your payment methods
-                  </Text>
-                </View>
-              </TouchableHighlight>
-              <View
-                style={{
-                  borderBottomColor: "#EEEEEE",
-                  borderBottomWidth: 1,
-                }}
-              />
-              <TouchableHighlight style={styles.otherMenu} underlayColor="none">
-                <View>
-                  <Text style={styles.otherMenuTitle}>Settings</Text>
-                  <Text style={styles.otherMenuDes}>
-                    Manage your preferences
-                  </Text>
-                </View>
-              </TouchableHighlight>
-              <View
-                style={{
-                  borderBottomColor: "#EEEEEE",
-                  borderBottomWidth: 1,
-                }}
-              />
+            <View style={styles.otherMenu}>
+              <View style={styles.otherCenterBlock}>
+                <Image
+                  style={styles.otherAvatar}
+                  source={require("../assets/avatar.jpg")}
+                />
+              </View>
+              <Text style={styles.otherTitle}>Pluemine User</Text>
+              <Text style={styles.otherDes}>pluem@gmail.com</Text>
             </View>
+            <TouchableHighlight style={styles.otherMenu} underlayColor="none">
+              <View>
+                <Text style={styles.otherMenuTitle}>Edit Profile</Text>
+                <Text style={styles.otherMenuDes}>
+                  Avatar Email Firstname Lastname Password Phone
+                </Text>
+              </View>
+            </TouchableHighlight>
+            <View
+              style={{
+                borderBottomColor: "#EEEEEE",
+                borderBottomWidth: 1,
+              }}
+            />
+            <TouchableHighlight style={styles.otherMenu} underlayColor="none">
+              <View>
+                <Text style={styles.otherMenuTitle}>Settings</Text>
+                <Text style={styles.otherMenuDes}>Manage your preferences</Text>
+              </View>
+            </TouchableHighlight>
+            <View
+              style={{
+                borderBottomColor: "#EEEEEE",
+                borderBottomWidth: 1,
+              }}
+            />
           </View>
           <View style={styles.accessContainer}>
             <View
@@ -148,7 +96,7 @@ const Other = () => {
           </View>
         </View>
       </ImageBackground>
-    </ScrollView>
+    </View>
   );
 };
 

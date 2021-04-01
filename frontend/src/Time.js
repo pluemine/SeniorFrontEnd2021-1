@@ -28,6 +28,7 @@ const Time = (props) => {
     <ScrollView
       contentContainerStyle={{ flexGrow: 1, justifyContent: "space-between" }}
     >
+      <StatusBar barStyle="light-content" />
       <View style={styles.container}>
         <ImageBackground
           style={styles1.pic}
@@ -98,22 +99,23 @@ const Time = (props) => {
                   </View>
                 </View>
               </View>
+              <View
+                style={{
+                  borderBottomColor: "#EEEEEE",
+                  borderBottomWidth: 1,
+                }}
+              />
+              <View style={styles.otherMenu}>
+                <Text style={styles.otherMenuTitle}>What is sharing access?</Text>
+                <Text style={styles.otherMenuDes}>It is the access to share your parking right.</Text>
+              </View>
               <TouchableHighlight
                 style={styles.button}
                 underlayColor="none"
                 onPress={() => Actions.share({ propimg, placename, proptype })}
               >
                 <View>
-                  <Text style={styles.buttonText}>Share</Text>
-                </View>
-              </TouchableHighlight>
-              <TouchableHighlight
-                style={styles.buttonbdr}
-                underlayColor="none"
-                onPress={() => Actions.pop()}
-              >
-                <View>
-                  <Text style={styles.buttonbdrText}>Close</Text>
+                  <Text style={styles.buttonText}>Share your access</Text>
                 </View>
               </TouchableHighlight>
             </View>
@@ -185,6 +187,7 @@ const styles1 = StyleSheet.create({
     //margin: "auto",
     justifyContent: "space-between",
     alignItems: "center",
+    //paddingBottom: 20,
   },
   pic1: {
     shadowColor: "#000",
@@ -197,9 +200,9 @@ const styles1 = StyleSheet.create({
     elevation: 20,
   },
   pic2: {
-    borderRadius: 10,
-    width: 320,
-    height: 320,
+    borderRadius: 8,
+    width: 300,
+    height: 300,
   },
   piccard: {
     borderRadius: 10,

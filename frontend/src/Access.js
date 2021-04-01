@@ -100,9 +100,10 @@ const Access = () => {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="default" />
       <ScrollView style={styles.sectionContainer}>
         <Text style={styles.sectionSubtitle}></Text>
-        <Text style={styles.sectionTitle}>Access</Text>
+        <Text style={styles.sectionTitlewoNav}>Access</Text>
         <View style={styles.containerRow}>
           <View style={styles.accessSearchItem1}>
             <TextInput
@@ -126,7 +127,7 @@ const Access = () => {
           <TouchableHighlight
             style={styles.button}
             underlayColor='none'
-            onPress={() => Actions.time()}
+            onPress={() => Actions.push('time')}
           >
             <View>
               <Text style={styles.buttonText}>Search</Text>

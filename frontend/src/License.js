@@ -25,6 +25,7 @@ import Register from "./Register";
 import Login from "./Login";
 import Home from "./Home";
 import AccessCard from "./components/AccessCard";
+import LicenseCard from "./components/LicenseCard";
 
 import styles from "./Styles";
 import axios from "axios";
@@ -32,30 +33,32 @@ import axios from "axios";
 const License = () => {
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="default" />
       <View style={styles.sectionContainer}>
         <View>
           <Text style={styles.sectionSubtitle}></Text>
           <Text style={styles.sectionTitlewoNav}>License Plate</Text>
-          <View style={styles.licenseCard}>
-            <View style={styles.licenseCardBlock}>
-              <View style={styles.licenseColContainer}>
-                <View style={styles.licenseCol40}></View>
-                <View style={styles.licenseCol60}>
-                  <View>
-                    <Text style={styles.licenseTitle}>กข 1234</Text>
-                    <Text style={styles.licenseProvince}>กรุงเทพมหานคร</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
+          {[
+            { cat: "กข", number: "9999", province: "กรุงเทพมหานคร", default: true },
+            { cat: "งง", number: "5555", province: "นครนายก", default: false },
+          ].map((license, index) => {
+            return (
+              <LicenseCard
+                key={"licensecard" + index}
+                cat={license.cat}
+                number={license.number}
+                province={license.province}
+                def={license.default}
+              />
+            );
+          })}
         </View>
       </View>
       <View style={styles.sectionContainerButton}>
         <TouchableHighlight
           style={styles.button}
           underlayColor="none"
-          onPress={() => Actions.push("addlc")}
+          onPress={() => Actions.addlc()}
         >
           <View>
             <Text style={styles.buttonText}>Add new license plate</Text>

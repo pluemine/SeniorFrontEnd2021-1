@@ -24,40 +24,46 @@ import { Router, Scene } from "react-native-router-flux";
 import Register from "./Register";
 import Login from "./Login";
 import Home from "./Home";
+import AccessCard from "./components/AccessCard";
+import PaymentCard from "./components/PaymentCard";
 
 import styles from "./Styles";
 import axios from "axios";
 
-const TabIcon = ({ selected, title }) => {
-  return <Text style={{ color: selected ? "red" : "black" }}>{title}</Text>;
-};
-
 const Payment = () => {
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.sectionContainer}>
-        <Text style={styles.sectionSubtitle}></Text>
-        <Text style={styles.sectionTitle}>Add Card</Text>
-        <TouchableHighlight
-          style={styles.otherMenu}
-          underlayColor="none"
-          onPress={() => Actions.push("payment")}
-        >
-          <View>
-            <Text style={styles.otherMenuTitle}>Add card</Text>
-            <Text style={styles.otherMenuDes}>Manage your payment methods</Text>
-          </View>
-        </TouchableHighlight>
+      <StatusBar barStyle="default" />
+      <View style={styles.sectionContainer}>
+        <View>
+          <Text style={styles.sectionSubtitle}></Text>
+          <Text style={styles.sectionTitlewoNav}>Payment Method</Text>
+          {[
+            { card: "4417 71xx xxxx 8888", exp: "12/22", default: true },
+            { card: "4417 70xx xxxx 9999", exp: "01/22", default: false },
+          ].map((card, index) => {
+            return (
+              <PaymentCard
+                key={"licensecard" + index}
+                card={card.card}
+                exp={card.exp}
+                def={card.default}
+              />
+            );
+          })}
+        </View>
+      </View>
+      <View style={styles.sectionContainerButton}>
         <TouchableHighlight
           style={styles.button}
           underlayColor="none"
-          onPress={() => Actions.pop()}
+          onPress={() => Actions.addcard()}
         >
           <View>
-            <Text style={styles.buttonText}>Back</Text>
+            <Text style={styles.buttonText}>Add new credit / debit card</Text>
           </View>
         </TouchableHighlight>
-      </ScrollView>
+      </View>
     </View>
   );
 };

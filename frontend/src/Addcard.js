@@ -30,19 +30,23 @@ import AccessCard from "./components/AccessCard";
 import styles from "./Styles";
 import axios from "axios";
 
-const Addlc = () => {
-  const [cat, setCat] = useState("");
+const Addcard = () => {
+  const [name, setName] = useState("");
   const [number, setNumber] = useState("");
-  const [province, setProvince] = useState("");
+  const [expire, setExpire] = useState("");
+  const [cvv, setCvv] = useState("");
 
-  const handleChange_cat = (event) => {
-    setCat(event);
+  const handleChange_name = (event) => {
+    setName(event);
   };
   const handleChange_number = (event) => {
     setNumber(event);
   };
-  const handleChange_province = (event) => {
-    setProvince(event);
+  const handleChange_expire = (event) => {
+    setExpire(event);
+  };
+  const handleChange_cvv = (event) => {
+    setCvv(event);
   };
 
   return (
@@ -50,58 +54,9 @@ const Addlc = () => {
       <StatusBar barStyle="default" />
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionSubtitle}></Text>
-        <Text style={styles.sectionTitlewoNav}>Add License Plate</Text>
-        <View style={styles.licenseBlock}>
-          <View style={styles.licenseColContainer}>
-            <View style={styles.licenseCol30}>
-              <FloatingLabelInput
-                label={"Category"}
-                containerStyles={styles.textbox}
-                customLabelStyles={{
-                  colorFocused: "#898989",
-                  colorBlurred: "#898989",
-                }}
-                inputStyles={{
-                  color: "#000000",
-                  paddingHorizontal: 5,
-                }}
-                value={cat}
-                hint="กข"
-                maxLength={2}
-                isPassword={false}
-                onChangeText={handleChange_cat}
-                autoCapitalize="none"
-              />
-              <Text style={styles.texterror}> </Text>
-            </View>
-            <View style={styles.licenseCol70}>
-              <FloatingLabelInput
-                label={"Number"}
-                containerStyles={styles.textbox}
-                customLabelStyles={{
-                  colorFocused: "#898989",
-                  colorBlurred: "#898989",
-                }}
-                inputStyles={{
-                  color: "#000000",
-                  paddingHorizontal: 5,
-                }}
-                value={number}
-                hint="1234"
-                mask="9999"
-                isPassword={false}
-                secureTextEntry={false}
-                keyboardType="numeric"
-                autoCompleteType={"off"}
-                onChangeText={handleChange_number}
-                autoCapitalize="none"
-              />
-              <Text style={styles.texterror}> </Text>
-            </View>
-          </View>
-        </View>
+        <Text style={styles.sectionTitlewoNav}>Add Card</Text>
         <FloatingLabelInput
-          label={"Province"}
+          label={"Cardholder Name"}
           containerStyles={styles.textbox}
           customLabelStyles={{
             colorFocused: "#898989",
@@ -111,22 +66,94 @@ const Addlc = () => {
             color: "#000000",
             paddingHorizontal: 5,
           }}
-          value={province}
-          hint="กรุงเทพมหานคร"
+          value={name}
+          hint="Firstname Lastname"
           isPassword={false}
           secureTextEntry={false}
           autoCompleteType={"off"}
-          onChangeText={handleChange_province}
+          onChangeText={handleChange_name}
           autoCapitalize="none"
         />
         <Text> </Text>
+        <FloatingLabelInput
+          label={"Card Number"}
+          containerStyles={styles.textbox}
+          customLabelStyles={{
+            colorFocused: "#898989",
+            colorBlurred: "#898989",
+          }}
+          inputStyles={{
+            color: "#000000",
+            paddingHorizontal: 5,
+          }}
+          value={number}
+          hint="0000-0000-0000-0000"
+          mask="9999-9999-9999-9999"
+          isPassword={false}
+          secureTextEntry={false}
+          keyboardType="numeric"
+          autoCompleteType={"off"}
+          onChangeText={handleChange_number}
+          autoCapitalize="none"
+        />
+        <Text> </Text>
+        <View style={styles.licenseBlock}>
+          <View style={styles.licenseColContainer}>
+            <View style={styles.licenseCol30}>
+              <FloatingLabelInput
+                label={"Expire"}
+                containerStyles={styles.textbox}
+                customLabelStyles={{
+                  colorFocused: "#898989",
+                  colorBlurred: "#898989",
+                }}
+                inputStyles={{
+                  color: "#000000",
+                  paddingHorizontal: 5,
+                }}
+                value={expire}
+                hint="12/21"
+                mask="99/99"
+                isPassword={false}
+                keyboardType="numeric"
+                onChangeText={handleChange_expire}
+                autoCapitalize="none"
+              />
+              <Text style={styles.texterror}> </Text>
+            </View>
+            <View style={styles.licenseCol70}>
+              <FloatingLabelInput
+                label={"cvv"}
+                containerStyles={styles.textbox}
+                customLabelStyles={{
+                  colorFocused: "#898989",
+                  colorBlurred: "#898989",
+                }}
+                inputStyles={{
+                  color: "#000000",
+                  paddingHorizontal: 5,
+                }}
+                value={cvv}
+                hint="123"
+                mask="999"
+                isPassword={false}
+                secureTextEntry={false}
+                keyboardType="numeric"
+                autoCompleteType={"off"}
+                onChangeText={handleChange_cvv}
+                autoCapitalize="none"
+              />
+              <Text style={styles.texterror}> </Text>
+            </View>
+          </View>
+        </View>
         <TouchableHighlight
           style={styles.button}
           underlayColor="none"
           onPress={() => Actions.replace("addlc")}
         >
           <View>
-            <Text style={styles.buttonText}>Add</Text>
+            <Text style={styles.buttonText}>Add card</Text>
           </View>
         </TouchableHighlight>
       </View>
@@ -136,4 +163,4 @@ const Addlc = () => {
 
 const styles1 = StyleSheet.create({});
 
-export default Addlc;
+export default Addcard;
