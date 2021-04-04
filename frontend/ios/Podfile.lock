@@ -29,7 +29,7 @@ PODS:
   - EXPermissions (10.0.0):
     - UMCore
     - UMPermissionsInterface
-  - EXSecureStore (9.3.0):
+  - EXSecureStore (10.0.0):
     - UMCore
   - EXSplashScreen (0.8.1):
     - React-Core
@@ -286,6 +286,8 @@ PODS:
     - React-Core (= 0.63.4)
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
+  - RNCPicker (1.14.0):
+    - React-Core
   - RNDateTimePicker (3.0.9):
     - React-Core
   - RNGestureHandler (1.8.0):
@@ -356,6 +358,7 @@ DEPENDENCIES:
   - React-RCTText (from `../node_modules/react-native/Libraries/Text`)
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
@@ -460,6 +463,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Vibration"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNCPicker:
+    :path: "../node_modules/@react-native-picker/picker"
   RNDateTimePicker:
     :path: "../node_modules/@react-native-community/datetimepicker"
   RNGestureHandler:
@@ -510,7 +515,7 @@ SPEC CHECKSUMS:
   EXLinearGradient: c803fbd1aa974be038177b1e45524bc35759fe9c
   EXLocation: d55e2a37f61bcfb4eba9c813b3f4621d896c4c00
   EXPermissions: 17d4846ad1880f6891c74ae58ca1acb43e47ed47
-  EXSecureStore: 1b571851e6068b30b8ec097be848a04603c03bae
+  EXSecureStore: 6ae3b88c67304ab64c63d44acc8fa31b1f5fb400
   EXSplashScreen: 8c7c1112ce7611a853486af4737fe2298eda7657
   EXSQLite: bda6a286dded0637bb312ee781239dcca163ff4b
   EXUpdates: 28368049118dbe4ceaf4422ec72e0ad5f770df1f
@@ -539,6 +544,7 @@ SPEC CHECKSUMS:
   React-RCTText: 5c51df3f08cb9dedc6e790161195d12bac06101c
   React-RCTVibration: ae4f914cfe8de7d4de95ae1ea6cc8f6315d73d9d
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
+  RNCPicker: 1a266981fc99330c252f5f98b3f09a377a35d88c
   RNDateTimePicker: 8a51a2216c307769e69ef827293d59549ab1ca23
   RNGestureHandler: 7a5833d0f788dbd107fbb913e09aa0c1ff333c39
   RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad

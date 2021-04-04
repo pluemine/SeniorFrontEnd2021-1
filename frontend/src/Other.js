@@ -47,11 +47,26 @@ const Other = () => {
               <Text style={styles.otherTitle}>Pluemine User</Text>
               <Text style={styles.otherDes}>pluem@gmail.com</Text>
             </View>
+            {/*<View style={styles.otherMenu}>
+              <Text style={styles.cardTitle}>$800.20</Text>
+            </View>*/}
+            <TouchableHighlight style={styles.otherMenu} underlayColor="none">
+              <View>
+                <Text style={styles.otherMenuTitle}>Wallet</Text>
+                <Text style={styles.otherMenuDes}>Top up your balance</Text>
+              </View>
+            </TouchableHighlight>
+            <View
+              style={{
+                borderBottomColor: "#EEEEEE",
+                borderBottomWidth: 1,
+              }}
+            />
             <TouchableHighlight style={styles.otherMenu} underlayColor="none">
               <View>
                 <Text style={styles.otherMenuTitle}>Edit Profile</Text>
                 <Text style={styles.otherMenuDes}>
-                  Avatar Email Firstname Lastname Password Phone
+                  Change your profile and contact
                 </Text>
               </View>
             </TouchableHighlight>
@@ -63,8 +78,20 @@ const Other = () => {
             />
             <TouchableHighlight style={styles.otherMenu} underlayColor="none">
               <View>
-                <Text style={styles.otherMenuTitle}>Settings</Text>
-                <Text style={styles.otherMenuDes}>Manage your preferences</Text>
+                <Text style={styles.otherMenuTitle}>My Car</Text>
+                <Text style={styles.otherMenuDes}>Manage your license plates</Text>
+              </View>
+            </TouchableHighlight>
+            <View
+              style={{
+                borderBottomColor: "#EEEEEE",
+                borderBottomWidth: 1,
+              }}
+            />
+            <TouchableHighlight style={styles.otherMenu} underlayColor="none">
+              <View>
+                <Text style={styles.otherMenuTitle}>Payment Methods</Text>
+                <Text style={styles.otherMenuDes}>Manage your cards</Text>
               </View>
             </TouchableHighlight>
             <View
@@ -89,7 +116,7 @@ const Other = () => {
               <View>
                 <Text style={styles.otherMenuTitleRed}>Sign Out</Text>
                 <Text style={styles.otherMenuDes}>
-                  Sign Out from the system
+                  Sign out from the system
                 </Text>
               </View>
             </TouchableHighlight>

@@ -571,6 +571,13 @@ const styles = StyleSheet.create({
     borderRadius: 0,
     resizeMode: "stretch",
   },
+  licenseSelectTitle: {
+    fontSize: 32,
+    fontWeight: "600",
+    color: MyColor.black,
+    marginVertical: 20,
+    marginHorizontal: 20,
+  },
 
   //Payment
   paymentTitle: {
@@ -650,6 +657,10 @@ const styles = StyleSheet.create({
     borderRadius: 0,
     resizeMode: "stretch",
   },
+  paymentTrash: {
+    height: 40,
+    width: 40,
+  }
 });
 
 module.exports = styles;

@@ -35,11 +35,24 @@ const Addcard = () => {
   const [number, setNumber] = useState("");
   const [expire, setExpire] = useState("");
   const [cvv, setCvv] = useState("");
+  const [brand, setBrand] = useState("nobrand");
 
   const handleChange_name = (event) => {
     setName(event);
   };
   const handleChange_number = (event) => {
+    if (number[0] == "3") {
+      setBrand("jcb");
+    }
+    else if (number[0] == "4") {
+      setBrand("visa");
+    }
+    else if (number[0] == "5") {
+      setBrand("mastercard");
+    }
+    else{
+      setBrand("nobrand");
+    }
     setNumber(event);
   };
   const handleChange_expire = (event) => {
@@ -48,6 +61,21 @@ const Addcard = () => {
   const handleChange_cvv = (event) => {
     setCvv(event);
   };
+
+  function namebrand() {
+    if (brand == "jcb") {
+      return require("../assets/icon-jcb.png");
+    }
+    else if (brand == "visa") {
+      return require("../assets/icon-visa.png");
+    }
+    else if (brand == "mastercard") {
+      return require("../assets/icon-mastercard.png");
+    }
+    else {
+      return require("../assets/icon-nocard.png");
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -86,6 +114,12 @@ const Addcard = () => {
             color: "#000000",
             paddingHorizontal: 5,
           }}
+          leftComponent={
+            <Image
+              style={{height: 30, width: 30}}
+              source={namebrand()}
+            />
+          }
           value={number}
           hint="0000-0000-0000-0000"
           mask="9999-9999-9999-9999"

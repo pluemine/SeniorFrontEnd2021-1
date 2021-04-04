@@ -39,7 +39,7 @@ const License = () => {
           <Text style={styles.sectionSubtitle}></Text>
           <Text style={styles.sectionTitlewoNav}>License Plate</Text>
           {[
-            { cat: "กข", number: "9999", province: "กรุงเทพมหานคร", default: true },
+            { cat: "กข", number: "9999", province: "กรุงเทพมหานคร", default: false },
             { cat: "งง", number: "5555", province: "นครนายก", default: false },
           ].map((license, index) => {
             return (

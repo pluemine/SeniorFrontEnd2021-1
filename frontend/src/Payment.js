@@ -39,7 +39,7 @@ const Payment = () => {
           <Text style={styles.sectionSubtitle}></Text>
           <Text style={styles.sectionTitlewoNav}>Payment Method</Text>
           {[
-            { card: "4417 71xx xxxx 8888", exp: "12/22", default: true },
+            { card: "4417 70xx xxxx 8888", exp: "12/22", default: true },
             { card: "4417 70xx xxxx 9999", exp: "01/22", default: false },
           ].map((card, index) => {
             return (

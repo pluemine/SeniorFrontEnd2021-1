@@ -38,7 +38,11 @@ const PaymentCard = (props) => {
           </View>
           <View style={styles.paymentCol70}>
             <Text style={styles.paymentTitle}>{card}</Text>
-            <Text style={styles.paymentExpire}>{exp}</Text>
+            <Text style={styles.paymentExpire}>Expire {exp}</Text>
+            {/*<Image
+              style={styles.paymentTrash}
+              source={require("../../assets/icon-trash.png")}
+            />*/}
           </View>
         </View>
       </View>
