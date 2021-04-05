@@ -36,6 +36,7 @@ const TabIcon = ({ selected, title }) => {
 
 const Access = () => {
   const [accesses, setAccesses] = useState([]);
+  const [filteredAccessePlaceName, setFilteredAccessePlaceName] = useState('');
 
   const getSecureStoreItem = async (key) => {
     return await SecureStore.getItemAsync(key);
@@ -100,7 +101,7 @@ const Access = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="default" />
+      <StatusBar barStyle='default' />
       <ScrollView style={styles.sectionContainer}>
         <Text style={styles.sectionSubtitle}></Text>
         <Text style={styles.sectionTitlewoNav}>Access</Text>
@@ -110,6 +111,8 @@ const Access = () => {
               style={styles.textbox}
               placeholder={'Search by place name'}
               placeholderTextColor={'#898989'}
+              value={filteredAccessePlaceName}
+              onChangeText={(text) => setFilteredAccessePlaceName(text)}
             />
           </View>
           <View style={styles.accessSearchItem2}>
@@ -133,25 +136,34 @@ const Access = () => {
               <Text style={styles.buttonText}>Search</Text>
             </View>
           </TouchableHighlight>
-          {accesses.map((access, index) => {
-            var valid = dateTime(access.valid_date_time);
-            var expired = dateTime(access.expired_date_time);
-            var proptype = propTypeName(access.property_type_id);
-            var accesstime = mintoH(access.mins_per_usage);
+          {accesses
+            .filter(
+              (access) =>
+                !filteredAccessePlaceName ||
+                filteredAccessePlaceName == '' ||
+                String(access['property_name']).includes(
+                  filteredAccessePlaceName
+                )
+            )
+            .map((access, index) => {
+              var valid = dateTime(access.valid_date_time);
+              var expired = dateTime(access.expired_date_time);
+              var proptype = propTypeName(access.property_type_id);
+              var accesstime = mintoH(access.mins_per_usage);
 
-            return (
-              <AccessCard
-                key={'accesscard' + index}
-                propimg={access.property_img}
-                proptype={proptype}
-                placename={access.property_name}
-                address={access.share_qouta}
-                valid={valid}
-                expire={expired}
-                time={accesstime}
-              />
-            );
-          })}
+              return (
+                <AccessCard
+                  key={'accesscard' + index}
+                  propimg={access.property_img}
+                  proptype={proptype}
+                  placename={access.property_name}
+                  address={access.share_qouta}
+                  valid={valid}
+                  expire={expired}
+                  time={accesstime}
+                />
+              );
+            })}
         </View>
       </ScrollView>
     </View>
