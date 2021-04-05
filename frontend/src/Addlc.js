@@ -37,6 +37,7 @@ const Addlc = () => {
   const [cat, setCat] = useState("");
   const [number, setNumber] = useState("");
   const [province, setProvince] = useState("เลือกจังหวัด");
+  const [provinceSelector, setProvinceSelector] = useState("กรุงเทพมหานคร");
 
   const handleChange_cat = (event) => {
     setCat(event);
@@ -53,6 +54,24 @@ const Addlc = () => {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+
+  const handleChange_provinceSelector = (event) => {
+    setProvinceSelector(event);
+  };
+
+  function confirmProvice() {
+    toggleModal();
+    setProvince(provinceSelector);
+  }
+
+  function cancelProvice() {
+    toggleModal();
+    if (province === "เลือกจังหวัด") {
+      setProvinceSelector("กรุงเทพมหานคร");
+    } else {
+      setProvinceSelector(province);
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -132,10 +151,7 @@ const Addlc = () => {
             />
           </View>
         </TouchableOpacity>
-        <Modal
-          isVisible={isModalVisible}
-          coverScreen={true}
-        >
+        <Modal isVisible={isModalVisible}>
           <View
             style={{
               flex: 1,
@@ -148,13 +164,17 @@ const Addlc = () => {
                 width: "100%",
                 height: 350,
                 backgroundColor: "#FFFFFF",
+                borderBottomLeftRadius: 10,
+                borderBottomRightRadius: 10,
                 borderRadius: 25,
               }}
             >
               <Text style={styles.licenseSelectTitle}>Select Province</Text>
               <Picker
-                selectedValue={province}
-                onValueChange={(itemValue, itemIndex) => setProvince(itemValue)}
+                selectedValue={provinceSelector}
+                onValueChange={(itemValue, itemIndex) =>
+                  handleChange_provinceSelector(itemValue)
+                }
               >
                 <Picker.Item label="กรุงเทพมหานคร" value="กรุงเทพมหานคร" />
                 <Picker.Item label="อยุธยา" value="อยุธยา" />
@@ -162,7 +182,21 @@ const Addlc = () => {
                 <Picker.Item label="นิวยอร์ค" value="นิวยอร์ค" />
                 <Picker.Item label="โคเปนเฮเกน" value="โคเปนเฮเกน" />
               </Picker>
-              <Button title="Select" onPress={toggleModal} />
+              <Button title="Select" onPress={confirmProvice} />
+            </View>
+            <View
+              style={{
+                width: "100%",
+                height: 60,
+                marginTop: 10,
+                backgroundColor: "#FFFFFF",
+                borderTopLeftRadius: 10,
+                borderTopRightRadius: 10,
+                borderRadius: 25,
+                justifyContent: "center",
+              }}
+            >
+              <Button title="Cancel" onPress={cancelProvice} />
             </View>
           </View>
         </Modal>
