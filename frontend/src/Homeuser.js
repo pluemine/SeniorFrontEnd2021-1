@@ -11,6 +11,7 @@ import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
+  FlatList,
   View,
   Text,
   TextInput,
@@ -31,6 +32,55 @@ import styles from './Styles';
 import axios from 'axios';
 
 const Homeuser = () => {
+  const DATA = [
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+      place_name: 'Central World',
+      place_img:
+        'https://www.avtechguide.com/wp-content/uploads/2020/02/second-apple-in-thailand-almost-and-leaked-construction-floor-plan_featured-800x445.jpg',
+      distance: 3.5,
+    },
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-556789019dba',
+      place_name: 'Samyan',
+      place_img:
+        'https://propholic.com/wp-content/uploads/2016/04/%E0%B8%AA%E0%B8%B2%E0%B8%A1%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%99R.jpg',
+      distance: 6.3,
+    },
+    {
+      id: '58694a0f-3da1-471f-bd96-145571e29d72',
+      place_name: 'Samyan Mitr Town',
+      place_img:
+        'https://www.japaikin.com/wp-content/uploads/2019/09/samyan-mitrtown-02.jpg',
+      distance: 6.5,
+    },
+  ];
+
+  const renderItem = ({ item }) => (
+    <ImageBackground
+      source={{ uri: item['place_img'] }}
+      style={styles1.homeuserBalanceCard}
+      key={item.id}
+    >
+      <View
+        style={{
+          padding: 30,
+          justifyContent: 'center',
+          backgroundColor: 'rgba(0, 0, 0, 0.3)',
+          height: '100%',
+          width: '100%',
+        }}
+      >
+        <Text style={styles.homeuserCardTitle}>
+          {item['place_name']} ({item['distance']} km)
+        </Text>
+        <Text style={styles.homeuserCardSubtitle}>Bangkok</Text>
+        <Text style={styles.homeuserCardSubtitle}></Text>
+        <Text style={styles.homeuserCardSubtitle}>100 units</Text>
+      </View>
+    </ImageBackground>
+  );
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle='default' />
@@ -97,34 +147,16 @@ const Homeuser = () => {
               </View>
             </View>
             <Text style={styles.homeuserTitle}>Nearby Parking</Text>
-            <ImageBackground
-              source={require('../assets/central.jpg')}
-              style={styles1.homeuserBalanceCard}
-              // imageStyle={{
-              //   shadowColor: '#888888',
-              //   shadowOffset: {
-              //     width: 0,
-              //     height: 2,
-              //   },
-              //   shadowOpacity: 0.25,
-              //   shadowRadius: 8,
-              // }}
-            >
-              <View
-                style={{
-                  padding: 30,
-                  justifyContent: 'center',
-                  backgroundColor: 'rgba(0, 0, 0, 0.25)',
-                }}
-              >
-                <Text style={styles.homeuserCardTitle}>
-                  Central World (3.5 km)
-                </Text>
-                <Text style={styles.homeuserCardSubtitle}>Bangkok</Text>
-                <Text style={styles.homeuserCardSubtitle}> </Text>
-                <Text style={styles.homeuserCardSubtitle}>100 units</Text>
-              </View>
-            </ImageBackground>
+            <SafeAreaView style={styles.nearByFlatListContainer}>
+              <FlatList
+                showsHorizontalScrollIndicator={false}
+                data={DATA}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id}
+                horizontal={true}
+                initialNumToRender={2}
+              />
+            </SafeAreaView>
           </View>
         </View>
       </ImageBackground>
@@ -135,9 +167,9 @@ const Homeuser = () => {
 const styles1 = StyleSheet.create({
   homeuserBalanceCard: {
     borderRadius: 10,
-    minWidth: '80%',
-    maxWidth: '80%',
-    // width: '80%',
+    maxWidth: 300,
+    width: 300,
+    marginRight: 16,
     height: 125,
     shadowColor: '#888888',
     shadowOffset: {
@@ -154,6 +186,12 @@ const styles1 = StyleSheet.create({
     height: '60%',
     justifyContent: 'space-between',
     backgroundColor: 'rgba(255,255,255,0.92)',
+  },
+  nearByFlatListContainer: {
+    minWidth: '100vw',
+    flex: 1,
+    overflow: 'scroll',
+    marginTop: 0,
   },
 });
 
