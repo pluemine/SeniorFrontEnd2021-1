@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import activityApi from '../apis/activity.api';
 import {
   Header,
   LearnMoreLinks,
@@ -34,23 +35,39 @@ const LicensePlateWaitingCard = (props) => {
     setWaitingLists,
   } = props;
 
+  //   const claimLicensePlate = async (usage_log_id, usage_log_uid) => {
+  //     const token =
+  //       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwbXMiLCJhdWQiOiJ1c2VyIiwiaWF0IjoxNjE4MzA3NTA4MDE5LCJleHAiOjE2MTgzMTQ3MDgwMTksInVzZXJfaWQiOjExNywicm9sZV9pZCI6MX0.zlkzPYLau6T9-xjjwQqvFng3nl4Kr4AIwEndJPbHL7k';
+  //     await axios
+  //       .put(
+  //         `http://localhost:4000/auth/papi/claimByLogId`,
+  //         {
+  //           usage_log_id: parseInt(usage_log_id),
+  //           usage_log_uid: usage_log_uid,
+  //         },
+  //         {
+  //           headers: { Authorization: `Bearer ${token}` },
+  //         }
+  //       )
+  //       .then((res) => {
+  //         setWaitingLists((prevs) => {
+  //           return prevs.filter((prev) => prev['usage_log_id'] !== usage_log_id);
+  //         });
+  //       })
+  //       .catch((error) => {
+  //         throw error;
+  //       });
+  //   };
+
   const claimLicensePlate = async (usage_log_id, usage_log_uid) => {
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJwbXMiLCJhdWQiOiJ1c2VyIiwiaWF0IjoxNjE4MzA3NTA4MDE5LCJleHAiOjE2MTgzMTQ3MDgwMTksInVzZXJfaWQiOjExNywicm9sZV9pZCI6MX0.zlkzPYLau6T9-xjjwQqvFng3nl4Kr4AIwEndJPbHL7k';
-    await axios
-      .put(
-        `http://localhost:4000/auth/papi/claimByLogId`,
-        {
-          usage_log_id: parseInt(usage_log_id),
-          usage_log_uid: usage_log_uid,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      )
+    await activityApi
+      .claimLicensePlate(usage_log_id, usage_log_uid)
       .then((res) => {
+        // console.log('license_plate_in_use', res);
         setWaitingLists((prevs) => {
-          return prevs.filter((prev) => prev['usage_log_id'] !== usage_log_id);
+          return prevs.filter(
+            (prev) => prev['usage_log_id'] !== res['usage_log_id']
+          );
         });
       })
       .catch((error) => {

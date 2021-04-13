@@ -77,7 +77,6 @@ const Login = () => {
       .then(async (res) => {
         if (res.data.status === 'OK') {
           saveSecureStoreItem('pms_token', res.data.data.token);
-          alert(await getSecureStoreItem('pms_token'));
           Actions.tabbar();
         } else {
           setFail(true);
@@ -124,7 +123,7 @@ const Login = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="default" />
+      <StatusBar barStyle='default' />
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionSubtitle}></Text>
         <Text style={styles.sectionTitlewoNav}>Sign In</Text>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Actions } from 'react-native-router-flux';
 import firebase from './config/firebase.config';
+import userApis from './apis/user.api';
 import {
   Header,
   LearnMoreLinks,
@@ -32,20 +33,34 @@ const Activity = () => {
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    firebase
-      .database()
-      .ref(`users/117/waiting`)
-      .limitToLast(1)
-      .on('child_added', (snapshot) => {
-        const new_added_license = {
-          license_plate_category: snapshot.val()['license_plate_category'],
-          license_plate_number: snapshot.val()['license_plate_number'],
-          province_id: snapshot.val()['province_id'],
-          usage_log_id: snapshot.val()['usage_log_id'],
-          usage_log_uid: snapshot.key,
-        };
-        setWaitingLists([...waitingLists, new_added_license]);
-      });
+    const licensePlateListener = async () => {
+      await userApis
+        .getUserId()
+        .then((user_id) => {
+          console.log('user_id', user_id);
+          firebase
+            .database()
+            .ref(`users/${user_id}/waiting`)
+            .limitToLast(1)
+            .on('child_added', (snapshot) => {
+              const new_added_license = {
+                license_plate_category: snapshot.val()[
+                  'license_plate_category'
+                ],
+                license_plate_number: snapshot.val()['license_plate_number'],
+                province_id: snapshot.val()['province_id'],
+                usage_log_id: snapshot.val()['usage_log_id'],
+                usage_log_uid: snapshot.key,
+              };
+              setWaitingLists([...waitingLists, new_added_license]);
+            });
+          return;
+        })
+        .catch((error) => {
+          throw error;
+        });
+    };
+    licensePlateListener();
   }, []);
 
   if (onGoingActivity.length || waitingLists.length || history.length)
