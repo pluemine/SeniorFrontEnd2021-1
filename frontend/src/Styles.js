@@ -765,8 +765,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   noDataImage: {
-    width: '80%',
-    height: '80%',
+    width: '85%',
+    height: '85%',
     // resizeMode: 'contain',
   },
   /* ---------------- */

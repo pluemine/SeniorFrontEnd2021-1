@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import activityApi from '../apis/activity.api';
+import { useFonts } from 'expo-font';
 import {
   Header,
   LearnMoreLinks,
@@ -34,6 +35,12 @@ const LicensePlateWaitingCard = (props) => {
     usage_log_uid,
     setWaitingLists,
   } = props;
+
+  const [fontLoaded, fontError] = useFonts({
+    KanitLight: require('../../assets/fonts/Kanit-Light.ttf'),
+  });
+
+  if (!fontLoaded || fontError) return null;
 
   //   const claimLicensePlate = async (usage_log_id, usage_log_uid) => {
   //     const token =
@@ -81,7 +88,13 @@ const LicensePlateWaitingCard = (props) => {
         <View style={styles.licensePlateWaitingCardContainer}>
           <View style={styles.licensePlateWaitingCardInfo}>
             <View style={styles.licensePlateWaitingCardInfoText}>
-              <Text style={styles.licensePlateWaitingCardInfoLicenseNumber}>
+              <Text
+                // style={styles.licensePlateWaitingCardInfoLicenseNumber}
+                style={{
+                  fontFamily: 'KanitLight',
+                  fontSize: 36,
+                }}
+              >
                 {license_plate_category} {license_plate_number}
               </Text>
               <Text style={styles.licensePlateWaitingCardInfoLicenseProvince}>
