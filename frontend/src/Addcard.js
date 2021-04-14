@@ -1,4 +1,5 @@
 import React, { Component, useState, useEffect } from "react";
+import * as SecureStore from 'expo-secure-store';
 import { Actions } from "react-native-router-flux";
 import {
   Header,
@@ -29,6 +30,7 @@ import AccessCard from "./components/AccessCard";
 
 import styles from "./Styles";
 import axios from "axios";
+import { exp } from "react-native-reanimated";
 
 const Addcard = () => {
   const [name, setName] = useState("");
@@ -43,14 +45,11 @@ const Addcard = () => {
   const handleChange_number = (event) => {
     if (number[0] == "3") {
       setBrand("jcb");
-    }
-    else if (number[0] == "4") {
+    } else if (number[0] == "4") {
       setBrand("visa");
-    }
-    else if (number[0] == "5") {
+    } else if (number[0] == "5") {
       setBrand("mastercard");
-    }
-    else{
+    } else {
       setBrand("nobrand");
     }
     setNumber(event);
@@ -65,17 +64,39 @@ const Addcard = () => {
   function namebrand() {
     if (brand == "jcb") {
       return require("../assets/icon-jcb.png");
-    }
-    else if (brand == "visa") {
+    } else if (brand == "visa") {
       return require("../assets/icon-visa.png");
-    }
-    else if (brand == "mastercard") {
+    } else if (brand == "mastercard") {
       return require("../assets/icon-mastercard.png");
-    }
-    else {
+    } else {
       return require("../assets/icon-nocard.png");
     }
   }
+
+  const addCard = async () => {
+    const token = await SecureStore.getItemAsync('pms_token');
+    console.log(parseInt(expire.substring(0,2)));
+    console.log(parseInt(expire.substring(3,7)));
+    console.log(number.toString());
+    console.log(cvv.toString());
+    axios
+      .post(`http://localhost:4000/auth/uapi/creditCard`, {
+        credit_card_number: number.toString(),
+        exp_month: parseInt(expire.substring(0,2)),
+        exp_year: parseInt(expire.substring(3,7)),
+        security_code: cvv.toString(),
+      },
+      { headers: { Authorization: `Bearer ${token}` } }
+      )
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+        if (res.data.status === "OK") {
+          Actions.popTo('homehome');
+          Actions.payment();
+        }
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -115,14 +136,11 @@ const Addcard = () => {
             paddingHorizontal: 5,
           }}
           leftComponent={
-            <Image
-              style={{height: 30, width: 30}}
-              source={namebrand()}
-            />
+            <Image style={{ height: 30, width: 30 }} source={namebrand()} />
           }
           value={number}
-          hint="0000-0000-0000-0000"
-          mask="9999-9999-9999-9999"
+          hint="0000000000000000"
+          mask="9999999999999999"
           isPassword={false}
           secureTextEntry={false}
           keyboardType="numeric"
@@ -146,8 +164,8 @@ const Addcard = () => {
                   paddingHorizontal: 5,
                 }}
                 value={expire}
-                hint="12/21"
-                mask="99/99"
+                hint="12/2021"
+                mask="99/9999"
                 isPassword={false}
                 keyboardType="numeric"
                 onChangeText={handleChange_expire}
@@ -184,13 +202,17 @@ const Addcard = () => {
         <TouchableHighlight
           style={styles.button}
           underlayColor="none"
-          onPress={() => Actions.replace("addlc")}
+          onPress={addCard}
         >
           <View>
             <Text style={styles.buttonText}>Add card</Text>
           </View>
         </TouchableHighlight>
       </View>
+      <Image
+        style={styles.bgCardPic}
+        source={require("../assets/pic-addcard.png")}
+      />
     </View>
   );
 };
