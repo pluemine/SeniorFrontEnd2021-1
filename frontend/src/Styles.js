@@ -724,6 +724,7 @@ const styles = StyleSheet.create({
   },
   licensePlateWaitingCardInfoLicenseNumber: {
     fontSize: 32,
+    fontFamily: 'KanitLight',
     fontWeight: '600',
     color: MyColor.black,
   },

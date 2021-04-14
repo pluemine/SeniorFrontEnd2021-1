@@ -25,6 +25,7 @@ import {
 import styles from './Styles';
 import axios from 'axios';
 import LicensePlateWaitingCard from './components/LicensePlateWaitingCard';
+import OnGoingActivityCard from './components/OngoingActivityCard';
 import { FloatingLabelInput } from 'react-native-floating-label-input';
 
 const Activity = () => {
@@ -37,7 +38,6 @@ const Activity = () => {
       await userApis
         .getUserId()
         .then((user_id) => {
-          console.log('user_id', user_id);
           firebase
             .database()
             .ref(`users/${user_id}/waiting`)
@@ -53,6 +53,27 @@ const Activity = () => {
                 usage_log_uid: snapshot.key,
               };
               setWaitingLists([...waitingLists, new_added_license]);
+            });
+          firebase
+            .database()
+            .ref(`users/${user_id}/in_use`)
+            .on('child_added', (snapshot) => {
+              const in_use_added_license = {
+                usage_log_id: snapshot.val()['usage_log_id'],
+                usage_log_uid: snapshot.key,
+              };
+              setOnGoingActivity([...onGoingActivity, in_use_added_license]);
+            });
+          firebase
+            .database()
+            .ref(`users/${user_id}/in_use`)
+            .on('child_removed', (snapshot) => {
+              setOnGoingActivity((prevs) => {
+                return prevs.filter(
+                  (prev) =>
+                    prev['usage_log_id'] !== snapshot.val()['usage_log_id']
+                );
+              });
             });
           return;
         })
@@ -70,6 +91,21 @@ const Activity = () => {
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionSubtitle}></Text>
           <Text style={styles.sectionTitlewoNav}>Activity</Text>
+          {onGoingActivity && onGoingActivity.length ? (
+            <Text style={styles.sectionTitlewoNav}>Ongoing</Text>
+          ) : null}
+          {onGoingActivity.map((ongoingItem) => {
+            return (
+              <OnGoingActivityCard
+                key={ongoingItem['usage_log_id']}
+                usage_log_id={ongoingItem['usage_log_id']}
+                usage_log_uid={ongoingItem['usage_log_uid']}
+              />
+            );
+          })}
+          {waitingLists && waitingLists.length ? (
+            <Text style={styles.sectionTitlewoNav}>Waiting</Text>
+          ) : null}
           {waitingLists.map((waitingList) => {
             return (
               <LicensePlateWaitingCard

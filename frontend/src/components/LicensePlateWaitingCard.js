@@ -82,19 +82,29 @@ const LicensePlateWaitingCard = (props) => {
       });
   };
 
+  const rejectLicensePlate = async (usage_log_uid) => {
+    await activityApi
+      .rejectClaimLicensePlate(usage_log_uid)
+      .then((usage_log_uid) => {
+        // console.log('license_plate_in_use', res);
+        setWaitingLists((prevs) => {
+          return prevs.filter(
+            (prev) => prev['usage_log_uid'] !== usage_log_uid
+          );
+        });
+      })
+      .catch((error) => {
+        throw error;
+      });
+  };
+
   return (
     <View style={styles.licensePlateWaitingCardWrapper}>
       <View style={styles.licensePlateWaitingCard}>
         <View style={styles.licensePlateWaitingCardContainer}>
           <View style={styles.licensePlateWaitingCardInfo}>
             <View style={styles.licensePlateWaitingCardInfoText}>
-              <Text
-                // style={styles.licensePlateWaitingCardInfoLicenseNumber}
-                style={{
-                  fontFamily: 'KanitLight',
-                  fontSize: 36,
-                }}
-              >
+              <Text style={styles.licensePlateWaitingCardInfoLicenseNumber}>
                 {license_plate_category} {license_plate_number}
               </Text>
               <Text style={styles.licensePlateWaitingCardInfoLicenseProvince}>
@@ -120,7 +130,7 @@ const LicensePlateWaitingCard = (props) => {
               <TouchableHighlight
                 style={styles.licensePlateWaitingCardRejectButton}
                 underlayColor={MyColor.pressedOrange}
-                onPress={() => console.log('')}
+                onPress={() => rejectLicensePlate(usage_log_uid)}
               >
                 <View>
                   <Text style={styles.licensePlateWaitingCardClaimText}>
