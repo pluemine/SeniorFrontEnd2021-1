@@ -143,14 +143,12 @@ const LicensePlateWaitingCard = (props) => {
         </View>
       </View>
       <View style={styles.licensePlateWaitingCardBadge}>
-        <Text>
-          <View>
-            <Image
-              style={styles.licensePlateWaitingCardBadgeIcon}
-              source={require('../../assets/exclamation_mark_icon.png')}
-            />
-          </View>
-        </Text>
+        <View>
+          <Image
+            style={styles.licensePlateWaitingCardBadgeIcon}
+            source={require('../../assets/exclamation_mark_icon.png')}
+          />
+        </View>
       </View>
     </View>
   );

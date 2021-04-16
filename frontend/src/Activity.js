@@ -30,6 +30,7 @@ import { FloatingLabelInput } from 'react-native-floating-label-input';
 
 const Activity = () => {
   const [onGoingActivity, setOnGoingActivity] = useState([]);
+  const [inUseLogId, setInUseLogId] = useState(new Set());
   const [waitingLists, setWaitingLists] = useState([]);
   const [history, setHistory] = useState([]);
 
@@ -62,7 +63,14 @@ const Activity = () => {
                 usage_log_id: snapshot.val()['usage_log_id'],
                 usage_log_uid: snapshot.key,
               };
-              setOnGoingActivity([...onGoingActivity, in_use_added_license]);
+              if (
+                !inUseLogId.has(parseInt(in_use_added_license['usage_log_id']))
+              ) {
+                setInUseLogId(
+                  inUseLogId.add(parseInt(in_use_added_license['usage_log_id']))
+                );
+                setOnGoingActivity([...onGoingActivity, in_use_added_license]);
+              }
             });
           firebase
             .database()
