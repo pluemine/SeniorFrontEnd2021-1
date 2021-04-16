@@ -32,12 +32,11 @@ const Other = () => {
       <StatusBar barStyle="default" />
       <ImageBackground
         style={styles1.pic}
-        source={require("../assets/cloud.jpg")}
+        source={require("../assets/avatar.jpg")}
+        blurRadius={25}
       >
         <View style={styles.accessContainer} />
-        <View style={styles.accessCard}>
-          <View style={styles.accessContainer}>
-            <View style={styles.otherMenu}>
+        <View style={styles.otherMenu}>
               <View style={styles.otherCenterBlock}>
                 <Image
                   style={styles.otherAvatar}
@@ -47,13 +46,25 @@ const Other = () => {
               <Text style={styles.otherTitle}>Pluemine User</Text>
               <Text style={styles.otherDes}>pluem@gmail.com</Text>
             </View>
+        <View style={styles.accessCard}>
+          <View style={styles.accessContainer}>
             {/*<View style={styles.otherMenu}>
+              <View style={styles.otherCenterBlock}>
+                <Image
+                  style={styles.otherAvatar}
+                  source={require("../assets/avatar.jpg")}
+                />
+              </View>
+              <Text style={styles.otherTitle}>Pluemine User</Text>
+              <Text style={styles.otherDes}>pluem@gmail.com</Text>
+  </View>*/}
+            <View style={styles.otherMenu}>
               <Text style={styles.cardTitle}>$800.20</Text>
-            </View>*/}
+            </View>
             <TouchableHighlight style={styles.otherMenu} underlayColor="none">
               <View>
-                <Text style={styles.otherMenuTitle}>Wallet</Text>
-                <Text style={styles.otherMenuDes}>Top up your balance</Text>
+                <Text style={styles.otherMenuTitle}>Top up</Text>
+                <Text style={styles.otherMenuDes}>Adjust your wallet balance</Text>
               </View>
             </TouchableHighlight>
             <View
@@ -79,7 +90,9 @@ const Other = () => {
             <TouchableHighlight style={styles.otherMenu} underlayColor="none">
               <View>
                 <Text style={styles.otherMenuTitle}>My Car</Text>
-                <Text style={styles.otherMenuDes}>Manage your license plates</Text>
+                <Text style={styles.otherMenuDes}>
+                  Manage your license plates
+                </Text>
               </View>
             </TouchableHighlight>
             <View

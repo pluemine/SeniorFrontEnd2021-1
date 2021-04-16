@@ -19,6 +19,19 @@ export const MyColor = {
   orange: '#eeab73',
   pressedOrange: '#D99154',
   dark_orange: '#c2722f',
+  white: '#fff',
+  black: '#000',
+  gray1: '#444444',
+  gray2: '#888888',
+  gray3: '#cccccc',
+  highlight: '#78aac2',
+  highlight2: '#ff9300',
+  gray4: '#f1f1f1',
+  red1: '#ff1111',
+  red2: '#ff0000',
+  red3: '#8c0000',
+  button: '#78aac2',
+  buttonred: '#8c0000',
   // your colors
 };
 
@@ -266,13 +279,13 @@ const styles = StyleSheet.create({
   itemcard: {
     borderRadius: 10,
     backgroundColor: MyColor.white,
-    shadowColor: MyColor.black,
+    shadowColor: MyColor.gray2,
     shadowOffset: {
       width: 0,
-      height: 0,
+      height: 2,
     },
     shadowOpacity: 0.25,
-    shadowRadius: 5,
+    shadowRadius: 8,
     elevation: 5,
     height: 140,
     maxWidth: 500,
@@ -369,12 +382,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     textAlign: 'center',
-    color: MyColor.black,
+    color: MyColor.white,
   },
   otherDes: {
     fontSize: 12,
     fontWeight: '400',
-    color: MyColor.black,
+    color: MyColor.white,
     textAlign: 'center',
   },
   otherMenuTitle: {
@@ -771,6 +784,111 @@ const styles = StyleSheet.create({
     // resizeMode: 'contain',
   },
   /* ---------------- */
+
+  //Modal
+  modalCover: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  modalArea: {
+    width: '100%',
+    height: 350,
+    backgroundColor: '#FFFFFF',
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    borderRadius: 25,
+  },
+  modalLicenseArea: {
+    width: '100%',
+    height: 520,
+    backgroundColor: '#FFFFFF',
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    borderRadius: 25,
+    justifyContent: 'space-between',
+  },
+  modalPaymentArea: {
+    width: '100%',
+    height: 600,
+    backgroundColor: '#FFFFFF',
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    borderRadius: 25,
+    justifyContent: 'space-between',
+  },
+  modalCancel: {
+    width: '100%',
+    height: 60,
+    marginTop: 10,
+    backgroundColor: '#FFFFFF',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    borderRadius: 25,
+    justifyContent: 'center',
+  },
+  modalTitle: {
+    fontSize: 32,
+    fontWeight: '600',
+    color: MyColor.black,
+    marginVertical: 20,
+    marginHorizontal: 20,
+  },
+  modalTitleRed: {
+    fontSize: 32,
+    fontWeight: '600',
+    color: MyColor.red2,
+    marginVertical: 20,
+    marginHorizontal: 20,
+  },
+  modalTextTitle: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: MyColor.black,
+  },
+  modalTextTitleHighlight: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: MyColor.black,
+  },
+  modalTextDes: {
+    fontSize: 12,
+    fontWeight: '400',
+    color: MyColor.gray1,
+  },
+  modalTextBlock: {
+    marginVertical: 15,
+    marginHorizontal: 20,
+  },
+  modalDesBlock: {
+    marginTop: 15,
+    marginHorizontal: 20,
+  },
+
+  //NoData Picture
+  noDataPic: {
+    width: 300,
+    height: 150,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    alignItems: 'center',
+  },
+  noDataDes: {
+    //color: "#444444",
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: '600',
+    marginVertical: 40,
+  },
+
+  //Background Pic Add
+  bgCardPic: {
+    width: '100%',
+    height: 300,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default styles;

@@ -27,6 +27,8 @@ import DatePicker from "react-native-date-picker";
 import styled from "styled-components";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { FloatingLabelInput } from "react-native-floating-label-input";
+import DateTimePicker from "react-native-modal-datetime-picker";
+import Modal from "react-native-modal";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -34,10 +36,8 @@ const Register = () => {
   const [confirm, setConfirm] = useState("");
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
-  const [dateofbirth, setDateofbirth] = useState("");
-  const [phone, setPhone] = useState("");
   const [date, setDate] = useState(new Date());
-  const [show, setShow] = useState(false);
+  const [phone, setPhone] = useState("");
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const [emailError, setEmailError] = useState(false);
@@ -47,6 +47,20 @@ const Register = () => {
   const [lastnameError, setLastnameError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
   const [dupEmail, setDupEmail] = useState(false);
+
+  const [dateSelector, setDateSelector] = useState(date);
+
+  const toggleDatePicker = () => {
+    setDatePickerVisibility(!isDatePickerVisible);
+  };
+  function confirmDate() {
+    toggleDatePicker();
+    setDate(dateSelector);
+  }
+  function cancelDate() {
+    toggleDatePicker();
+    setDateSelector(date);
+  }
 
   const handleChange_email = (event) => {
     setEmail(event);
@@ -74,17 +88,6 @@ const Register = () => {
     setPhoneError(false);
   };
 
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-  const handleConfirm = (date) => {
-    console.warn("A date has been picked: ", date);
-    setDate(date);
-    hideDatePicker();
-  };
   const sent = () => {
     console.warn(
       emailError,
@@ -183,8 +186,7 @@ const Register = () => {
         console.log(res.data.data);
         if (res.data.status === "OK") {
           Actions.login();
-        }
-        else {
+        } else {
           if (res.data.data === "DUPLICATED EMAIL") {
             setDupEmail(true);
           }
@@ -326,7 +328,7 @@ const Register = () => {
         ) : (
           <Text style={styles.texterror}> </Text>
         )}
-        <TouchableOpacity onPress={showDatePicker}>
+        <TouchableOpacity onPress={toggleDatePicker}>
           <View pointerEvents="none">
             <FloatingLabelInput
               label={"Date of birth"}
@@ -346,18 +348,27 @@ const Register = () => {
           </View>
         </TouchableOpacity>
         <Text style={styles.texterror}> </Text>
-        <DateTimePickerModal
-          isVisible={isDatePickerVisible}
-          date={date}
-          mode="date"
-          placeholder="select date"
-          format="DD-MM-YYYY"
-          onConfirm={handleConfirm}
-          onCancel={hideDatePicker}
-          onDateChange={(date) => {
-            setDate(date);
-          }}
-        />
+        <Modal isVisible={isDatePickerVisible}>
+          <View style={styles.modalCover}>
+            <View style={styles.modalArea}>
+              <Text style={styles.modalTitle}>Date of Birth</Text>
+              <View style={{ alignItems: "center" }}>
+                <DatePicker
+                  mode="date"
+                  date={dateSelector}
+                  onDateChange={(dateSelector) => {
+                    setDateSelector(dateSelector);
+                  }}
+                />
+              </View>
+              <Button title="Select" onPress={confirmDate} />
+            </View>
+            <View style={styles.modalCancel}>
+              <Button title="Cancel" onPress={cancelDate} />
+            </View>
+          </View>
+        </Modal>
+
         <FloatingLabelInput
           label={"Phone Number"}
           containerStyles={phoneError ? styles.textboxerror : styles.textbox}
