@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { Actions } from "react-native-router-flux";
+import React, { Component } from 'react';
+import { Actions } from 'react-native-router-flux';
 import {
   Header,
   LearnMoreLinks,
   Colors,
   DebugInstructions,
   ReloadInstructions,
-} from "react-native/Libraries/NewAppScreen";
+} from 'react-native/Libraries/NewAppScreen';
 import {
   SafeAreaView,
   StyleSheet,
@@ -19,16 +19,16 @@ import {
   TouchableHighlight,
   Image,
   ImageBackground,
-} from "react-native";
-import styles from "./Styles";
+} from 'react-native';
+import styles from './Styles';
 
 const Home = () => {
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle='light-content' />
       <ImageBackground
         style={styles.pic}
-        source={require("../assets/main.jpg")}
+        source={require('../assets/main.jpg')}
         blurRadius={25}
       >
         <View style={styles.sectionContainer}>
@@ -43,7 +43,7 @@ const Home = () => {
           </Text>
           <TouchableHighlight
             style={styles.buttonWhite}
-            underlayColor="none"
+            underlayColor='none'
             onPress={() => Actions.login()}
           >
             <View>
@@ -52,11 +52,20 @@ const Home = () => {
           </TouchableHighlight>
           <TouchableHighlight
             style={styles.buttonbdrWhite}
-            underlayColor="none"
+            underlayColor='none'
             onPress={() => Actions.register()}
           >
             <View>
               <Text style={styles.buttonbdrTextWhite}>Create Account</Text>
+            </View>
+          </TouchableHighlight>
+          <TouchableHighlight
+            style={styles.buttonWhite}
+            underlayColor='none'
+            onPress={() => Actions.Activity()}
+          >
+            <View>
+              <Text style={styles.buttonTextWhite}>Firebase</Text>
             </View>
           </TouchableHighlight>
         </View>
@@ -69,23 +78,23 @@ const styles1 = StyleSheet.create({
   logo: {
     width: 300,
     height: 300,
-    resizeMode: "stretch",
+    resizeMode: 'stretch',
   },
   content: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   texthead: {
     //color: "#444444",
-    color: "#FFFFFF",
-    fontWeight: "800",
-    textAlign: "center",
+    color: '#FFFFFF',
+    fontWeight: '800',
+    textAlign: 'center',
     marginBottom: 10,
   },
   textdes: {
     //color: "#444444",
-    color: "#FFFFFF",
-    textAlign: "center",
+    color: '#FFFFFF',
+    textAlign: 'center',
     fontSize: 12,
     marginBottom: 40,
   },
