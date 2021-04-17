@@ -1,124 +1,136 @@
-import React, { Component } from 'react';
-import { Text, StatusBar } from 'react-native';
-import { Router, Scene } from 'react-native-router-flux';
+import React, { Component } from "react";
+import { Text, StatusBar } from "react-native";
+import { Router, Scene } from "react-native-router-flux";
 
-import FirebaseTest from './FirebaseTest';
-import Register from './Register';
-import Login from './Login';
-import Home from './Home';
-import Homeuser from './Homeuser';
-import Time from './Time';
-import Share from './Share';
-import Other from './Other';
-import Activity from './Activity';
-import Access from './Access';
-import Payment from './Payment';
-import License from './License';
-import Addlc from './Addlc';
-import Addcard from './Addcard';
+import FirebaseTest from "./FirebaseTest";
+import Register from "./Register";
+import Login from "./Login";
+import Home from "./Home";
+import Homeuser from "./Homeuser";
+import Time from "./Time";
+import Share from "./Share";
+import Other from "./Other";
+import Activity from "./Activity";
+import Access from "./Access";
+import Payment from "./Payment";
+import License from "./License";
+import Addlc from "./Addlc";
+import Addcard from "./Addcard";
 
 // Simple component to render something in place of icon
 const TabIcon = ({ selected, title }) => {
-  return <Text style={{ color: selected ? 'red' : 'black' }}>{title}</Text>;
+  return <Text style={{ color: selected ? "red" : "black" }}>{title}</Text>;
 };
 
 const App = () => {
   return (
     <Router>
-      <Scene key='root'>
+      <Scene key="root">
         <Scene
-          key='home'
+          key="home"
           component={Home}
           initial={true}
           hideTabBar
           hideNavBar
         />
         <Scene
-          key='register'
+          key="register"
           component={Register}
+          headerTintColor="#5394b5"
           navTransparent={true}
           hideTabBar
         />
         <Scene
-          key='firebaseTest'
+          key="firebaseTest"
           component={FirebaseTest}
+          headerTintColor='#5394b5'
           navTransparent={true}
           hideTabBar
         />
-        <Scene key='login' component={Login} navTransparent={true} hideTabBar />
         <Scene
-          key='tabbar'
+          key="login"
+          component={Login}
+          headerTintColor="#5394b5"
+          navTransparent={true}
+          hideTabBar
+        />
+        <Scene
+          key="tabbar"
           tabs={true}
-          tabBarStyle={{ backgroundColor: '#FFFFFF' }}
+          tabBarStyle={{ backgroundColor: "#FFFFFF" }}
           hideNavBar
         >
-          <Scene key='Home' icon={TabIcon}>
+          <Scene key="Home" icon={TabIcon}>
             <Scene
-              key='homehome'
+              key="homehome"
               component={Homeuser}
               navTransparent={true}
               initial={true}
             />
             <Scene
-              key='license'
+              key="license"
               component={License}
+              headerTintColor="#5394b5"
               navTransparent={true}
               hideTabBar={true}
             />
             <Scene
-              key='addlc'
+              key="addlc"
               component={Addlc}
+              headerTintColor="#5394b5"
               navTransparent={true}
               hideTabBar={true}
             />
             <Scene
-              key='payment'
+              key="payment"
               component={Payment}
+              headerTintColor="#5394b5"
               navTransparent={true}
               hideTabBar={true}
             />
             <Scene
-              key='addcard'
+              key="addcard"
               component={Addcard}
+              headerTintColor="#5394b5"
               navTransparent={true}
               hideTabBar={true}
             />
           </Scene>
           <Scene
-            key='Activity'
+            key="Activity"
             icon={TabIcon}
             component={Activity}
             hideNavBar
           />
-          <Scene key='Access' icon={TabIcon}>
+          <Scene key="Access" icon={TabIcon}>
             <Scene
-              key='accesshome'
+              key="accesshome"
               component={Access}
               initial={true}
               hideNavBar
             />
             <Scene
-              key='time'
+              key="time"
               component={Time}
               navTransparent={true}
-              titleStyle={{ color: '#FFFFFF' }}
-              headerTintColor='#ffffff'
+              titleStyle={{ color: "#ffffff" }}
+              headerTintColor="#ffffff"
               hideNavBar={false}
               hideTabBar={true}
             />
             <Scene
-              key='share'
+              key="share"
               component={Share}
               navTransparent={true}
-              titleStyle={{ color: '#FFFFFF' }}
-              headerTintColor='#ffffff'
+              titleStyle={{ color: "#ffffff" }}
+              headerTintColor="#ffffff"
               hideNavBar={false}
               hideTabBar={true}
             />
           </Scene>
-          <Scene key='Search' icon={TabIcon} component={Activity} hideNavBar />
-          <Scene key='Other' icon={TabIcon}>
-            <Scene key='otherhome' component={Other} hideNavBar />
+          <Scene key="Search" icon={TabIcon} component={Activity} hideNavBar />
+          <Scene key="Other" icon={TabIcon}>
+            <Scene key="otherhome" component={Other} hideNavBar />
           </Scene>
         </Scene>
       </Scene>

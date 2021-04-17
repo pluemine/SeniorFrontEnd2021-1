@@ -180,7 +180,6 @@ const Addlc = () => {
     <View style={styles.container}>
       <StatusBar barStyle="default" />
       <View style={styles.sectionContainer}>
-        <Text style={styles.sectionSubtitle}></Text>
         <Text style={styles.sectionTitlewoNav}>Add License Plate</Text>
         <View style={styles.licenseBlock}>
           <View style={styles.licenseColContainer}>

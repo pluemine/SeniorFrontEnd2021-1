@@ -125,7 +125,6 @@ const Login = () => {
     <View style={styles.container}>
       <StatusBar barStyle='default' />
       <View style={styles.sectionContainer}>
-        <Text style={styles.sectionSubtitle}></Text>
         <Text style={styles.sectionTitlewoNav}>Sign In</Text>
         <FloatingLabelInput
           label={'Email'}

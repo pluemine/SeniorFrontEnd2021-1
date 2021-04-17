@@ -21,7 +21,17 @@ import {
   Image,
 } from "react-native";
 import { Router, Scene } from "react-native-router-flux";
-import Modal from "react-native-modal";
+import {
+  BallIndicator,
+  BarIndicator,
+  DotIndicator,
+  MaterialIndicator,
+  PacmanIndicator,
+  PulseIndicator,
+  SkypeIndicator,
+  UIActivityIndicator,
+  WaveIndicator,
+} from "react-native-indicators";
 
 import Register from "./Register";
 import Login from "./Login";
@@ -132,60 +142,71 @@ const License = () => {
     getLicense();
   }, []);
 
-  return (
-    <View style={styles.container}>
-      <StatusBar barStyle="default" />
-      <View style={styles.sectionContainer}>
+  const goAddLicense = (event) => {
+    if (licenses.length <= 4 && des != "Loading") {
+      Actions.addlc();
+    }
+  };
+
+  let screen;
+  if (des === "Loading") {
+    screen = (
+      <View style={styles.sectionContainerScroll}>
+        <PulseIndicator color="#78aac2" />
+      </View>
+    );
+  } else if (licenses.length > 0) {
+    screen = (
+      <ScrollView style={styles.sectionContainerScroll}>
         <View>
-          <Text style={styles.sectionSubtitle}></Text>
-          <Text style={styles.sectionTitlewoNav}>License Plate</Text>
-          {/*[
-            { cat: "กข", number: "9999", province: "กรุงเทพมหานคร", default: false },
-            { cat: "งง", number: "5555", province: "นครนายก", default: false },
-          ].map((license, index) => {
+          {licenses.map((license, index) => {
             return (
               <LicenseCard
                 key={"licensecard" + index}
-                cat={license.cat}
-                number={license.number}
-                province={license.province}
-                def={license.default}
+                cat={license.license_plate_category}
+                number={license.license_plate_number}
+                province={provinces[license.province_id]}
+                lpid={license.license_plate_id}
               />
             );
-          })*/}
-          {licenses.length > 0 ? (
-            licenses.map((license, index) => {
-              return (
-                <LicenseCard
-                  key={"licensecard" + index}
-                  cat={license.license_plate_category}
-                  number={license.license_plate_number}
-                  province={provinces[license.province_id]}
-                  lpid={license.license_plate_id}
-                />
-              );
-            })
-          ) : (
-            <View>
-              <Image
-                style={styles.noDataPic}
-                source={require("../assets/pic-nolicense.png")}
-              />
-              <Text style={styles.noDataDes}>{des}</Text>
-            </View>
-          )}
+          })}
         </View>
+      </ScrollView>
+    );
+  } else {
+    screen = (
+      <View style={styles.sectionContainerScroll}>
+        <Image
+          style={styles.noDataPic}
+          source={require("../assets/pic-nolicense.png")}
+        />
+        <Text style={styles.noDataDes}>{des}</Text>
       </View>
+    );
+  }
+
+  return (
+    <View style={styles.container}>
+      <StatusBar barStyle="default" />
+      <View style={styles.sectionContainerHeader}>
+        <Text style={styles.sectionTitlewoNav}>License Plate</Text>
+      </View>
+      {screen}
       <View style={styles.sectionContainerButton}>
-        <TouchableHighlight
-          style={styles.button}
-          underlayColor="none"
-          onPress={() => Actions.addlc()}
-        >
-          <View>
-            <Text style={styles.buttonText}>Add new license plate</Text>
-          </View>
-        </TouchableHighlight>
+        {des != "Loading" ? (
+          <TouchableHighlight
+            style={licenses.length < 4 ? styles.button : styles.buttonDisable}
+            underlayColor="none"
+            /*onPress={() => Actions.addlc()}*/
+            onPress={() => goAddLicense()}
+          >
+            <View>
+              <Text style={styles.buttonText}>Add new license plate</Text>
+            </View>
+          </TouchableHighlight>
+        ) : (
+          <View></View>
+        )}
       </View>
     </View>
   );

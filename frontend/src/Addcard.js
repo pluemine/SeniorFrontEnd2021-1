@@ -32,7 +32,9 @@ import styles from "./Styles";
 import axios from "axios";
 import { exp } from "react-native-reanimated";
 
-const Addcard = () => {
+const Addcard = (props) => {
+  const { set } = props
+
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [expire, setExpire] = useState("");
@@ -92,8 +94,11 @@ const Addcard = () => {
         console.log(res);
         console.log(res.data);
         if (res.data.status === "OK") {
-          Actions.popTo('homehome');
-          Actions.payment();
+          set(prev => {return [...prev, res.data]})
+          //Actions.popTo('homehome');
+          //Actions.payment();
+          console.log(res.data)
+          Actions.pop();
         }
       });
   };
@@ -102,7 +107,6 @@ const Addcard = () => {
     <View style={styles.container}>
       <StatusBar barStyle="default" />
       <View style={styles.sectionContainer}>
-        <Text style={styles.sectionSubtitle}></Text>
         <Text style={styles.sectionTitlewoNav}>Add Card</Text>
         <FloatingLabelInput
           label={"Cardholder Name"}

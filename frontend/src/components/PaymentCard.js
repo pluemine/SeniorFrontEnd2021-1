@@ -57,7 +57,7 @@ const PaymentCard = (props) => {
     } else if (number[0] == "5") {
       setBrand("MASTERCARD");
     } else {
-      setBrand("");
+      setBrand("OTHER");
     }
 
     if (def) {
@@ -65,6 +65,18 @@ const PaymentCard = (props) => {
     }
     else {
       setDeftext("");
+    }
+  }
+
+  function namebrand() {
+    if (number[0] == "3") {
+      return require("../../assets/icon-jcb.png");
+    } else if (number[0] == "4") {
+      return require("../../assets/icon-visa.png");
+    } else if (number[0] == "5") {
+      return require("../../assets/icon-mastercard.png");
+    } else {
+      return require("../../assets/icon-nocard.png");
     }
   }
 
@@ -87,7 +99,7 @@ const PaymentCard = (props) => {
               <View style={styles.paymentCol30}>
                 <Image
                   style={styles.paymentIcon}
-                  source={require("../../assets/icon-payment.png")}
+                  source={namebrand()}
                 />
               </View>
               <View style={styles.paymentCol70}>
