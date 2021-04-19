@@ -176,7 +176,7 @@ const Addlc = () => {
       .post(
         `http://localhost:4000/auth/lpapi`,
         {
-          license_plate_category: cat,
+          license_plate_category: category,
           license_plate_number: number,
           province_id: provinces[province],
         },
@@ -186,8 +186,10 @@ const Addlc = () => {
         console.log(res);
         console.log(res.data);
         if (res.data.status === "OK") {
-          Actions.popTo("homehome");
-          Actions.license();
+          Actions.pop();
+          setTimeout(() => {
+            Actions.refresh({ key: Math.random() });
+          }, 500);
         }
       });
   };
@@ -204,7 +206,7 @@ const Addlc = () => {
                 label="Category"
                 error1={categoryError}
                 value={category}
-                error="* No Data"
+                error="* Incorrect"
                 hint="กข"
                 maxLength={3}
                 onChangeText={handleChange_category}
@@ -216,7 +218,7 @@ const Addlc = () => {
                 label="Number"
                 error1={numberError}
                 value={number}
-                error="* No Data"
+                error="* Incorrect"
                 hint="1234"
                 mask="9999"
                 keyboardType="numeric"
@@ -232,7 +234,7 @@ const Addlc = () => {
               label="Province"
               error1={provinceError}
               value={province}
-              error="* Please select province"
+              error="* Please select a province."
               hint="กรุงเทพมหานคร"
               autoCapitalize="none"
             />

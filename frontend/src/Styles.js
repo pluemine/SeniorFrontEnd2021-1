@@ -13,7 +13,8 @@ export const MyColor = {
   red3: '#8c0000',
   button: '#5394b5',
   buttonred: '#8c0000',
-  blue: '#78aac3',
+  //blue: '#78aac3',
+  blue: '#5893AF',
   pressedBlued: '#5893AF',
   orange: '#eeab73',
   pressedOrange: '#D99154',
@@ -359,7 +360,12 @@ const styles = StyleSheet.create({
   otherMenuTitleBlue: {
     fontSize: 15,
     fontWeight: '600',
-    color: '#003366',
+    color: MyColor.blue,
+  },
+  otherMenuTitleOrange: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: MyColor.pressedOrange,
   },
   otherMenuDes: {
     fontSize: 12,

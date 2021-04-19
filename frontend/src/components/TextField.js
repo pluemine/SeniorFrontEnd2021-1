@@ -31,6 +31,7 @@ const TextField = (props) => {
     onChangeText,
     autoCapitalize,
     keyboardType,
+    leftComponent,
   } = props;
 
   let field;
@@ -56,6 +57,7 @@ const TextField = (props) => {
       onChangeText={onChangeText}
       autoCapitalize={autoCapitalize}
       keyboardType={keyboardType}
+      leftComponent={leftComponent}
     />
   );
 
@@ -89,4 +91,5 @@ TextField.defaultProps = {
   onChangeText: undefined,
   autoCapitalize: "words",
   keyboardType: undefined,
+  leftComponent: undefined,
 };

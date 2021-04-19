@@ -62,8 +62,7 @@ const PaymentCard = (props) => {
 
     if (def) {
       setDeftext("");
-    }
-    else {
+    } else {
       setDeftext("");
     }
   }
@@ -82,12 +81,13 @@ const PaymentCard = (props) => {
 
   const removePayment = async () => {
     const token = await SecureStore.getItemAsync("pms_token");
-    console.log(number, exp, def, pcid);
-    axios.delete(`http://localhost:4000/auth/uapi/creditCard?id=${pcid}`, {
+    console.log(number, def, pcid);
+    axios.delete(`http://localhost:4000/auth/capi/card?id=${pcid}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    Actions.popTo("homehome");
-    Actions.payment();
+    setTimeout(() => {
+      Actions.refresh({ key: Math.random() });
+    }, 500);
   };
 
   return (
@@ -97,14 +97,17 @@ const PaymentCard = (props) => {
           <View style={styles.paymentCardBlock}>
             <View style={styles.paymentColContainer}>
               <View style={styles.paymentCol30}>
-                <Image
-                  style={styles.paymentIcon}
-                  source={namebrand()}
-                />
+                <Image style={styles.paymentIcon} source={namebrand()} />
               </View>
               <View style={styles.paymentCol70}>
-                <Text style={styles.paymentTitle}>{number.substring(0, 4) + "********" + number.substring(12, 16)}</Text>
-                <Text style={styles.paymentExpire}>Expire {expiremonth + "/" + expireyear}</Text>
+                <Text style={styles.paymentTitle}>
+                  {number.substring(0, 4) +
+                    "********" +
+                    number.substring(12, 16)}
+                </Text>
+                <Text style={styles.paymentExpire}>
+                  Expire {expiremonth + "/" + expireyear}
+                </Text>
                 {/*<Image
               style={styles.paymentTrash}
               source={require("../../assets/icon-trash.png")}
@@ -135,7 +138,13 @@ const PaymentCard = (props) => {
               <View style={styles.modalTextBlock}>
                 <Text style={styles.modalTextTitle}>Your card</Text>
                 <Text style={styles.modalTextDes}>
-                  {number.substring(0, 4) + "********" + number.substring(12, 16) + " (" + brand + ") " + deftext}
+                  {number.substring(0, 4) +
+                    "********" +
+                    number.substring(12, 16) +
+                    " (" +
+                    brand +
+                    ") " +
+                    deftext}
                 </Text>
               </View>
               <View

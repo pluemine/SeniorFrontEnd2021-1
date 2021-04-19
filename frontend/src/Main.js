@@ -16,6 +16,7 @@ import Payment from "./Payment";
 import License from "./License";
 import Addlc from "./Addlc";
 import Addcard from "./Addcard";
+import Parking from "./Parking";
 
 // Simple component to render something in place of icon
 const TabIcon = ({ selected, title }) => {
@@ -43,7 +44,7 @@ const App = () => {
         <Scene
           key="firebaseTest"
           component={FirebaseTest}
-          headerTintColor='#5394b5'
+          headerTintColor="#5394b5"
           navTransparent={true}
           hideTabBar
         />
@@ -73,9 +74,9 @@ const App = () => {
               headerTintColor="#5394b5"
               navTransparent={true}
               hideTabBar={true}
-              onRight={() => Actions.refresh({key: Math.random()})}
-              rightButtonImage={require('../assets/icon-refresh.png')}
-              rightButtonIconStyle={{width: 24, height: 24}}
+              onRight={() => Actions.refresh({ key: Math.random() })}
+              rightButtonImage={require("../assets/icon-refresh.png")}
+              rightButtonIconStyle={{ width: 24, height: 24 }}
             />
             <Scene
               key="addlc"
@@ -90,9 +91,9 @@ const App = () => {
               headerTintColor="#5394b5"
               navTransparent={true}
               hideTabBar={true}
-              onRight={() => Actions.refresh({key: Math.random()})}
-              rightButtonImage={require('../assets/icon-refresh.png')}
-              rightButtonIconStyle={{width: 24, height: 24}}
+              onRight={() => Actions.refresh({ key: Math.random() })}
+              rightButtonImage={require("../assets/icon-refresh.png")}
+              rightButtonIconStyle={{ width: 24, height: 24 }}
             />
             <Scene
               key="addcard"
@@ -114,9 +115,9 @@ const App = () => {
               component={Access}
               initial={true}
               navTransparent={true}
-              onRight={() => Actions.refresh({key: Math.random()})}
-              rightButtonImage={require('../assets/icon-refresh.png')}
-              rightButtonIconStyle={{width: 24, height: 24}}
+              onRight={() => Actions.refresh({ key: Math.random() })}
+              rightButtonImage={require("../assets/icon-refresh.png")}
+              rightButtonIconStyle={{ width: 24, height: 24 }}
             />
             <Scene
               key="time"
@@ -137,7 +138,12 @@ const App = () => {
               hideTabBar={true}
             />
           </Scene>
-          <Scene key="Search" icon={TabIcon} component={Activity} hideNavBar />
+          <Scene
+            key="Search"
+            icon={TabIcon}
+            component={Parking}
+            navTransparent={true}
+          />
           <Scene key="Other" icon={TabIcon}>
             <Scene key="otherhome" component={Other} hideNavBar />
           </Scene>

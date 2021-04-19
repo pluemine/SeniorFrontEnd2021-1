@@ -52,7 +52,7 @@ const Payment = () => {
     const getPayment = async () => {
       const token = await SecureStore.getItemAsync("pms_token");
       axios
-        .get(`http://localhost:4000/auth/uapi/creditCards`, {
+        .get(`http://localhost:4000/auth/capi/cards`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
@@ -64,9 +64,23 @@ const Payment = () => {
     getPayment();
   }, []);
 
+  const reload = async () => {
+    const token = await SecureStore.getItemAsync("pms_token");
+    axios
+      .get(`http://localhost:4000/auth/capi/cards`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        setPayments(res.data.data.creditCards);
+        console.log(res.data.data.creditCards);
+        setDes("No Payment Method");
+      });
+  };
+
   const goAddCard = (event) => {
     if (payments.length <= 4 && des != "Loading") {
-      Actions.addcard({ set: setPayments });
+      //Actions.addcard({ set: setPayments });
+      Actions.addcard();
     }
   };
 
@@ -77,22 +91,24 @@ const Payment = () => {
         <PulseIndicator color="#78aac2" />
       </View>
     );
-  } else if (licenses.length > 0) {
+  } else if (payments.length > 0) {
     screen = (
       <ScrollView style={styles.sectionContainerScroll}>
         <View>
           {payments.map((payment, index) => {
-            var expmth = "";
+            {
+              /*var expmth = "";
             if (payment.exp_month.toString().length == 1) {
               expmth = "0" + payment.exp_month.toString();
             } else {
               expmth = payment.exp_month.toString();
+            }*/
             }
             return (
               <PaymentCard
                 key={"paymentcard" + index}
                 number={payment.credit_card_number}
-                expiremonth={expmth}
+                expiremonth={payment.exp_month.toString()}
                 expireyear={payment.exp_year.toString()}
                 def={false}
                 pcid={payment.credit_card_id}

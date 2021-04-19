@@ -42,8 +42,9 @@ const LicenseCard = (props) => {
     axios.delete(`http://localhost:4000/auth/lpapi?id=${lpid}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    Actions.popTo("homehome");
-    Actions.license();
+    setTimeout(() => {
+      Actions.refresh({ key: Math.random() });
+    }, 500);
   };
 
   return (

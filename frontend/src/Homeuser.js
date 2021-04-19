@@ -86,10 +86,10 @@ const Homeuser = () => {
       <StatusBar barStyle="default" />
       <ImageBackground
         style={styles1.pic}
-        source={require("../assets/cloud.jpg")}
+        source={require("../assets/home.png")}
       >
         <View style={styles.sectionContainerHeader}>
-          <Text style={styles.sectionTitlewoNavWhite}>Hello, User</Text>
+          <Text style={styles.sectionTitlewoNav}>Hello, User</Text>
         </View>
         <View style={styles.sectionContainerScroll}>
           <View style={styles.homeuserBalanceCard}>
