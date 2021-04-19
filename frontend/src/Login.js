@@ -2,13 +2,6 @@ import React, { Component, useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { Actions } from 'react-native-router-flux';
 import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
@@ -21,9 +14,7 @@ import {
 } from 'react-native';
 import styles from './Styles';
 import axios from 'axios';
-import { FloatingLabelInput } from 'react-native-floating-label-input';
-import BlackScreen from '../app/BlackScreen';
-import Gateway from './Gateway';
+import TextField from "./components/TextField";
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -47,16 +38,6 @@ const Login = () => {
     if (fail) {
       setFail(false);
       setEmailError(false);
-    }
-  };
-
-  //Delete this test() after deployed
-  const test = () => {
-    console.warn(email, password);
-    if (email === 'pluem@gmail.com' && password === '12345678') {
-      Actions.tabbar();
-    } else {
-      setFail(true);
     }
   };
 
@@ -103,8 +84,6 @@ const Login = () => {
       setPasswordError(true);
     } else if (!emailError && !passwordError) {
       userLogin();
-      //Gateway.userLogin();
-      // test();
     }
   };
 
@@ -126,59 +105,27 @@ const Login = () => {
       <StatusBar barStyle='default' />
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionTitlewoNav}>Sign In</Text>
-        <FloatingLabelInput
-          label={'Email'}
-          containerStyles={
-            emailError || fail ? styles.textboxerror : styles.textbox
-          }
-          customLabelStyles={
-            emailError || fail
-              ? { colorFocused: '#FF0000', colorBlurred: '#FF0000' }
-              : { colorFocused: '#898989', colorBlurred: '#898989' }
-          }
-          inputStyles={{
-            color: '#000000',
-            paddingHorizontal: 5,
-          }}
+        <TextField
+          label="Email"
+          error1={emailError}
+          error2={fail}
           value={email}
-          hint='example@address.com'
-          isPassword={false}
+          error="* Please enter a valid email address."
+          hint="example@address.com"
           onChangeText={handleChange_email}
-          autoCapitalize='none'
+          autoCapitalize="none"
         />
-        {emailError ? (
-          <Text style={styles.texterror}>
-            * Please enter a valid email address.
-          </Text>
-        ) : (
-          <Text style={styles.texterror}> </Text>
-        )}
-        <FloatingLabelInput
-          label={'Password'}
-          containerStyles={
-            passwordError || fail ? styles.textboxerror : styles.textbox
-          }
-          customLabelStyles={
-            passwordError || fail
-              ? { colorFocused: '#FF0000', colorBlurred: '#FF0000' }
-              : { colorFocused: '#898989', colorBlurred: '#898989' }
-          }
-          inputStyles={{
-            color: '#000000',
-            paddingHorizontal: 5,
-          }}
+        <TextField
+          label="Password"
+          error1={passwordError}
+          error2={fail}
           value={password}
+          error={loginStatus()}
           isPassword={true}
-          secureTextEntry={true}
-          autoCompleteType={'off'}
+          secureText={true}
           onChangeText={handleChange_password}
-          autoCapitalize='none'
+          autoCapitalize="none"
         />
-        {passwordError || fail ? (
-          <Text style={styles.texterror}>{loginStatus()}</Text>
-        ) : (
-          <Text style={styles.texterror}> </Text>
-        )}
         <Text style={styles.sectionDescription}></Text>
         <TouchableHighlight
           style={styles.button}
@@ -194,7 +141,5 @@ const Login = () => {
     </View>
   );
 };
-
-const styles1 = StyleSheet.create({});
 
 export default Login;

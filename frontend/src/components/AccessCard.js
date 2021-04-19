@@ -1,13 +1,6 @@
 import React, { Component } from "react";
 import { Actions } from "react-native-router-flux";
 import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from "react-native/Libraries/NewAppScreen";
-import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
@@ -20,12 +13,11 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import { Router, Scene } from "react-native-router-flux";
 
 import styles from "../Styles";
 
 const AccessCard = (props) => {
-  const { propimg, proptype, placename, address, valid, expire, time } = props;
+  const { propimg, proptype, placename, address, valid, expire, time, validR, expireR } = props;
   return (
     <TouchableHighlight
       underlayColor="none"
@@ -39,6 +31,8 @@ const AccessCard = (props) => {
           valid,
           expire,
           time,
+          validR,
+          expireR,
         })
       }
     >

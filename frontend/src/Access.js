@@ -21,6 +21,17 @@ import {
   Image,
 } from "react-native";
 import { Router, Scene } from "react-native-router-flux";
+import {
+  BallIndicator,
+  BarIndicator,
+  DotIndicator,
+  MaterialIndicator,
+  PacmanIndicator,
+  PulseIndicator,
+  SkypeIndicator,
+  UIActivityIndicator,
+  WaveIndicator,
+} from "react-native-indicators";
 import { FloatingLabelInput } from "react-native-floating-label-input";
 
 import Register from "./Register";
@@ -38,6 +49,7 @@ const TabIcon = ({ selected, title }) => {
 const Access = () => {
   const [accesses, setAccesses] = useState([]);
   const [filteredAccessePlaceName, setFilteredAccessePlaceName] = useState("");
+  const [des, setDes] = useState("Loading");
 
   const getSecureStoreItem = async (key) => {
     return await SecureStore.getItemAsync(key);
@@ -52,6 +64,7 @@ const Access = () => {
         })
         .then((res) => {
           setAccesses(res.data.data.accesses);
+          setDes("No access available");
         });
     };
     getAccess();
@@ -78,12 +91,26 @@ const Access = () => {
     var year = date.getFullYear();
     var hours = date.getHours();
     var minutes = date.getMinutes();
-    if (parseInt(minutes) - 10 >= 0) {
-      //return hours + ":" + minutes + " " + monthNames[month] + " " + day + ", " + year;
-      return monthNames[month] + " " + day + ", " + year;
+    return monthNames[month] + " " + day + ", " + year;
+  }
+
+  function dateTimeReal(date_time) {
+    var date = new Date(date_time);
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+    if (parseInt(day) - 10 >= 0) {
+      if (parseInt(month) - 10 >= 0) {
+        return "" + year + "-" + month + "-" + day;
+      } else {
+        return "" + year + "-0" + month + "-" + day;
+      }
     } else {
-      //return hours + ":0" + minutes +" " + monthNames[month] + " " + day + ", " + year;
-      return monthNames[month] + " " + day + ", " + year;
+      if (parseInt(month) - 10 >= 0) {
+        return "" + year + "-" + month + "-0" + day;
+      } else {
+        return "" + year + "-0" + month + "-0" + day;
+      }
     }
   }
 
@@ -100,19 +127,70 @@ const Access = () => {
     }
   }
 
+  let screen;
+  if (des === "Loading") {
+    screen = (
+      <View style={styles.sectionContainerScroll}>
+        <PulseIndicator color="#78aac2" />
+      </View>
+    );
+  } else if (accesses.length > 0) {
+    screen = (
+      <ScrollView style={styles.sectionContainerScroll}>
+        <View>
+          {accesses
+            .filter(
+              (access) =>
+                !filteredAccessePlaceName ||
+                filteredAccessePlaceName == "" ||
+                String(access["property_name"])
+                  .toLowerCase()
+                  .includes(filteredAccessePlaceName)
+            )
+            .map((access, index) => {
+              var valid = dateTime(access.valid_date_time);
+              var expired = dateTime(access.expired_date_time);
+              var proptype = propTypeName(access.property_type_id);
+              var accesstime = mintoH(access.mins_per_usage);
+
+              var validReal = dateTimeReal(access.valid_date_time);
+              var expireReal = dateTimeReal(access.expired_date_time);
+
+              return (
+                <AccessCard
+                  key={"accesscard" + index}
+                  propimg={access.property_img}
+                  proptype={proptype}
+                  placename={access.property_name}
+                  address={access.share_qouta}
+                  valid={valid}
+                  expire={expired}
+                  time={accesstime}
+                  validR={validReal}
+                  expireR={expireReal}
+                />
+              );
+            })}
+        </View>
+      </ScrollView>
+    );
+  } else {
+    screen = (
+      <View style={styles.sectionContainerScroll}>
+        <Image
+          style={styles.noDataPic}
+          source={require("../assets/No-data-rafiki.png")}
+        />
+        <Text style={styles.noDataDes}>{des}</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="default" />
       <View style={styles.sectionContainerHeader}>
         <Text style={styles.sectionTitlewoNav}>Access</Text>
-        {/*<TextInput
-          style={styles.textbox}
-          placeholder={"Search by place name"}
-          placeholderTextColor={"#898989"}
-          value={filteredAccessePlaceName}
-          onChangeText={(text) => setFilteredAccessePlaceName(text)}
-        />*/}
-
         <FloatingLabelInput
           label={"Search by place name"}
           containerStyles={styles.textbox}
@@ -125,7 +203,10 @@ const Access = () => {
             paddingHorizontal: 5,
           }}
           leftComponent={
-            <Image style={{ height: 16, width: 16 }} source={require("../assets/icon-search.png")} />
+            <Image
+              style={{ height: 16, width: 16 }}
+              source={require("../assets/icon-search.png")}
+            />
           }
           value={filteredAccessePlaceName}
           isPassword={false}
@@ -133,38 +214,8 @@ const Access = () => {
           autoCapitalize="none"
         />
       </View>
-      <ScrollView style={styles.sectionContainerScroll}>
-        <View>
-          {accesses
-            .filter(
-              (access) =>
-                !filteredAccessePlaceName ||
-                filteredAccessePlaceName == "" ||
-                String(access["property_name"]).includes(
-                  filteredAccessePlaceName
-                )
-            )
-            .map((access, index) => {
-              var valid = dateTime(access.valid_date_time);
-              var expired = dateTime(access.expired_date_time);
-              var proptype = propTypeName(access.property_type_id);
-              var accesstime = mintoH(access.mins_per_usage);
-
-              return (
-                <AccessCard
-                  key={"accesscard" + index}
-                  propimg={access.property_img}
-                  proptype={proptype}
-                  placename={access.property_name}
-                  address={access.share_qouta}
-                  valid={valid}
-                  expire={expired}
-                  time={accesstime}
-                />
-              );
-            })}
-        </View>
-      </ScrollView>
+      {screen}
+      <View></View>
     </View>
   );
 };

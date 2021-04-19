@@ -2,13 +2,6 @@ import React, { Component, useState, useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
 import { Actions } from "react-native-router-flux";
 import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from "react-native/Libraries/NewAppScreen";
-import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
@@ -21,24 +14,21 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import { Router, Scene } from "react-native-router-flux";
-import { FloatingLabelInput } from "react-native-floating-label-input";
-import { Picker } from "@react-native-picker/picker";
-import Modal from "react-native-modal";
-
-import Register from "./Register";
-import Login from "./Login";
-import Home from "./Home";
-import AccessCard from "./components/AccessCard";
+import ProvinceModal from "./components/ProvinceModal";
+import TextField from "./components/TextField";
 
 import styles from "./Styles";
 import axios from "axios";
 
 const Addlc = () => {
-  const [cat, setCat] = useState("");
+  const [category, setCategory] = useState("");
   const [number, setNumber] = useState("");
   const [province, setProvince] = useState("เลือกจังหวัด");
   const [provinceSelector, setProvinceSelector] = useState("กรุงเทพมหานคร");
+
+  const [categoryError, setCategoryError] = useState(false);
+  const [numberError, setNumberError] = useState(false);
+  const [provinceError, setProvinceError] = useState(false);
 
   const provinces = {
     กรุงเทพมหานคร: 1,
@@ -120,14 +110,13 @@ const Addlc = () => {
     บึงกาฬ: 77,
   };
 
-  const handleChange_cat = (event) => {
-    setCat(event);
+  const handleChange_category = (event) => {
+    setCategory(event);
+    setCategoryError(false);
   };
   const handleChange_number = (event) => {
     setNumber(event);
-  };
-  const handleChange_province = (event) => {
-    setProvince(event);
+    setNumberError(false);
   };
 
   const [isModalVisible, setModalVisible] = useState(false);
@@ -140,12 +129,13 @@ const Addlc = () => {
     setProvinceSelector(event);
   };
 
-  function confirmProvice() {
+  function confirmProvince() {
     toggleModal();
     setProvince(provinceSelector);
+    setProvinceError(false);
   }
 
-  function cancelProvice() {
+  function cancelProvince() {
     toggleModal();
     if (province === "เลือกจังหวัด") {
       setProvinceSelector("กรุงเทพมหานคร");
@@ -153,6 +143,32 @@ const Addlc = () => {
       setProvinceSelector(province);
     }
   }
+
+  const sent = () => {
+    if (category === "") {
+      setCategoryError(true);
+    }
+    if (number === "") {
+      setNumberError(true);
+    }
+    if (province === "เลือกจังหวัด") {
+      setProvinceError(true);
+    }
+    if (category === "") {
+      setCategoryError(true);
+    } else if (number === "") {
+      setNumberError(true);
+    } else if (province === "เลือกจังหวัด") {
+      setProvinceError(true);
+    } else if (
+      !categoryError &&
+      !numberError &&
+      !provinceError
+    ) {
+      console.warn("Complete");
+      addLicense();
+    }
+  };
 
   const addLicense = async () => {
     const token = await SecureStore.getItemAsync("pms_token");
@@ -184,176 +200,56 @@ const Addlc = () => {
         <View style={styles.licenseBlock}>
           <View style={styles.licenseColContainer}>
             <View style={styles.licenseCol30}>
-              <FloatingLabelInput
-                label={"Category"}
-                containerStyles={styles.textbox}
-                customLabelStyles={{
-                  colorFocused: "#898989",
-                  colorBlurred: "#898989",
-                }}
-                inputStyles={{
-                  color: "#000000",
-                  paddingHorizontal: 5,
-                }}
-                value={cat}
+              <TextField
+                label="Category"
+                error1={categoryError}
+                value={category}
+                error="* No Data"
                 hint="กข"
                 maxLength={3}
-                isPassword={false}
-                onChangeText={handleChange_cat}
+                onChangeText={handleChange_category}
                 autoCapitalize="none"
               />
-              <Text style={styles.texterror}> </Text>
             </View>
             <View style={styles.licenseCol70}>
-              <FloatingLabelInput
-                label={"Number"}
-                containerStyles={styles.textbox}
-                customLabelStyles={{
-                  colorFocused: "#898989",
-                  colorBlurred: "#898989",
-                }}
-                inputStyles={{
-                  color: "#000000",
-                  paddingHorizontal: 5,
-                }}
+              <TextField
+                label="Number"
+                error1={numberError}
                 value={number}
+                error="* No Data"
                 hint="1234"
                 mask="9999"
-                isPassword={false}
-                secureTextEntry={false}
                 keyboardType="numeric"
-                autoCompleteType={"off"}
                 onChangeText={handleChange_number}
                 autoCapitalize="none"
               />
-              <Text style={styles.texterror}> </Text>
             </View>
           </View>
         </View>
         <TouchableOpacity onPress={toggleModal}>
           <View pointerEvents="none">
-            <FloatingLabelInput
-              label={"Province"}
-              containerStyles={styles.textbox}
-              customLabelStyles={{
-                colorFocused: "#898989",
-                colorBlurred: "#898989",
-              }}
-              inputStyles={{
-                color: "#000000",
-                paddingHorizontal: 5,
-              }}
+            <TextField
+              label="Province"
+              error1={provinceError}
               value={province}
+              error="* Please select province"
               hint="กรุงเทพมหานคร"
-              isPassword={false}
-              secureTextEntry={false}
-              autoCompleteType={"off"}
-              onChangeText={handleChange_province}
               autoCapitalize="none"
             />
           </View>
         </TouchableOpacity>
-        <Modal isVisible={isModalVisible}>
-          <View style={styles.modalCover}>
-            <View style={styles.modalArea}>
-              <Text style={styles.modalTitle}>Province</Text>
-              <Picker
-                selectedValue={provinceSelector}
-                onValueChange={(itemValue, itemIndex) =>
-                  handleChange_provinceSelector(itemValue)
-                }
-              >
-                <Picker.Item label="กรุงเทพมหานคร" value="กรุงเทพมหานคร" />
-                <Picker.Item label="กระบี่" value="กระบี่" />
-                <Picker.Item label="กาญจนบุรี" value="กาญจนบุรี" />
-                <Picker.Item label="กาฬสินธุ์" value="กาฬสินธุ์" />
-                <Picker.Item label="กำแพงเพชร" value="กำแพงเพชร" />
-                <Picker.Item label="ขอนแก่น" value="ขอนแก่น" />
-                <Picker.Item label="จันทบุรี" value="จันทบุรี" />
-                <Picker.Item label="ฉะเชิงเทรา" value="ฉะเชิงเทรา" />
-                <Picker.Item label="ชลบุรี" value="ชลบุรี" />
-                <Picker.Item label="ชัยนาท" value="ชัยนาท" />
-                <Picker.Item label="ชัยภูมิ" value="ชัยภูมิ" />
-                <Picker.Item label="ชุมพร" value="ชุมพร" />
-                <Picker.Item label="เชียงราย" value="เชียงราย" />
-                <Picker.Item label="เชียงใหม่" value="เชียงใหม่" />
-                <Picker.Item label="ตรัง" value="ตรัง" />
-                <Picker.Item label="ตราด" value="ตราด" />
-                <Picker.Item label="ตาก" value="ตาก" />
-                <Picker.Item label="นครนายก" value="นครนายก" />
-                <Picker.Item label="นครปฐม" value="นครปฐม" />
-                <Picker.Item label="นครพนม" value="นครพนม" />
-                <Picker.Item label="นครราชสีมา" value="นครราชสีมา" />
-                <Picker.Item label="นครศรีธรรมราช" value="นครศรีธรรมราช" />
-                <Picker.Item label="นครสวรรค์" value="นครสวรรค์" />
-                <Picker.Item label="นนทบุรี" value="นนทบุรี" />
-                <Picker.Item label="นราธิวาส" value="นราธิวาส" />
-                <Picker.Item label="น่าน" value="น่าน" />
-                <Picker.Item label="หนองคาย" value="หนองคาย" />
-                <Picker.Item label="หนองบัวลำภู" value="หนองบัวลำภู" />
-                <Picker.Item label="บุรีรัมย์" value="บุรีรัมย์" />
-                <Picker.Item label="บึงกาฬ" value="บึงกาฬ" />
-                <Picker.Item label="ปทุมธานี" value="ปทุมธานี" />
-                <Picker.Item label="ประจวบคีรีขันธ์" value="ประจวบคีรีขันธ์" />
-                <Picker.Item label="ปราจีนบุรี" value="ปราจีนบุรี" />
-                <Picker.Item label="ปัตตานี" value="ปัตตานี" />
-                <Picker.Item label="พระนครศรีอยุธยา" value="พระนครศรีอยุธยา" />
-                <Picker.Item label="พังงา" value="พังงา" />
-                <Picker.Item label="พัทลุง" value="พัทลุง" />
-                <Picker.Item label="พิจิตร" value="พิจิตร" />
-                <Picker.Item label="พิษณุโลก" value="พิษณุโลก" />
-                <Picker.Item label="เพชรบุรี" value="เพชรบุรี" />
-                <Picker.Item label="เพชรบูรณ์" value="เพชรบูรณ์" />
-                <Picker.Item label="แพร่" value="แพร่" />
-                <Picker.Item label="พะเยา" value="พะเยา" />
-                <Picker.Item label="ภูเก็ต" value="ภูเก็ต" />
-                <Picker.Item label="มหาสารคาม" value="มหาสารคาม" />
-                <Picker.Item label="แม่ฮ่องสอน" value="แม่ฮ่องสอน" />
-                <Picker.Item label="มุกดาหาร" value="มุกดาหาร" />
-                <Picker.Item label="ยะลา" value="ยะลา" />
-                <Picker.Item label="ยโสธร" value="ยโสธร" />
-                <Picker.Item label="ร้อยเอ็ด" value="ร้อยเอ็ด" />
-                <Picker.Item label="ระนอง" value="ระนอง" />
-                <Picker.Item label="ระยอง" value="ระยอง" />
-                <Picker.Item label="ราชบุรี" value="ราชบุรี" />
-                <Picker.Item label="ลพบุรี" value="ลพบุรี" />
-                <Picker.Item label="ลำปาง" value="ลำปาง" />
-                <Picker.Item label="ลำพูน" value="ลำพูน" />
-                <Picker.Item label="เลย" value="เลย" />
-                <Picker.Item label="ศรีสะเกษ" value="ศรีสะเกษ" />
-                <Picker.Item label="สกลนคร" value="สกลนคร" />
-                <Picker.Item label="สงขลา" value="สงขลา" />
-                <Picker.Item label="สตูล" value="สตูล" />
-                <Picker.Item label="สมุทรปราการ" value="สมุทรปราการ" />
-                <Picker.Item label="สมุทรสงคราม" value="สมุทรสงคราม" />
-                <Picker.Item label="สมุทรสาคร" value="สมุทรสาคร" />
-                <Picker.Item label="สระแก้ว" value="สระแก้ว" />
-                <Picker.Item label="สระบุรี" value="สระบุรี" />
-                <Picker.Item label="สิงห์บุรี" value="สิงห์บุรี" />
-                <Picker.Item label="สุโขทัย" value="สุโขทัย" />
-                <Picker.Item label="สุพรรณบุรี" value="สุพรรณบุรี" />
-                <Picker.Item label="สุราษฏร์ธานี" value="สุราษฏร์ธานี" />
-                <Picker.Item label="สุรินทร์" value="สุรินทร์" />
-                <Picker.Item label="อ่างทอง" value="อ่างทอง" />
-                <Picker.Item label="อุดรธานี" value="อุดรธานี" />
-                <Picker.Item label="อุทัยธานี" value="อุทัยธานี" />
-                <Picker.Item label="อุตรดิตถ์" value="อุตรดิตถ์" />
-                <Picker.Item label="อุบลราชธานี" value="อุบลราชธานี" />
-                <Picker.Item label="อำนาจเจริญ" value="อำนาจเจริญ" />
-              </Picker>
-              <Button title="Select" onPress={confirmProvice} />
-            </View>
-            <View style={styles.modalCancel}>
-              <Button title="Cancel" onPress={cancelProvice} />
-            </View>
-          </View>
-        </Modal>
-
+        <ProvinceModal
+          visible={isModalVisible}
+          selector={provinceSelector}
+          handleChange={handleChange_provinceSelector}
+          confirm={confirmProvince}
+          cancel={cancelProvince}
+        />
         <Text> </Text>
         <TouchableHighlight
           style={styles.button}
           underlayColor="none"
-          onPress={addLicense}
+          onPress={sent}
         >
           <View>
             <Text style={styles.buttonText}>Add</Text>

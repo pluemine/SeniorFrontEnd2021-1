@@ -195,7 +195,7 @@ const License = () => {
       <View style={styles.sectionContainerButton}>
         {des != "Loading" ? (
           <TouchableHighlight
-            style={licenses.length < 4 ? styles.button : styles.buttonDisable}
+            style={licenses.length <= 4 ? styles.button : styles.buttonDisable}
             underlayColor="none"
             /*onPress={() => Actions.addlc()}*/
             onPress={() => goAddLicense()}

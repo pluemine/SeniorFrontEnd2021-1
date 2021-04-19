@@ -1,13 +1,6 @@
 import React, { useState, Component } from "react";
 import { Actions } from "react-native-router-flux";
 import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from "react-native/Libraries/NewAppScreen";
-import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
@@ -23,12 +16,9 @@ import {
 } from "react-native";
 import styles from "./Styles";
 import axios from "axios";
-import DatePicker from "react-native-date-picker";
 import styled from "styled-components";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { FloatingLabelInput } from "react-native-floating-label-input";
-import DateTimePicker from "react-native-modal-datetime-picker";
-import Modal from "react-native-modal";
+import DateModal from "./components/DateModal";
+import TextField from "./components/TextField";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -204,197 +194,77 @@ const Register = () => {
       <StatusBar barStyle="default" />
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionTitlewoNav}>Create Account</Text>
-        <FloatingLabelInput
-          label={"Email"}
-          containerStyles={
-            emailError || dupEmail ? styles.textboxerror : styles.textbox
-          }
-          customLabelStyles={
-            emailError || dupEmail
-              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-              : { colorFocused: "#898989", colorBlurred: "#898989" }
-          }
-          inputStyles={{
-            color: "#000000",
-            paddingHorizontal: 5,
-          }}
+        <TextField
+          label="Email"
+          error1={emailError}
+          error2={dupEmail}
           value={email}
+          error={emailStatus()}
           hint="example@address.com"
-          isPassword={false}
           onChangeText={handleChange_email}
           autoCapitalize="none"
         />
-        {emailError || dupEmail ? (
-          <Text style={styles.texterror}>{emailStatus()}</Text>
-        ) : (
-          <Text style={styles.texterror}> </Text>
-        )}
-        <FloatingLabelInput
-          label={"Password"}
-          containerStyles={passwordError ? styles.textboxerror : styles.textbox}
-          customLabelStyles={
-            passwordError
-              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-              : { colorFocused: "#898989", colorBlurred: "#898989" }
-          }
-          inputStyles={{
-            color: "#000000",
-            paddingHorizontal: 5,
-          }}
+        <TextField
+          label="Password"
+          error1={passwordError}
           value={password}
+          error="* Please enter a valid password. (At least 8 characters)"
           isPassword={false}
-          secureTextEntry={false}
-          autoCompleteType={"off"}
+          secureText={false}
           onChangeText={handleChange_password}
           autoCapitalize="none"
         />
-        {passwordError ? (
-          <Text style={styles.texterror}>
-            * Please enter a valid password. (At least 8 characters)
-          </Text>
-        ) : (
-          <Text style={styles.texterror}> </Text>
-        )}
-        <FloatingLabelInput
-          label={"Confirm Password"}
-          containerStyles={confirmError ? styles.textboxerror : styles.textbox}
-          customLabelStyles={
-            confirmError
-              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-              : { colorFocused: "#898989", colorBlurred: "#898989" }
-          }
-          inputStyles={{
-            color: "#000000",
-            paddingHorizontal: 5,
-          }}
+        <TextField
+          label="Confirm Password"
+          error1={confirmError}
           value={confirm}
+          error="* Please enter the same password."
           isPassword={false}
-          secureTextEntry={false}
-          autoCompleteType={"off"}
+          secureText={false}
           onChangeText={handleChange_confirm}
           autoCapitalize="none"
         />
-        {confirmError ? (
-          <Text style={styles.texterror}>
-            * Please enter the same password.
-          </Text>
-        ) : (
-          <Text style={styles.texterror}> </Text>
-        )}
-        <FloatingLabelInput
-          label={"First Name"}
-          containerStyles={
-            firstnameError ? styles.textboxerror : styles.textbox
-          }
-          customLabelStyles={
-            firstnameError
-              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-              : { colorFocused: "#898989", colorBlurred: "#898989" }
-          }
-          inputStyles={{
-            color: "#000000",
-            paddingHorizontal: 5,
-          }}
+        <TextField
+          label="Firstname"
+          error1={firstnameError}
           value={firstname}
-          isPassword={false}
+          error="* Please enter your firstname."
           onChangeText={handleChange_firstname}
-          autoCapitalize="none"
         />
-        {firstnameError ? (
-          <Text style={styles.texterror}>* Please enter your firstname.</Text>
-        ) : (
-          <Text style={styles.texterror}> </Text>
-        )}
-        <FloatingLabelInput
-          label={"Last Name"}
-          containerStyles={lastnameError ? styles.textboxerror : styles.textbox}
-          customLabelStyles={
-            lastnameError
-              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-              : { colorFocused: "#898989", colorBlurred: "#898989" }
-          }
-          inputStyles={{
-            color: "#000000",
-            paddingHorizontal: 5,
-          }}
+        <TextField
+          label="Lastname"
+          error1={lastnameError}
           value={lastname}
-          isPassword={false}
+          error="* Please enter your lastname."
           onChangeText={handleChange_lastname}
-          autoCapitalize="none"
         />
-        {lastnameError ? (
-          <Text style={styles.texterror}>* Please enter your lastname.</Text>
-        ) : (
-          <Text style={styles.texterror}> </Text>
-        )}
         <TouchableOpacity onPress={toggleDatePicker}>
           <View pointerEvents="none">
-            <FloatingLabelInput
-              label={"Date of birth"}
-              containerStyles={styles.textbox}
-              customLabelStyles={{
-                colorFocused: "#898989",
-                colorBlurred: "#898989",
-              }}
-              inputStyles={{
-                color: "#000000",
-                paddingHorizontal: 5,
-              }}
+            <TextField
+              label="Date of birth"
               value={dateTime()}
-              isPassword={false}
-              editable={false}
             />
           </View>
         </TouchableOpacity>
-        <Text style={styles.texterror}> </Text>
-        <Modal isVisible={isDatePickerVisible}>
-          <View style={styles.modalCover}>
-            <View style={styles.modalArea}>
-              <Text style={styles.modalTitle}>Date of Birth</Text>
-              <View style={{ alignItems: "center" }}>
-                <DatePicker
-                  mode="date"
-                  date={dateSelector}
-                  onDateChange={(dateSelector) => {
-                    setDateSelector(dateSelector);
-                  }}
-                />
-              </View>
-              <Button title="Select" onPress={confirmDate} />
-            </View>
-            <View style={styles.modalCancel}>
-              <Button title="Cancel" onPress={cancelDate} />
-            </View>
-          </View>
-        </Modal>
-
-        <FloatingLabelInput
-          label={"Phone Number"}
-          containerStyles={phoneError ? styles.textboxerror : styles.textbox}
-          customLabelStyles={
-            phoneError
-              ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-              : { colorFocused: "#898989", colorBlurred: "#898989" }
-          }
-          inputStyles={{
-            color: "#000000",
-            paddingHorizontal: 5,
-          }}
-          value={phone}
-          hint="099-999-9999"
-          mask="0999999999"
-          isPassword={false}
-          keyboardType="numeric"
-          onChangeText={handleChange_phone}
-          autoCapitalize="none"
+        <DateModal
+          mode="time"
+          title="Date of Birth"
+          visible={isDatePickerVisible}
+          selector={dateSelector}
+          handleChange={setDateSelector}
+          confirm={confirmDate}
+          cancel={cancelDate}
         />
-        {phoneError ? (
-          <Text style={styles.texterror}>
-            * Please enter a valid phone number.
-          </Text>
-        ) : (
-          <Text style={styles.texterror}> </Text>
-        )}
+        <TextField
+          label="Phone Number"
+          error1={phoneError}
+          value={phone}
+          error="* Please enter a valid phone number."
+          hint="0999999999"
+          mask="0999999999"
+          onChangeText={handleChange_phone}
+          keyboardType="numeric"
+        />
         <Text style={styles.sectionDescription}></Text>
         <TouchableHighlight
           style={styles.button}

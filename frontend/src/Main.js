@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Text, StatusBar } from "react-native";
-import { Router, Scene } from "react-native-router-flux";
+import { Actions, Router, Scene } from "react-native-router-flux";
 
 import FirebaseTest from "./FirebaseTest";
 import Register from "./Register";
@@ -73,6 +73,9 @@ const App = () => {
               headerTintColor="#5394b5"
               navTransparent={true}
               hideTabBar={true}
+              onRight={() => Actions.refresh({key: Math.random()})}
+              rightButtonImage={require('../assets/icon-refresh.png')}
+              rightButtonIconStyle={{width: 24, height: 24}}
             />
             <Scene
               key="addlc"
@@ -87,6 +90,9 @@ const App = () => {
               headerTintColor="#5394b5"
               navTransparent={true}
               hideTabBar={true}
+              onRight={() => Actions.refresh({key: Math.random()})}
+              rightButtonImage={require('../assets/icon-refresh.png')}
+              rightButtonIconStyle={{width: 24, height: 24}}
             />
             <Scene
               key="addcard"
@@ -107,7 +113,10 @@ const App = () => {
               key="accesshome"
               component={Access}
               initial={true}
-              hideNavBar
+              navTransparent={true}
+              onRight={() => Actions.refresh({key: Math.random()})}
+              rightButtonImage={require('../assets/icon-refresh.png')}
+              rightButtonIconStyle={{width: 24, height: 24}}
             />
             <Scene
               key="time"

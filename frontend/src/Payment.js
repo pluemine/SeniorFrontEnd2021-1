@@ -124,7 +124,7 @@ const Payment = () => {
       <View style={styles.sectionContainerButton}>
         {des != "Loading" ? (
           <TouchableHighlight
-            style={payments.length < 4 ? styles.button : styles.buttonDisable}
+            style={payments.length <= 4 ? styles.button : styles.buttonDisable}
             underlayColor="none"
             /*onPress={() => Actions.addcard({set: setPayments})}*/
             onPress={() => goAddCard()}

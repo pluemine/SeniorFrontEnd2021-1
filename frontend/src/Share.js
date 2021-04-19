@@ -1,13 +1,6 @@
-import React, { Component, useState } from 'react';
-import * as SecureStore from 'expo-secure-store';
-import { Actions } from 'react-native-router-flux';
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import React, { Component, useState } from "react";
+import * as SecureStore from "expo-secure-store";
+import { Actions } from "react-native-router-flux";
 import {
   SafeAreaView,
   StyleSheet,
@@ -21,22 +14,31 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
-} from 'react-native';
-import styles from './Styles';
-import axios from 'axios';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import { FloatingLabelInput } from 'react-native-floating-label-input';
+} from "react-native";
+import styles from "./Styles";
+import axios from "axios";
+import ProvinceModal from "./components/ProvinceModal";
+import DateModal from "./components/DateModal";
+import TextField from "./components/TextField";
 
 const Share = (props) => {
-  const { propimg, placename, proptype } = props;
+  const {
+    propimg,
+    placename,
+    proptype,
+    valid,
+    expire,
+    validR,
+    expireR,
+  } = props;
 
-  const [email, setEmail] = useState('');
-  const [category, setCategory] = useState('');
-  const [number, setNumber] = useState('');
-  const [province, setProvince] = useState('');
-  const [valid, setValid] = useState(new Date());
-  const [expire, setExpire] = useState(new Date());
-  const [quota, setQuota] = useState('');
+  const [email, setEmail] = useState("");
+  const [category, setCategory] = useState("");
+  const [number, setNumber] = useState("");
+  const [province, setProvince] = useState("เลือกจังหวัด");
+  const [nowValid, setValid] = useState(new Date());
+  const [nowExpire, setExpire] = useState(new Date());
+  const [quota, setQuota] = useState("");
 
   const [emailError, setEmailError] = useState(false);
   const [categoryError, setCategoryError] = useState(false);
@@ -46,8 +48,93 @@ const Share = (props) => {
   const [expireError, setExpireError] = useState(false);
   const [quotaError, setQuotaError] = useState(false);
 
-  const [isValidPickerVisible, setValidPickerVisibility] = useState(false);
-  const [isExpirePickerVisible, setExpirePickerVisibility] = useState(false);
+  const [validSelector, setValidSelector] = useState(new Date());
+  const [expireSelector, setExpireSelector] = useState(new Date());
+  const [provinceSelector, setProvinceSelector] = useState("กรุงเทพมหานคร");
+
+  const [isValidPickerVisible, setValidPickerVisible] = useState(false);
+  const [isExpirePickerVisible, setExpirePickerVisible] = useState(false);
+  const [isProvincePickerVisible, setProvincePickerVisible] = useState(false);
+
+  const provinces = {
+    กรุงเทพมหานคร: 1,
+    สมุทรปราการ: 2,
+    นนทบุรี: 3,
+    ปทุมธานี: 4,
+    พระนครศรีอยุธยา: 5,
+    อ่างทอง: 6,
+    ลพบุรี: 7,
+    สิงห์บุรี: 8,
+    ชัยนาท: 9,
+    สระบุรี: 10,
+    ชลบุรี: 11,
+    ระยอง: 12,
+    จันทบุรี: 13,
+    ตราด: 14,
+    ฉะเชิงเทรา: 15,
+    ปราจีนบุรี: 16,
+    นครนายก: 17,
+    สระแก้ว: 18,
+    นครราชสีมา: 19,
+    บุรีรัมย์: 20,
+    สุรินทร์: 21,
+    ศรีสะเกษ: 22,
+    อุบลราขธานี: 23,
+    ยโสธร: 24,
+    ชัยภูมิ: 25,
+    อำนาจเจริญ: 26,
+    หนองบัวลำภู: 27,
+    ขอนแก่น: 28,
+    อุดรธานี: 29,
+    เลย: 30,
+    หนองคาย: 31,
+    มหาสารคาม: 32,
+    ร้อยเอ็ด: 33,
+    กาฬสินธ์ุ: 34,
+    สกลนคร: 35,
+    นครพนม: 36,
+    มุกดาหาร: 37,
+    เชียงใหม่: 38,
+    ลำพูน: 39,
+    ลำปาง: 40,
+    อุตรดิตถ์: 41,
+    แพร่: 42,
+    น่าน: 43,
+    พะเยา: 44,
+    เชียงราย: 45,
+    แม่ฮ่องสอน: 46,
+    นครสวรรค์: 47,
+    อุทัยธานี: 48,
+    กำแพงเพชร: 49,
+    ตาก: 50,
+    สุโขทัย: 51,
+    พิษณุโลก: 52,
+    พิจิตร: 53,
+    เพชรบูรณ์: 54,
+    ราชบุรี: 55,
+    กาญจนบุรี: 56,
+    สุพรรณบุรี: 57,
+    นครปฐม: 58,
+    สมุทรสาคร: 59,
+    สมุทรสงคราม: 60,
+    เพชรบุรี: 61,
+    ประจวบคีรีขันธ์: 62,
+    นครศรีธรรมราช: 63,
+    กระบี่: 64,
+    พังงา: 65,
+    ภูเก็ต: 66,
+    สุราษฏร์ธานี: 67,
+    ระนอง: 68,
+    ชุมพร: 69,
+    สงขลา: 70,
+    สตูล: 71,
+    ตรัง: 72,
+    พัทลุง: 73,
+    ปัตตานี: 74,
+    ยะลา: 75,
+    นราธิวาส: 76,
+    บึงกาฬ: 77,
+  };
 
   const handleChange_email = (event) => {
     setEmail(event);
@@ -61,63 +148,115 @@ const Share = (props) => {
     setNumber(event);
     setNumberError(false);
   };
-  const handleChange_province = (event) => {
-    setProvince(event);
-    setProvinceError(false);
-  };
-  const handleChange_valid = (event) => {
-    setValid(event);
-    setValidError(false);
-  };
-  const handleChange_expire = (event) => {
-    setExpire(event);
-    setExpireError(false);
-  };
   const handleChange_quota = (event) => {
     setQuota(event);
     setQuotaError(false);
   };
 
+  const toggleProvinceModal = () => {
+    setProvincePickerVisible(!isProvincePickerVisible);
+  };
+  const handleChange_provinceSelector = (event) => {
+    setProvinceSelector(event);
+  };
+  function confirmProvince() {
+    toggleProvinceModal();
+    setProvince(provinceSelector);
+    setProvinceError(false);
+  }
+  function cancelProvince() {
+    toggleProvinceModal();
+    if (province === "เลือกจังหวัด") {
+      setProvinceSelector("กรุงเทพมหานคร");
+    } else {
+      setProvinceSelector(province);
+    }
+  }
+
+  const toggleValidModal = () => {
+    setValidPickerVisible(!isValidPickerVisible);
+  };
+  const handleChange_validSelector = (event) => {
+    setValidSelector(event);
+  };
+  function confirmValid() {
+    toggleValidModal();
+    setValid(validSelector);
+    if (new Date(validSelector).getDate() > new Date(nowExpire).getDate()) {
+      setValidError(true);
+      setExpireError(true);
+    } else {
+      setValidError(false);
+      setExpireError(false);
+    }
+  }
+  function cancelValid() {
+    toggleValidModal();
+    setValidSelector(nowValid);
+  }
+
+  const toggleExpireModal = () => {
+    setExpirePickerVisible(!isExpirePickerVisible);
+  };
+  const handleChange_expireSelector = (event) => {
+    setExpireSelector(event);
+  };
+  function confirmExpire() {
+    toggleExpireModal();
+    setExpire(expireSelector);
+    if (new Date(expireSelector).getDate() < new Date(nowValid).getDate()) {
+      setValidError(true);
+      setExpireError(true);
+    } else {
+      setValidError(false);
+      setExpireError(false);
+    }
+  }
+  function cancelExpire() {
+    toggleExpireModal();
+    setExpireSelector(nowExpire);
+  }
+
   const sent = () => {
-    if (email === '') {
+    if (email === "") {
       setEmailError(true);
     }
-    if (category === '') {
+    if (category === "") {
       setCategoryError(true);
     }
-    if (number === '') {
+    if (number === "") {
       setNumberError(true);
     }
-    if (province === '') {
+    if (province === "เลือกจังหวัด") {
       setProvinceError(true);
     }
-    if (valid === '') {
+    if (nowValid === "") {
       setValidError(true);
     }
-    if (expire === '') {
+    if (nowExpire === "") {
       setExpireError(true);
     }
-    if (quota === '') {
+    if (quota === "") {
       setQuotaError(true);
     }
-    if (expire < valid) {
+    if (nowExpire < nowValid) {
       setValidError(true);
       setExpireError(true);
     }
     if (!isEmailValid()) {
-      console.warn('Invalid Email');
+      console.warn("Invalid Email");
       setEmailError(true);
-    } else if (category === '') {
+    } else if (category === "") {
       setCategoryError(true);
-    } else if (number === '') {
+    } else if (number === "") {
       setNumberError(true);
-    } else if (province === '') {
+    } else if (province === "เลือกจังหวัด") {
       setProvinceError(true);
-    } else if (valid === '') {
+    } else if (nowValid === "") {
       setValidError(true);
-    } else if (expire === '') {
+    } else if (nowExpire === "") {
       setExpireError(true);
-    } else if (quota === '') {
+    } else if (quota === "") {
       setQuotaError(true);
     } else if (
       !emailError &&
@@ -128,7 +267,7 @@ const Share = (props) => {
       !expireError &&
       !quotaError
     ) {
-      console.warn('Complete');
+      console.warn("Complete");
       shareAccess();
     }
   };
@@ -139,21 +278,21 @@ const Share = (props) => {
     var year = date.getFullYear();
     if (parseInt(day) - 10 >= 0) {
       if (parseInt(month) - 10 >= 0) {
-        return '' + year + '-' + month + '-' + day;
+        return "" + year + "-" + month + "-" + day;
       } else {
-        return '' + year + '-0' + month + '-' + day;
+        return "" + year + "-0" + month + "-" + day;
       }
     } else {
       if (parseInt(month) - 10 >= 0) {
-        return '' + year + '-' + month + '-0' + day;
+        return "" + year + "-" + month + "-0" + day;
       } else {
-        return '' + year + '-0' + month + '-0' + day;
+        return "" + year + "-0" + month + "-0" + day;
       }
     }
   }
 
   const shareAccess = async () => {
-    const token = await SecureStore.getItemAsync('pms_token');
+    const token = await SecureStore.getItemAsync("pms_token");
     axios
       .post(
         `http://localhost:4000/auth/pamapi/share`,
@@ -161,7 +300,7 @@ const Share = (props) => {
           email: email,
           license_plate_category: category,
           license_plate_number: number,
-          province_id: 1,
+          province_id: provinces[province],
           property_id: 2,
           valid_date_time: null,
           expired_date_time: null,
@@ -176,14 +315,14 @@ const Share = (props) => {
       .then((res) => {
         console.log(res);
         console.log(res.data);
-        if (res.data.status === 'OK') {
-          alert('Access was shared!');
-          Actions.popTo('accesshome');
+        if (res.data.status === "OK") {
+          alert("Access was shared!");
+          Actions.popTo("accesshome");
         }
       })
       .catch((error) => {
-        if (res.data.status === 'FAILED') {
-          alert('Email or License Plate Does not exist');
+        if (res.data.status === "FAILED") {
+          alert("Email or License Plate Does not exist");
         }
         throw error;
       });
@@ -194,44 +333,9 @@ const Share = (props) => {
     return pattern.test(String(email).toLowerCase());
   };
 
-  const showValidPicker = () => {
-    setValidPickerVisibility(true);
-  };
-  const hideValidPicker = () => {
-    setValidPickerVisibility(false);
-  };
-  const handleValidConfirm = (date) => {
-    setValid(date);
-    hideValidPicker();
-    if (expire < date) {
-      setValidError(true);
-      setExpireError(true);
-    } else {
-      setValidError(false);
-      setExpireError(false);
-    }
-  };
-  const showExpirePicker = () => {
-    setExpirePickerVisibility(true);
-  };
-  const hideExpirePicker = () => {
-    setExpirePickerVisibility(false);
-  };
-  const handleExpireConfirm = (date) => {
-    setExpire(date);
-    hideExpirePicker();
-    if (date < valid) {
-      setValidError(true);
-      setExpireError(true);
-    } else {
-      setValidError(false);
-      setExpireError(false);
-    }
-  };
-
   return (
     <ScrollView
-      contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}
+      contentContainerStyle={{ flexGrow: 1, justifyContent: "space-between" }}
     >
       <StatusBar barStyle="light-content" />
       <View style={styles.container}>
@@ -256,217 +360,116 @@ const Share = (props) => {
           <View style={styles.accessCard}>
             <View style={styles.accessContainer}>
               <Text style={styles.sectionTitle}>Confirm Sharing</Text>
-              <FloatingLabelInput
-                label={'Email'}
-                containerStyles={
-                  emailError ? styles.textboxerror : styles.textbox
-                }
-                customLabelStyles={
-                  emailError
-                    ? { colorFocused: '#FF0000', colorBlurred: '#FF0000' }
-                    : { colorFocused: '#898989', colorBlurred: '#898989' }
-                }
-                inputStyles={{
-                  color: '#000000',
-                  paddingHorizontal: 5,
-                }}
+              <TextField
+                label="Email"
+                error1={emailError}
                 value={email}
-                hint='example@address.com'
-                isPassword={false}
+                error="* Please enter a valid email address."
+                hint="example@address.com"
                 onChangeText={handleChange_email}
-                autoCapitalize='none'
+                autoCapitalize="none"
               />
-              {emailError ? (
-                <Text style={styles.texterror}>* Email</Text>
-              ) : (
-                <Text style={styles.texterror}> </Text>
-              )}
-              <FloatingLabelInput
-                label={'Category'}
-                containerStyles={
-                  categoryError ? styles.textboxerror : styles.textbox
-                }
-                customLabelStyles={
-                  categoryError
-                    ? { colorFocused: '#FF0000', colorBlurred: '#FF0000' }
-                    : { colorFocused: '#898989', colorBlurred: '#898989' }
-                }
-                inputStyles={{
-                  color: '#000000',
-                  paddingHorizontal: 5,
-                }}
+              <TextField
+                label="License Category"
+                error1={categoryError}
                 value={category}
-                hint='กก'
-                isPassword={false}
+                error="* Please enter a valid license category."
+                hint="กข"
+                maxLength={3}
                 onChangeText={handleChange_category}
-                autoCapitalize='none'
-                autoCorrect={false}
+                autoCapitalize="none"
               />
-              {categoryError ? (
-                <Text style={styles.texterror}>* Category</Text>
-              ) : (
-                <Text style={styles.texterror}> </Text>
-              )}
-              <FloatingLabelInput
-                label={'Number'}
-                containerStyles={
-                  numberError ? styles.textboxerror : styles.textbox
-                }
-                customLabelStyles={
-                  numberError
-                    ? { colorFocused: '#FF0000', colorBlurred: '#FF0000' }
-                    : { colorFocused: '#898989', colorBlurred: '#898989' }
-                }
-                inputStyles={{
-                  color: '#000000',
-                  paddingHorizontal: 5,
-                }}
+              <TextField
+                label="License Number"
+                error1={numberError}
                 value={number}
-                hint='9999'
-                mask='9999'
-                isPassword={false}
-                keyboardType='numeric'
+                error="* Please enter a valid license number."
+                hint="1234"
+                mask="9999"
+                keyboardType="numeric"
                 onChangeText={handleChange_number}
-                autoCapitalize='none'
+                autoCapitalize="none"
               />
-              {numberError ? (
-                <Text style={styles.texterror}>* number</Text>
-              ) : (
-                <Text style={styles.texterror}> </Text>
-              )}
-              <FloatingLabelInput
-                label={'Province'}
-                containerStyles={
-                  provinceError ? styles.textboxerror : styles.textbox
-                }
-                customLabelStyles={
-                  provinceError
-                    ? { colorFocused: '#FF0000', colorBlurred: '#FF0000' }
-                    : { colorFocused: '#898989', colorBlurred: '#898989' }
-                }
-                inputStyles={{
-                  color: '#000000',
-                  paddingHorizontal: 5,
-                }}
-                value={province}
-                hint='กรุงเทพมหานคร'
-                isPassword={false}
-                onChangeText={handleChange_province}
-                autoCapitalize='none'
-              />
-              {provinceError ? (
-                <Text style={styles.texterror}>* province</Text>
-              ) : (
-                <Text style={styles.texterror}> </Text>
-              )}
-
-              <TouchableOpacity onPress={showValidPicker}>
-                <View pointerEvents='none'>
-                  <FloatingLabelInput
-                    label={'Valid'}
-                    containerStyles={
-                      validError ? styles.textboxerror : styles.textbox
-                    }
-                    customLabelStyles={
-                      validError
-                        ? { colorFocused: '#FF0000', colorBlurred: '#FF0000' }
-                        : { colorFocused: '#898989', colorBlurred: '#898989' }
-                    }
-                    inputStyles={{
-                      color: '#000000',
-                      paddingHorizontal: 5,
-                    }}
-                    value={dateTime(valid)}
-                    isPassword={false}
-                    editable={false}
+              <TouchableOpacity onPress={toggleProvinceModal}>
+                <View pointerEvents="none">
+                  <TextField
+                    label="License Province"
+                    error1={provinceError}
+                    value={province}
+                    error="* Please select province."
+                    hint="กรุงเทพมหานคร"
+                    autoCapitalize="none"
                   />
                 </View>
               </TouchableOpacity>
-              <DateTimePickerModal
-                isVisible={isValidPickerVisible}
-                date={valid}
-                mode='date'
-                placeholder='select date'
-                format='DD-MM-YYYY'
-                onConfirm={handleValidConfirm}
-                onCancel={hideValidPicker}
-                onDateChange={(valid) => {
-                  setValid(valid);
-                }}
+              <ProvinceModal
+                visible={isProvincePickerVisible}
+                selector={provinceSelector}
+                handleChange={handleChange_provinceSelector}
+                confirm={confirmProvince}
+                cancel={cancelProvince}
               />
-              {validError ? (
-                <Text style={styles.texterror}>* valid</Text>
-              ) : (
-                <Text style={styles.texterror}> </Text>
-              )}
-              <TouchableOpacity onPress={showExpirePicker}>
-                <View pointerEvents='none'>
-                  <FloatingLabelInput
-                    label={'Expire'}
-                    containerStyles={
-                      expireError ? styles.textboxerror : styles.textbox
-                    }
-                    customLabelStyles={
-                      expireError
-                        ? { colorFocused: '#FF0000', colorBlurred: '#FF0000' }
-                        : { colorFocused: '#898989', colorBlurred: '#898989' }
-                    }
-                    inputStyles={{
-                      color: '#000000',
-                      paddingHorizontal: 5,
-                    }}
-                    value={dateTime(expire)}
-                    isPassword={false}
-                    editable={false}
+              <TouchableOpacity onPress={toggleValidModal}>
+                <View pointerEvents="none">
+                  <TextField
+                    label="Valid"
+                    error1={validError}
+                    value={dateTime(nowValid)}
+                    error="* Valid is incorrect."
+                    autoCapitalize="none"
                   />
                 </View>
               </TouchableOpacity>
-              <DateTimePickerModal
-                isVisible={isExpirePickerVisible}
-                date={expire}
-                mode='date'
-                placeholder='select date'
-                format='DD-MM-YYYY'
-                onConfirm={handleExpireConfirm}
-                onCancel={hideExpirePicker}
-                onDateChange={(expire) => {
-                  setExpire(expire);
-                }}
+              <DateModal
+                mode="valid-expire"
+                title="Select Valid"
+                visible={isValidPickerVisible}
+                selector={validSelector}
+                handleChange={handleChange_validSelector}
+                confirm={confirmValid}
+                cancel={cancelValid}
+                valid={valid}
+                expire={expire}
+                validR={validR}
+                expireR={expireR}
               />
-              {expireError ? (
-                <Text style={styles.texterror}>* expire</Text>
-              ) : (
-                <Text style={styles.texterror}> </Text>
-              )}
-              <FloatingLabelInput
-                label={'Quota'}
-                containerStyles={
-                  quotaError ? styles.textboxerror : styles.textbox
-                }
-                customLabelStyles={
-                  quotaError
-                    ? { colorFocused: '#FF0000', colorBlurred: '#FF0000' }
-                    : { colorFocused: '#898989', colorBlurred: '#898989' }
-                }
-                inputStyles={{
-                  color: '#000000',
-                  paddingHorizontal: 5,
-                }}
+              <TouchableOpacity onPress={toggleExpireModal}>
+                <View pointerEvents="none">
+                  <TextField
+                    label="Expire"
+                    error1={expireError}
+                    value={dateTime(nowExpire)}
+                    error="* Expire is incorrect."
+                    autoCapitalize="none"
+                  />
+                </View>
+              </TouchableOpacity>
+              <DateModal
+                mode="valid-expire"
+                title="Select Expire"
+                visible={isExpirePickerVisible}
+                selector={expireSelector}
+                handleChange={handleChange_expireSelector}
+                confirm={confirmExpire}
+                cancel={cancelExpire}
+                valid={valid}
+                expire={expire}
+                validR={validR}
+                expireR={expireR}
+              />
+              <TextField
+                label="Quota"
+                error1={quotaError}
                 value={quota}
-                hint=''
-                isPassword={false}
-                keyboardType='numeric'
+                error="* Please enter a valid quota."
+                keyboardType="numeric"
                 onChangeText={handleChange_quota}
-                autoCapitalize='none'
+                autoCapitalize="none"
               />
-              {quotaError ? (
-                <Text style={styles.texterror}>* quota</Text>
-              ) : (
-                <Text style={styles.texterror}> </Text>
-              )}
+              <Text style={styles.sectionDescription}></Text>
               <TouchableHighlight
                 style={styles.button}
-                underlayColor='none'
+                underlayColor="none"
                 onPress={sent}
               >
                 <View>
@@ -485,50 +488,50 @@ const styles1 = StyleSheet.create({
   logo: {
     width: 300,
     height: 300,
-    resizeMode: 'stretch',
+    resizeMode: "stretch",
     margin: 50,
   },
   content: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   texthead: {
-    color: '#444444',
-    fontWeight: '800',
-    textAlign: 'center',
+    color: "#444444",
+    fontWeight: "800",
+    textAlign: "center",
     marginBottom: 10,
   },
   textdes: {
-    color: '#444444',
-    textAlign: 'center',
+    color: "#444444",
+    textAlign: "center",
     fontSize: 12,
     marginBottom: 40,
   },
   container: {
     flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'flex-start', // if you want to fill rows left to right
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "flex-start", // if you want to fill rows left to right
   },
   item1: {
     paddingRight: 10,
-    width: '70%',
+    width: "70%",
   },
   item2: {
-    width: '30%',
+    width: "30%",
   },
   col50: {
-    width: '50%',
+    width: "50%",
     paddingHorizontal: 4,
   },
   pic: {
     width: 110,
     height: 110,
-    margin: 'auto',
+    margin: "auto",
     //resizeMode: "stretch",
   },
   pic1: {
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 10,
