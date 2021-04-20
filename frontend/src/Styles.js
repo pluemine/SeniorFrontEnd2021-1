@@ -750,6 +750,89 @@ const styles = StyleSheet.create({
   },
   /* ---------------- */
 
+  /* Ongoing Activity Card */
+  ongoingActivityCardWrapper: {
+    position: 'relative',
+  },
+  ongoingActivityCard: {
+    // maxWidth: 500,
+    width: '100%',
+    margin: 'auto',
+    marginBottom: 10,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: MyColor.white,
+    shadowColor: MyColor.gray,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+  ongoingActivityCardContainer: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  },
+  ongoingActivityCardInfoWrapper: {
+    width: '100%',
+    flexDirection: 'row',
+    alignSelf: 'center',
+    justifyContent: 'space-between',
+  },
+  ongoingActivityCardLeftInfoWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    // marginBottom: 5,
+  },
+  ongoingActivityCardRightInfoWrapper: {
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    alignSelf: 'flex-start',
+    // marginBottom: 5,
+  },
+  ongoingActivityCardInfoTextWrapper: {
+    flexDirection: 'column',
+    // alignSelf: 'center',
+    alignItems: 'flex-start',
+    // justifyContent: 'space-between',
+    marginLeft: 20,
+  },
+  ongoingActivityCardInfoDateTime: {
+    fontSize: 10,
+    // fontFamily: 'KanitLight',
+    fontWeight: '600',
+    // marginBottom: 5,
+    color: MyColor.gray1,
+  },
+  ongoingActivityCardInfoPropertyName: {
+    fontSize: 20,
+    // fontFamily: 'KanitLight',
+    fontWeight: '600',
+    marginBottom: 5,
+    color: MyColor.blue,
+  },
+  ongoingActivityCardInfoLicenseNumber: {
+    fontSize: 18,
+    // fontFamily: 'KanitLight',
+    // fontWeight: '600',
+    color: MyColor.black,
+  },
+  ongoingActivityCardInfoLicenseProvince: {
+    fontSize: 14,
+    fontWeight: '400',
+    color: MyColor.gray2,
+  },
+  ongoingActivityCardPropertyImage: {
+    width: 60,
+    height: 60,
+    borderRadius: 5,
+    resizeMode: 'cover',
+  },
+  /*-----------------------*/
+
   //Modal
   modalCover: {
     flex: 1,

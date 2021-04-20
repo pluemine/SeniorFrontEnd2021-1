@@ -62,7 +62,7 @@ const Gateway = () => {
           expired_date_time: null,
           usage_counts: 100,
           mins_per_usage: 120,
-          share_qouta: 5,
+          share_quota: 5,
           is_charged_provider: false,
           is_sharable: false,
         },

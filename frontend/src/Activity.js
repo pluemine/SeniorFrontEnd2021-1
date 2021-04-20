@@ -30,59 +30,111 @@ import { FloatingLabelInput } from 'react-native-floating-label-input';
 
 const Activity = () => {
   const [onGoingActivity, setOnGoingActivity] = useState([]);
+  const [inUseLogId, setInUseLogId] = useState(new Set());
   const [waitingLists, setWaitingLists] = useState([]);
   const [history, setHistory] = useState([]);
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    const licensePlateListener = async () => {
-      await userApis
-        .getUserId()
-        .then((user_id) => {
-          firebase
-            .database()
-            .ref(`users/${user_id}/waiting`)
-            .limitToLast(1)
-            .on('child_added', (snapshot) => {
-              const new_added_license = {
-                license_plate_category: snapshot.val()[
-                  'license_plate_category'
-                ],
-                license_plate_number: snapshot.val()['license_plate_number'],
-                province_id: snapshot.val()['province_id'],
-                usage_log_id: snapshot.val()['usage_log_id'],
-                usage_log_uid: snapshot.key,
-              };
-              setWaitingLists([...waitingLists, new_added_license]);
-            });
-          firebase
-            .database()
-            .ref(`users/${user_id}/in_use`)
-            .on('child_added', (snapshot) => {
-              const in_use_added_license = {
-                usage_log_id: snapshot.val()['usage_log_id'],
-                usage_log_uid: snapshot.key,
-              };
-              setOnGoingActivity([...onGoingActivity, in_use_added_license]);
-            });
-          firebase
-            .database()
-            .ref(`users/${user_id}/in_use`)
-            .on('child_removed', (snapshot) => {
-              setOnGoingActivity((prevs) => {
-                return prevs.filter(
-                  (prev) =>
-                    prev['usage_log_id'] !== snapshot.val()['usage_log_id']
-                );
-              });
-            });
-          return;
-        })
-        .catch((error) => {
-          throw error;
+    licensePlateListnerOn();
+    return () => {
+      licensePlateListnerOff();
+    }; // use effect cleanup to set flag false, if unmounted
+  });
+
+  const licensePlateListnerOff = () => {
+    firebase
+      .database()
+      .ref(`users/${userId}/waiting`)
+      .off('child_added', (snapshot) => {
+        const new_added_license = {
+          license_plate_category: snapshot.val()['license_plate_category'],
+          license_plate_number: snapshot.val()['license_plate_number'],
+          province_id: snapshot.val()['province_id'],
+          usage_log_id: snapshot.val()['usage_log_id'],
+          usage_log_uid: snapshot.key,
+        };
+        setWaitingLists([...waitingLists, new_added_license]);
+      });
+    firebase
+      .database()
+      .ref(`users/${userId}/in_use`)
+      .off('child_added', (snapshot) => {
+        const in_use_added_license = {
+          usage_log_id: snapshot.val()['usage_log_id'],
+          usage_log_uid: snapshot.key,
+        };
+        if (!inUseLogId.has(parseInt(in_use_added_license['usage_log_id']))) {
+          setInUseLogId(
+            inUseLogId.add(parseInt(in_use_added_license['usage_log_id']))
+          );
+          setOnGoingActivity([...onGoingActivity, in_use_added_license]);
+        }
+      });
+    firebase
+      .database()
+      .ref(`users/${userId}/in_use`)
+      .off('child_removed', (snapshot) => {
+        setOnGoingActivity((prevs) => {
+          return prevs.filter(
+            (prev) => prev['usage_log_id'] !== snapshot.val()['usage_log_id']
+          );
         });
-    };
-    licensePlateListener();
-  }, []);
+      });
+  };
+
+  const licensePlateListnerOn = async () => {
+    await userApis
+      .getUserId()
+      .then((user_id) => {
+        setUserId(user_id);
+        firebase
+          .database()
+          .ref(`users/${user_id}/waiting`)
+          .limitToLast(1)
+          .on('child_added', (snapshot) => {
+            const new_added_license = {
+              license_plate_category: snapshot.val()['license_plate_category'],
+              license_plate_number: snapshot.val()['license_plate_number'],
+              province_id: snapshot.val()['province_id'],
+              usage_log_id: snapshot.val()['usage_log_id'],
+              usage_log_uid: snapshot.key,
+            };
+            setWaitingLists([...waitingLists, new_added_license]);
+          });
+        firebase
+          .database()
+          .ref(`users/${user_id}/in_use`)
+          .on('child_added', (snapshot) => {
+            const in_use_added_license = {
+              usage_log_id: snapshot.val()['usage_log_id'],
+              usage_log_uid: snapshot.key,
+            };
+            if (
+              !inUseLogId.has(parseInt(in_use_added_license['usage_log_id']))
+            ) {
+              setInUseLogId(
+                inUseLogId.add(parseInt(in_use_added_license['usage_log_id']))
+              );
+              setOnGoingActivity([...onGoingActivity, in_use_added_license]);
+            }
+          });
+        firebase
+          .database()
+          .ref(`users/${user_id}/in_use`)
+          .on('child_removed', (snapshot) => {
+            setOnGoingActivity((prevs) => {
+              return prevs.filter(
+                (prev) =>
+                  prev['usage_log_id'] !== snapshot.val()['usage_log_id']
+              );
+            });
+          });
+      })
+      .catch((error) => {
+        throw error;
+      });
+  };
 
   if (onGoingActivity.length || waitingLists.length || history.length)
     return (
