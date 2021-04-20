@@ -36,6 +36,7 @@ const Activity = () => {
   const [waitingLogUid, setWaitingLogUid] = useState(new Set());
   const [history, setHistory] = useState([]);
   const [userId, setUserId] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(true);
 
   useEffect(() => {
     if (userId) {
@@ -207,7 +208,7 @@ const Activity = () => {
         </View>
       </View>
     );
-  else
+  else if (isLoaded)
     return (
       <View style={styles.container}>
         <StatusBar barStyle='default' />
@@ -218,6 +219,23 @@ const Activity = () => {
               <Image
                 style={styles.loadingImage}
                 source={require('../assets/rolling-200px.gif')}
+              />
+            </View>
+          </View>
+        </View>
+      </View>
+    );
+  else
+    return (
+      <View style={styles.container}>
+        <StatusBar barStyle='default' />
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitlewoNav}>Activity</Text>
+          <View style={styles.activityWrapper}>
+            <View style={styles.noDataImageWrapper}>
+              <Image
+                style={styles.noDataImage}
+                source={require('../assets/No-data-rafiki.png')}
               />
             </View>
           </View>
