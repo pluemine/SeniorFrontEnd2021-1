@@ -2307,9 +2307,9 @@
   integrity sha512-XYmBiy+ohOR4Lh5jE379fV2IU+6Jn4g5qASinhitfyO71b/sCo6MKsMLF5tc7Zf2CE8hViVQyYSobJNke8OvUw==
 
 "@types/node@^13.7.0":
-  version "13.13.48"
-  resolved "https://registry.npmjs.org/@types/node/-/node-13.13.48.tgz"
-  integrity sha512-z8wvSsgWQzkr4sVuMEEOvwMdOQjiRY2Y/ZW4fDfjfe3+TfQrZqFKOthBgk2RnVEmtOKrkwdZ7uTvsxTBLjKGDQ==
+  version "13.13.50"
+  resolved "https://registry.npmjs.org/@types/node/-/node-13.13.50.tgz"
+  integrity sha512-y7kkh+hX/0jZNxMyBR/6asG0QMSaPSzgeVK63dhWHl4QAXCQB8lExXmzLL6SzmOgKHydtawpMnNhlDbv7DXPEA==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -9134,12 +9134,12 @@ whatwg-encoding@^1.0.1, whatwg-encoding@^1.0.5:
   dependencies:
     iconv-lite "0.4.24"
 
-whatwg-fetch@2.0.4, whatwg-fetch@>=0.10.0:
+whatwg-fetch@2.0.4:
   version "2.0.4"
   resolved "https://registry.npmjs.org/whatwg-fetch/-/whatwg-fetch-2.0.4.tgz"
   integrity sha512-dcQ1GWpOD/eEQ97k66aiEVpNnapVj90/+R+SXTPYGHpYBBypfKJEQjLrvMZ7YXbKm21gXd4NcuxUTjiv1YtLng==
 
-whatwg-fetch@^3.0.0:
+whatwg-fetch@>=0.10.0, whatwg-fetch@^3.0.0:
   version "3.5.0"
   resolved "https://registry.npmjs.org/whatwg-fetch/-/whatwg-fetch-3.5.0.tgz"
   integrity sha512-jXkLtsR42xhXg7akoDKvKWE40eJeI+2KZqcp2h3NsOrRnDvtWX36KcKl30dy+hxECivdk2BVUHVNrPtoMBUx6A==

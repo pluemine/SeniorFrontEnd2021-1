@@ -46,16 +46,37 @@ const OnGoingActivityCard = (props) => {
 
   if (usageInfo)
     return (
-      <View style={styles.licensePlateWaitingCardWrapper}>
-        <View style={styles.licensePlateWaitingCard}>
-          <View style={styles.licensePlateWaitingCardContainer}>
-            <View style={styles.licensePlateWaitingCardInfo}>
-              <View style={styles.licensePlateWaitingCardInfoText}>
-                <Text>
-                  {usageInfo['license_plate_category']}{' '}
-                  {usageInfo['license_plate_number']}
+      <View style={styles.ongoingActivityCardWrapper}>
+        <View style={styles.ongoingActivityCard}>
+          <View style={styles.ongoingActivityCardContainer}>
+            <View style={styles.ongoingActivityCardInfoWrapper}>
+              <View style={styles.ongoingActivityCardLeftInfoWrapper}>
+                <View>
+                  <Image
+                    style={styles.ongoingActivityCardPropertyImage}
+                    source={require('../../assets/central.jpg')}
+                  />
+                </View>
+                <View style={styles.ongoingActivityCardInfoTextWrapper}>
+                  <Text style={styles.ongoingActivityCardInfoPropertyName}>
+                    Central World
+                  </Text>
+                  <Text style={styles.ongoingActivityCardInfoLicenseNumber}>
+                    {usageInfo['license_plate_category']}{' '}
+                    {usageInfo['license_plate_number']}
+                  </Text>
+                  <Text style={styles.ongoingActivityCardInfoLicenseProvince}>
+                    {usageInfo['province_id']}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.ongoingActivityCardRightInfoWrapper}>
+                <Text style={styles.ongoingActivityCardInfoDateTime}>
+                  17 APR
                 </Text>
-                <Text>{usageInfo['province_id']}</Text>
+                <Text style={styles.ongoingActivityCardInfoDateTime}>
+                  12:00 PM
+                </Text>
               </View>
             </View>
           </View>
