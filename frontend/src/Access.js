@@ -162,7 +162,7 @@ const Access = () => {
                   propimg={access.property_img}
                   proptype={proptype}
                   placename={access.property_name}
-                  address={access.share_qouta}
+                  address={access.share_quota}
                   valid={valid}
                   expire={expired}
                   time={accesstime}

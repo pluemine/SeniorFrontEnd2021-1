@@ -25,7 +25,6 @@ export const MyColor = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //backgroundColor: "#ff0000",
     justifyContent: 'space-between',
     flexDirection: 'column',
   },
@@ -124,6 +123,8 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+
+  //textbox
   textbox: {
     color: MyColor.black,
     width: '100%',
@@ -148,6 +149,8 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: MyColor.red2,
   },
+
+  //button
   button: {
     borderWidth: 1,
     borderColor: MyColor.button,
@@ -207,39 +210,81 @@ const styles = StyleSheet.create({
   textbold: {
     fontWeight: '600',
   },
-  pic: {
-    width: '100%',
-    height: '100%',
-    justifyContent: 'space-between',
-  },
 
-  //AccessCard Page
-  cardHeader: {
+  //text
+  textHeader: {
     fontSize: 20,
     fontWeight: '600',
     color: Colors.black,
     marginBottom: 10,
   },
-  cardHeaderColor: {
+  textHeaderBlue: {
     fontSize: 18,
     fontWeight: '600',
-    color: MyColor.highlight,
+    color: MyColor.blue,
     marginBottom: 5,
   },
-  cardTitle: {
+  textTitle: {
     fontSize: 32,
     fontWeight: '600',
     color: MyColor.black,
   },
-  cardSubtitle: {
-    fontSize: 12,
-    fontWeight: '800',
-    color: MyColor.highlight,
+  textPreTitle: {
+    fontSize: 28,
+    fontWeight: '600',
+    color: MyColor.black,
   },
-  cardDes: {
+  textSubtitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: Colors.black,
+  },
+  textDes: {
     fontSize: 12,
     color: Colors.dark,
   },
+  textSubtitleWhite: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: Colors.white,
+  },
+  textDesWhite: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: Colors.white,
+  },
+  textMenuTitle: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: MyColor.black,
+  },
+  textMenuTitleRed: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: MyColor.red1,
+  },
+  textMenuTitleBlue: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: MyColor.blue,
+  },
+  textMenuTitleOrange: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: MyColor.pressedOrange,
+  },
+  textMenuDes: {
+    fontSize: 12,
+    fontWeight: '400',
+    color: MyColor.gray1,
+  },
+  textMenuDesBold: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: MyColor.black,
+  },
+
+  //card
   itemcard: {
     borderRadius: 10,
     backgroundColor: MyColor.white,
@@ -259,137 +304,9 @@ const styles = StyleSheet.create({
     // overflow: "hidden",
     // padding: 20,
   },
-
-  //Access page
-  accessCard: {
-    borderRadius: 20,
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-    backgroundColor: MyColor.white,
-  },
-  accessContainer: {
-    paddingHorizontal: 24,
-    paddingVertical: 24,
-    paddingBottom: 48,
-    //backgroundColor: "#00FF00",
-  },
-  accessImageContainer: {
-    paddingHorizontal: 24,
-    paddingTop: 96,
-  },
-  shareImageContainer: {
-    paddingTop: 80,
-  },
-  shareColContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'flex-start',
-  },
-  shareCol40: {
-    width: '40%',
-    alignItems: 'center',
-  },
-  shareCol60: {
-    width: '60%',
-    paddingTop: 32,
-    height: 132,
-    justifyContent: 'center',
-  },
-  shareTitle: {
-    fontSize: 18,
-    fontWeight: '800',
-    color: MyColor.white,
-  },
-  shareSubtitle: {
-    fontSize: 14,
-    fontWeight: '400',
-    color: MyColor.white,
-    marginBottom: 20,
-  },
-  sharePicOuter: {
-    shadowColor: MyColor.black,
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.51,
-    shadowRadius: 13.16,
-    elevation: 20,
-  },
-  sharePic: {
-    borderRadius: 4,
-    width: 100,
-    height: 100,
-    margin: 20,
-  },
-
-  //Other page
-  otherAvatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 100,
-    resizeMode: 'stretch',
-  },
-  otherCenterBlock: {
-    alignItems: 'center',
-  },
-  otherTitle: {
-    marginTop: 10,
-    fontSize: 20,
-    fontWeight: '600',
-    textAlign: 'center',
-    color: MyColor.white,
-  },
-  otherDes: {
-    fontSize: 12,
-    fontWeight: '400',
-    color: MyColor.white,
-    textAlign: 'center',
-  },
-  otherMenuTitle: {
-    fontSize: 15,
-    fontWeight: '600',
-    color: MyColor.black,
-  },
-  otherMenuTitleRed: {
-    fontSize: 15,
-    fontWeight: '600',
-    color: MyColor.red3,
-  },
-  otherMenuTitleBlue: {
-    fontSize: 15,
-    fontWeight: '600',
-    color: MyColor.blue,
-  },
-  otherMenuTitleOrange: {
-    fontSize: 15,
-    fontWeight: '600',
-    color: MyColor.pressedOrange,
-  },
-  otherMenuDes: {
-    fontSize: 12,
-    fontWeight: '400',
-    color: MyColor.gray1,
-  },
-  otherMenu: {
-    marginVertical: 15,
-    //paddingHorizontal: 15,
-  },
-  otherMenuRed: {
-    marginVertical: 15,
-    //paddingHorizontal: 15,
-  },
-
-  //Homeuser
-  homeuserBalanceCard: {
-    maxWidth: 500,
-    width: '100%',
-    margin: 'auto',
-    marginTop: 10,
-    marginBottom: 30,
-    padding: 30,
+  cardShow: {
     borderRadius: 10,
+    marginVertical: 10,
     backgroundColor: MyColor.white,
     shadowColor: MyColor.gray2,
     shadowOffset: {
@@ -400,23 +317,67 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 5,
   },
-  homeuserShortcutBlock: {
+  cardShowBorder: {
+    borderRadius: 10,
+    marginVertical: 10,
+    backgroundColor: MyColor.white,
+    shadowColor: MyColor.blue,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.75,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  card: {
+    borderRadius: 20,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+    backgroundColor: MyColor.white,
+    shadowColor: MyColor.gray2,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  cardTrans: {
+    borderRadius: 20,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+    backgroundColor: "rgba(250,250,250,0.9)",
+    shadowColor: MyColor.gray2,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  cardContainer: {
+    paddingHorizontal: 24,
+    paddingVertical: 24,
+  },
+  cardContainerHeaderOverlay: {
+    paddingHorizontal: 24,
+    paddingVertical: 0,
+  },
+  cardMenuBlock: {
+    marginVertical: 15,
+  },
+  cardMenuBlockSpace: {
+    marginVertical: 24,
+  },
+  cardMenuBlockButton: {
+    marginBottom: 24,
+  },
+  cardShortcut: {
     height: 100,
-  },
-  homeuserColContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'flex-start',
-  },
-  homeuserCol33: {
-    width: '33%',
-    alignItems: 'center',
-  },
-  homeuserShortcutCard: {
-    height: 100,
-    width: '90%',
-    margin: 'auto',
+    width: "30%",
     alignItems: 'center',
     justifyContent: 'space-between',
     borderRadius: 10,
@@ -430,223 +391,58 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 5,
   },
-  homeuserShortcutData: {
+  cardShortcutData: {
     height: 100,
-    width: '100%',
     padding: 10,
-    margin: 'auto',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  homeuserTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: Colors.black,
-    marginTop: 25,
-    marginBottom: 20,
-  },
-  homeuserCardTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: Colors.white,
-  },
-  homeuserCardSubtitle: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: Colors.white,
-  },
-  homeuserIcon: {
+
+  //icon
+  iconHomeuser: {
     height: 50,
     width: 70,
-    borderRadius: 0,
-    resizeMode: 'stretch',
   },
-
-  //License
-  licenseTitle: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: MyColor.black,
-  },
-  licenseProvince: {
-    fontSize: 12,
-    fontWeight: '400',
-    color: MyColor.gray2,
-  },
-  licenseCard: {
-    maxWidth: 500,
-    width: '100%',
-    margin: 'auto',
-    marginTop: 10,
-    marginBottom: 10,
-    padding: 20,
-    borderRadius: 10,
-    backgroundColor: MyColor.white,
-    shadowColor: MyColor.gray2,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    elevation: 5,
-    alignItems: 'center',
-  },
-  licenseCardBorder: {
-    maxWidth: 500,
-    width: '100%',
-    margin: 'auto',
-    marginTop: 10,
-    marginBottom: 10,
-    padding: 20,
-    borderRadius: 10,
-    borderColor: MyColor.highlight,
-    borderWidth: 3,
-    backgroundColor: MyColor.white,
-    shadowColor: MyColor.gray2,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    elevation: 5,
-    alignItems: 'center',
-  },
-  licenseColContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'flex-start',
-  },
-  licenseCol30: {
-    width: '30%',
-    paddingRight: 10,
-  },
-  licenseCol40: {
-    width: '40%',
-    paddingRight: 10,
-    justifyContent: 'center',
-    height: 70,
-  },
-  licenseCol60: {
-    width: '60%',
-    paddingLeft: 10,
-    justifyContent: 'center',
-    height: 70,
-  },
-  licenseCol70: {
-    width: '70%',
-    paddingLeft: 10,
-  },
-  licenseCol100: {
-    width: '100%',
-    justifyContent: 'center',
-  },
-  licenseBlock: {
-    height: 70,
-  },
-  licenseCardBlock: {
-    height: 70,
-  },
-  licensePlateIcon: {
+  iconLicensePlate: {
     height: 70,
     width: 98,
-    borderRadius: 0,
-    resizeMode: 'stretch',
   },
-  licenseSelectTitle: {
-    fontSize: 32,
-    fontWeight: '600',
-    color: MyColor.black,
-    marginVertical: 20,
-    marginHorizontal: 20,
-  },
-
-  //Payment
-  paymentTitle: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: MyColor.black,
-  },
-  paymentExpire: {
-    fontSize: 12,
-    fontWeight: '400',
-    color: MyColor.gray2,
-  },
-  paymentCard: {
-    maxWidth: 500,
-    width: '100%',
-    margin: 'auto',
-    marginTop: 10,
-    marginBottom: 10,
-    padding: 20,
-    borderRadius: 10,
-    backgroundColor: MyColor.white,
-    shadowColor: MyColor.gray2,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    elevation: 5,
-    alignItems: 'center',
-  },
-  paymentCardBorder: {
-    maxWidth: 500,
-    width: '100%',
-    margin: 'auto',
-    marginTop: 10,
-    marginBottom: 10,
-    padding: 20,
-    borderRadius: 10,
-    borderColor: MyColor.blue,
-    borderWidth: 3,
-    backgroundColor: MyColor.white,
-    shadowColor: MyColor.gray2,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    elevation: 5,
-    alignItems: 'center',
-  },
-  paymentCardBlock: {
-    height: 70,
-  },
-  paymentColContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'flex-start',
-  },
-  paymentCol30: {
-    width: '30%',
-    paddingRight: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 70,
-  },
-  paymentCol70: {
-    width: '70%',
-    paddingLeft: 10,
-    justifyContent: 'center',
-    height: 70,
-  },
-  paymentIcon: {
-    //height: 70,
-    //width: 98,
+  iconPayment: {
     height: 70,
     width: 70,
-    borderRadius: 0,
-    resizeMode: 'stretch',
   },
-  paymentTrash: {
-    height: 40,
-    width: 40,
+  iconEdit: {
+    height: 25,
+    width: 25,
+  },
+  iconAvatar: {
+    width: 60,
+    height: 60,
+    borderRadius: 100,
+    marginRight: 20,
+  },
+
+  // pic
+  picShareOuter: {
+    marginRight: 20,
+    shadowColor: MyColor.black,
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.51,
+    shadowRadius: 13.16,
+    elevation: 20,
+  },
+  picShare: {
+    borderRadius: 4,
+    width: 100,
+    height: 100,
+  },
+  picBg: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "space-between",
   },
 
   /* LicensePlateWaitingCard Style */

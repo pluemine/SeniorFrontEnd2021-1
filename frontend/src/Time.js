@@ -23,81 +23,71 @@ import {
 import styles from "./Styles";
 
 const Time = (props) => {
-  const { propimg, proptype, placename, address, valid, expire, time, validR, expireR } = props;
+  const {
+    propimg,
+    proptype,
+    placename,
+    address,
+    valid,
+    expire,
+    time,
+    validR,
+    expireR,
+  } = props;
   return (
-    <ScrollView
-      contentContainerStyle={{ flexGrow: 1, justifyContent: "space-between" }}
-    >
-      <StatusBar barStyle="light-content" />
-      <View style={styles.container}>
-        <ImageBackground
-          style={styles1.pic}
-          source={{ uri: propimg }}
-          blurRadius={25}
-        >
-          <View style={styles.accessImageContainer}>
-            <View style={styles1.pic1}>
-              <Image style={styles1.pic2} source={{ uri: propimg }} />
+    <View style={styles.container}>
+      <StatusBar barStyle="default" />
+      <ImageBackground
+        style={styles.picBg}
+        source={require("../assets/parking.jpg")}
+      >
+        <View style={styles.sectionContainerHeader}>
+          <Text style={styles.sectionTitlewoNav}>Share Access</Text>
+        </View>
+        <View style={styles.cardTrans}>
+          <View style={styles.cardContainerHeaderOverlay}>
+            <View style={styles.cardMenuBlock}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <View style={styles.picShareOuter}>
+                  <Image style={styles.picShare} source={{ uri: propimg }} />
+                </View>
+                <View>
+                  <Text style={styles.textPreTitle}>{placename}</Text>
+                  <Text style={styles.textMenuTitleOrange}>{proptype}</Text>
+                </View>
+              </View>
             </View>
           </View>
-          <View style={styles.accessCard}>
-            <View style={styles.accessContainer}>
-              <Text style={styles.sectionTitle}>{placename}</Text>
-              <View style={styles1.item}>
-                <View style={styles1.container}>
-                  <View style={styles1.col30}>
-                    <Text style={(styles1.cardDes, styles.textbold)}>Type</Text>
+          <View style={styles.card}>
+            <View style={styles.cardContainer}>
+              <View style={styles.cardMenuBlock}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <Image
+                      style={{ width: 25, height: 25, marginRight: 10 }}
+                      source={require("../assets/icon-clock.png")}
+                    />
+                    <Text style={styles.textMenuTitle}>Time</Text>
                   </View>
-                  <View style={styles1.col70}>
-                    <Text style={styles1.cardDes}>{proptype}</Text>
-                  </View>
+                  <Text style={styles.textMenuTitle}>{time}</Text>
                 </View>
-              </View>
-              <View style={styles1.item}>
-                <View style={styles1.container}>
-                  <View style={styles1.col30}>
-                    <Text style={(styles1.cardDes, styles.textbold)}>
-                      Address
-                    </Text>
-                  </View>
-                  <View style={styles1.col70}>
-                    <Text style={styles1.cardDes}>{address}</Text>
-                  </View>
-                </View>
-              </View>
-              <View style={styles1.item}>
-                <View style={styles1.container}>
-                  <View style={styles1.col30}>
-                    <Text style={(styles1.cardDes, styles.textbold)}>
-                      Valid
-                    </Text>
-                  </View>
-                  <View style={styles1.col70}>
-                    <Text style={styles1.cardDes}>{valid}</Text>
-                  </View>
-                </View>
-              </View>
-              <View style={styles1.item}>
-                <View style={styles1.container}>
-                  <View style={styles1.col30}>
-                    <Text style={(styles1.cardDes, styles.textbold)}>
-                      Expired
-                    </Text>
-                  </View>
-                  <View style={styles1.col70}>
-                    <Text style={styles1.cardDes}>{expire}</Text>
-                  </View>
-                </View>
-              </View>
-              <View style={styles1.item}>
-                <View style={styles1.container}>
-                  <View style={styles1.col30}>
-                    <Text style={(styles1.cardDes, styles.textbold)}>Time</Text>
-                  </View>
-                  <View style={styles1.col70}>
-                    <Text style={styles1.cardDes}>{time}</Text>
-                  </View>
-                </View>
+                <Text style={styles.textMenuTitle}> </Text>
+                <Text style={styles.textMenuTitle}>Valid</Text>
+                <Text style={styles.textMenuDes}>{valid}</Text>
+                <Text style={styles.textMenuTitle}>↓</Text>
+                <Text style={styles.textMenuTitle}>Expire</Text>
+                <Text style={styles.textMenuDes}>{expire}</Text>
               </View>
               <View
                 style={{
@@ -105,24 +95,40 @@ const Time = (props) => {
                   borderBottomWidth: 1,
                 }}
               />
-              <View style={styles.otherMenu}>
-                <Text style={styles.otherMenuTitle}>What is sharing access?</Text>
-                <Text style={styles.otherMenuDes}>It is the access to share your parking right.</Text>
+              <View style={styles.cardMenuBlock}>
+                <Text style={styles.textMenuTitle}>
+                  What is sharing access?
+                </Text>
+                <Text style={styles.textMenuDes}>
+                  It is the access to share your parking right.
+                </Text>
               </View>
-              <TouchableHighlight
-                style={styles.button}
-                underlayColor="none"
-                onPress={() => Actions.share({ propimg, placename, proptype, valid, expire, validR, expireR })}
-              >
-                <View>
-                  <Text style={styles.buttonText}>Share your access</Text>
-                </View>
-              </TouchableHighlight>
+              <View style={styles.cardMenuBlockButton}>
+                <TouchableHighlight
+                  style={styles.button}
+                  underlayColor="none"
+                  onPress={() =>
+                    Actions.share({
+                      propimg,
+                      placename,
+                      proptype,
+                      valid,
+                      expire,
+                      validR,
+                      expireR,
+                    })
+                  }
+                >
+                  <View>
+                    <Text style={styles.buttonText}>Share your access</Text>
+                  </View>
+                </TouchableHighlight>
+              </View>
             </View>
           </View>
-        </ImageBackground>
-      </View>
-    </ScrollView>
+        </View>
+      </ImageBackground>
+    </View>
   );
 };
 
@@ -141,7 +147,7 @@ const styles1 = StyleSheet.create({
     marginTop: 20,
     paddingHorizontal: 24,
   },
-  cardDes: {
+  textDes: {
     fontSize: 14,
     color: Colors.dark,
     marginBottom: 10,
@@ -186,7 +192,7 @@ const styles1 = StyleSheet.create({
     height: "100%",
     //margin: "auto",
     justifyContent: "space-between",
-    alignItems: "center",
+    //alignItems: "center",
     //paddingBottom: 20,
   },
   pic1: {

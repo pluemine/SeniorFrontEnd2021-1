@@ -192,7 +192,7 @@ const Register = () => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="default" />
-      <View style={styles.sectionContainer}>
+      <View style={styles.sectionContainerHeader}>
         <Text style={styles.sectionTitlewoNav}>Create Account</Text>
         <TextField
           label="Email"

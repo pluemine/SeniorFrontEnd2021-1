@@ -107,26 +107,40 @@ const PaymentCard = (props) => {
   return (
     <View>
       <TouchableHighlight underlayColor="none" onPress={toggleModal}>
-        <View style={def ? styles.paymentCardBorder : styles.paymentCard}>
-          <View style={styles.paymentCardBlock}>
-            <View style={styles.paymentColContainer}>
-              <View style={styles.paymentCol30}>
-                <Image style={styles.paymentIcon} source={namebrand()} />
+        <View style={def ? styles.cardShowBorder : styles.cardShow}>
+          <View style={styles.cardContainer}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <Image
+                  style={[styles.iconPayment, { marginRight: 20 }]}
+                  source={namebrand()}
+                />
+                <View>
+                  <Text style={styles.textSubtitle}>
+                    {number.substring(0, 4) +
+                      "********" +
+                      number.substring(12, 16)}
+                  </Text>
+                  <Text style={styles.textDes}>
+                    Expire {expiremonth + "/" + expireyear}
+                  </Text>
+                </View>
               </View>
-              <View style={styles.paymentCol70}>
-                <Text style={styles.paymentTitle}>
-                  {number.substring(0, 4) +
-                    "********" +
-                    number.substring(12, 16)}
-                </Text>
-                <Text style={styles.paymentExpire}>
-                  Expire {expiremonth + "/" + expireyear}
-                </Text>
-                {/*<Image
-              style={styles.paymentTrash}
-              source={require("../../assets/icon-trash.png")}
-            />*/}
-              </View>
+              <Image
+                style={styles.iconEdit}
+                source={require("../../assets/icon-edit.png")}
+              />
             </View>
           </View>
         </View>
@@ -172,7 +186,7 @@ const PaymentCard = (props) => {
                 <Text style={styles.modalTextTitleHighlight}>Tips</Text>
               </View>
               <View style={styles.modalDesBlock}>
-                <Text style={styles.modalTextTitle}>Set as default</Text>
+                <Text style={styles.modalTextTitle}>Set as primary card</Text>
                 <Text style={styles.modalTextDes}>
                   Select the card as a default payment method
                 </Text>
@@ -185,7 +199,7 @@ const PaymentCard = (props) => {
               </View>
               <View style={styles.modalTextBlock}>
                 <Button
-                  title="Set as default"
+                  title="Set as primary card"
                   color={def ? "#cccccc" : null}
                   onPress={def ? null : confirmDefault}
                 />

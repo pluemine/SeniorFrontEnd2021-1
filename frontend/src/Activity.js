@@ -125,7 +125,7 @@ const Activity = () => {
     return (
       <View style={styles.container}>
         <StatusBar barStyle='default' />
-        <View style={styles.sectionContainer}>
+        <View style={styles.sectionContainerHeader}>
           <Text style={styles.sectionTitlewoNav}>Activity</Text>
           <View style={styles.activityWrapper}>
             <View style={styles.noDataImageWrapper}>

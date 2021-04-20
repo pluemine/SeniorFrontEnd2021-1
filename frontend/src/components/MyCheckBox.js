@@ -41,7 +41,7 @@ const MyCheckBox = (props) => {
           onValueChange={(newValue) => onValueChange(newValue)}
         />
       </View>
-      <Text style={styles.otherMenuTitle}>{title}</Text>
+      <Text style={styles.textMenuTitle}>{title}</Text>
     </View>
   );
 };
