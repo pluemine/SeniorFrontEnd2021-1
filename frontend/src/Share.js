@@ -167,7 +167,7 @@ const Share = (props) => {
           expired_date_time: null,
           usage_counts: 100,
           mins_per_usage: 120,
-          share_qouta: 5,
+          share_quota: 5,
           is_charged_provider: false,
           is_sharable: false,
         },
@@ -233,7 +233,7 @@ const Share = (props) => {
     <ScrollView
       contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}
     >
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle='light-content' />
       <View style={styles.container}>
         <ImageBackground
           style={styles.pic}
