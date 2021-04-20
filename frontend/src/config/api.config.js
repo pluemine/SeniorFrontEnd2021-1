@@ -6,6 +6,7 @@ const apiConfig = {
   licenseApi: `/lpapi`,
   parkingAccessApi: `/pamapi`,
   parkingApi: `/papi`,
+  activityApi: `/aapi`,
 };
 
 export default apiConfig;

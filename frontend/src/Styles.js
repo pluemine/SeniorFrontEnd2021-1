@@ -19,7 +19,7 @@ export const MyColor = {
   orange: '#eeab73',
   pressedOrange: '#D99154',
   dark_orange: '#c2722f',
-  disable: '#cccccc'
+  disable: '#cccccc',
 };
 
 const styles = StyleSheet.create({
@@ -66,6 +66,12 @@ const styles = StyleSheet.create({
     color: MyColor.black,
     marginBottom: 20,
     paddingTop: 40,
+  },
+  sectionSubTitleActivity: {
+    fontSize: 28,
+    fontWeight: '400',
+    color: MyColor.black,
+    marginBottom: 12,
   },
   sectionTitlewoNavWhite: {
     fontSize: 32,
@@ -737,7 +743,10 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   /* Activity Style */
-  activityWrapper: {},
+  activityWrapper: {
+    height: '100%',
+    width: '100%',
+  },
   noDataImageWrapper: {
     flexDirection: 'column',
     alignItems: 'center',
@@ -747,6 +756,11 @@ const styles = StyleSheet.create({
     width: '85%',
     height: '85%',
     // resizeMode: 'contain',
+  },
+  loadingImage: {
+    width: '30%',
+    height: '75%',
+    resizeMode: 'contain',
   },
   /* ---------------- */
 

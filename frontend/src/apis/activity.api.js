@@ -59,4 +59,19 @@ activityApi.rejectClaimLicensePlate = async (usage_log_uid) => {
   return response;
 };
 
+activityApi.getHistory = async () => {
+  const token = await SecureStore.getItemAsync('pms_token');
+  const response = await axios
+    .get(`${apiConfig.baseAuthURL}${apiConfig.activityApi}/history`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => {
+      return res['data']['data']['histories'];
+    })
+    .catch((error) => {
+      throw error;
+    });
+  return response;
+};
+
 export default activityApi;
