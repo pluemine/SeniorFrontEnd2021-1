@@ -141,7 +141,6 @@ const Activity = () => {
       <View style={styles.container}>
         <StatusBar barStyle='default' />
         <View style={styles.sectionContainer}>
-          <Text style={styles.sectionSubtitle}></Text>
           <Text style={styles.sectionTitlewoNav}>Activity</Text>
           {onGoingActivity && onGoingActivity.length ? (
             <Text style={styles.sectionTitlewoNav}>Ongoing</Text>
@@ -179,7 +178,6 @@ const Activity = () => {
       <View style={styles.container}>
         <StatusBar barStyle='default' />
         <View style={styles.sectionContainer}>
-          <Text style={styles.sectionSubtitle}></Text>
           <Text style={styles.sectionTitlewoNav}>Activity</Text>
           <View style={styles.activityWrapper}>
             <View style={styles.noDataImageWrapper}>

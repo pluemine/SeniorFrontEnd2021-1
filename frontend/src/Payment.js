@@ -2,13 +2,6 @@ import React, { Component, useState, useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
 import { Actions } from "react-native-router-flux";
 import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from "react-native/Libraries/NewAppScreen";
-import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
@@ -20,98 +13,126 @@ import {
   TouchableHighlight,
   Image,
 } from "react-native";
-import { Router, Scene } from "react-native-router-flux";
+import {
+  BallIndicator,
+  BarIndicator,
+  DotIndicator,
+  MaterialIndicator,
+  PacmanIndicator,
+  PulseIndicator,
+  SkypeIndicator,
+  UIActivityIndicator,
+  WaveIndicator,
+} from "react-native-indicators";
 
-import Register from "./Register";
-import Login from "./Login";
-import Home from "./Home";
-import AccessCard from "./components/AccessCard";
 import PaymentCard from "./components/PaymentCard";
 
 import styles from "./Styles";
 import axios from "axios";
 import { exp } from "react-native-reanimated";
+import parseErrorStack from "react-native/Libraries/Core/Devtools/parseErrorStack";
 
 const Payment = () => {
   const [payments, setPayments] = useState([]);
   const [des, setDes] = useState("Loading");
+  const [primary, setPrimary] = useState("");
 
   useEffect(() => {
     const getPayment = async () => {
       const token = await SecureStore.getItemAsync("pms_token");
       axios
-        .get(`http://localhost:4000/auth/uapi/creditCards`, {
+        .get(`http://localhost:4000/auth/capi/cards`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
           setPayments(res.data.data.creditCards);
           console.log(res.data.data.creditCards);
           setDes("No Payment Method");
+          if (res.data.primaryCreditCardID != null) {
+            setPrimary(res.data.primaryCreditCardID.toString());
+            console.log(res.data.primaryCreditCardID.toString());
+          }
         });
     };
     getPayment();
   }, []);
 
+  const goAddCard = (event) => {
+    if (payments.length <= 4 && des != "Loading") {
+      //Actions.addcard({ set: setPayments });
+      Actions.addcard({ isFirst: payments.length < 1 });
+    }
+  };
+
+  let screen;
+  if (des === "Loading") {
+    screen = (
+      <View style={styles.sectionContainerScroll}>
+        <PulseIndicator color="#78aac2" />
+      </View>
+    );
+  } else if (payments.length > 0) {
+    screen = (
+      <ScrollView style={styles.sectionContainerScroll}>
+        <View>
+          {payments.map((payment, index) => {
+            var expmth = "";
+            if (payment.exp_month.toString().length == 1) {
+              expmth = "0" + payment.exp_month.toString();
+            } else {
+              expmth = payment.exp_month.toString();
+            }
+            return (
+              <PaymentCard
+                key={"paymentcard" + index}
+                number={payment.credit_card_number}
+                expiremonth={expmth}
+                expireyear={payment.exp_year.toString()}
+                def={
+                  primary != "" && primary == payment.credit_card_id.toString()
+                }
+                pcid={payment.credit_card_id}
+                isLast={payments.length == 1}
+              />
+            );
+          })}
+        </View>
+      </ScrollView>
+    );
+  } else {
+    screen = (
+      <View>
+        <Image
+          style={styles.noDataPic}
+          source={require("../assets/pic-addcard.png")}
+        />
+        <Text style={styles.noDataDes}>{des}</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="default" />
-      <View style={styles.sectionContainer}>
-        <View>
-          <Text style={styles.sectionSubtitle}></Text>
-          <Text style={styles.sectionTitlewoNav}>Payment Method</Text>
-          {/*[
-            { card: "4417 70xx xxxx 8888", exp: "12/22", default: true },
-            { card: "4417 70xx xxxx 9999", exp: "01/22", default: false },
-          ].map((card, index) => {
-            return (
-              <PaymentCard
-                key={"licensecard" + index}
-                card={card.card}
-                exp={card.exp}
-                def={card.default}
-              />
-            );
-          })*/}
-          {payments.length > 0 ? (
-            payments.map((payment, index) => {
-              var expmth = "";
-              if (payment.exp_month.toString().length == 1) {
-                expmth = "0" + payment.exp_month.toString();
-              } else {
-                expmth = payment.exp_month.toString();
-              }
-              return (
-                <PaymentCard
-                  key={"paymentcard" + index}
-                  number={payment.credit_card_number}
-                  expiremonth={expmth}
-                  expireyear={payment.exp_year.toString()}
-                  def={false}
-                  pcid={payment.credit_card_id}
-                />
-              );
-            })
-          ) : (
-            <View>
-              <Image
-                style={styles.noDataPic}
-                source={require("../assets/pic-addcard.png")}
-              />
-              <Text style={styles.noDataDes}>{des}</Text>
-            </View>
-          )}
-        </View>
+      <View style={styles.sectionContainerHeader}>
+        <Text style={styles.sectionTitlewoNav}>Payment Method</Text>
       </View>
+      {screen}
       <View style={styles.sectionContainerButton}>
-        <TouchableHighlight
-          style={styles.button}
-          underlayColor="none"
-          onPress={() => Actions.addcard()}
-        >
-          <View>
-            <Text style={styles.buttonText}>Add new credit / debit card</Text>
-          </View>
-        </TouchableHighlight>
+        {des != "Loading" ? (
+          <TouchableHighlight
+            style={payments.length <= 4 ? styles.button : styles.buttonDisable}
+            underlayColor="none"
+            /*onPress={() => Actions.addcard({set: setPayments})}*/
+            onPress={() => goAddCard()}
+          >
+            <View>
+              <Text style={styles.buttonText}>Add new credit / debit card</Text>
+            </View>
+          </TouchableHighlight>
+        ) : (
+          <View></View>
+        )}
       </View>
     </View>
   );

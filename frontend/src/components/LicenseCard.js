@@ -2,13 +2,6 @@ import React, { Component, useState, useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
 import { Actions } from "react-native-router-flux";
 import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from "react-native/Libraries/NewAppScreen";
-import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
@@ -21,7 +14,6 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import { Router, Scene } from "react-native-router-flux";
 import Modal from "react-native-modal";
 
 import styles from "../Styles";
@@ -50,8 +42,9 @@ const LicenseCard = (props) => {
     axios.delete(`http://localhost:4000/auth/lpapi?id=${lpid}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    Actions.popTo("homehome");
-    Actions.license();
+    setTimeout(() => {
+      Actions.refresh({ key: Math.random() });
+    }, 500);
   };
 
   return (

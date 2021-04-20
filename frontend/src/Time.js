@@ -23,7 +23,7 @@ import {
 import styles from "./Styles";
 
 const Time = (props) => {
-  const { propimg, proptype, placename, address, valid, expire, time } = props;
+  const { propimg, proptype, placename, address, valid, expire, time, validR, expireR } = props;
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1, justifyContent: "space-between" }}
@@ -112,7 +112,7 @@ const Time = (props) => {
               <TouchableHighlight
                 style={styles.button}
                 underlayColor="none"
-                onPress={() => Actions.share({ propimg, placename, proptype })}
+                onPress={() => Actions.share({ propimg, placename, proptype, valid, expire, validR, expireR })}
               >
                 <View>
                   <Text style={styles.buttonText}>Share your access</Text>

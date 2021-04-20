@@ -2,13 +2,6 @@ import React, { Component, useState, useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
 import { Actions } from "react-native-router-flux";
 import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from "react-native/Libraries/NewAppScreen";
-import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
@@ -21,7 +14,6 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import { Router, Scene } from "react-native-router-flux";
 import Modal from "react-native-modal";
 
 import styles from "../Styles";
@@ -29,7 +21,7 @@ import axios from "axios";
 import { set } from "react-native-reanimated";
 
 const PaymentCard = (props) => {
-  const { number, expiremonth, expireyear, def, pcid } = props;
+  const { number, expiremonth, expireyear, def, pcid, isLast } = props;
 
   const [isModalVisible, setModalVisible] = useState(false);
   const [brand, setBrand] = useState("");
@@ -40,12 +32,17 @@ const PaymentCard = (props) => {
     loadData();
   };
 
+  function confirmDefault() {
+    toggleModal();
+    setDefault();
+  }
+
   function confirmDelete() {
     toggleModal();
     removePayment();
   }
 
-  function cancelDelete() {
+  function cancel() {
     toggleModal();
   }
 
@@ -57,25 +54,54 @@ const PaymentCard = (props) => {
     } else if (number[0] == "5") {
       setBrand("MASTERCARD");
     } else {
-      setBrand("");
+      setBrand("OTHER");
     }
 
     if (def) {
       setDeftext("");
-    }
-    else {
+    } else {
       setDeftext("");
     }
   }
 
+  function namebrand() {
+    if (number[0] == "3") {
+      return require("../../assets/icon-jcb.png");
+    } else if (number[0] == "4") {
+      return require("../../assets/icon-visa.png");
+    } else if (number[0] == "5") {
+      return require("../../assets/icon-mastercard.png");
+    } else {
+      return require("../../assets/icon-nocard.png");
+    }
+  }
+
+  const setDefault = async () => {
+    const token = await SecureStore.getItemAsync("pms_token");
+    console.log("TOKEN", token);
+    axios
+      .put(`http://localhost:4000/auth/uapi/primaryCreditCard?id=${pcid}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        if (res.data.status === "OK") {
+          setTimeout(() => {
+            Actions.refresh({ key: Math.random() });
+          }, 500);
+        }
+        console.log("TOKEN", token);
+      });
+  };
+
   const removePayment = async () => {
     const token = await SecureStore.getItemAsync("pms_token");
-    console.log(number, exp, def, pcid);
-    axios.delete(`http://localhost:4000/auth/uapi/creditCard?id=${pcid}`, {
+    console.log(number, def, pcid);
+    axios.delete(`http://localhost:4000/auth/capi/card?id=${pcid}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    Actions.popTo("homehome");
-    Actions.payment();
+    setTimeout(() => {
+      Actions.refresh({ key: Math.random() });
+    }, 500);
   };
 
   return (
@@ -85,14 +111,17 @@ const PaymentCard = (props) => {
           <View style={styles.paymentCardBlock}>
             <View style={styles.paymentColContainer}>
               <View style={styles.paymentCol30}>
-                <Image
-                  style={styles.paymentIcon}
-                  source={require("../../assets/icon-payment.png")}
-                />
+                <Image style={styles.paymentIcon} source={namebrand()} />
               </View>
               <View style={styles.paymentCol70}>
-                <Text style={styles.paymentTitle}>{number.substring(0, 4) + "********" + number.substring(12, 16)}</Text>
-                <Text style={styles.paymentExpire}>Expire {expiremonth + "/" + expireyear}</Text>
+                <Text style={styles.paymentTitle}>
+                  {number.substring(0, 4) +
+                    "********" +
+                    number.substring(12, 16)}
+                </Text>
+                <Text style={styles.paymentExpire}>
+                  Expire {expiremonth + "/" + expireyear}
+                </Text>
                 {/*<Image
               style={styles.paymentTrash}
               source={require("../../assets/icon-trash.png")}
@@ -123,7 +152,13 @@ const PaymentCard = (props) => {
               <View style={styles.modalTextBlock}>
                 <Text style={styles.modalTextTitle}>Your card</Text>
                 <Text style={styles.modalTextDes}>
-                  {number.substring(0, 4) + "********" + number.substring(12, 16) + " (" + brand + ") " + deftext}
+                  {number.substring(0, 4) +
+                    "********" +
+                    number.substring(12, 16) +
+                    " (" +
+                    brand +
+                    ") " +
+                    deftext}
                 </Text>
               </View>
               <View
@@ -149,7 +184,11 @@ const PaymentCard = (props) => {
                 </Text>
               </View>
               <View style={styles.modalTextBlock}>
-                <Button title="Set as default" />
+                <Button
+                  title="Set as default"
+                  color={def ? "#cccccc" : null}
+                  onPress={def ? null : confirmDefault}
+                />
               </View>
               <View
                 style={{
@@ -161,14 +200,14 @@ const PaymentCard = (props) => {
               <View style={styles.modalTextBlock}>
                 <Button
                   title="Remove"
-                  color="#ff0000"
-                  onPress={confirmDelete}
+                  color={def && !isLast ? "#cccccc" : "#ff0000"}
+                  onPress={def && !isLast ? null : confirmDelete}
                 />
               </View>
             </View>
           </View>
           <View style={styles.modalCancel}>
-            <Button title="Cancel" onPress={cancelDelete} />
+            <Button title="Cancel" onPress={cancel} />
           </View>
         </View>
       </Modal>
