@@ -2,13 +2,6 @@ import React, { Component, useState, useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
 import { Actions } from "react-native-router-flux";
 import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from "react-native/Libraries/NewAppScreen";
-import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
@@ -20,7 +13,6 @@ import {
   TouchableHighlight,
   Image,
 } from "react-native";
-import { Router, Scene } from "react-native-router-flux";
 import {
   BallIndicator,
   BarIndicator,
@@ -33,10 +25,6 @@ import {
   WaveIndicator,
 } from "react-native-indicators";
 
-import Register from "./Register";
-import Login from "./Login";
-import Home from "./Home";
-import AccessCard from "./components/AccessCard";
 import PaymentCard from "./components/PaymentCard";
 
 import styles from "./Styles";
@@ -47,6 +35,7 @@ import parseErrorStack from "react-native/Libraries/Core/Devtools/parseErrorStac
 const Payment = () => {
   const [payments, setPayments] = useState([]);
   const [des, setDes] = useState("Loading");
+  const [primary, setPrimary] = useState("");
 
   useEffect(() => {
     const getPayment = async () => {
@@ -59,28 +48,19 @@ const Payment = () => {
           setPayments(res.data.data.creditCards);
           console.log(res.data.data.creditCards);
           setDes("No Payment Method");
+          if (res.data.primaryCreditCardID != null) {
+            setPrimary(res.data.primaryCreditCardID.toString());
+            console.log(res.data.primaryCreditCardID.toString());
+          }
         });
     };
     getPayment();
   }, []);
 
-  const reload = async () => {
-    const token = await SecureStore.getItemAsync("pms_token");
-    axios
-      .get(`http://localhost:4000/auth/capi/cards`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        setPayments(res.data.data.creditCards);
-        console.log(res.data.data.creditCards);
-        setDes("No Payment Method");
-      });
-  };
-
   const goAddCard = (event) => {
     if (payments.length <= 4 && des != "Loading") {
       //Actions.addcard({ set: setPayments });
-      Actions.addcard();
+      Actions.addcard({ isFirst: payments.length < 1 });
     }
   };
 
@@ -96,22 +76,23 @@ const Payment = () => {
       <ScrollView style={styles.sectionContainerScroll}>
         <View>
           {payments.map((payment, index) => {
-            {
-              /*var expmth = "";
+            var expmth = "";
             if (payment.exp_month.toString().length == 1) {
               expmth = "0" + payment.exp_month.toString();
             } else {
               expmth = payment.exp_month.toString();
-            }*/
             }
             return (
               <PaymentCard
                 key={"paymentcard" + index}
                 number={payment.credit_card_number}
-                expiremonth={payment.exp_month.toString()}
+                expiremonth={expmth}
                 expireyear={payment.exp_year.toString()}
-                def={false}
+                def={
+                  primary != "" && primary == payment.credit_card_id.toString()
+                }
                 pcid={payment.credit_card_id}
+                isLast={payments.length == 1}
               />
             );
           })}

@@ -19,7 +19,7 @@ export const MyColor = {
   orange: '#eeab73',
   pressedOrange: '#D99154',
   dark_orange: '#c2722f',
-  // your colors
+  disable: '#cccccc'
 };
 
 const styles = StyleSheet.create({
@@ -601,7 +601,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 20,
     borderRadius: 10,
-    borderColor: MyColor.highlight,
+    borderColor: MyColor.blue,
     borderWidth: 3,
     backgroundColor: MyColor.white,
     shadowColor: MyColor.gray2,

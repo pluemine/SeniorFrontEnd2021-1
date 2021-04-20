@@ -2,13 +2,6 @@ import React, { Component, useState, useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
 import { Actions } from "react-native-router-flux";
 import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from "react-native/Libraries/NewAppScreen";
-import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
@@ -20,7 +13,6 @@ import {
   TouchableHighlight,
   Image,
 } from "react-native";
-import { Router, Scene } from "react-native-router-flux";
 import {
   BallIndicator,
   BarIndicator,
@@ -33,10 +25,6 @@ import {
   WaveIndicator,
 } from "react-native-indicators";
 
-import Register from "./Register";
-import Login from "./Login";
-import Home from "./Home";
-import AccessCard from "./components/AccessCard";
 import LicenseCard from "./components/LicenseCard";
 
 import styles from "./Styles";

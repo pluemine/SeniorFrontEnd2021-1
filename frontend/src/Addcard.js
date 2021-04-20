@@ -13,13 +13,16 @@ import {
   TouchableHighlight,
   Image,
 } from "react-native";
-import { FloatingLabelInput } from "react-native-floating-label-input";
+import MyCheckBox from "./components/MyCheckBox";
 import TextField from "./components/TextField";
 
 import styles from "./Styles";
 import axios from "axios";
 
-const Addcard = () => {
+const Addcard = (props) => {
+
+  const { isFirst } = props;
+
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const [expire, setExpire] = useState("");
@@ -30,6 +33,8 @@ const Addcard = () => {
   const [numberError, setNumberError] = useState(false);
   const [expireError, setExpireError] = useState(false);
   const [cvvError, setCvvError] = useState(false);
+
+  const [toggleCheckBox, setToggleCheckBox] = useState(true);
 
   const handleChange_name = (event) => {
     setName(event);
@@ -70,6 +75,7 @@ const Addcard = () => {
   }
 
   const addCard = async () => {
+
     const token = await SecureStore.getItemAsync("pms_token");
     console.log(parseInt(expire.substring(0, 2)));
     console.log(parseInt(expire.substring(3, 7)));
@@ -83,6 +89,7 @@ const Addcard = () => {
           exp_month: parseInt(expire.substring(0, 2)),
           exp_year: parseInt(expire.substring(3, 7)),
           security_code: cvv.toString(),
+          is_primary: toggleCheckBox,
         },
         { headers: { Authorization: `Bearer ${token}` } }
       )
@@ -182,6 +189,12 @@ const Addcard = () => {
             </View>
           </View>
         </View>
+        <MyCheckBox
+          title="Set as primary card"
+          value={toggleCheckBox}
+          disabled={isFirst}
+          onValueChange={setToggleCheckBox}
+        />
         <TouchableHighlight
           style={styles.button}
           underlayColor="none"
