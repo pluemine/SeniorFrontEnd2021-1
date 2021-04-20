@@ -24,6 +24,32 @@ import {
 
 import styles, { MyColor } from '../Styles';
 
+const months = [
+  'JAN',
+  'FEB',
+  'MAR',
+  'APR',
+  'MAY',
+  'JUNE',
+  'JUL',
+  'AUG',
+  'SEP',
+  'OCT',
+  'NOV',
+  'DEC',
+];
+
+const formatAMPM = (date) => {
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm;
+  return strTime;
+};
+
 const OnGoingActivityCard = (props) => {
   const { usage_log_id, usage_log_uid } = props;
 
@@ -34,7 +60,7 @@ const OnGoingActivityCard = (props) => {
       await activityApi
         .getUsageInfo(usage_log_id)
         .then((response) => {
-          // console.log('usageInfo', response);
+          // console.log(response);
           setUsageInfo(response);
         })
         .catch((error) => {
@@ -53,13 +79,17 @@ const OnGoingActivityCard = (props) => {
               <View style={styles.ongoingActivityCardLeftInfoWrapper}>
                 <View>
                   <Image
-                    style={styles.ongoingActivityCardPropertyImage}
-                    source={require('../../assets/central.jpg')}
+                    style={styles.historyActivityCardPropertyImage}
+                    source={
+                      usageInfo['exit_at']
+                        ? require('../../assets/file_icon_x128.png')
+                        : require('../../assets/ongoing_icon_x128.png')
+                    }
                   />
                 </View>
                 <View style={styles.ongoingActivityCardInfoTextWrapper}>
                   <Text style={styles.ongoingActivityCardInfoPropertyName}>
-                    Central World
+                    {usageInfo['property_name']}
                   </Text>
                   <Text style={styles.ongoingActivityCardInfoLicenseNumber}>
                     {usageInfo['license_plate_category']}{' '}
@@ -72,10 +102,16 @@ const OnGoingActivityCard = (props) => {
               </View>
               <View style={styles.ongoingActivityCardRightInfoWrapper}>
                 <Text style={styles.ongoingActivityCardInfoDateTime}>
-                  17 APR
+                  {`${
+                    months[
+                      new Date(usageInfo['entrance_at'].toString()).getMonth()
+                    ]
+                  } ${new Date(usageInfo['entrance_at'].toString()).getDate()}`}
                 </Text>
                 <Text style={styles.ongoingActivityCardInfoDateTime}>
-                  12:00 PM
+                  {`${formatAMPM(
+                    new Date(usageInfo['entrance_at'].toString())
+                  )}`}
                 </Text>
               </View>
             </View>

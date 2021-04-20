@@ -747,6 +747,12 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
   },
+  historyActivityFlatListContainer: {
+    width: '100%',
+    // height: '100%',
+    // flex: 1,
+    padding: 10,
+  },
   noDataImageWrapper: {
     flexDirection: 'column',
     alignItems: 'center',
@@ -798,7 +804,7 @@ const styles = StyleSheet.create({
   ongoingActivityCardLeftInfoWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     // marginBottom: 5,
   },
   ongoingActivityCardRightInfoWrapper: {
@@ -843,6 +849,11 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 5,
+    resizeMode: 'cover',
+  },
+  historyActivityCardPropertyImage: {
+    width: 55,
+    height: 55,
     resizeMode: 'cover',
   },
   /*-----------------------*/

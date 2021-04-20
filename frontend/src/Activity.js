@@ -14,6 +14,8 @@ import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
+  RefreshControl,
+  FlatList,
   View,
   Text,
   Image,
@@ -37,6 +39,7 @@ const Activity = () => {
   const [history, setHistory] = useState([]);
   const [userId, setUserId] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
+  const [isRefreshing, setIsRefreshing] = React.useState(false);
 
   useEffect(() => {
     if (userId) {
@@ -55,15 +58,32 @@ const Activity = () => {
   }, [userId]);
 
   const getHistoryActivity = async () => {
+    // setIsLoaded(true);
     await activityApis
       .getHistory()
       .then((response) => {
         setHistory(response);
+        setIsLoaded(false);
       })
       .catch((error) => {
         throw error;
       });
   };
+
+  const onHistoryRefresh = React.useCallback(async () => {
+    setIsRefreshing(true);
+    if (history.length < 3) {
+      try {
+        await getHistoryActivity();
+        setIsRefreshing(false);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      // ToastAndroid.show('No more new data available', ToastAndroid.SHORT);
+      setRefreshing(false);
+    }
+  }, [isRefreshing]);
 
   const onWaiting = (user_id) => {
     firebase
@@ -118,46 +138,12 @@ const Activity = () => {
       });
   };
 
-  // const licensePlateListnerOff = () => {
-  //   firebase
-  //     .database()
-  //     .ref(`users/${userId}/waiting`)
-  //     .off('child_added', (snapshot) => {
-  //       const new_added_license = {
-  //         license_plate_category: snapshot.val()['license_plate_category'],
-  //         license_plate_number: snapshot.val()['license_plate_number'],
-  //         province_id: snapshot.val()['province_id'],
-  //         usage_log_id: snapshot.val()['usage_log_id'],
-  //         usage_log_uid: snapshot.key,
-  //       };
-  //       setWaitingLists([...waitingLists, new_added_license]);
-  //     });
-  //   firebase
-  //     .database()
-  //     .ref(`users/${userId}/in_use`)
-  //     .off('child_added', (snapshot) => {
-  //       const in_use_added_license = {
-  //         usage_log_id: snapshot.val()['usage_log_id'],
-  //         usage_log_uid: snapshot.key,
-  //       };
-  //       if (!inUseLogId.has(parseInt(in_use_added_license['usage_log_id']))) {
-  //         setInUseLogId(
-  //           inUseLogId.add(parseInt(in_use_added_license['usage_log_id']))
-  //         );
-  //         setOnGoingActivity([...onGoingActivity, in_use_added_license]);
-  //       }
-  //     });
-  //   firebase
-  //     .database()
-  //     .ref(`users/${userId}/in_use`)
-  //     .off('child_removed', (snapshot) => {
-  //       setOnGoingActivity((prevs) => {
-  //         return prevs.filter(
-  //           (prev) => prev['usage_log_id'] !== snapshot.val()['usage_log_id']
-  //         );
-  //       });
-  //     });
-  // };
+  const renderHistoryActivityItem = ({ item }) => (
+    <OnGoingActivityCard
+      key={item['usage_log_id']}
+      usage_log_id={item['usage_log_id']}
+    />
+  );
 
   if (onGoingActivity.length || waitingLists.length || history.length)
     return (
@@ -196,15 +182,31 @@ const Activity = () => {
           {history && history.length ? (
             <Text style={styles.sectionSubTitleActivity}>History</Text>
           ) : null}
-          {history.map((historyList) => {
+          <SafeAreaView>
+            <FlatList
+              style={styles.historyActivityFlatListContainer}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+              data={history}
+              renderItem={renderHistoryActivityItem}
+              keyExtractor={(item) => item.usage_log_id.toString()}
+              refreshControl={
+                <RefreshControl
+                  refreshing={isRefreshing}
+                  onRefresh={onHistoryRefresh}
+                />
+              }
+              initialNumToRender={3}
+            />
+          </SafeAreaView>
+          {/* {history.map((historyList) => {
             return (
               <OnGoingActivityCard
                 key={historyList['usage_log_id']}
                 usage_log_id={historyList['usage_log_id']}
-                usage_log_uid={historyList['usage_log_uid']}
               />
             );
-          })}
+          })} */}
         </View>
       </View>
     );

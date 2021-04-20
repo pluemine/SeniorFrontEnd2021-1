@@ -7,11 +7,14 @@ const activityApi = {};
 activityApi.getUsageInfo = async (usage_log_id) => {
   const token = await SecureStore.getItemAsync('pms_token');
   const response = await axios
-    .get(`${apiConfig.baseAuthURL}${apiConfig.parkingApi}?id=${usage_log_id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    .get(
+      `${apiConfig.baseAuthURL}${apiConfig.activityApi}?id=${usage_log_id}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
     .then((res) => {
-      return res['data']['data']['usageInfo'];
+      return res['data']['data']['usage_log'];
     })
     .catch((error) => {
       throw error;
