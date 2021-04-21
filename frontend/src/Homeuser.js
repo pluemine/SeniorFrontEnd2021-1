@@ -71,12 +71,12 @@ const Homeuser = () => {
           width: "100%",
         }}
       >
-        <Text style={styles.homeuserCardTitle}>
+        <Text style={styles.textSubtitleWhite}>
           {item["place_name"]} ({item["distance"]} km)
         </Text>
-        <Text style={styles.homeuserCardSubtitle}>Bangkok</Text>
-        <Text style={styles.homeuserCardSubtitle}></Text>
-        <Text style={styles.homeuserCardSubtitle}>100 units</Text>
+        <Text style={styles.textDesWhite}>Bangkok</Text>
+        <Text style={styles.textDesWhite}></Text>
+        <Text style={styles.textDesWhite}>100 units</Text>
       </View>
     </ImageBackground>
   );
@@ -92,61 +92,66 @@ const Homeuser = () => {
           <Text style={styles.sectionTitlewoNav}>Hello, User</Text>
         </View>
         <View style={styles.sectionContainerScroll}>
-          <View style={styles.homeuserBalanceCard}>
-            <Text style={styles.cardHeaderColor}>Your Balance</Text>
-            <Text style={styles.cardTitle}>$800.20</Text>
-          </View>
-          <Text style={styles.homeuserTitle}>Shortcut</Text>
-          <View style={styles.homeuserShortcutBlock}>
-            <View style={styles.homeuserColContainer}>
-              <View style={styles.homeuserCol33}>
-                <TouchableHighlight
-                  underlayColor="none"
-                  style={styles.homeuserShortcutCard}
-                  onPress={() => Actions.license()}
-                >
-                  <View style={styles.homeuserShortcutData}>
-                    <Image
-                      style={styles.homeuserIcon}
-                      source={require("../assets/icon-license.png")}
-                    />
-                    <Text style={styles.textbold}>My car</Text>
-                  </View>
-                </TouchableHighlight>
-              </View>
-              <View style={styles.homeuserCol33}>
-                <TouchableHighlight
-                  underlayColor="none"
-                  style={styles.homeuserShortcutCard}
-                  onPress={() => Actions.payment()}
-                >
-                  <View style={styles.homeuserShortcutData}>
-                    <Image
-                      style={styles.homeuserIcon}
-                      source={require("../assets/icon-payment.png")}
-                    />
-                    <Text style={styles.textbold}>Payment</Text>
-                  </View>
-                </TouchableHighlight>
-              </View>
-              <View style={styles.homeuserCol33}>
-                <TouchableHighlight
-                  underlayColor="none"
-                  style={styles.homeuserShortcutCard}
-                  onPress={() => Actions.license()}
-                >
-                  <View style={styles.homeuserShortcutData}>
-                    <Image
-                      style={styles.homeuserIcon}
-                      source={require("../assets/icon-topup.png")}
-                    />
-                    <Text style={styles.textbold}>Top Up</Text>
-                  </View>
-                </TouchableHighlight>
-              </View>
+          <View style={styles.cardShow}>
+            <View style={styles.cardContainer}>
+              <Text style={styles.textHeaderBlue}>Your Balance</Text>
+              <Text style={styles.textTitle}>$800.20</Text>
             </View>
           </View>
-          <Text style={styles.homeuserTitle}>Nearby Parking</Text>
+          <View style={styles.cardMenuBlockSpace}>
+            <Text style={styles.textSubtitle}>Shortcut</Text>
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <TouchableHighlight
+              underlayColor="none"
+              style={styles.cardShortcut}
+              onPress={() => Actions.license()}
+            >
+              <View style={styles.cardShortcutData}>
+                <Image
+                  style={styles.iconHomeuser}
+                  source={require("../assets/icon-license.png")}
+                />
+                <Text style={styles.textMenuTitle}>My car</Text>
+              </View>
+            </TouchableHighlight>
+            <TouchableHighlight
+              underlayColor="none"
+              style={styles.cardShortcut}
+              onPress={() => Actions.payment()}
+            >
+              <View style={styles.cardShortcutData}>
+                <Image
+                  style={styles.iconHomeuser}
+                  source={require("../assets/icon-payment.png")}
+                />
+                <Text style={styles.textMenuTitle}>Payment</Text>
+              </View>
+            </TouchableHighlight>
+            <TouchableHighlight
+              underlayColor="none"
+              style={styles.cardShortcut}
+              onPress={() => Actions.license()}
+            >
+              <View style={styles.cardShortcutData}>
+                <Image
+                  style={styles.iconHomeuser}
+                  source={require("../assets/icon-topup.png")}
+                />
+                <Text style={styles.textMenuTitle}>Top Up</Text>
+              </View>
+            </TouchableHighlight>
+          </View>
+          <View style={styles.cardMenuBlockSpace}>
+            <Text style={styles.textSubtitle}>Nearby Parking</Text>
+          </View>
           <SafeAreaView style={styles.nearByFlatListContainer}>
             <FlatList
               showsHorizontalScrollIndicator={false}

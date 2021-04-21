@@ -103,7 +103,7 @@ const Login = () => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle='default' />
-      <View style={styles.sectionContainer}>
+      <View style={styles.sectionContainerHeader}>
         <Text style={styles.sectionTitlewoNav}>Sign In</Text>
         <TextField
           label="Email"

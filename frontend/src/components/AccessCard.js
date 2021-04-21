@@ -49,22 +49,22 @@ const AccessCard = (props) => {
         </View>
         <View style={styles1.col60}>
           <View style={styles1.col60_flex}>
-            {/* <Text style={styles.cardSubtitle}>{proptype}</Text> */}
-            <Text style={{ ...styles.cardHeader }}>{placename}</Text>
-            {/* <Text style={styles.cardDes}>
+            {/* <Text style={styles.textSubtitle}>{proptype}</Text> */}
+            <Text style={{ ...styles.textHeader }}>{placename}</Text>
+            {/* <Text style={styles.textDes}>
               <Text style={styles.textbold}>Address </Text>
               {address}
             </Text> */}
-            <Text style={styles.cardDes}>
-              <Text style={styles.textbold}>Valid </Text>
+            <Text style={styles.textDes}>
+              <Text style={styles.textMenuDesBold}>Valid </Text>
               {valid}
             </Text>
-            <Text style={styles.cardDes}>
-              <Text style={styles.textbold}>Expired </Text>
+            <Text style={styles.textDes}>
+              <Text style={styles.textMenuDesBold}>Expired </Text>
               {expire}
             </Text>
-            <Text style={styles.cardDes}>
-              <Text style={styles.textbold}>Time </Text>
+            <Text style={styles.textDes}>
+              <Text style={styles.textMenuDesBold}>Time </Text>
               {time}
             </Text>
           </View>

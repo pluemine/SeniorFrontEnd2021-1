@@ -134,7 +134,7 @@ const Addcard = (props) => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="default" />
-      <View style={styles.sectionContainer}>
+      <View style={styles.sectionContainerHeader}>
         <Text style={styles.sectionTitlewoNav}>Add Card</Text>
         <TextField
           label="Cardholder Name"

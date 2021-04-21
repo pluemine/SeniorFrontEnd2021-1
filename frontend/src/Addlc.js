@@ -197,7 +197,7 @@ const Addlc = () => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="default" />
-      <View style={styles.sectionContainer}>
+      <View style={styles.sectionContainerHeader}>
         <Text style={styles.sectionTitlewoNav}>Add License Plate</Text>
         <View style={styles.licenseBlock}>
           <View style={styles.licenseColContainer}>

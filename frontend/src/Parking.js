@@ -24,15 +24,15 @@ const Parking = (props) => {
     <View style={styles.container}>
       <StatusBar barStyle="default" />
       <ImageBackground
-        style={styles1.pic}
+        style={styles.picBg}
         source={require("../assets/parking.jpg")}
       >
-        <View style={styles.sectionContainer}>
+        <View style={styles.sectionContainerHeader}>
           <Text style={styles.sectionTitlewoNav}>Parking Info</Text>
         </View>
-        <View style={styles.accessCard}>
-          <View style={styles.accessContainer}>
-            <View style={styles.otherMenu}>
+        <View style={styles.card}>
+          <View style={styles.cardContainer}>
+            <View style={styles.cardMenuBlock}>
               <View
                 style={{
                   flexDirection: "row",
@@ -40,11 +40,14 @@ const Parking = (props) => {
                   justifyContent: "space-between",
                 }}
               >
-                <Text style={styles.cardTitle}>Central World</Text>
-                <Text style={styles.otherMenuTitleOrange}>Parking Ongoing</Text>
+                <Text style={styles.textTitle}>Central World</Text>
+                <Text style={styles.textMenuTitleOrange}>Parking Ongoing</Text>
               </View>
             </View>
-            <TouchableHighlight style={styles.otherMenu} underlayColor="none">
+            <TouchableHighlight
+              style={styles.cardMenuBlock}
+              underlayColor="none"
+            >
               <View>
                 <View
                   style={{
@@ -58,9 +61,9 @@ const Parking = (props) => {
                       style={{ width: 25, height: 25, marginRight: 10 }}
                       source={require("../assets/icon-fee.png")}
                     />
-                    <Text style={styles.otherMenuTitle}>Fee</Text>
+                    <Text style={styles.textMenuTitle}>Fee</Text>
                   </View>
-                  <Text style={styles.otherMenuTitle}>$20.08</Text>
+                  <Text style={styles.textMenuTitle}>$20.08</Text>
                 </View>
               </View>
             </TouchableHighlight>
@@ -70,7 +73,10 @@ const Parking = (props) => {
                 borderBottomWidth: 1,
               }}
             />
-            <TouchableHighlight style={styles.otherMenu} underlayColor="none">
+            <TouchableHighlight
+              style={styles.cardMenuBlock}
+              underlayColor="none"
+            >
               <View>
                 <View
                   style={{
@@ -84,16 +90,16 @@ const Parking = (props) => {
                       style={{ width: 25, height: 25, marginRight: 10 }}
                       source={require("../assets/icon-clock.png")}
                     />
-                    <Text style={styles.otherMenuTitle}>Time used</Text>
+                    <Text style={styles.textMenuTitle}>Time used</Text>
                   </View>
-                  <Text style={styles.otherMenuTitle}>2 hours</Text>
+                  <Text style={styles.textMenuTitle}>2 hours</Text>
                 </View>
-                <Text style={styles.otherMenuTitle}> </Text>
-                <Text style={styles.otherMenuTitle}>From</Text>
-                <Text style={styles.otherMenuDes}>Fri 20 Jan 10.00</Text>
-                <Text style={styles.otherMenuTitle}>↓</Text>
-                <Text style={styles.otherMenuTitle}>Until</Text>
-                <Text style={styles.otherMenuDes}>Fri 20 Jan 12.00</Text>
+                <Text style={styles.textMenuTitle}> </Text>
+                <Text style={styles.textMenuTitle}>From</Text>
+                <Text style={styles.textMenuDes}>Fri 20 Jan 10.00</Text>
+                <Text style={styles.textMenuTitle}>↓</Text>
+                <Text style={styles.textMenuTitle}>Until</Text>
+                <Text style={styles.textMenuDes}>Fri 20 Jan 12.00</Text>
               </View>
             </TouchableHighlight>
             <View
@@ -102,7 +108,10 @@ const Parking = (props) => {
                 borderBottomWidth: 1,
               }}
             />
-            <TouchableHighlight style={styles.otherMenu} underlayColor="none">
+            <TouchableHighlight
+              style={styles.cardMenuBlock}
+              underlayColor="none"
+            >
               <View>
                 <View
                   style={{
@@ -116,9 +125,9 @@ const Parking = (props) => {
                       style={{ width: 25, height: 20, marginRight: 10 }}
                       source={require("../assets/icon-lc.png")}
                     />
-                    <Text style={styles.otherMenuTitle}>License Plate</Text>
+                    <Text style={styles.textMenuTitle}>License Plate</Text>
                   </View>
-                  <Text style={styles.otherMenuTitle}>
+                  <Text style={styles.textMenuTitle}>
                     งง 5555 กรุงเทพมหานคร
                   </Text>
                 </View>
@@ -130,7 +139,10 @@ const Parking = (props) => {
                 borderBottomWidth: 1,
               }}
             />
-            <TouchableHighlight style={styles.otherMenu} underlayColor="none">
+            <TouchableHighlight
+              style={styles.cardMenuBlock}
+              underlayColor="none"
+            >
               <View>
                 <View
                   style={{
@@ -144,9 +156,9 @@ const Parking = (props) => {
                       style={{ width: 25, height: 14, marginRight: 10 }}
                       source={require("../assets/icon-coupon-focus.png")}
                     />
-                    <Text style={styles.otherMenuTitleBlue}>Coupon in-use</Text>
+                    <Text style={styles.textMenuTitleBlue}>Coupon in-use</Text>
                   </View>
-                  <Text style={styles.otherMenuTitleBlue}>
+                  <Text style={styles.textMenuTitleBlue}>
                     Central World x0010
                   </Text>
                 </View>
@@ -159,17 +171,6 @@ const Parking = (props) => {
   );
 };
 
-const styles1 = StyleSheet.create({
-  pic: {
-    width: "100%",
-    height: "100%",
-    justifyContent: "space-between",
-  },
-  pic1: {
-    width: 20,
-    height: 20,
-    marginRight: 10,
-  },
-});
+const styles1 = StyleSheet.create({});
 
 export default Parking;

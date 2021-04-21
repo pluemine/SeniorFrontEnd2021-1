@@ -50,23 +50,36 @@ const LicenseCard = (props) => {
   return (
     <View>
       <TouchableHighlight underlayColor="none" onPress={toggleModal}>
-        <View style={styles.licenseCard}>
-          <View style={styles.licenseCardBlock}>
-            <View style={styles.licenseColContainer}>
-              <View style={styles.licenseCol40}>
+        <View style={styles.cardShow}>
+          <View style={styles.cardContainer}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
                 <Image
-                  style={styles.licensePlateIcon}
+                  style={[styles.iconLicensePlate, { marginRight: 20 }]}
                   source={require("../../assets/icon-license.png")}
                 />
-              </View>
-              <View style={styles.licenseCol60}>
                 <View>
-                  <Text style={styles.licenseTitle}>
+                  <Text style={styles.textSubtitle}>
                     {cat} {number}
                   </Text>
-                  <Text style={styles.licenseProvince}>{province}</Text>
+                  <Text style={styles.textDes}>{province}</Text>
                 </View>
               </View>
+              <Image
+                style={styles.iconEdit}
+                source={require("../../assets/icon-edit.png")}
+              />
             </View>
           </View>
         </View>

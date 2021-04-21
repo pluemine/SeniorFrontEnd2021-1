@@ -115,8 +115,7 @@ const App = () => {
               key='time'
               component={Time}
               navTransparent={true}
-              titleStyle={{ color: '#ffffff' }}
-              headerTintColor='#ffffff'
+              headerTintColor='#5394b5'
               hideNavBar={false}
               hideTabBar={true}
             />
@@ -124,8 +123,7 @@ const App = () => {
               key='share'
               component={Share}
               navTransparent={true}
-              titleStyle={{ color: '#ffffff' }}
-              headerTintColor='#ffffff'
+              headerTintColor='#5394b5'
               hideNavBar={false}
               hideTabBar={true}
             />
@@ -137,7 +135,14 @@ const App = () => {
             navTransparent={true}
           />
           <Scene key='Other' icon={TabIcon}>
-            <Scene key='otherhome' component={Other} hideNavBar />
+            <Scene
+              key='otherhome'
+              component={Other}
+              navTransparent={true}
+              onRight={() => Actions.refresh({ key: Math.random() })}
+              rightButtonImage={require('../assets/icon-refresh.png')}
+              rightButtonIconStyle={{ width: 24, height: 24 }}
+            />
           </Scene>
         </Scene>
       </Scene>

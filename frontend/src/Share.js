@@ -302,10 +302,9 @@ const Share = (props) => {
           license_plate_number: number,
           province_id: provinces[province],
           property_id: 2,
-          valid_date_time: null,
-          expired_date_time: null,
-          usage_counts: 100,
-          mins_per_usage: 120,
+          valid_date_time: dateTime(nowValid),
+          expired_date_time: dateTime(nowExpire),
+          usage_counts: 50,
           share_quota: 5,
           is_charged_provider: false,
           is_sharable: false,
@@ -334,153 +333,164 @@ const Share = (props) => {
   };
 
   return (
-    <ScrollView
-      contentContainerStyle={{ flexGrow: 1, justifyContent: "space-between" }}
-    >
-      <StatusBar barStyle='light-content' />
+    <View style={styles.container}>
+      <StatusBar barStyle="default" />
       <View style={styles.container}>
         <ImageBackground
-          style={styles.pic}
-          source={{ uri: propimg }}
-          blurRadius={25}
+          style={styles.picBg}
+          //source={{ uri: propimg }}
+          source={require("../assets/parking.jpg")}
+          //blurRadius={25}
         >
-          <View style={styles.shareImageContainer}>
-            <View style={styles.shareColContainer}>
-              <View style={styles.shareCol40}>
-                <View style={styles.sharePicOuter}>
-                  <Image style={styles.sharePic} source={{ uri: propimg }} />
+          <View style={styles.sectionContainerHeader}>
+            <Text style={styles.sectionTitlewoNav}>Confirm Sharing</Text>
+          </View>
+          <View style={styles.cardTrans}>
+            <View style={styles.cardContainerHeaderOverlay}>
+              <View style={styles.cardMenuBlock}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <View style={styles.picShareOuter}>
+                    <Image style={styles.picShare} source={{ uri: propimg }} />
+                  </View>
+                  <View>
+                    <Text style={styles.textPreTitle}>{placename}</Text>
+                    <Text style={styles.textMenuTitleOrange}>{proptype}</Text>
+                  </View>
                 </View>
-              </View>
-              <View style={styles.shareCol60}>
-                <Text style={styles.shareTitle}>{placename}</Text>
-                <Text style={styles.shareSubtitle}>{proptype}</Text>
               </View>
             </View>
-          </View>
-          <View style={styles.accessCard}>
-            <View style={styles.accessContainer}>
-              <Text style={styles.sectionTitle}>Confirm Sharing</Text>
-              <TextField
-                label="Email"
-                error1={emailError}
-                value={email}
-                error="* Please enter a valid email address."
-                hint="example@address.com"
-                onChangeText={handleChange_email}
-                autoCapitalize="none"
-              />
-              <TextField
-                label="License Category"
-                error1={categoryError}
-                value={category}
-                error="* Please enter a valid license category."
-                hint="กข"
-                maxLength={3}
-                onChangeText={handleChange_category}
-                autoCapitalize="none"
-              />
-              <TextField
-                label="License Number"
-                error1={numberError}
-                value={number}
-                error="* Please enter a valid license number."
-                hint="1234"
-                mask="9999"
-                keyboardType="numeric"
-                onChangeText={handleChange_number}
-                autoCapitalize="none"
-              />
-              <TouchableOpacity onPress={toggleProvinceModal}>
-                <View pointerEvents="none">
+            <View style={styles.card}>
+              <View style={styles.cardContainer}>
+                <ScrollView style={styles.cardMenuBlock}>
                   <TextField
-                    label="License Province"
-                    error1={provinceError}
-                    value={province}
-                    error="* Please select province."
-                    hint="กรุงเทพมหานคร"
+                    label="Email"
+                    error1={emailError}
+                    value={email}
+                    error="* Please enter a valid email address."
+                    hint="example@address.com"
+                    onChangeText={handleChange_email}
                     autoCapitalize="none"
                   />
-                </View>
-              </TouchableOpacity>
-              <ProvinceModal
-                visible={isProvincePickerVisible}
-                selector={provinceSelector}
-                handleChange={handleChange_provinceSelector}
-                confirm={confirmProvince}
-                cancel={cancelProvince}
-              />
-              <TouchableOpacity onPress={toggleValidModal}>
-                <View pointerEvents="none">
                   <TextField
-                    label="Valid"
-                    error1={validError}
-                    value={dateTime(nowValid)}
-                    error="* Valid is incorrect."
+                    label="License Category"
+                    error1={categoryError}
+                    value={category}
+                    error="* Please enter a valid license category."
+                    hint="กข"
+                    maxLength={3}
+                    onChangeText={handleChange_category}
                     autoCapitalize="none"
                   />
-                </View>
-              </TouchableOpacity>
-              <DateModal
-                mode="valid-expire"
-                title="Select Valid"
-                visible={isValidPickerVisible}
-                selector={validSelector}
-                handleChange={handleChange_validSelector}
-                confirm={confirmValid}
-                cancel={cancelValid}
-                valid={valid}
-                expire={expire}
-                validR={validR}
-                expireR={expireR}
-              />
-              <TouchableOpacity onPress={toggleExpireModal}>
-                <View pointerEvents="none">
                   <TextField
-                    label="Expire"
-                    error1={expireError}
-                    value={dateTime(nowExpire)}
-                    error="* Expire is incorrect."
+                    label="License Number"
+                    error1={numberError}
+                    value={number}
+                    error="* Please enter a valid license number."
+                    hint="1234"
+                    mask="9999"
+                    keyboardType="numeric"
+                    onChangeText={handleChange_number}
                     autoCapitalize="none"
                   />
+                  <TouchableOpacity onPress={toggleProvinceModal}>
+                    <View pointerEvents="none">
+                      <TextField
+                        label="License Province"
+                        error1={provinceError}
+                        value={province}
+                        error="* Please select province."
+                        hint="กรุงเทพมหานคร"
+                        autoCapitalize="none"
+                      />
+                    </View>
+                  </TouchableOpacity>
+                  <ProvinceModal
+                    visible={isProvincePickerVisible}
+                    selector={provinceSelector}
+                    handleChange={handleChange_provinceSelector}
+                    confirm={confirmProvince}
+                    cancel={cancelProvince}
+                  />
+                  <TouchableOpacity onPress={toggleValidModal}>
+                    <View pointerEvents="none">
+                      <TextField
+                        label="Valid"
+                        error1={validError}
+                        value={dateTime(nowValid)}
+                        error="* Valid is incorrect."
+                        autoCapitalize="none"
+                      />
+                    </View>
+                  </TouchableOpacity>
+                  <DateModal
+                    mode="valid-expire"
+                    title="Select Valid"
+                    visible={isValidPickerVisible}
+                    selector={validSelector}
+                    handleChange={handleChange_validSelector}
+                    confirm={confirmValid}
+                    cancel={cancelValid}
+                    valid={valid}
+                    expire={expire}
+                    validR={validR}
+                    expireR={expireR}
+                  />
+                  <TouchableOpacity onPress={toggleExpireModal}>
+                    <View pointerEvents="none">
+                      <TextField
+                        label="Expire"
+                        error1={expireError}
+                        value={dateTime(nowExpire)}
+                        error="* Expire is incorrect."
+                        autoCapitalize="none"
+                      />
+                    </View>
+                  </TouchableOpacity>
+                  <DateModal
+                    mode="valid-expire"
+                    title="Select Expire"
+                    visible={isExpirePickerVisible}
+                    selector={expireSelector}
+                    handleChange={handleChange_expireSelector}
+                    confirm={confirmExpire}
+                    cancel={cancelExpire}
+                    valid={valid}
+                    expire={expire}
+                    validR={validR}
+                    expireR={expireR}
+                  />
+                  <TextField
+                    label="Quota"
+                    error1={quotaError}
+                    value={quota}
+                    error="* Please enter a valid quota."
+                    keyboardType="numeric"
+                    onChangeText={handleChange_quota}
+                    autoCapitalize="none"
+                  />
+                </ScrollView>
+                <View style={styles.cardMenuBlockButton}>
+                  <TouchableHighlight
+                    style={styles.button}
+                    underlayColor="none"
+                    onPress={sent}
+                  >
+                    <View>
+                      <Text style={styles.buttonText}>Share</Text>
+                    </View>
+                  </TouchableHighlight>
                 </View>
-              </TouchableOpacity>
-              <DateModal
-                mode="valid-expire"
-                title="Select Expire"
-                visible={isExpirePickerVisible}
-                selector={expireSelector}
-                handleChange={handleChange_expireSelector}
-                confirm={confirmExpire}
-                cancel={cancelExpire}
-                valid={valid}
-                expire={expire}
-                validR={validR}
-                expireR={expireR}
-              />
-              <TextField
-                label="Quota"
-                error1={quotaError}
-                value={quota}
-                error="* Please enter a valid quota."
-                keyboardType="numeric"
-                onChangeText={handleChange_quota}
-                autoCapitalize="none"
-              />
-              <Text style={styles.sectionDescription}></Text>
-              <TouchableHighlight
-                style={styles.button}
-                underlayColor="none"
-                onPress={sent}
-              >
-                <View>
-                  <Text style={styles.buttonText}>Share</Text>
-                </View>
-              </TouchableHighlight>
+              </View>
             </View>
           </View>
         </ImageBackground>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
