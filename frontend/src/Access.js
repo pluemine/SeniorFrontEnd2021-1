@@ -65,6 +65,7 @@ const Access = () => {
         .then((res) => {
           setAccesses(res.data.data.accesses);
           setDes("No access available");
+          console.log("ASDDD",res.data.data.accesses);
         });
     };
     getAccess();
@@ -159,13 +160,13 @@ const Access = () => {
               return (
                 <AccessCard
                   key={"accesscard" + index}
+                  paid={access.parking_access_id}
                   propimg={access.property_img}
                   proptype={proptype}
                   placename={access.property_name}
-                  address={access.share_quota}
+                  time={accesstime}
                   valid={valid}
                   expire={expired}
-                  time={accesstime}
                   validR={validReal}
                   expireR={expireReal}
                 />

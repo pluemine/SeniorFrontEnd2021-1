@@ -23,7 +23,6 @@ import {
 } from "react-native";
 import styles from "./Styles";
 import axios from "axios";
-import { FloatingLabelInput } from "react-native-floating-label-input";
 
 const Other = () => {
   const [userId, setUserId] = useState("");
@@ -130,7 +129,7 @@ const Other = () => {
               />
               <TouchableHighlight style={styles.cardMenuBlock} underlayColor="none">
                 <View>
-                  <Text style={styles.textMenuTitle}>My Car</Text>
+                  <Text style={styles.textMenuTitle}>License Plate</Text>
                   <Text style={styles.textMenuDes}>
                     Manage your license plates
                   </Text>

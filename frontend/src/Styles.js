@@ -378,6 +378,10 @@ const styles = StyleSheet.create({
   cardMenuBlockSpace: {
     marginVertical: 24,
   },
+  cardMenuBlockSpaceTop: {
+    marginVertical: 24,
+    marginTop: 48,
+  },
   cardMenuBlockButton: {
     marginBottom: 24,
   },

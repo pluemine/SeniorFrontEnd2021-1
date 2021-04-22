@@ -20,6 +20,25 @@ import styles from "./Styles";
 import axios from "axios";
 
 const Parking = (props) => {
+  const { usage_log_id } = props;
+
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    const getUser = async () => {
+      const token = await SecureStore.getItemAsync("pms_token");
+      axios
+        .get(`http://localhost:4000/auth/aapi?id=${usage_log_id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          console.log(res.data.data.usage_log);
+          setData(res.data.data.usage_log);
+        });
+    };
+    getUser();
+  }, []);
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="default" />
@@ -40,8 +59,12 @@ const Parking = (props) => {
                   justifyContent: "space-between",
                 }}
               >
-                <Text style={styles.textTitle}>Central World</Text>
-                <Text style={styles.textMenuTitleOrange}>Parking Ongoing</Text>
+                <Text style={styles.textTitle}>{data.property_id}</Text>
+                <Text style={styles.textMenuTitleOrange}>
+                  {data.exit_at === null
+                    ? "Parking Ongoing"
+                    : "Completed"}
+                </Text>
               </View>
             </View>
             <TouchableHighlight
@@ -63,7 +86,7 @@ const Parking = (props) => {
                     />
                     <Text style={styles.textMenuTitle}>Fee</Text>
                   </View>
-                  <Text style={styles.textMenuTitle}>$20.08</Text>
+                  <Text style={styles.textMenuTitle}>${data.fees}</Text>
                 </View>
               </View>
             </TouchableHighlight>
@@ -92,14 +115,14 @@ const Parking = (props) => {
                     />
                     <Text style={styles.textMenuTitle}>Time used</Text>
                   </View>
-                  <Text style={styles.textMenuTitle}>2 hours</Text>
+                  <Text style={styles.textMenuTitle}>{data.entrance_at}</Text>
                 </View>
                 <Text style={styles.textMenuTitle}> </Text>
                 <Text style={styles.textMenuTitle}>From</Text>
-                <Text style={styles.textMenuDes}>Fri 20 Jan 10.00</Text>
+                <Text style={styles.textMenuDes}>{data.entrance_at}</Text>
                 <Text style={styles.textMenuTitle}>↓</Text>
                 <Text style={styles.textMenuTitle}>Until</Text>
-                <Text style={styles.textMenuDes}>Fri 20 Jan 12.00</Text>
+                <Text style={styles.textMenuDes}>sasd</Text>
               </View>
             </TouchableHighlight>
             <View
@@ -128,7 +151,7 @@ const Parking = (props) => {
                     <Text style={styles.textMenuTitle}>License Plate</Text>
                   </View>
                   <Text style={styles.textMenuTitle}>
-                    งง 5555 กรุงเทพมหานคร
+                    {data.license_plate_category}
                   </Text>
                 </View>
               </View>

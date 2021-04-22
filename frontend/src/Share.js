@@ -19,6 +19,7 @@ import styles from "./Styles";
 import axios from "axios";
 import ProvinceModal from "./components/ProvinceModal";
 import DateModal from "./components/DateModal";
+import ListModal from "./components/ListModal";
 import TextField from "./components/TextField";
 
 const Share = (props) => {
@@ -30,6 +31,8 @@ const Share = (props) => {
     expire,
     validR,
     expireR,
+    sharequota,
+    usagecount,
   } = props;
 
   const [email, setEmail] = useState("");
@@ -38,7 +41,8 @@ const Share = (props) => {
   const [province, setProvince] = useState("เลือกจังหวัด");
   const [nowValid, setValid] = useState(new Date());
   const [nowExpire, setExpire] = useState(new Date());
-  const [quota, setQuota] = useState("");
+  const [quota, setQuota] = useState("เลือกจำนวน");
+  const [usage, setUsage] = useState("เลือกจำนวน");
 
   const [emailError, setEmailError] = useState(false);
   const [categoryError, setCategoryError] = useState(false);
@@ -47,14 +51,19 @@ const Share = (props) => {
   const [validError, setValidError] = useState(false);
   const [expireError, setExpireError] = useState(false);
   const [quotaError, setQuotaError] = useState(false);
+  const [usageError, setUsageError] = useState(false);
 
   const [validSelector, setValidSelector] = useState(new Date());
   const [expireSelector, setExpireSelector] = useState(new Date());
   const [provinceSelector, setProvinceSelector] = useState("กรุงเทพมหานคร");
+  const [quotaSelector, setQuotaSelector] = useState("เลือกจำนวน");
+  const [usageSelector, setUsageSelector] = useState("เลือกจำนวน");
 
   const [isValidPickerVisible, setValidPickerVisible] = useState(false);
   const [isExpirePickerVisible, setExpirePickerVisible] = useState(false);
   const [isProvincePickerVisible, setProvincePickerVisible] = useState(false);
+  const [isQuotaPickerVisible, setQuotaPickerVisible] = useState(false);
+  const [isUsagePickerVisible, setUsagePickerVisible] = useState(false);
 
   const provinces = {
     กรุงเทพมหานคร: 1,
@@ -152,6 +161,10 @@ const Share = (props) => {
     setQuota(event);
     setQuotaError(false);
   };
+  const handleChange_usage = (event) => {
+    setUsage(event);
+    setUsageError(false);
+  };
 
   const toggleProvinceModal = () => {
     setProvincePickerVisible(!isProvincePickerVisible);
@@ -217,6 +230,40 @@ const Share = (props) => {
     setExpireSelector(nowExpire);
   }
 
+  const toggleQuotaModal = () => {
+    setQuotaPickerVisible(!isQuotaPickerVisible);
+  };
+  const handleChange_quotaSelector = (event) => {
+    setQuotaSelector(event);
+  };
+  function confirmQuota() {
+    toggleQuotaModal();
+    setQuota(quotaSelector);
+    setQuotaError(false);
+  }
+  function cancelQuota() {
+    console.log(Array.from(Array(sharequota).keys()));
+    toggleQuotaModal();
+    setQuotaSelector(quota);
+  }
+
+  const toggleUsageModal = () => {
+    setUsagePickerVisible(!isUsagePickerVisible);
+  };
+  const handleChange_usageSelector = (event) => {
+    setUsageSelector(event);
+  };
+  function confirmUsage() {
+    toggleUsageModal();
+    setUsage(usageSelector);
+    setUsageError(false);
+  }
+  function cancelUsage() {
+    console.log(Array.from(Array(usagecount).keys()));
+    toggleUsageModal();
+    setUsageSelector(usage);
+  }
+
   const sent = () => {
     if (email === "") {
       setEmailError(true);
@@ -239,6 +286,9 @@ const Share = (props) => {
     if (quota === "") {
       setQuotaError(true);
     }
+    if (usage === "") {
+      setUsageError(true);
+    }
     if (nowExpire < nowValid) {
       setValidError(true);
       setExpireError(true);
@@ -258,6 +308,8 @@ const Share = (props) => {
       setExpireError(true);
     } else if (quota === "") {
       setQuotaError(true);
+    } else if (usage === "") {
+      setUsageError(true);
     } else if (
       !emailError &&
       !categoryError &&
@@ -265,7 +317,8 @@ const Share = (props) => {
       !provinceError &&
       !validError &&
       !expireError &&
-      !quotaError
+      !quotaError &&
+      !usageError
     ) {
       console.warn("Complete");
       shareAccess();
@@ -464,14 +517,49 @@ const Share = (props) => {
                     validR={validR}
                     expireR={expireR}
                   />
-                  <TextField
-                    label="Quota"
-                    error1={quotaError}
-                    value={quota}
-                    error="* Please enter a valid quota."
-                    keyboardType="numeric"
-                    onChangeText={handleChange_quota}
-                    autoCapitalize="none"
+                  <TouchableOpacity onPress={toggleQuotaModal}>
+                    <View pointerEvents="none">
+                      <TextField
+                        label="Share Quota"
+                        error1={quotaError}
+                        value={quota}
+                        error="* Please enter a valid quota."
+                        keyboardType="numeric"
+                        onChangeText={handleChange_quota}
+                        autoCapitalize="none"
+                      />
+                    </View>
+                  </TouchableOpacity>
+                  <ListModal
+                    data={Array.from(Array(sharequota-1).keys())}
+                    title="Share Quota"
+                    visible={isQuotaPickerVisible}
+                    selector={quotaSelector}
+                    handleChange={handleChange_quotaSelector}
+                    confirm={confirmQuota}
+                    cancel={cancelQuota}
+                  />
+                  <TouchableOpacity onPress={toggleUsageModal}>
+                    <View pointerEvents="none">
+                      <TextField
+                        label="Usage Count"
+                        error1={usageError}
+                        value={usage}
+                        error="* Please enter a valid usage."
+                        keyboardType="numeric"
+                        onChangeText={handleChange_usage}
+                        autoCapitalize="none"
+                      />
+                    </View>
+                  </TouchableOpacity>
+                  <ListModal
+                    data={Array.from(Array(usagecount).keys())}
+                    title="Usage Count"
+                    visible={isUsagePickerVisible}
+                    selector={usageSelector}
+                    handleChange={handleChange_usageSelector}
+                    confirm={confirmUsage}
+                    cancel={cancelUsage}
                   />
                 </ScrollView>
                 <View style={styles.cardMenuBlockButton}>

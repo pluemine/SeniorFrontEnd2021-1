@@ -16,35 +16,21 @@ import {
 
 import styles from "../Styles";
 
-const AccessCard = (props) => {
+const PropertyCard = (props) => {
   const {
-    paid,
-    propimg,
+    propid,
+    propname,
     proptype,
-    placename,
-    time,
-    valid,
-    expire,
-    validR,
-    expireR,
+    proplocation,
+    propcapa,
+    propimg,
+    propprovince,
   } = props;
   return (
     <TouchableHighlight
       underlayColor="none"
       style={styles.itemcard}
-      onPress={() =>
-        Actions.time({
-          paid,
-          propimg,
-          proptype,
-          placename,
-          time,
-          valid,
-          expire,
-          validR,
-          expireR,
-        })
-      }
+      //onPress={}
     >
       <View style={styles1.container}>
         <View style={styles1.col40}>
@@ -59,18 +45,18 @@ const AccessCard = (props) => {
         </View>
         <View style={styles1.col60}>
           <View style={styles1.col60_flex}>
-            <Text style={{ ...styles.textHeader }}>{placename}</Text>
+            <Text style={{ ...styles.textHeader }}>{propname}</Text>
             <Text style={styles.textDes}>
-              <Text style={styles.textMenuDesBold}>Valid </Text>
-              {valid}
+              <Text style={styles.textMenuDesBold}>Location </Text>
+              {proplocation.x} {proplocation.y}
             </Text>
             <Text style={styles.textDes}>
-              <Text style={styles.textMenuDesBold}>Expired </Text>
-              {expire}
+              <Text style={styles.textMenuDesBold}>Capacity </Text>
+              {propcapa}
             </Text>
             <Text style={styles.textDes}>
-              <Text style={styles.textMenuDesBold}>Time </Text>
-              {time === "NaN Hour" ? "Unlimited" : time}
+              <Text style={styles.textMenuDesBold}>Province </Text>
+              {propprovince}
             </Text>
           </View>
         </View>
@@ -182,4 +168,4 @@ const styles1 = StyleSheet.create({
   },
 });
 
-export default AccessCard;
+export default PropertyCard;

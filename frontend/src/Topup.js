@@ -32,8 +32,12 @@ import CardModal from "./components/CardModal";
 import styles from "./Styles";
 import axios from "axios";
 
-const Topup = () => {
-  const [balance, setBalance] = useState(1000);
+const Topup = (props) => {
+  const { credit } = props;
+
+  const [balance, setBalance] = useState(
+    parseFloat(credit.substring(1, credit.length))
+  );
   const [amount, setAmount] = useState(0);
   const [des, setDes] = useState("Loading");
 
@@ -64,6 +68,31 @@ const Topup = () => {
     };
     getData();
   }, []);
+
+  const topUp = async () => {
+    const token = await SecureStore.getItemAsync("pms_token");
+    await axios
+      .post(
+        `http://localhost:4000/auth/pmapi`,
+        {
+          cid: card,
+          amount: amount,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then((res) => {
+        console.log(card, amount);
+        if (res.data.status === "OK") {
+          setTimeout(() => {
+            Actions.pop();
+            Actions.refresh({ key: Math.random() });
+          }, 500);
+        }
+      })
+      .catch((error) => console.log(error));
+  };
 
   const setPrice = (event) => {
     if (event === "none" || event === "custom") {
@@ -354,7 +383,8 @@ const Topup = () => {
         <TouchableHighlight
           style={buttonDis ? styles.buttonDisable : styles.button}
           underlayColor="none"
-          disabled={true}
+          disabled={buttonDis}
+          onPress={topUp}
         >
           <View>
             <Text style={styles.buttonText}>Pay</Text>

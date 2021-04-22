@@ -20,7 +20,6 @@ import styles from "./Styles";
 import axios from "axios";
 
 const Addcard = (props) => {
-
   const { isFirst } = props;
 
   const [name, setName] = useState("");
@@ -75,7 +74,6 @@ const Addcard = (props) => {
   }
 
   const addCard = async () => {
-
     const token = await SecureStore.getItemAsync("pms_token");
     console.log(parseInt(expire.substring(0, 2)));
     console.log(parseInt(expire.substring(3, 7)));
@@ -159,34 +157,38 @@ const Addcard = (props) => {
             <Image style={{ height: 30, width: 30 }} source={namebrand()} />
           }
         />
-        <View style={styles.licenseBlock}>
-          <View style={styles.licenseColContainer}>
-            <View style={styles.licenseCol30}>
-              <TextField
-                label="Expire"
-                error1={expireError}
-                value={expire}
-                error="* Incorrect"
-                hint="12/2021"
-                mask="99/9999"
-                onChangeText={handleChange_expire}
-                autoCapitalize="none"
-                keyboardType="numeric"
-              />
-            </View>
-            <View style={styles.licenseCol70}>
-              <TextField
-                label="cvv"
-                error1={cvvError}
-                value={cvv}
-                error="* Incorrect"
-                hint="123"
-                mask="999"
-                onChangeText={handleChange_cvv}
-                autoCapitalize="none"
-                keyboardType="numeric"
-              />
-            </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <View style={{width: "38%"}}>
+            <TextField
+              label="Expire"
+              error1={expireError}
+              value={expire}
+              error="* Incorrect"
+              hint="12/2021"
+              mask="99/9999"
+              onChangeText={handleChange_expire}
+              autoCapitalize="none"
+              keyboardType="numeric"
+            />
+          </View>
+          <View style={{width: "64%"}}>
+            <TextField
+              label="cvv"
+              error1={cvvError}
+              value={cvv}
+              error="* Incorrect"
+              hint="123"
+              mask="999"
+              onChangeText={handleChange_cvv}
+              autoCapitalize="none"
+              keyboardType="numeric"
+            />
           </View>
         </View>
         <MyCheckBox

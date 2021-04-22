@@ -19,14 +19,22 @@ import { Picker } from "@react-native-picker/picker";
 import styles from "../Styles";
 import axios from "axios";
 
-const CardModal = (props) => {
-  const { data, visible, selector, handleChange, confirm, cancel } = props;
+const ListModal = (props) => {
+  const {
+    data,
+    title,
+    visible,
+    selector,
+    handleChange,
+    confirm,
+    cancel,
+  } = props;
 
   return (
     <Modal isVisible={visible}>
       <View style={styles.modalCover}>
         <View style={styles.modalProvinceArea}>
-          <Text style={styles.modalTitle}>Select Card</Text>
+          <Text style={styles.modalTitle}>{title}</Text>
           <Image
             style={styles.noDataPic}
             source={require("../../assets/pic-city.jpg")}
@@ -36,16 +44,11 @@ const CardModal = (props) => {
             onValueChange={(itemValue, itemIndex) => handleChange(itemValue)}
           >
             {data.map((data, index) => {
-              const number = data.credit_card_number;
               return (
                 <Picker.Item
-                  key={"card" + index}
-                  label={
-                    number.substring(0, 4) +
-                    "********" +
-                    number.substring(12, 16)
-                  }
-                  value={data.credit_card_id.toString()}
+                  key={{title} + index}
+                  label={(data+1).toString()}
+                  value={(data+1).toString()}
                 />
               );
             })}
@@ -64,4 +67,4 @@ const CardModal = (props) => {
 
 const styles1 = StyleSheet.create({});
 
-export default CardModal;
+export default ListModal;

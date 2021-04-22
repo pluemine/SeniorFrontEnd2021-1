@@ -8,7 +8,7 @@ activityApi.getUsageInfo = async (usage_log_id) => {
   const token = await SecureStore.getItemAsync('pms_token');
   const response = await axios
     .get(
-      `${apiConfig.baseAuthURL}${apiConfig.activityApi}?id=${usage_log_id}`,
+      `${apiConfig.baseAuthURL}${apiConfig.activityApi}/cardInfo?id=${usage_log_id}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }

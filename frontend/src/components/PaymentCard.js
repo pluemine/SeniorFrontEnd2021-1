@@ -205,6 +205,7 @@ const PaymentCard = (props) => {
                   title="Set as primary card"
                   color={def ? "#cccccc" : null}
                   onPress={def ? null : confirmDefault}
+                  disabled={def ? true : false}
                 />
               </View>
               <View
@@ -219,6 +220,7 @@ const PaymentCard = (props) => {
                   title='Remove'
                   color={def && !isLast ? '#cccccc' : '#ff0000'}
                   onPress={def && !isLast ? null : confirmDelete}
+                  disabled={def && !isLast ? true : false}
                 />
               </View>
             </View>

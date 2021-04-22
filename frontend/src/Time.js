@@ -1,4 +1,5 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
+import * as SecureStore from "expo-secure-store";
 import { Actions } from "react-native-router-flux";
 import {
   Header,
@@ -20,20 +21,43 @@ import {
   Image,
   ImageBackground,
 } from "react-native";
+
 import styles from "./Styles";
+import axios from "axios";
 
 const Time = (props) => {
   const {
+    paid,
     propimg,
     proptype,
     placename,
-    address,
+    time,
     valid,
     expire,
-    time,
     validR,
     expireR,
   } = props;
+
+  const [accesses, setAccesses] = useState([]);
+  const [des, setDes] = useState("Loading");
+
+  useEffect(() => {
+    const getAccess = async () => {
+      console.log(paid);
+      const token = await SecureStore.getItemAsync("pms_token");
+      axios
+        .get(`http://localhost:4000/auth/pamapi/access?id=${paid}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          setAccesses(res.data.data.accesses[0]);
+          setDes("No access available");
+          console.log("ASDDD", res.data.data.accesses[0]);
+        });
+    };
+    getAccess();
+  }, []);
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="default" />
@@ -57,7 +81,7 @@ const Time = (props) => {
                   <Image style={styles.picShare} source={{ uri: propimg }} />
                 </View>
                 <View>
-                  <Text style={styles.textPreTitle}>{placename}</Text>
+                  <Text style={styles.textPreTitle}>{proptype}</Text>
                   <Text style={styles.textMenuTitleOrange}>{proptype}</Text>
                 </View>
               </View>
@@ -80,7 +104,9 @@ const Time = (props) => {
                     />
                     <Text style={styles.textMenuTitle}>Time</Text>
                   </View>
-                  <Text style={styles.textMenuTitle}>{time}</Text>
+                  <Text style={styles.textMenuTitle}>
+                    {time === "NaN Hour" ? "Unlimited" : time}
+                  </Text>
                 </View>
                 <Text style={styles.textMenuTitle}> </Text>
                 <Text style={styles.textMenuTitle}>Valid</Text>
@@ -105,7 +131,9 @@ const Time = (props) => {
               </View>
               <View style={styles.cardMenuBlockButton}>
                 <TouchableHighlight
-                  style={styles.button}
+                  style={
+                    !accesses.is_sharable ? styles.buttonDisable : styles.button
+                  }
                   underlayColor="none"
                   onPress={() =>
                     Actions.share({
@@ -116,8 +144,11 @@ const Time = (props) => {
                       expire,
                       validR,
                       expireR,
+                      sharequota: accesses.share_quota,
+                      usagecount: accesses.usage_counts,
                     })
                   }
+                  disabled={!accesses.is_sharable}
                 >
                   <View>
                     <Text style={styles.buttonText}>Share your access</Text>

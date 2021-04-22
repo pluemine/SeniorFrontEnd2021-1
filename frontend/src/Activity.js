@@ -66,6 +66,7 @@ const Activity = () => {
         setIsLoaded(false);
       })
       .catch((error) => {
+        setIsRefreshing(false);
         throw error;
       });
   };

@@ -1,4 +1,5 @@
 import React, { Component, useState, useEffect } from "react";
+import * as SecureStore from "expo-secure-store";
 import { Actions } from "react-native-router-flux";
 import {
   Header,
@@ -32,6 +33,8 @@ import styles from "./Styles";
 import axios from "axios";
 
 const Homeuser = () => {
+  const [credit, setCredit] = useState(" ");
+
   const DATA = [
     {
       id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
@@ -81,6 +84,33 @@ const Homeuser = () => {
     </ImageBackground>
   );
 
+  useEffect(() => {
+    const getUser = async () => {
+      const token = await SecureStore.getItemAsync("pms_token");
+      axios
+        .get(`http://localhost:4000/auth/capi`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          console.log(res.data.data);
+          setCredit("฿" + res.data.data.credits);
+        });
+    };
+    getUser();
+  }, []);
+
+  const reloadWallet = async () => {
+    const token = await SecureStore.getItemAsync("pms_token");
+    axios
+      .get(`http://localhost:4000/auth/capi`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        console.log(res.data.data);
+        setCredit("฿" + res.data.data.credits);
+      });
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="default" />
@@ -94,8 +124,27 @@ const Homeuser = () => {
         <View style={styles.sectionContainerScroll}>
           <View style={styles.cardShow}>
             <View style={styles.cardContainer}>
-              <Text style={styles.textHeaderBlue}>Your Balance</Text>
-              <Text style={styles.textTitle}>$800.20</Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <View>
+                  <Text style={styles.textHeaderBlue}>Your Balance</Text>
+                  <Text style={styles.textTitle}>{credit}</Text>
+                </View>
+                <TouchableHighlight
+                  underlayColor="none"
+                  onPress={() => reloadWallet()}
+                >
+                  <Image
+                    style={styles.iconEdit}
+                    source={require("../assets/icon-refresh.png")}
+                  />
+                </TouchableHighlight>
+              </View>
             </View>
           </View>
           <View style={styles.cardMenuBlockSpace}>
@@ -119,7 +168,7 @@ const Homeuser = () => {
                   style={styles.iconHomeuser}
                   source={require("../assets/icon-license.png")}
                 />
-                <Text style={styles.textMenuTitle}>My car</Text>
+                <Text style={styles.textMenuTitle}>License</Text>
               </View>
             </TouchableHighlight>
             <TouchableHighlight
@@ -138,7 +187,7 @@ const Homeuser = () => {
             <TouchableHighlight
               underlayColor="none"
               style={styles.cardShortcut}
-              onPress={() => Actions.topup()}
+              onPress={() => Actions.topup({ credit: credit })}
             >
               <View style={styles.cardShortcutData}>
                 <Image
@@ -149,7 +198,7 @@ const Homeuser = () => {
               </View>
             </TouchableHighlight>
           </View>
-          <View style={styles.cardMenuBlockSpace}>
+          <View style={styles.cardMenuBlockSpaceTop}>
             <Text style={styles.textSubtitle}>Nearby Parking</Text>
           </View>
           <SafeAreaView style={styles.nearByFlatListContainer}>
