@@ -16,6 +16,7 @@ import License from './License';
 import Addlc from './Addlc';
 import Addcard from './Addcard';
 import Parking from './Parking';
+import Topup from './Topup';
 
 // Simple component to render something in place of icon
 const TabIcon = ({ selected, title }) => {
@@ -90,6 +91,13 @@ const App = () => {
             <Scene
               key='addcard'
               component={Addcard}
+              headerTintColor='#5394b5'
+              navTransparent={true}
+              hideTabBar={true}
+            />
+            <Scene
+              key='topup'
+              component={Topup}
               headerTintColor='#5394b5'
               navTransparent={true}
               hideTabBar={true}

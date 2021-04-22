@@ -138,7 +138,7 @@ const Homeuser = () => {
             <TouchableHighlight
               underlayColor="none"
               style={styles.cardShortcut}
-              onPress={() => Actions.license()}
+              onPress={() => Actions.topup()}
             >
               <View style={styles.cardShortcutData}>
                 <Image

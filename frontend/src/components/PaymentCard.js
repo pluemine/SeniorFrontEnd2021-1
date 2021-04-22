@@ -109,49 +109,6 @@ const PaymentCard = (props) => {
 
   return (
     <View>
-<<<<<<< HEAD
-      <TouchableHighlight underlayColor='none' onPress={toggleModal}>
-        <View style={def ? styles.paymentCardBorder : styles.paymentCard}>
-          <View style={styles.paymentCardBlock}>
-            <View style={styles.paymentColContainer}>
-              <View style={styles.paymentCol30}>
-                <Image style={styles.paymentIcon} source={namebrand()} />
-              </View>
-              <View style={styles.paymentCol70}>
-                <Text style={styles.paymentTitle}>
-                  {number.substring(0, 4) +
-                    '********' +
-                    number.substring(12, 16)}
-                </Text>
-                <Text style={styles.paymentExpire}>
-                  Expire {expiremonth + '/' + expireyear}
-                </Text>
-                {/*<Image
-              style={styles.paymentTrash}
-              source={require("../../assets/icon-trash.png")}
-            />*/}
-||||||| 9c0bd87
-      <TouchableHighlight underlayColor="none" onPress={toggleModal}>
-        <View style={def ? styles.paymentCardBorder : styles.paymentCard}>
-          <View style={styles.paymentCardBlock}>
-            <View style={styles.paymentColContainer}>
-              <View style={styles.paymentCol30}>
-                <Image style={styles.paymentIcon} source={namebrand()} />
-              </View>
-              <View style={styles.paymentCol70}>
-                <Text style={styles.paymentTitle}>
-                  {number.substring(0, 4) +
-                    "********" +
-                    number.substring(12, 16)}
-                </Text>
-                <Text style={styles.paymentExpire}>
-                  Expire {expiremonth + "/" + expireyear}
-                </Text>
-                {/*<Image
-              style={styles.paymentTrash}
-              source={require("../../assets/icon-trash.png")}
-            />*/}
-=======
       <TouchableHighlight underlayColor="none" onPress={toggleModal}>
         <View style={def ? styles.cardShowBorder : styles.cardShow}>
           <View style={styles.cardContainer}>
@@ -182,7 +139,6 @@ const PaymentCard = (props) => {
                     Expire {expiremonth + "/" + expireyear}
                   </Text>
                 </View>
->>>>>>> 22ad0f4657cbb5dcb5159692701817aa58403e1e
               </View>
               <Image
                 style={styles.iconEdit}
@@ -246,16 +202,8 @@ const PaymentCard = (props) => {
               </View>
               <View style={styles.modalTextBlock}>
                 <Button
-<<<<<<< HEAD
-                  title='Set as default'
-                  color={def ? '#cccccc' : null}
-||||||| 9c0bd87
-                  title="Set as default"
-                  color={def ? "#cccccc" : null}
-=======
                   title="Set as primary card"
                   color={def ? "#cccccc" : null}
->>>>>>> 22ad0f4657cbb5dcb5159692701817aa58403e1e
                   onPress={def ? null : confirmDefault}
                 />
               </View>

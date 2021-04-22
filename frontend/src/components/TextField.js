@@ -25,6 +25,8 @@ const TextField = (props) => {
     error,
     hint,
     mask,
+    maskType,
+    maxDecimalPlaces,
     maxLength,
     isPassword,
     secureText,
@@ -51,6 +53,8 @@ const TextField = (props) => {
       value={value}
       hint={hint}
       mask={mask}
+      maskType={maskType}
+      maxDecimalPlaces={maxDecimalPlaces}
       maxLength={maxLength}
       isPassword={isPassword}
       secureTextEntry={secureText}
@@ -85,6 +89,8 @@ TextField.defaultProps = {
   error: undefined,
   hint: undefined,
   mask: undefined,
+  maskType: undefined,
+  maxDecimalPlaces: undefined,
   maxLength: undefined,
   isPassword: false,
   secureText: false,

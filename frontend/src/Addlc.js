@@ -30,6 +30,8 @@ const Addlc = () => {
   const [numberError, setNumberError] = useState(false);
   const [provinceError, setProvinceError] = useState(false);
 
+  const [isModalVisible, setModalVisible] = useState(false);
+
   const provinces = {
     กรุงเทพมหานคร: 1,
     สมุทรปราการ: 2,
@@ -118,8 +120,6 @@ const Addlc = () => {
     setNumber(event);
     setNumberError(false);
   };
-
-  const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
