@@ -1,6 +1,6 @@
-import React, { Component, useState } from 'react';
-import * as SecureStore from 'expo-secure-store';
-import { Actions } from 'react-native-router-flux';
+import React, { Component, useState } from "react";
+import * as SecureStore from "expo-secure-store";
+import { Actions } from "react-native-router-flux";
 import {
   SafeAreaView,
   StyleSheet,
@@ -11,14 +11,14 @@ import {
   StatusBar,
   Button,
   TouchableHighlight,
-} from 'react-native';
-import styles from './Styles';
-import axios from 'axios';
+} from "react-native";
+import styles from "./Styles";
+import axios from "axios";
 import TextField from "./components/TextField";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
@@ -56,31 +56,27 @@ const Login = () => {
         password: password,
       })
       .then(async (res) => {
-        if (res.data.status === 'OK') {
-          saveSecureStoreItem('pms_token', res.data.data.token);
+        if (res.data.status === "OK") {
+          saveSecureStoreItem("pms_token", res.data.data.token);
           Actions.tabbar();
-        } else {
-          setFail(true);
         }
       })
       .catch((error) => {
+        setFail(true);
         throw error;
       });
   };
 
   const sent = () => {
-    console.warn(isEmailValid(), emailError, passwordError);
-    if (email === '') {
+    if (email === "") {
       setEmailError(true);
     }
-    if (password === '') {
+    if (password === "") {
       setPasswordError(true);
     }
     if (!isEmailValid()) {
-      console.warn('Invalid Email');
       setEmailError(true);
     } else if (password.length < 8) {
-      console.warn('Please add at least 8 characters.');
       setPasswordError(true);
     } else if (!emailError && !passwordError) {
       userLogin();
@@ -94,15 +90,15 @@ const Login = () => {
 
   function loginStatus() {
     if (passwordError) {
-      return '* Please enter a valid password. (At least 8 characters)';
+      return "* Please enter a valid password. (At least 8 characters)";
     } else if (fail) {
-      return '* Incorrect email or password, please try again.';
+      return "* Incorrect email or password, please try again.";
     }
   }
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle='default' />
+      <StatusBar barStyle="default" />
       <View style={styles.sectionContainerHeader}>
         <Text style={styles.sectionTitlewoNav}>Sign In</Text>
         <TextField
@@ -110,7 +106,7 @@ const Login = () => {
           error1={emailError}
           error2={fail}
           value={email}
-          error="* Please enter a valid email address."
+          error={fail ? " " : "* Please enter a valid email address."}
           hint="example@address.com"
           onChangeText={handleChange_email}
           autoCapitalize="none"
@@ -120,7 +116,11 @@ const Login = () => {
           error1={passwordError}
           error2={fail}
           value={password}
-          error={loginStatus()}
+          error={
+            fail
+              ? "* Incorrect email or password, please try again."
+              : "* Please enter a valid password. (At least 8 characters)"
+          }
           isPassword={true}
           secureText={true}
           onChangeText={handleChange_password}
@@ -129,7 +129,7 @@ const Login = () => {
         <Text style={styles.sectionDescription}></Text>
         <TouchableHighlight
           style={styles.button}
-          underlayColor='none'
+          underlayColor="none"
           onPress={sent}
         >
           <View>

@@ -42,6 +42,7 @@ const Topup = (props) => {
   const [des, setDes] = useState("Loading");
 
   const [value, setValue] = useState("");
+  const [customvalue, setCustomValue] = useState("");
   const [card, setCard] = useState("เลือกบัตร");
   const [cardSelector, setCardSelector] = useState("");
 
@@ -110,6 +111,9 @@ const Topup = (props) => {
   };
 
   const setCustom = (event) => {
+    if (!event.includes(".")) {
+      setCustomValue(event);
+    }
     if (parseFloat(event) >= 20 && parseFloat(event) <= 5000) {
       setAmount(parseFloat(event));
       setValueError(false);
@@ -367,10 +371,9 @@ const Topup = (props) => {
             <TextField
               label="Specify value"
               error1={valueError}
-              value={amount}
+              value={customvalue}
               error="* Please enter a valid amount."
               hint="20 - 5000"
-              maxDecimalPlaces={2}
               onChangeText={(event) => setCustom(event)}
               autoCapitalize="none"
               keyboardType="numeric"

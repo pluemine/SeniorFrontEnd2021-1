@@ -18,6 +18,7 @@ import Addcard from "./Addcard";
 import Parking from "./Parking";
 import Topup from "./Topup";
 import Search from "./Search";
+import EditProfile from "./EditProfile";
 
 // Simple component to render something in place of icon
 const TabIcon = ({ selected, title }) => {
@@ -60,6 +61,7 @@ const App = () => {
               key="homehome"
               component={Homeuser}
               navTransparent={true}
+              headerTintColor="#5394b5"
               initial={true}
             />
             <Scene
@@ -109,6 +111,7 @@ const App = () => {
               key="activity"
               component={Activity}
               navTransparent={true}
+              headerTintColor="#5394b5"
               onRight={() => Actions.refresh({ key: Math.random() })}
               rightButtonImage={require("../assets/icon-refresh.png")}
               rightButtonIconStyle={{ width: 24, height: 24 }}
@@ -117,6 +120,7 @@ const App = () => {
               key="parking"
               component={Parking}
               navTransparent={true}
+              headerTintColor="#5394b5"
             />
           </Scene>
           <Scene key="Access" icon={TabIcon}>
@@ -125,6 +129,7 @@ const App = () => {
               component={Access}
               initial={true}
               navTransparent={true}
+              headerTintColor="#5394b5"
               onRight={() => Actions.refresh({ key: Math.random() })}
               rightButtonImage={require("../assets/icon-refresh.png")}
               rightButtonIconStyle={{ width: 24, height: 24 }}
@@ -151,6 +156,7 @@ const App = () => {
               key="search"
               component={Search}
               navTransparent={true}
+              headerTintColor="#5394b5"
               onRight={() => Actions.refresh({ key: Math.random() })}
               rightButtonImage={require("../assets/icon-refresh.png")}
               rightButtonIconStyle={{ width: 24, height: 24 }}
@@ -161,6 +167,18 @@ const App = () => {
               key="account"
               component={Other}
               navTransparent={true}
+              headerTintColor="#5394b5"
+              onRight={() => Actions.refresh({ key: Math.random() })}
+              rightButtonImage={require("../assets/icon-refresh.png")}
+              rightButtonIconStyle={{ width: 24, height: 24 }}
+              initial={true}
+            />
+            <Scene
+              key="edit"
+              component={EditProfile}
+              navTransparent={true}
+              headerTintColor="#5394b5"
+              hideTabBar={true}
               onRight={() => Actions.refresh({ key: Math.random() })}
               rightButtonImage={require("../assets/icon-refresh.png")}
               rightButtonIconStyle={{ width: 24, height: 24 }}

@@ -52,7 +52,7 @@ const Time = (props) => {
         .then((res) => {
           setAccesses(res.data.data.accesses[0]);
           setDes("No access available");
-          console.log("ASDDD", res.data.data.accesses[0]);
+          console.log("TIME", res.data.data.accesses[0]);
         });
     };
     getAccess();
@@ -146,6 +146,9 @@ const Time = (props) => {
                       expireR,
                       sharequota: accesses.share_quota,
                       usagecount: accesses.usage_counts,
+                      chargeprovider: accesses.is_charged_provider,
+                      sharable: accesses.is_sharable,
+                      propid: accesses.property_type_id,
                     })
                   }
                   disabled={!accesses.is_sharable}

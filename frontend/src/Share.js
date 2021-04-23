@@ -33,6 +33,9 @@ const Share = (props) => {
     expireR,
     sharequota,
     usagecount,
+    chargeprovider,
+    sharable,
+    propid,
   } = props;
 
   const [email, setEmail] = useState("");
@@ -64,6 +67,8 @@ const Share = (props) => {
   const [isProvincePickerVisible, setProvincePickerVisible] = useState(false);
   const [isQuotaPickerVisible, setQuotaPickerVisible] = useState(false);
   const [isUsagePickerVisible, setUsagePickerVisible] = useState(false);
+
+  const [today, setToday] = useState(new Date());
 
   const provinces = {
     กรุงเทพมหานคร: 1,
@@ -354,13 +359,13 @@ const Share = (props) => {
           license_plate_category: category,
           license_plate_number: number,
           province_id: provinces[province],
-          property_id: 2,
+          property_id: propid,
           valid_date_time: dateTime(nowValid),
           expired_date_time: dateTime(nowExpire),
-          usage_counts: 50,
-          share_quota: 5,
-          is_charged_provider: false,
-          is_sharable: false,
+          usage_counts: parseInt(usage),
+          share_quota: parseInt(quota),
+          is_charged_provider: chargeprovider,
+          is_sharable: sharable,
         },
         { headers: { Authorization: `Bearer ${token}` } }
       )
@@ -488,9 +493,9 @@ const Share = (props) => {
                     handleChange={handleChange_validSelector}
                     confirm={confirmValid}
                     cancel={cancelValid}
-                    valid={valid}
+                    valid={validR > today ? valid : "Today"}
                     expire={expire}
-                    validR={validR}
+                    validR={validR > today ? validR : today}
                     expireR={expireR}
                   />
                   <TouchableOpacity onPress={toggleExpireModal}>
@@ -512,9 +517,9 @@ const Share = (props) => {
                     handleChange={handleChange_expireSelector}
                     confirm={confirmExpire}
                     cancel={cancelExpire}
-                    valid={valid}
+                    valid={validR > today ? valid : "Today"}
                     expire={expire}
-                    validR={validR}
+                    validR={validR > today ? validR : today}
                     expireR={expireR}
                   />
                   <TouchableOpacity onPress={toggleQuotaModal}>
@@ -531,7 +536,7 @@ const Share = (props) => {
                     </View>
                   </TouchableOpacity>
                   <ListModal
-                    data={Array.from(Array(sharequota-1).keys())}
+                    data={Array.from(Array(sharequota - 1).keys())}
                     title="Share Quota"
                     visible={isQuotaPickerVisible}
                     selector={quotaSelector}

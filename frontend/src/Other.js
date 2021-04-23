@@ -2,13 +2,6 @@ import React, { Component, useState, useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
 import { Actions } from "react-native-router-flux";
 import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from "react-native/Libraries/NewAppScreen";
-import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
@@ -30,6 +23,7 @@ const Other = () => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [credit, setCredit] = useState("");
+  const [img, setImg] = useState(null);
 
   useEffect(() => {
     const getUser = async () => {
@@ -45,6 +39,7 @@ const Other = () => {
           setFirstname(res.data.data.user.firstname);
           setLastname(res.data.data.user.lastname);
           setCredit("฿" + res.data.data.user.credits);
+          setImg(res.data.data.user.profile_img);
         });
     };
     getUser();
@@ -71,7 +66,9 @@ const Other = () => {
               >
                 <Image
                   style={styles.iconAvatar}
-                  source={require("../assets/user.png")}
+                  source={
+                    img != null ? { uri: img } : require("../assets/user.png")
+                  }
                 />
                 <View>
                   <Text style={styles.textSubtitle}>
@@ -81,11 +78,13 @@ const Other = () => {
                 </View>
               </View>
             </View>
-            {/*<Text style={styles.textTitle}>{credit}</Text>*/}
           </View>
           <View style={styles.card}>
             <View style={styles.cardContainer}>
-              <TouchableHighlight style={styles.cardMenuBlock} underlayColor="none">
+              <TouchableHighlight
+                style={styles.cardMenuBlock}
+                underlayColor="none"
+              >
                 <View
                   style={{
                     flexDirection: "row",
@@ -100,8 +99,12 @@ const Other = () => {
                     </Text>
                   </View>
                   <View>
-                    <Text style={[styles.textMenuDes, {textAlign: "right"}]}>Credit Balance</Text>
-                    <Text style={[styles.textMenuTitle, {textAlign: "right"}]}>
+                    <Text style={[styles.textMenuDes, { textAlign: "right" }]}>
+                      Credit Balance
+                    </Text>
+                    <Text
+                      style={[styles.textMenuTitle, { textAlign: "right" }]}
+                    >
                       {credit}
                     </Text>
                   </View>
@@ -113,7 +116,18 @@ const Other = () => {
                   borderBottomWidth: 1,
                 }}
               />
-              <TouchableHighlight style={styles.cardMenuBlock} underlayColor="none">
+              <TouchableHighlight
+                style={styles.cardMenuBlock}
+                underlayColor="none"
+                onPress={() =>
+                  Actions.edit({
+                    firstname: firstname,
+                    lastname: lastname,
+                    email: email,
+                    img: img,
+                  })
+                }
+              >
                 <View>
                   <Text style={styles.textMenuTitle}>Edit Profile</Text>
                   <Text style={styles.textMenuDes}>
@@ -127,7 +141,10 @@ const Other = () => {
                   borderBottomWidth: 1,
                 }}
               />
-              <TouchableHighlight style={styles.cardMenuBlock} underlayColor="none">
+              <TouchableHighlight
+                style={styles.cardMenuBlock}
+                underlayColor="none"
+              >
                 <View>
                   <Text style={styles.textMenuTitle}>License Plate</Text>
                   <Text style={styles.textMenuDes}>
@@ -141,7 +158,10 @@ const Other = () => {
                   borderBottomWidth: 1,
                 }}
               />
-              <TouchableHighlight style={styles.cardMenuBlock} underlayColor="none">
+              <TouchableHighlight
+                style={styles.cardMenuBlock}
+                underlayColor="none"
+              >
                 <View>
                   <Text style={styles.textMenuTitle}>Payment Methods</Text>
                   <Text style={styles.textMenuDes}>Manage your cards</Text>
