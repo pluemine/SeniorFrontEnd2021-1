@@ -84,6 +84,7 @@ const Other = () => {
               <TouchableHighlight
                 style={styles.cardMenuBlock}
                 underlayColor="none"
+                onPress={() => Actions.topup({ credit: credit })}
               >
                 <View
                   style={{
@@ -144,6 +145,7 @@ const Other = () => {
               <TouchableHighlight
                 style={styles.cardMenuBlock}
                 underlayColor="none"
+                onPress={() => Actions.license()}
               >
                 <View>
                   <Text style={styles.textMenuTitle}>License Plate</Text>
@@ -161,6 +163,7 @@ const Other = () => {
               <TouchableHighlight
                 style={styles.cardMenuBlock}
                 underlayColor="none"
+                onPress={() => Actions.payment()}
               >
                 <View>
                   <Text style={styles.textMenuTitle}>Payment Methods</Text>

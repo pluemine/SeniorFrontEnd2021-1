@@ -21,7 +21,7 @@ import {
   Image,
   ImageBackground,
 } from "react-native";
-
+import * as Helper from './components/Helper';
 import styles from "./Styles";
 import axios from "axios";
 
@@ -34,8 +34,6 @@ const Time = (props) => {
     time,
     valid,
     expire,
-    validR,
-    expireR,
   } = props;
 
   const [accesses, setAccesses] = useState([]);
@@ -81,7 +79,7 @@ const Time = (props) => {
                   <Image style={styles.picShare} source={{ uri: propimg }} />
                 </View>
                 <View>
-                  <Text style={styles.textPreTitle}>{proptype}</Text>
+                  <Text style={styles.textPreTitle}>{placename} ({paid})</Text>
                   <Text style={styles.textMenuTitleOrange}>{proptype}</Text>
                 </View>
               </View>
@@ -110,10 +108,10 @@ const Time = (props) => {
                 </View>
                 <Text style={styles.textMenuTitle}> </Text>
                 <Text style={styles.textMenuTitle}>Valid</Text>
-                <Text style={styles.textMenuDes}>{valid}</Text>
+                <Text style={styles.textMenuDes}>{Helper.dateMonth(valid)}</Text>
                 <Text style={styles.textMenuTitle}>↓</Text>
                 <Text style={styles.textMenuTitle}>Expire</Text>
-                <Text style={styles.textMenuDes}>{expire}</Text>
+                <Text style={styles.textMenuDes}>{Helper.dateMonth(expire)}</Text>
               </View>
               <View
                 style={{
@@ -142,8 +140,6 @@ const Time = (props) => {
                       proptype,
                       valid,
                       expire,
-                      validR,
-                      expireR,
                       sharequota: accesses.share_quota,
                       usagecount: accesses.usage_counts,
                       chargeprovider: accesses.is_charged_provider,

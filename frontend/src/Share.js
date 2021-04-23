@@ -21,16 +21,18 @@ import ProvinceModal from "./components/ProvinceModal";
 import DateModal from "./components/DateModal";
 import ListModal from "./components/ListModal";
 import TextField from "./components/TextField";
+import * as Helper from "./components/Helper";
+
+import { connect } from "react-redux";
 
 const Share = (props) => {
   const {
+    constantValue,
     propimg,
     placename,
     proptype,
     valid,
     expire,
-    validR,
-    expireR,
     sharequota,
     usagecount,
     chargeprovider,
@@ -69,86 +71,6 @@ const Share = (props) => {
   const [isUsagePickerVisible, setUsagePickerVisible] = useState(false);
 
   const [today, setToday] = useState(new Date());
-
-  const provinces = {
-    กรุงเทพมหานคร: 1,
-    สมุทรปราการ: 2,
-    นนทบุรี: 3,
-    ปทุมธานี: 4,
-    พระนครศรีอยุธยา: 5,
-    อ่างทอง: 6,
-    ลพบุรี: 7,
-    สิงห์บุรี: 8,
-    ชัยนาท: 9,
-    สระบุรี: 10,
-    ชลบุรี: 11,
-    ระยอง: 12,
-    จันทบุรี: 13,
-    ตราด: 14,
-    ฉะเชิงเทรา: 15,
-    ปราจีนบุรี: 16,
-    นครนายก: 17,
-    สระแก้ว: 18,
-    นครราชสีมา: 19,
-    บุรีรัมย์: 20,
-    สุรินทร์: 21,
-    ศรีสะเกษ: 22,
-    อุบลราขธานี: 23,
-    ยโสธร: 24,
-    ชัยภูมิ: 25,
-    อำนาจเจริญ: 26,
-    หนองบัวลำภู: 27,
-    ขอนแก่น: 28,
-    อุดรธานี: 29,
-    เลย: 30,
-    หนองคาย: 31,
-    มหาสารคาม: 32,
-    ร้อยเอ็ด: 33,
-    กาฬสินธ์ุ: 34,
-    สกลนคร: 35,
-    นครพนม: 36,
-    มุกดาหาร: 37,
-    เชียงใหม่: 38,
-    ลำพูน: 39,
-    ลำปาง: 40,
-    อุตรดิตถ์: 41,
-    แพร่: 42,
-    น่าน: 43,
-    พะเยา: 44,
-    เชียงราย: 45,
-    แม่ฮ่องสอน: 46,
-    นครสวรรค์: 47,
-    อุทัยธานี: 48,
-    กำแพงเพชร: 49,
-    ตาก: 50,
-    สุโขทัย: 51,
-    พิษณุโลก: 52,
-    พิจิตร: 53,
-    เพชรบูรณ์: 54,
-    ราชบุรี: 55,
-    กาญจนบุรี: 56,
-    สุพรรณบุรี: 57,
-    นครปฐม: 58,
-    สมุทรสาคร: 59,
-    สมุทรสงคราม: 60,
-    เพชรบุรี: 61,
-    ประจวบคีรีขันธ์: 62,
-    นครศรีธรรมราช: 63,
-    กระบี่: 64,
-    พังงา: 65,
-    ภูเก็ต: 66,
-    สุราษฏร์ธานี: 67,
-    ระนอง: 68,
-    ชุมพร: 69,
-    สงขลา: 70,
-    สตูล: 71,
-    ตรัง: 72,
-    พัทลุง: 73,
-    ปัตตานี: 74,
-    ยะลา: 75,
-    นราธิวาส: 76,
-    บึงกาฬ: 77,
-  };
 
   const handleChange_email = (event) => {
     setEmail(event);
@@ -330,25 +252,6 @@ const Share = (props) => {
     }
   };
 
-  function dateTime(date) {
-    var day = date.getDate();
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
-    if (parseInt(day) - 10 >= 0) {
-      if (parseInt(month) - 10 >= 0) {
-        return "" + year + "-" + month + "-" + day;
-      } else {
-        return "" + year + "-0" + month + "-" + day;
-      }
-    } else {
-      if (parseInt(month) - 10 >= 0) {
-        return "" + year + "-" + month + "-0" + day;
-      } else {
-        return "" + year + "-0" + month + "-0" + day;
-      }
-    }
-  }
-
   const shareAccess = async () => {
     const token = await SecureStore.getItemAsync("pms_token");
     axios
@@ -358,10 +261,10 @@ const Share = (props) => {
           email: email,
           license_plate_category: category,
           license_plate_number: number,
-          province_id: provinces[province],
+          province_id: constantValue.current.provincesToId[province],
           property_id: propid,
-          valid_date_time: dateTime(nowValid),
-          expired_date_time: dateTime(nowExpire),
+          valid_date_time: Helper.dateHyphen(nowValid),
+          expired_date_time: Helper.dateHyphen(nowExpire),
           usage_counts: parseInt(usage),
           share_quota: parseInt(quota),
           is_charged_provider: chargeprovider,
@@ -396,14 +299,12 @@ const Share = (props) => {
       <View style={styles.container}>
         <ImageBackground
           style={styles.picBg}
-          //source={{ uri: propimg }}
           source={require("../assets/parking.jpg")}
-          //blurRadius={25}
         >
           <View style={styles.sectionContainerHeader}>
             <Text style={styles.sectionTitlewoNav}>Confirm Sharing</Text>
           </View>
-          <View style={styles.cardTrans}>
+          <ScrollView style={styles.cardTrans}>
             <View style={styles.cardContainerHeaderOverlay}>
               <View style={styles.cardMenuBlock}>
                 <View
@@ -424,7 +325,7 @@ const Share = (props) => {
             </View>
             <View style={styles.card}>
               <View style={styles.cardContainer}>
-                <ScrollView style={styles.cardMenuBlock}>
+                <View style={styles.cardMenuBlock}>
                   <TextField
                     label="Email"
                     error1={emailError}
@@ -479,7 +380,7 @@ const Share = (props) => {
                       <TextField
                         label="Valid"
                         error1={validError}
-                        value={dateTime(nowValid)}
+                        value={Helper.dateHyphen(nowValid)}
                         error="* Valid is incorrect."
                         autoCapitalize="none"
                       />
@@ -493,17 +394,17 @@ const Share = (props) => {
                     handleChange={handleChange_validSelector}
                     confirm={confirmValid}
                     cancel={cancelValid}
-                    valid={validR > today ? valid : "Today"}
-                    expire={expire}
-                    validR={validR > today ? validR : today}
-                    expireR={expireR}
+                    valid={valid > today ? Helper.dateMonth(valid) : "Today"}
+                    expire={Helper.dateMonth(expire)}
+                    validR={valid > today ? valid : today}
+                    expireR={expire}
                   />
                   <TouchableOpacity onPress={toggleExpireModal}>
                     <View pointerEvents="none">
                       <TextField
                         label="Expire"
                         error1={expireError}
-                        value={dateTime(nowExpire)}
+                        value={Helper.dateHyphen(nowExpire)}
                         error="* Expire is incorrect."
                         autoCapitalize="none"
                       />
@@ -517,10 +418,10 @@ const Share = (props) => {
                     handleChange={handleChange_expireSelector}
                     confirm={confirmExpire}
                     cancel={cancelExpire}
-                    valid={validR > today ? valid : "Today"}
-                    expire={expire}
-                    validR={validR > today ? validR : today}
-                    expireR={expireR}
+                    valid={valid > today ? Helper.dateMonth(valid) : "Today"}
+                    expire={Helper.dateMonth(expire)}
+                    validR={valid > today ? valid : today}
+                    expireR={expire}
                   />
                   <TouchableOpacity onPress={toggleQuotaModal}>
                     <View pointerEvents="none">
@@ -566,21 +467,21 @@ const Share = (props) => {
                     confirm={confirmUsage}
                     cancel={cancelUsage}
                   />
-                </ScrollView>
-                <View style={styles.cardMenuBlockButton}>
-                  <TouchableHighlight
-                    style={styles.button}
-                    underlayColor="none"
-                    onPress={sent}
-                  >
-                    <View>
-                      <Text style={styles.buttonText}>Share</Text>
-                    </View>
-                  </TouchableHighlight>
+                  <View style={styles.cardMenuBlockButton}>
+                    <TouchableHighlight
+                      style={styles.button}
+                      underlayColor="none"
+                      onPress={sent}
+                    >
+                      <View>
+                        <Text style={styles.buttonText}>Share</Text>
+                      </View>
+                    </TouchableHighlight>
+                  </View>
                 </View>
               </View>
             </View>
-          </View>
+          </ScrollView>
         </ImageBackground>
       </View>
     </View>
@@ -651,4 +552,9 @@ const styles1 = StyleSheet.create({
   },
 });
 
-export default Share;
+const mapStateToProps = (state) => {
+  const { constantValue } = state;
+  return { constantValue };
+};
+
+export default connect(mapStateToProps)(Share);

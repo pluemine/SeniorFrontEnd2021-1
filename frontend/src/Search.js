@@ -2,13 +2,6 @@ import React, { Component, useState, useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
 import { Actions } from "react-native-router-flux";
 import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from "react-native/Libraries/NewAppScreen";
-import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
@@ -42,14 +35,13 @@ import PropertyCard from "./components/PropertyCard";
 import styles from "./Styles";
 import axios from "axios";
 
-const TabIcon = ({ selected, title }) => {
-  return <Text style={{ color: selected ? "red" : "black" }}>{title}</Text>;
-};
+import { connect } from "react-redux";
 
-const Search = () => {
+const Search = (props) => {
   const [properties, setProperties] = useState([]);
-  //const [filteredAccessePlaceName, setFilteredAccessePlaceName] = useState("");
+  const [filteredSearchPlaceName, setFilteredSearchPlaceName] = useState("");
   const [des, setDes] = useState("Loading");
+  const { constantValue } = props;
 
   useEffect(() => {
     const getProp = async () => {
@@ -68,8 +60,7 @@ const Search = () => {
   }, []);
 
   function propTypeName(prop) {
-    const proptype = ["Home", "Supermarket", "Condominium", "Public"];
-    return proptype[prop];
+    return constantValue.current.types[prop];
   }
 
   let screen;
@@ -83,20 +74,31 @@ const Search = () => {
     screen = (
       <ScrollView style={styles.sectionContainerScroll}>
         <View>
-          {properties.map((prop, index) => {
-            return (
-              <PropertyCard
-                key={"propcard" + index}
-                propid={prop.property_id}
-                propname={prop.property_name}
-                proptype={prop.property_type_id}
-                proplocation={prop.property_location}
-                propcapa={prop.capacity}
-                propimg={prop.property_img}
-                propprovince={prop.province_id}
-              />
-            );
-          })}
+          {properties
+            .filter(
+              (search) =>
+                !filteredSearchPlaceName ||
+                filteredSearchPlaceName == "" ||
+                String(search["property_name"])
+                  .toLowerCase()
+                  .includes(filteredSearchPlaceName)
+            )
+            .map((prop, index) => {
+              return (
+                <PropertyCard
+                  key={"propcard" + index}
+                  propid={prop.property_id}
+                  propname={prop.property_name}
+                  proptype={propTypeName(prop.property_type_id)}
+                  proplocation={prop.property_location}
+                  propcapa={prop.capacity}
+                  propimg={prop.property_img}
+                  propprovince={
+                    constantValue.current.idToProvinces[prop.province_id]
+                  }
+                />
+              );
+            })}
         </View>
       </ScrollView>
     );
@@ -134,9 +136,9 @@ const Search = () => {
               source={require("../assets/icon-search.png")}
             />
           }
-          //value={filteredAccessePlaceName}
+          value={filteredSearchPlaceName}
           isPassword={false}
-          onChangeText={(text) => setFilteredAccessePlaceName(text)}
+          onChangeText={(text) => setFilteredSearchPlaceName(text)}
           autoCapitalize="none"
         />
       </View>
@@ -146,6 +148,11 @@ const Search = () => {
   );
 };
 
+const mapStateToProps = (state) => {
+  const { constantValue } = state;
+  return { constantValue };
+};
+
 const styles1 = StyleSheet.create({});
 
-export default Search;
+export default connect(mapStateToProps)(Search);

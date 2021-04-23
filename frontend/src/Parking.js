@@ -15,7 +15,7 @@ import {
   Image,
   ImageBackground,
 } from "react-native";
-
+import * as Helper from './components/Helper';
 import styles from "./Styles";
 import axios from "axios";
 
@@ -59,7 +59,7 @@ const Parking = (props) => {
                   justifyContent: "space-between",
                 }}
               >
-                <Text style={styles.textTitle}>{data.property_id}</Text>
+                <Text style={styles.textTitle}>{data.property_name}</Text>
                 <Text style={styles.textMenuTitleOrange}>
                   {data.exit_at === null
                     ? "Parking Ongoing"
@@ -119,10 +119,10 @@ const Parking = (props) => {
                 </View>
                 <Text style={styles.textMenuTitle}> </Text>
                 <Text style={styles.textMenuTitle}>From</Text>
-                <Text style={styles.textMenuDes}>{data.entrance_at}</Text>
+                <Text style={styles.textMenuDes}>{Helper.dateMonth(data.entrance_at)}</Text>
                 <Text style={styles.textMenuTitle}>↓</Text>
                 <Text style={styles.textMenuTitle}>Until</Text>
-                <Text style={styles.textMenuDes}>sasd</Text>
+                <Text style={styles.textMenuDes}>{data.exit_at != null ? Helper.dateMonth(data.exit_at) : "Now"}</Text>
               </View>
             </TouchableHighlight>
             <View
@@ -151,7 +151,7 @@ const Parking = (props) => {
                     <Text style={styles.textMenuTitle}>License Plate</Text>
                   </View>
                   <Text style={styles.textMenuTitle}>
-                    {data.license_plate_category}
+                    {data.license_plate_category} {data.license_plate_number}
                   </Text>
                 </View>
               </View>
@@ -188,6 +188,7 @@ const Parking = (props) => {
               </View>
             </TouchableHighlight>
           </View>
+          <View style={styles.cardMenuBlockButton}></View>
         </View>
       </ImageBackground>
     </View>

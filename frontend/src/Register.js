@@ -19,6 +19,7 @@ import axios from "axios";
 import styled from "styled-components";
 import DateModal from "./components/DateModal";
 import TextField from "./components/TextField";
+import * as Helper from './components/Helper';
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -79,18 +80,6 @@ const Register = () => {
   };
 
   const sent = () => {
-    console.warn(
-      emailError,
-      phone[0],
-      isEmailValid(),
-      email,
-      password,
-      confirm,
-      firstname,
-      lastname,
-      date,
-      phone
-    );
     if (email === "") {
       setEmailError(true);
     }
@@ -110,16 +99,12 @@ const Register = () => {
       setPhoneError(true);
     }
     if (!isEmailValid()) {
-      console.warn("Invalid Email");
       setEmailError(true);
     } else if (password.length < 8) {
-      console.warn("Please add at least 8 characters.");
       setPasswordError(true);
     } else if (password != confirm) {
-      console.warn("Password is not same");
       setConfirmError(true);
     } else if (phone.length < 10 || phone[0] != 0) {
-      console.warn("Telephone Number incorrect");
       setPhoneError(true);
     } else if (
       !emailError &&
@@ -133,25 +118,6 @@ const Register = () => {
       createUser();
     }
   };
-
-  function dateTime() {
-    var day = date.getDate();
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
-    if (parseInt(day) - 10 >= 0) {
-      if (parseInt(month) - 10 >= 0) {
-        return "" + year + "-" + month + "-" + day;
-      } else {
-        return "" + year + "-0" + month + "-" + day;
-      }
-    } else {
-      if (parseInt(month) - 10 >= 0) {
-        return "" + year + "-" + month + "-0" + day;
-      } else {
-        return "" + year + "-0" + month + "-0" + day;
-      }
-    }
-  }
 
   function emailStatus() {
     if (emailError) {
@@ -167,7 +133,7 @@ const Register = () => {
         email: email,
         firstname: firstname,
         lastname: lastname,
-        birthdate: dateTime(),
+        birthdate: Helper.dateHyphen(date),
         tel_no: phone,
         password: password,
       })
@@ -242,7 +208,7 @@ const Register = () => {
           <View pointerEvents="none">
             <TextField
               label="Date of birth"
-              value={dateTime()}
+              value={Helper.dateHyphen(date)}
             />
           </View>
         </TouchableOpacity>

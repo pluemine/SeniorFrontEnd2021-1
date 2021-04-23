@@ -13,21 +13,11 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-
+import * as Helper from "./Helper";
 import styles from "../Styles";
 
 const AccessCard = (props) => {
-  const {
-    paid,
-    propimg,
-    proptype,
-    placename,
-    time,
-    valid,
-    expire,
-    validR,
-    expireR,
-  } = props;
+  const { paid, propimg, proptype, placename, time, valid, expire } = props;
   return (
     <TouchableHighlight
       underlayColor="none"
@@ -41,8 +31,6 @@ const AccessCard = (props) => {
           time,
           valid,
           expire,
-          validR,
-          expireR,
         })
       }
     >
@@ -59,14 +47,16 @@ const AccessCard = (props) => {
         </View>
         <View style={styles1.col60}>
           <View style={styles1.col60_flex}>
-            <Text style={{ ...styles.textHeader }}>{placename}</Text>
+            <Text style={{ ...styles.textHeader }}>
+              {placename} ({paid})
+            </Text>
             <Text style={styles.textDes}>
               <Text style={styles.textMenuDesBold}>Valid </Text>
-              {valid}
+              {Helper.dateMonth(valid)}
             </Text>
             <Text style={styles.textDes}>
               <Text style={styles.textMenuDesBold}>Expired </Text>
-              {expire}
+              {Helper.dateMonth(expire)}
             </Text>
             <Text style={styles.textDes}>
               <Text style={styles.textMenuDesBold}>Time </Text>

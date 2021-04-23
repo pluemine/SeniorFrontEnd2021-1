@@ -20,97 +20,20 @@ import TextField from "./components/TextField";
 import styles from "./Styles";
 import axios from "axios";
 
-const Addlc = () => {
+import { connect } from 'react-redux';
+
+const Addlc = (props) => {
   const [category, setCategory] = useState("");
   const [number, setNumber] = useState("");
   const [province, setProvince] = useState("เลือกจังหวัด");
   const [provinceSelector, setProvinceSelector] = useState("กรุงเทพมหานคร");
+  const {constantValue} = props
 
   const [categoryError, setCategoryError] = useState(false);
   const [numberError, setNumberError] = useState(false);
   const [provinceError, setProvinceError] = useState(false);
 
   const [isModalVisible, setModalVisible] = useState(false);
-
-  const provinces = {
-    กรุงเทพมหานคร: 1,
-    สมุทรปราการ: 2,
-    นนทบุรี: 3,
-    ปทุมธานี: 4,
-    พระนครศรีอยุธยา: 5,
-    อ่างทอง: 6,
-    ลพบุรี: 7,
-    สิงห์บุรี: 8,
-    ชัยนาท: 9,
-    สระบุรี: 10,
-    ชลบุรี: 11,
-    ระยอง: 12,
-    จันทบุรี: 13,
-    ตราด: 14,
-    ฉะเชิงเทรา: 15,
-    ปราจีนบุรี: 16,
-    นครนายก: 17,
-    สระแก้ว: 18,
-    นครราชสีมา: 19,
-    บุรีรัมย์: 20,
-    สุรินทร์: 21,
-    ศรีสะเกษ: 22,
-    อุบลราขธานี: 23,
-    ยโสธร: 24,
-    ชัยภูมิ: 25,
-    อำนาจเจริญ: 26,
-    หนองบัวลำภู: 27,
-    ขอนแก่น: 28,
-    อุดรธานี: 29,
-    เลย: 30,
-    หนองคาย: 31,
-    มหาสารคาม: 32,
-    ร้อยเอ็ด: 33,
-    กาฬสินธ์ุ: 34,
-    สกลนคร: 35,
-    นครพนม: 36,
-    มุกดาหาร: 37,
-    เชียงใหม่: 38,
-    ลำพูน: 39,
-    ลำปาง: 40,
-    อุตรดิตถ์: 41,
-    แพร่: 42,
-    น่าน: 43,
-    พะเยา: 44,
-    เชียงราย: 45,
-    แม่ฮ่องสอน: 46,
-    นครสวรรค์: 47,
-    อุทัยธานี: 48,
-    กำแพงเพชร: 49,
-    ตาก: 50,
-    สุโขทัย: 51,
-    พิษณุโลก: 52,
-    พิจิตร: 53,
-    เพชรบูรณ์: 54,
-    ราชบุรี: 55,
-    กาญจนบุรี: 56,
-    สุพรรณบุรี: 57,
-    นครปฐม: 58,
-    สมุทรสาคร: 59,
-    สมุทรสงคราม: 60,
-    เพชรบุรี: 61,
-    ประจวบคีรีขันธ์: 62,
-    นครศรีธรรมราช: 63,
-    กระบี่: 64,
-    พังงา: 65,
-    ภูเก็ต: 66,
-    สุราษฏร์ธานี: 67,
-    ระนอง: 68,
-    ชุมพร: 69,
-    สงขลา: 70,
-    สตูล: 71,
-    ตรัง: 72,
-    พัทลุง: 73,
-    ปัตตานี: 74,
-    ยะลา: 75,
-    นราธิวาส: 76,
-    บึงกาฬ: 77,
-  };
 
   const handleChange_category = (event) => {
     setCategory(event);
@@ -178,7 +101,7 @@ const Addlc = () => {
         {
           license_plate_category: category,
           license_plate_number: number,
-          province_id: provinces[province],
+          province_id: constantValue.current.provincesToId[province],
         },
         { headers: { Authorization: `Bearer ${token}` } }
       )
@@ -266,6 +189,11 @@ const Addlc = () => {
   );
 };
 
+const mapStateToProps = (state) => {
+  const { constantValue } = state
+  return { constantValue }
+};
+
 const styles1 = StyleSheet.create({});
 
-export default Addlc;
+export default connect(mapStateToProps)(Addlc);

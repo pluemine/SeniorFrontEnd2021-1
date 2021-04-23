@@ -26,7 +26,12 @@ const EditProfile = (props) => {
   const [editPassword, setEditPassword] = useState("");
   const [editConfirm, setEditConfirm] = useState("");
 
-  const edit = async () => {
+  const [firstnameError, setFirstnameError] = useState(false);
+  const [lastnameError, setLastnameError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [confirmError, setConfirmError] = useState(false);
+
+  const editUser = async () => {
     const token = await SecureStore.getItemAsync("pms_token");
     axios
       .put(
@@ -34,7 +39,7 @@ const EditProfile = (props) => {
         {
           firstname: editFirstname != "" ? editFirstname : firstname,
           lastname: editLastname != "" ? editLastname : lastname,
-          password: editPassword != "" ? editPassword : undefined,
+          password: editPassword != "" ? editPassword : null,
         },
         { headers: { Authorization: `Bearer ${token}` } }
       )
@@ -48,6 +53,34 @@ const EditProfile = (props) => {
           }, 500);
         }
       });
+  };
+
+  const sent = () => {
+    if (editFirstname === "") {
+      setFirstnameError(true);
+    }
+    if (editLastname === "") {
+      setLastnameError(true);
+    }
+    if (editPassword.length > 0 && editPassword.length < 8) {
+      setPasswordError(true);
+    }
+    if (editFirstname === "") {
+      setFirstnameError(true);
+    } else if (editLastname === "") {
+      setLastnameError(true);
+    } else if (editPassword.length > 0 && editPassword.length < 8) {
+      setPasswordError(true);
+    } else if (editPassword != editConfirm) {
+      setConfirmError(true);
+    } else if (
+      !firstnameError &&
+      !lastnameError &&
+      !passwordError &&
+      !confirmError
+    ) {
+      editUser();
+    }
   };
 
   return (
@@ -97,10 +130,13 @@ const EditProfile = (props) => {
                   </Text>
                   <TextField
                     label="New firstname"
-                    //error1={validError}
+                    error1={firstnameError}
                     value={editFirstname}
-                    //error="* Valid is incorrect."
-                    onChangeText={(value) => setEditFirstname(value)}
+                    error="* Please enter your new firstname."
+                    onChangeText={(value) => {
+                      setEditFirstname(value);
+                      setFirstnameError(false);
+                    }}
                     autoCapitalize="none"
                   />
                 </View>
@@ -116,10 +152,13 @@ const EditProfile = (props) => {
                   </Text>
                   <TextField
                     label="New lastname"
-                    //error1={validError}
+                    error1={lastnameError}
                     value={editLastname}
-                    //error="* Valid is incorrect."
-                    onChangeText={(value) => setEditLastname(value)}
+                    error="* Please enter your new lastname."
+                    onChangeText={(value) => {
+                      setEditLastname(value);
+                      setLastnameError(false);
+                    }}
                     autoCapitalize="none"
                   />
                 </View>
@@ -130,21 +169,35 @@ const EditProfile = (props) => {
               >
                 <View>
                   <Text style={styles.textMenuTitle}>Password</Text>
-                  <Text style={styles.textMenuDes}>You can edit your password here</Text>
+                  <Text style={styles.textMenuDes}>
+                    You can edit your password here
+                  </Text>
                   <TextField
                     label="New password"
-                    //error1={validError}
+                    error1={passwordError || confirmError}
                     value={editPassword}
-                    //error="* Valid is incorrect."
-                    onChangeText={(value) => setEditPassword(value)}
+                    error={
+                      !passwordError && confirmError
+                        ? "* Please enter the same password."
+                        : "* Please enter a valid password. (At least 8 characters)"
+                    }
+                    onChangeText={(value) => {
+                      setEditPassword(value);
+                      setPasswordError(false);
+                      setConfirmError(false);
+                    }}
                     autoCapitalize="none"
                   />
                   <TextField
                     label="Confirm new password"
-                    //error1={validError}
+                    error1={confirmError}
                     value={editConfirm}
-                    //error="* Valid is incorrect."
-                    onChangeText={(value) => setEditConfirm(value)}
+                    error="* Please enter the same password."
+                    onChangeText={(value) => {
+                      setEditConfirm(value);
+                      setPasswordError(false);
+                      setConfirmError(false);
+                    }}
                     autoCapitalize="none"
                   />
                 </View>
@@ -153,7 +206,7 @@ const EditProfile = (props) => {
                 <TouchableHighlight
                   style={styles.button}
                   underlayColor="none"
-                  onPress={edit}
+                  onPress={sent}
                 >
                   <View>
                     <Text style={styles.buttonText}>Edit Profile</Text>

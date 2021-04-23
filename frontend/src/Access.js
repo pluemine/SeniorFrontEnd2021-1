@@ -2,13 +2,6 @@ import React, { Component, useState, useEffect } from "react";
 import * as SecureStore from "expo-secure-store";
 import { Actions } from "react-native-router-flux";
 import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from "react-native/Libraries/NewAppScreen";
-import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
@@ -38,18 +31,18 @@ import Register from "./Register";
 import Login from "./Login";
 import Home from "./Home";
 import AccessCard from "./components/AccessCard";
+import * as Helper from './components/Helper';
 
 import styles from "./Styles";
 import axios from "axios";
 
-const TabIcon = ({ selected, title }) => {
-  return <Text style={{ color: selected ? "red" : "black" }}>{title}</Text>;
-};
+import { connect } from "react-redux";
 
-const Access = () => {
+const Access = (props) => {
   const [accesses, setAccesses] = useState([]);
   const [filteredAccessePlaceName, setFilteredAccessePlaceName] = useState("");
   const [des, setDes] = useState("Loading");
+  const { constantValue } = props;
 
   const getSecureStoreItem = async (key) => {
     return await SecureStore.getItemAsync(key);
@@ -65,67 +58,14 @@ const Access = () => {
         .then((res) => {
           setAccesses(res.data.data.accesses);
           setDes("No access available");
-          console.log("ASDDD",res.data.data.accesses);
+          console.log(res.data.data.accesses);
         });
     };
     getAccess();
   }, []);
 
-  function dateTime(date_time) {
-    const monthNames = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    var date = new Date(date_time);
-    var day = date.getDate();
-    var month = date.getMonth();
-    var year = date.getFullYear();
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-    return monthNames[month] + " " + day + ", " + year;
-  }
-
-  function dateTimeReal(date_time) {
-    var date = new Date(date_time);
-    var day = date.getDate();
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
-    if (parseInt(day) - 10 >= 0) {
-      if (parseInt(month) - 10 >= 0) {
-        return "" + year + "-" + month + "-" + day;
-      } else {
-        return "" + year + "-0" + month + "-" + day;
-      }
-    } else {
-      if (parseInt(month) - 10 >= 0) {
-        return "" + year + "-" + month + "-0" + day;
-      } else {
-        return "" + year + "-0" + month + "-0" + day;
-      }
-    }
-  }
-
   function propTypeName(prop) {
-    const proptype = ["Home", "Supermarket", "Condominium", "Public"];
-    return proptype[prop];
-  }
-
-  function mintoH(min) {
-    if (min / 60 > 1) {
-      return min / 60 + " Hours";
-    } else {
-      return min / 60 + " Hour";
-    }
+    return constantValue.current.types[prop];
   }
 
   let screen;
@@ -149,13 +89,8 @@ const Access = () => {
                   .includes(filteredAccessePlaceName)
             )
             .map((access, index) => {
-              var valid = dateTime(access.valid_date_time);
-              var expired = dateTime(access.expired_date_time);
               var proptype = propTypeName(access.property_type_id);
-              var accesstime = mintoH(access.mins_per_usage);
-
-              var validReal = dateTimeReal(access.valid_date_time);
-              var expireReal = dateTimeReal(access.expired_date_time);
+              var accesstime = Helper.minToH(access.mins_per_usage);
 
               return (
                 <AccessCard
@@ -165,10 +100,8 @@ const Access = () => {
                   proptype={proptype}
                   placename={access.property_name}
                   time={accesstime}
-                  valid={valid}
-                  expire={expired}
-                  validR={validReal}
-                  expireR={expireReal}
+                  valid={access.valid_date_time}
+                  expire={access.expired_date_time}
                 />
               );
             })}
@@ -221,6 +154,11 @@ const Access = () => {
   );
 };
 
+const mapStateToProps = (state) => {
+  const { constantValue } = state;
+  return { constantValue };
+};
+
 const styles1 = StyleSheet.create({});
 
-export default Access;
+export default connect(mapStateToProps)(Access);
