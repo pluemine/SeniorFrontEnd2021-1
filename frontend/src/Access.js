@@ -12,17 +12,9 @@ import {
   Button,
   TouchableHighlight,
   Image,
-<<<<<<< HEAD
+  RefreshControl,
 } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
-||||||| 0590402
-} from "react-native";
-import { Router, Scene } from "react-native-router-flux";
-=======
-  RefreshControl,
-} from "react-native";
-import { Router, Scene } from "react-native-router-flux";
->>>>>>> ccc3035cd2c1313fdfcfca29270da91a3bd32873
 import {
   BallIndicator,
   BarIndicator,
@@ -36,25 +28,11 @@ import {
 } from 'react-native-indicators';
 import { FloatingLabelInput } from 'react-native-floating-label-input';
 
-<<<<<<< HEAD
 import Register from './Register';
 import Login from './Login';
 import Home from './Home';
 import AccessCard from './components/AccessCard';
 import * as Helper from './components/Helper';
-||||||| 0590402
-import Register from "./Register";
-import Login from "./Login";
-import Home from "./Home";
-import AccessCard from "./components/AccessCard";
-import * as Helper from './components/Helper';
-=======
-import Register from "./Register";
-import Login from "./Login";
-import Home from "./Home";
-import AccessCard from "./components/AccessCard";
-import * as Helper from "./components/Helper";
->>>>>>> ccc3035cd2c1313fdfcfca29270da91a3bd32873
 
 import styles from './Styles';
 import axios from 'axios';
@@ -63,17 +41,9 @@ import { connect } from 'react-redux';
 
 const Access = (props) => {
   const [accesses, setAccesses] = useState([]);
-<<<<<<< HEAD
   const [filteredAccessePlaceName, setFilteredAccessePlaceName] = useState('');
   const [des, setDes] = useState('Loading');
-||||||| 0590402
-  const [filteredAccessePlaceName, setFilteredAccessePlaceName] = useState("");
-  const [des, setDes] = useState("Loading");
-=======
-  const [filteredAccessePlaceName, setFilteredAccessePlaceName] = useState("");
-  const [des, setDes] = useState("Loading");
   const [refresh, setRefresh] = useState(false);
->>>>>>> ccc3035cd2c1313fdfcfca29270da91a3bd32873
   const { constantValue } = props;
 
   const getSecureStoreItem = async (key) => {
@@ -81,14 +51,14 @@ const Access = (props) => {
   };
 
   const refreshPage = async () => {
-    const token = await SecureStore.getItemAsync("pms_token");
+    const token = await SecureStore.getItemAsync('pms_token');
     axios
       .get(`http://localhost:4000/auth/pamapi`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
         setAccesses(res.data.data.accesses);
-        setDes("No access available");
+        setDes('No access available');
         console.log(res.data.data.accesses);
       });
   };
