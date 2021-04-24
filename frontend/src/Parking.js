@@ -44,7 +44,7 @@ const Parking = (props) => {
       <StatusBar barStyle='default' />
       <ImageBackground
         style={styles.picBg}
-        // imageStyle={styles.picParkingBg}
+        imageStyle={styles.picParkingBg}
         source={require('../assets/car_driver.gif')}
       >
         <View style={styles.sectionContainerHeader}>

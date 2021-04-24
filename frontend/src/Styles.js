@@ -487,8 +487,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   picParkingBg: {
-    width: '70%',
+    width: '120%',
     height: '70%',
+    top: 15,
     resizeMode: 'cover',
   },
   /* LicensePlateWaitingCard Style */
