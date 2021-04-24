@@ -277,18 +277,8 @@ const Share = (props) => {
       .then((res) => {
         console.log(res);
         console.log(res.data);
-<<<<<<< HEAD
         if (res.data.status === 'OK') {
-          alert('Access was shared!');
           Actions.popTo('accesshome');
-||||||| 0590402
-        if (res.data.status === "OK") {
-          alert("Access was shared!");
-          Actions.popTo("accesshome");
-=======
-        if (res.data.status === "OK") {
-          Actions.popTo("accesshome");
->>>>>>> ccc3035cd2c1313fdfcfca29270da91a3bd32873
         }
       })
       .catch((error) => {
