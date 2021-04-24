@@ -20,14 +20,14 @@ import TextField from "./components/TextField";
 import styles from "./Styles";
 import axios from "axios";
 
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
 const Addlc = (props) => {
   const [category, setCategory] = useState("");
   const [number, setNumber] = useState("");
   const [province, setProvince] = useState("เลือกจังหวัด");
   const [provinceSelector, setProvinceSelector] = useState("กรุงเทพมหานคร");
-  const {constantValue} = props
+  const { constantValue } = props;
 
   const [categoryError, setCategoryError] = useState(false);
   const [numberError, setNumberError] = useState(false);
@@ -83,11 +83,7 @@ const Addlc = (props) => {
       setNumberError(true);
     } else if (province === "เลือกจังหวัด") {
       setProvinceError(true);
-    } else if (
-      !categoryError &&
-      !numberError &&
-      !provinceError
-    ) {
+    } else if (!categoryError && !numberError && !provinceError) {
       console.warn("Complete");
       addLicense();
     }
@@ -122,33 +118,37 @@ const Addlc = (props) => {
       <StatusBar barStyle="default" />
       <View style={styles.sectionContainerHeader}>
         <Text style={styles.sectionTitlewoNav}>Add License Plate</Text>
-        <View style={styles.licenseBlock}>
-          <View style={styles.licenseColContainer}>
-            <View style={styles.licenseCol30}>
-              <TextField
-                label="Category"
-                error1={categoryError}
-                value={category}
-                error="* Incorrect"
-                hint="กข"
-                maxLength={3}
-                onChangeText={handleChange_category}
-                autoCapitalize="none"
-              />
-            </View>
-            <View style={styles.licenseCol70}>
-              <TextField
-                label="Number"
-                error1={numberError}
-                value={number}
-                error="* Incorrect"
-                hint="1234"
-                mask="9999"
-                keyboardType="numeric"
-                onChangeText={handleChange_number}
-                autoCapitalize="none"
-              />
-            </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <View style={{ width: "38%" }}>
+            <TextField
+              label="Category"
+              error1={categoryError}
+              value={category}
+              error="* Incorrect"
+              hint="กข"
+              maxLength={3}
+              onChangeText={handleChange_category}
+              autoCapitalize="none"
+            />
+          </View>
+          <View style={{ width: "64%" }}>
+            <TextField
+              label="Number"
+              error1={numberError}
+              value={number}
+              error="* Incorrect"
+              hint="1234"
+              mask="9999"
+              keyboardType="numeric"
+              onChangeText={handleChange_number}
+              autoCapitalize="none"
+            />
           </View>
         </View>
         <TouchableOpacity onPress={toggleModal}>
@@ -190,8 +190,8 @@ const Addlc = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  const { constantValue } = state
-  return { constantValue }
+  const { constantValue } = state;
+  return { constantValue };
 };
 
 const styles1 = StyleSheet.create({});

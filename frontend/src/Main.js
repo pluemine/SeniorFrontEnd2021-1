@@ -173,7 +173,7 @@ const App = () => {
                       ? require("../assets/tab-access-focus.png")
                       : require("../assets/tab-access.png")
                   }
-                  style={{ width: 18, height: 20 }}
+                  style={{ width: 20, height: 20 }}
                 />
               )}
             >
