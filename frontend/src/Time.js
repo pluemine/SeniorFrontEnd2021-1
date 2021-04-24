@@ -20,10 +20,22 @@ import {
   TouchableHighlight,
   Image,
   ImageBackground,
+<<<<<<< HEAD
 } from 'react-native';
 import * as Helper from './components/Helper';
 import styles from './Styles';
 import axios from 'axios';
+||||||| 0590402
+} from "react-native";
+import * as Helper from './components/Helper';
+import styles from "./Styles";
+import axios from "axios";
+=======
+} from "react-native";
+import * as Helper from "./components/Helper";
+import styles from "./Styles";
+import axios from "axios";
+>>>>>>> ccc3035cd2c1313fdfcfca29270da91a3bd32873
 
 const Time = (props) => {
   const { paid, propimg, proptype, placename, time, valid, expire } = props;
@@ -72,10 +84,21 @@ const Time = (props) => {
                   <Image style={styles.picShare} source={{ uri: propimg }} />
                 </View>
                 <View>
+<<<<<<< HEAD
                   <Text style={styles.textPreTitle}>
                     {placename} ({paid})
                   </Text>
                   <Text style={styles.textMenuTitleOrange}>{proptype}</Text>
+||||||| 0590402
+                  <Text style={styles.textPreTitle}>{placename} ({paid})</Text>
+                  <Text style={styles.textMenuTitleOrange}>{proptype}</Text>
+=======
+                  <Text style={styles.textPreTitle}>{placename}</Text>
+                  <Text style={styles.textMenuTitleOrange}>
+                    {placename.toUpperCase().replace(" ", "")}
+                    {paid}
+                  </Text>
+>>>>>>> ccc3035cd2c1313fdfcfca29270da91a3bd32873
                 </View>
               </View>
             </View>
@@ -95,7 +118,7 @@ const Time = (props) => {
                       style={{ width: 25, height: 25, marginRight: 10 }}
                       source={require('../assets/icon-clock.png')}
                     />
-                    <Text style={styles.textMenuTitle}>Time</Text>
+                    <Text style={styles.textMenuTitle}>Usage Time</Text>
                   </View>
                   <Text style={styles.textMenuTitle}>
                     {time === 'NaN Hour' ? 'Unlimited' : time}
@@ -108,9 +131,45 @@ const Time = (props) => {
                 </Text>
                 <Text style={styles.textMenuTitle}>↓</Text>
                 <Text style={styles.textMenuTitle}>Expire</Text>
+<<<<<<< HEAD
                 <Text style={styles.textMenuDes}>
                   {Helper.dateMonth(expire)}
                 </Text>
+||||||| 0590402
+                <Text style={styles.textMenuDes}>{Helper.dateMonth(expire)}</Text>
+=======
+                <Text style={styles.textMenuDes}>
+                  {Helper.dateMonth(expire)}
+                </Text>
+              </View>
+              <View style={styles.cardMenuBlock}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Text style={styles.textMenuTitle}>Share Quota</Text>
+                  <Text style={styles.textMenuTitleBlue}>
+                    {accesses.share_quota}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.cardMenuBlock}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Text style={styles.textMenuTitle}>Usage Count</Text>
+                  <Text style={styles.textMenuTitleBlue}>
+                    {accesses.usage_counts}
+                  </Text>
+                </View>
+>>>>>>> ccc3035cd2c1313fdfcfca29270da91a3bd32873
               </View>
               <View
                 style={{
@@ -143,7 +202,8 @@ const Time = (props) => {
                       usagecount: accesses.usage_counts,
                       chargeprovider: accesses.is_charged_provider,
                       sharable: accesses.is_sharable,
-                      propid: accesses.property_type_id,
+                      propid: accesses.property_id,
+                      paid: accesses.parking_access_id,
                     })
                   }
                   disabled={!accesses.is_sharable}

@@ -198,11 +198,22 @@ const Topup = (props) => {
       <StatusBar barStyle="default" />
       <View style={styles.sectionContainerHeader}>
         <Text style={styles.sectionTitlewoNav}>Topup</Text>
-        <View style={styles.cardShow}>
-          <View style={styles.cardContainer}>
+        <View
+          style={{
+            marginBottom: 10,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <View>
             <Text style={styles.textHeaderBlue}>Your Balance</Text>
-            <Text style={styles.textTitle}>
-              ฿{balance} → ฿{balance + amount}
+            <Text style={styles.textTitle}>฿{balance}</Text>
+          </View>
+          <View style={{ alignItems: "flex-end" }}>
+            <Text style={styles.textHeaderBlue}>New Balance</Text>
+            <Text style={[styles.textTitle, { color: "#D99154" }]}>
+              ฿{balance + amount}
             </Text>
           </View>
         </View>

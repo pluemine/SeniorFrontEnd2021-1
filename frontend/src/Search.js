@@ -12,6 +12,7 @@ import {
   Button,
   TouchableHighlight,
   Image,
+  RefreshControl,
 } from "react-native";
 import { Router, Scene } from "react-native-router-flux";
 import {
@@ -41,7 +42,21 @@ const Search = (props) => {
   const [properties, setProperties] = useState([]);
   const [filteredSearchPlaceName, setFilteredSearchPlaceName] = useState("");
   const [des, setDes] = useState("Loading");
+  const [refresh, setRefresh] = useState(false);
   const { constantValue } = props;
+
+  const refreshPage = async () => {
+    const token = await SecureStore.getItemAsync("pms_token");
+    axios
+      .get(`http://localhost:4000/auth/ptapi/all`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        console.log(res.data.data.properties);
+        setProperties(res.data.data.properties);
+        setDes("No property available");
+      });
+  };
 
   useEffect(() => {
     const getProp = async () => {
@@ -72,7 +87,12 @@ const Search = (props) => {
     );
   } else if (properties.length > 0) {
     screen = (
-      <ScrollView style={styles.sectionContainerScroll}>
+      <ScrollView
+        style={styles.sectionContainerScroll}
+        refreshControl={
+          <RefreshControl refreshing={refresh} onRefresh={refreshPage} />
+        }
+      >
         <View>
           {properties
             .filter(

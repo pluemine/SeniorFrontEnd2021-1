@@ -80,6 +80,8 @@ const App = () => {
   const [fontLoaded, fontError] = useFonts({
     NunitoBold: require('../assets/fonts/Nunito-Bold.ttf'),
     KanitLight: require('../assets/fonts/Kanit-Light.ttf'),
+    NunitoLight: require('../assets/fonts/Nunito-Light.ttf'),
+    NunitoRegular: require('../assets/fonts/Nunito-Regular.ttf'),
   });
 
   if (!fontLoaded || fontError) return null;

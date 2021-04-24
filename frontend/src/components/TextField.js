@@ -13,8 +13,7 @@ import {
   Image,
 } from "react-native";
 import { FloatingLabelInput } from "react-native-floating-label-input";
-
-import styles from "../Styles";
+import styles, { Fonts } from "../Styles";
 
 const TextField = (props) => {
   const {
@@ -43,12 +42,24 @@ const TextField = (props) => {
       containerStyles={error1 || error2 ? styles.textboxerror : styles.textbox}
       customLabelStyles={
         error1 || error2
-          ? { colorFocused: "#FF0000", colorBlurred: "#FF0000" }
-          : { colorFocused: "#898989", colorBlurred: "#898989" }
+          ? {
+              colorFocused: "#FF0000",
+              colorBlurred: "#FF0000",
+              fontFamily: Fonts.Font,
+            }
+          : {
+              colorFocused: "#898989",
+              colorBlurred: "#898989",
+              fontFamily: Fonts.Font,
+            }
       }
+      labelStyles={{
+        fontFamily: Fonts.FontBold,
+      }}
       inputStyles={{
         color: "#000000",
         paddingHorizontal: 5,
+        fontFamily: Fonts.Font,
       }}
       value={value}
       hint={hint}
