@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Text, StatusBar } from "react-native";
+import { Text, Image } from "react-native";
+import styles from "./Styles";
 import { Actions, Router, Scene } from "react-native-router-flux";
 
 import Register from "./Register";
@@ -64,7 +65,19 @@ const App = () => {
             tabBarStyle={{ backgroundColor: "#FFFFFF" }}
             hideNavBar
           >
-            <Scene key="Home" icon={TabIcon}>
+            <Scene
+              key="Home"
+              icon={({ focused }) => (
+                <Image
+                  source={
+                    focused
+                      ? require("../assets/tab-home-focus.png")
+                      : require("../assets/tab-home.png")
+                  }
+                  style={{ width: 20, height: 20 }}
+                />
+              )}
+            >
               <Scene
                 key="homehome"
                 component={Homeuser}
@@ -114,7 +127,19 @@ const App = () => {
                 hideTabBar={true}
               />
             </Scene>
-            <Scene key="Activity" icon={TabIcon}>
+            <Scene
+              key="Activity"
+              icon={({ focused }) => (
+                <Image
+                  source={
+                    focused
+                      ? require("../assets/tab-activity-focus.png")
+                      : require("../assets/tab-activity.png")
+                  }
+                  style={{ width: 20, height: 20 }}
+                />
+              )}
+            >
               <Scene
                 key="activity"
                 component={Activity}
@@ -133,7 +158,19 @@ const App = () => {
                 hideTabBar={true}
               />
             </Scene>
-            <Scene key="Access" icon={TabIcon}>
+            <Scene
+              key="Access"
+              icon={({ focused }) => (
+                <Image
+                  source={
+                    focused
+                      ? require("../assets/tab-access-focus.png")
+                      : require("../assets/tab-access.png")
+                  }
+                  style={{ width: 18, height: 20 }}
+                />
+              )}
+            >
               <Scene
                 key="accesshome"
                 component={Access}
@@ -161,7 +198,19 @@ const App = () => {
                 hideTabBar={true}
               />
             </Scene>
-            <Scene key="Search" icon={TabIcon}>
+            <Scene
+              key="Search"
+              icon={({ focused }) => (
+                <Image
+                  source={
+                    focused
+                      ? require("../assets/tab-search-focus.png")
+                      : require("../assets/tab-search.png")
+                  }
+                  style={{ width: 20, height: 20 }}
+                />
+              )}
+            >
               <Scene
                 key="search"
                 component={Search}
@@ -172,7 +221,19 @@ const App = () => {
                 rightButtonIconStyle={{ width: 24, height: 24 }}
               />
             </Scene>
-            <Scene key="Account" icon={TabIcon}>
+            <Scene
+              key="Account"
+              icon={({ focused }) => (
+                <Image
+                  source={
+                    focused
+                      ? require("../assets/tab-account-focus.png")
+                      : require("../assets/tab-account.png")
+                  }
+                  style={{ width: 20, height: 20 }}
+                />
+              )}
+            >
               <Scene
                 key="account"
                 component={Other}
