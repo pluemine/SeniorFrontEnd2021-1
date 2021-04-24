@@ -25,6 +25,7 @@ import {
   Button,
   TouchableHighlight,
 } from 'react-native';
+import { PulseIndicator } from 'react-native-indicators';
 import styles from './Styles';
 import axios from 'axios';
 import LicensePlateWaitingCard from './components/LicensePlateWaitingCard';
@@ -46,11 +47,17 @@ const Activity = () => {
       onWaiting(userId);
       onInUse(userId);
       onInUsedRemoved(userId);
+      onWaitingRemoved(userId);
     } else {
+      setIsLoaded(true);
       userApis
         .getUserId()
-        .then((user_id) => setUserId(user_id))
+        .then((user_id) => {
+          setUserId(user_id);
+          setIsLoaded(false);
+        })
         .catch((error) => {
+          setIsLoaded(false);
           throw error;
         });
       getHistoryActivity();
@@ -58,7 +65,7 @@ const Activity = () => {
   }, [userId]);
 
   const getHistoryActivity = async () => {
-    // setIsLoaded(true);
+    setIsLoaded(true);
     await activityApis
       .getHistory()
       .then((response) => {
@@ -67,6 +74,7 @@ const Activity = () => {
       })
       .catch((error) => {
         setIsRefreshing(false);
+        setIsLoaded(false);
         throw error;
       });
   };
@@ -90,21 +98,26 @@ const Activity = () => {
     firebase
       .database()
       .ref(`users/${user_id}/waiting`)
-      .limitToLast(1)
       .on('child_added', (snapshot) => {
-        const new_added_license = {
-          license_plate_category: snapshot.val()['license_plate_category'],
-          license_plate_number: snapshot.val()['license_plate_number'],
-          province_id: snapshot.val()['province_id'],
-          usage_log_id: snapshot.val()['usage_log_id'],
-          usage_log_uid: snapshot.key,
-        };
-        if (!waitingLogUid.has(parseInt(new_added_license['usage_log_id']))) {
-          setWaitingLogUid(
-            waitingLogUid.add(parseInt(new_added_license['usage_log_id']))
-          );
-          setWaitingLists([...waitingLists, new_added_license]);
-        }
+        setTimeout(() => {
+          console.log(snapshot);
+          const new_added_license = {
+            license_plate_category: snapshot.val()['license_plate_category'],
+            license_plate_number: snapshot.val()['license_plate_number'],
+            province_id: snapshot.val()['province_id'],
+            usage_log_id: snapshot.val()['usage_log_id'],
+            usage_log_uid: snapshot.key,
+          };
+          if (!waitingLogUid.has(parseInt(new_added_license['usage_log_id']))) {
+            // console.log('Added');
+            setWaitingLogUid(
+              waitingLogUid.add(parseInt(new_added_license['usage_log_id']))
+            );
+            setWaitingLists((prevs) => {
+              return [...prevs, new_added_license];
+            });
+          }
+        }, 500);
       });
   };
 
@@ -113,16 +126,18 @@ const Activity = () => {
       .database()
       .ref(`users/${user_id}/in_use`)
       .on('child_added', (snapshot) => {
-        const in_use_added_license = {
-          usage_log_id: snapshot.val()['usage_log_id'],
-          usage_log_uid: snapshot.key,
-        };
-        if (!inUseLogId.has(parseInt(in_use_added_license['usage_log_id']))) {
-          setInUseLogId(
-            inUseLogId.add(parseInt(in_use_added_license['usage_log_id']))
-          );
-          setOnGoingActivity([...onGoingActivity, in_use_added_license]);
-        }
+        setTimeout(() => {
+          const in_use_added_license = {
+            usage_log_id: snapshot.val()['usage_log_id'],
+            usage_log_uid: snapshot.key,
+          };
+          if (!inUseLogId.has(parseInt(in_use_added_license['usage_log_id']))) {
+            setInUseLogId(
+              inUseLogId.add(parseInt(in_use_added_license['usage_log_id']))
+            );
+            setOnGoingActivity([...onGoingActivity, in_use_added_license]);
+          }
+        }, 500);
       });
   };
 
@@ -131,18 +146,48 @@ const Activity = () => {
       .database()
       .ref(`users/${user_id}/in_use`)
       .on('child_removed', (snapshot) => {
-        setOnGoingActivity((prevs) => {
-          return prevs.filter(
-            (prev) => prev['usage_log_id'] !== snapshot.val()['usage_log_id']
-          );
-        });
+        setTimeout(() => {
+          setOnGoingActivity((prevs) => {
+            return prevs.filter(
+              (prev) => prev['usage_log_id'] !== snapshot.val()['usage_log_id']
+            );
+          });
+        }, 500);
+      });
+  };
+
+  const onWaitingRemoved = (user_id) => {
+    firebase
+      .database()
+      .ref(`users/${user_id}/waiting`)
+      .limitToLast(1)
+      .on('child_removed', (snapshot) => {
+        setTimeout(() => {
+          setWaitingLists((prevs) => {
+            return prevs.filter(
+              (prev) => prev['usage_log_id'] !== snapshot.val()['usage_log_id']
+            );
+          });
+        }, 500);
       });
   };
 
   const renderHistoryActivityItem = ({ item }) => (
     <OnGoingActivityCard
-      key={item['usage_log_id']}
+      key={item['usage_log_id'].toString()}
       usage_log_id={item['usage_log_id']}
+    />
+  );
+
+  const renderOnWaitingActivityItem = ({ item }) => (
+    <LicensePlateWaitingCard
+      key={item['usage_log_id'].toString()}
+      license_plate_category={item['license_plate_category']}
+      license_plate_number={item['license_plate_number']}
+      province_id={item['province_id']}
+      usage_log_id={item['usage_log_id']}
+      usage_log_uid={item['usage_log_uid']}
+      setWaitingLists={setWaitingLists}
     />
   );
 
@@ -155,31 +200,37 @@ const Activity = () => {
           {onGoingActivity && onGoingActivity.length ? (
             <Text style={styles.sectionSubTitleActivity}>Ongoing</Text>
           ) : null}
-          {onGoingActivity.map((ongoingItem) => {
-            return (
-              <OnGoingActivityCard
-                key={ongoingItem['usage_log_id']}
-                usage_log_id={ongoingItem['usage_log_id']}
-                usage_log_uid={ongoingItem['usage_log_uid']}
-              />
-            );
-          })}
+          <SafeAreaView>
+            {onGoingActivity.map((ongoingItem) => {
+              return (
+                <OnGoingActivityCard
+                  key={ongoingItem['usage_log_id']}
+                  usage_log_id={ongoingItem['usage_log_id']}
+                  usage_log_uid={ongoingItem['usage_log_uid']}
+                />
+              );
+            })}
+          </SafeAreaView>
           {waitingLists && waitingLists.length ? (
             <Text style={styles.sectionSubTitleActivity}>Waiting</Text>
           ) : null}
-          {waitingLists.map((waitingList) => {
-            return (
-              <LicensePlateWaitingCard
-                key={waitingList['usage_log_id']}
-                license_plate_category={waitingList['license_plate_category']}
-                license_plate_number={waitingList['license_plate_number']}
-                province_id={waitingList['province_id']}
-                usage_log_id={waitingList['usage_log_id']}
-                usage_log_uid={waitingList['usage_log_uid']}
-                setWaitingLists={setWaitingLists}
-              />
-            );
-          })}
+          <SafeAreaView>
+            <FlatList
+              style={styles.waitingActivityFlatListContainer}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+              data={waitingLists}
+              renderItem={renderOnWaitingActivityItem}
+              keyExtractor={(item) => item.usage_log_id.toString()}
+              // refreshControl={
+              //   <RefreshControl
+              //     refreshing={isRefreshing}
+              //     onRefresh={onHistoryRefresh}
+              //   />
+              // }
+            />
+          </SafeAreaView>
+
           {history && history.length ? (
             <Text style={styles.sectionSubTitleActivity}>History</Text>
           ) : null}
@@ -213,19 +264,8 @@ const Activity = () => {
     );
   else if (isLoaded)
     return (
-      <View style={styles.container}>
-        <StatusBar barStyle='default' />
-        <View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitlewoNav}>Activity</Text>
-          <View style={styles.activityWrapper}>
-            <View style={styles.noDataImageWrapper}>
-              <Image
-                style={styles.loadingImage}
-                source={require('../assets/rolling-200px.gif')}
-              />
-            </View>
-          </View>
-        </View>
+      <View style={styles.sectionContainerScroll}>
+        <PulseIndicator color='#78aac2' />
       </View>
     );
   else

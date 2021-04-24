@@ -1,68 +1,74 @@
 import React, { Component } from "react";
 import { Text, Image } from "react-native";
-import styles from "./Styles";
 import { Actions, Router, Scene } from "react-native-router-flux";
+import { useFonts } from 'expo-font';
 
-import Register from "./Register";
-import Login from "./Login";
-import Home from "./Home";
-import Homeuser from "./Homeuser";
-import Time from "./Time";
-import Share from "./Share";
-import Other from "./Other";
-import Activity from "./Activity";
-import Access from "./Access";
-import Payment from "./Payment";
-import License from "./License";
-import Addlc from "./Addlc";
-import Addcard from "./Addcard";
-import Parking from "./Parking";
-import Topup from "./Topup";
-import Search from "./Search";
-import EditProfile from "./EditProfile";
+import Register from './Register';
+import Login from './Login';
+import Home from './Home';
+import Homeuser from './Homeuser';
+import Time from './Time';
+import Share from './Share';
+import Other from './Other';
+import Activity from './Activity';
+import Access from './Access';
+import Payment from './Payment';
+import License from './License';
+import Addlc from './Addlc';
+import Addcard from './Addcard';
+import Parking from './Parking';
+import Topup from './Topup';
+import Search from './Search';
+import EditProfile from './EditProfile';
 
-import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 
-import ConstantReducer from "./redux/ConstantReducer";
+import ConstantReducer from './redux/ConstantReducer';
 
 const store = createStore(ConstantReducer);
 
 // Simple component to render something in place of icon
 const TabIcon = ({ selected, title }) => {
-  return <Text style={{ color: selected ? "red" : "black" }}>{title}</Text>;
+  return <Text style={{ color: selected ? 'red' : 'black' }}>{title}</Text>;
 };
 
 const App = () => {
+  const [fontLoaded, fontError] = useFonts({
+    NunitoBold: require('../assets/fonts/Nunito-Bold.ttf'),
+  });
+
+  if (!fontLoaded || fontError) return null;
+
   return (
     <Provider store={store}>
       <Router>
-        <Scene key="root">
+        <Scene key='root'>
           <Scene
-            key="home"
+            key='home'
             component={Home}
             initial={true}
             hideTabBar
             hideNavBar
           />
           <Scene
-            key="register"
+            key='register'
             component={Register}
-            headerTintColor="#5394b5"
+            headerTintColor='#5394b5'
             navTransparent={true}
             hideTabBar
           />
           <Scene
-            key="login"
+            key='login'
             component={Login}
-            headerTintColor="#5394b5"
+            headerTintColor='#5394b5'
             navTransparent={true}
             hideTabBar
           />
           <Scene
-            key="tabbar"
+            key='tabbar'
             tabs={true}
-            tabBarStyle={{ backgroundColor: "#FFFFFF" }}
+            tabBarStyle={{ backgroundColor: '#FFFFFF' }}
             hideNavBar
           >
             <Scene
@@ -79,50 +85,50 @@ const App = () => {
               )}
             >
               <Scene
-                key="homehome"
+                key='homehome'
                 component={Homeuser}
                 navTransparent={true}
-                headerTintColor="#5394b5"
+                headerTintColor='#5394b5'
                 initial={true}
               />
               <Scene
-                key="license"
+                key='license'
                 component={License}
-                headerTintColor="#5394b5"
+                headerTintColor='#5394b5'
                 navTransparent={true}
                 hideTabBar={true}
                 onRight={() => Actions.refresh({ key: Math.random() })}
-                rightButtonImage={require("../assets/icon-refresh.png")}
+                rightButtonImage={require('../assets/icon-refresh.png')}
                 rightButtonIconStyle={{ width: 24, height: 24 }}
               />
               <Scene
-                key="addlc"
+                key='addlc'
                 component={Addlc}
-                headerTintColor="#5394b5"
+                headerTintColor='#5394b5'
                 navTransparent={true}
                 hideTabBar={true}
               />
               <Scene
-                key="payment"
+                key='payment'
                 component={Payment}
-                headerTintColor="#5394b5"
+                headerTintColor='#5394b5'
                 navTransparent={true}
                 hideTabBar={true}
                 onRight={() => Actions.refresh({ key: Math.random() })}
-                rightButtonImage={require("../assets/icon-refresh.png")}
+                rightButtonImage={require('../assets/icon-refresh.png')}
                 rightButtonIconStyle={{ width: 24, height: 24 }}
               />
               <Scene
-                key="addcard"
+                key='addcard'
                 component={Addcard}
-                headerTintColor="#5394b5"
+                headerTintColor='#5394b5'
                 navTransparent={true}
                 hideTabBar={true}
               />
               <Scene
-                key="topup"
+                key='topup'
                 component={Topup}
-                headerTintColor="#5394b5"
+                headerTintColor='#5394b5'
                 navTransparent={true}
                 hideTabBar={true}
               />
@@ -141,20 +147,20 @@ const App = () => {
               )}
             >
               <Scene
-                key="activity"
+                key='activity'
                 component={Activity}
                 navTransparent={true}
-                headerTintColor="#5394b5"
+                headerTintColor='#5394b5'
                 onRight={() => Actions.refresh({ key: Math.random() })}
-                rightButtonImage={require("../assets/icon-refresh.png")}
+                rightButtonImage={require('../assets/icon-refresh.png')}
                 rightButtonIconStyle={{ width: 24, height: 24 }}
                 initial={true}
               />
               <Scene
-                key="parking"
+                key='parking'
                 component={Parking}
                 navTransparent={true}
-                headerTintColor="#5394b5"
+                headerTintColor='#5394b5'
                 hideTabBar={true}
               />
             </Scene>
@@ -172,28 +178,28 @@ const App = () => {
               )}
             >
               <Scene
-                key="accesshome"
+                key='accesshome'
                 component={Access}
                 initial={true}
                 navTransparent={true}
-                headerTintColor="#5394b5"
+                headerTintColor='#5394b5'
                 onRight={() => Actions.refresh({ key: Math.random() })}
-                rightButtonImage={require("../assets/icon-refresh.png")}
+                rightButtonImage={require('../assets/icon-refresh.png')}
                 rightButtonIconStyle={{ width: 24, height: 24 }}
               />
               <Scene
-                key="time"
+                key='time'
                 component={Time}
                 navTransparent={true}
-                headerTintColor="#5394b5"
+                headerTintColor='#5394b5'
                 hideNavBar={false}
                 hideTabBar={true}
               />
               <Scene
-                key="share"
+                key='share'
                 component={Share}
                 navTransparent={true}
-                headerTintColor="#5394b5"
+                headerTintColor='#5394b5'
                 hideNavBar={false}
                 hideTabBar={true}
               />
@@ -212,12 +218,12 @@ const App = () => {
               )}
             >
               <Scene
-                key="search"
+                key='search'
                 component={Search}
                 navTransparent={true}
-                headerTintColor="#5394b5"
+                headerTintColor='#5394b5'
                 onRight={() => Actions.refresh({ key: Math.random() })}
-                rightButtonImage={require("../assets/icon-refresh.png")}
+                rightButtonImage={require('../assets/icon-refresh.png')}
                 rightButtonIconStyle={{ width: 24, height: 24 }}
               />
             </Scene>
@@ -235,23 +241,23 @@ const App = () => {
               )}
             >
               <Scene
-                key="account"
+                key='account'
                 component={Other}
                 navTransparent={true}
-                headerTintColor="#5394b5"
+                headerTintColor='#5394b5'
                 onRight={() => Actions.refresh({ key: Math.random() })}
-                rightButtonImage={require("../assets/icon-refresh.png")}
+                rightButtonImage={require('../assets/icon-refresh.png')}
                 rightButtonIconStyle={{ width: 24, height: 24 }}
                 initial={true}
               />
               <Scene
-                key="edit"
+                key='edit'
                 component={EditProfile}
                 navTransparent={true}
-                headerTintColor="#5394b5"
+                headerTintColor='#5394b5'
                 hideTabBar={true}
                 onRight={() => Actions.refresh({ key: Math.random() })}
-                rightButtonImage={require("../assets/icon-refresh.png")}
+                rightButtonImage={require('../assets/icon-refresh.png')}
                 rightButtonIconStyle={{ width: 24, height: 24 }}
               />
             </Scene>

@@ -1,12 +1,12 @@
-import React, { Component, useState, useEffect } from "react";
-import activityApi from "../apis/activity.api";
+import React, { Component, useState, useEffect } from 'react';
+import activityApi from '../apis/activity.api';
 import {
   Header,
   LearnMoreLinks,
   Colors,
   DebugInstructions,
   ReloadInstructions,
-} from "react-native/Libraries/NewAppScreen";
+} from 'react-native/Libraries/NewAppScreen';
 import {
   SafeAreaView,
   StyleSheet,
@@ -20,34 +20,34 @@ import {
   Alert,
   TouchableOpacity,
   Image,
-} from "react-native";
+} from 'react-native';
 
-import styles, { MyColor } from "../Styles";
-import { Actions } from "react-native-router-flux";
+import styles, { MyColor } from '../Styles';
+import { Actions } from 'react-native-router-flux';
 
 const months = [
-  "JAN",
-  "FEB",
-  "MAR",
-  "APR",
-  "MAY",
-  "JUNE",
-  "JUL",
-  "AUG",
-  "SEP",
-  "OCT",
-  "NOV",
-  "DEC",
+  'JAN',
+  'FEB',
+  'MAR',
+  'APR',
+  'MAY',
+  'JUNE',
+  'JUL',
+  'AUG',
+  'SEP',
+  'OCT',
+  'NOV',
+  'DEC',
 ];
 
 const formatAMPM = (date) => {
   var hours = date.getHours();
   var minutes = date.getMinutes();
-  var ampm = hours >= 12 ? "PM" : "AM";
+  var ampm = hours >= 12 ? 'PM' : 'AM';
   hours = hours % 12;
   hours = hours ? hours : 12; // the hour '0' should be '12'
-  minutes = minutes < 10 ? "0" + minutes : minutes;
-  var strTime = hours + ":" + minutes + " " + ampm;
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm;
   return strTime;
 };
 
@@ -73,7 +73,12 @@ const OnGoingActivityCard = (props) => {
 
   if (usageInfo)
     return (
-      <TouchableHighlight underlayColor="none" onPress={() => {Actions.parking({usage_log_id: usage_log_id})}}>
+      <TouchableHighlight
+        underlayColor='none'
+        onPress={() => {
+          Actions.parking({ usage_log_id: usage_log_id });
+        }}
+      >
         <View style={styles.ongoingActivityCardWrapper}>
           <View style={styles.ongoingActivityCard}>
             <View style={styles.ongoingActivityCardContainer}>
@@ -83,22 +88,22 @@ const OnGoingActivityCard = (props) => {
                     <Image
                       style={styles.historyActivityCardPropertyImage}
                       source={
-                        usageInfo["exit_at"]
-                          ? require("../../assets/file_icon_x128.png")
-                          : require("../../assets/ongoing_icon_x128.png")
+                        usageInfo['is_completed']
+                          ? require('../../assets/file_icon_x128.png')
+                          : require('../../assets/ongoing_icon_x128.png')
                       }
                     />
                   </View>
                   <View style={styles.ongoingActivityCardInfoTextWrapper}>
                     <Text style={styles.ongoingActivityCardInfoPropertyName}>
-                      {usageInfo["property_name"]}
+                      {usageInfo['property_name']}
                     </Text>
                     <Text style={styles.ongoingActivityCardInfoLicenseNumber}>
-                      {usageInfo["license_plate_category"]}{" "}
-                      {usageInfo["license_plate_number"]}
+                      {usageInfo['license_plate_category']}{' '}
+                      {usageInfo['license_plate_number']}
                     </Text>
                     <Text style={styles.ongoingActivityCardInfoLicenseProvince}>
-                      {usageInfo["province_id"]}
+                      {usageInfo['province_id']}
                     </Text>
                   </View>
                 </View>
@@ -106,15 +111,15 @@ const OnGoingActivityCard = (props) => {
                   <Text style={styles.ongoingActivityCardInfoDateTime}>
                     {`${
                       months[
-                        new Date(usageInfo["entrance_at"].toString()).getMonth()
+                        new Date(usageInfo['entrance_at'].toString()).getMonth()
                       ]
                     } ${new Date(
-                      usageInfo["entrance_at"].toString()
+                      usageInfo['entrance_at'].toString()
                     ).getDate()}`}
                   </Text>
                   <Text style={styles.ongoingActivityCardInfoDateTime}>
                     {`${formatAMPM(
-                      new Date(usageInfo["entrance_at"].toString())
+                      new Date(usageInfo['entrance_at'].toString())
                     )}`}
                   </Text>
                 </View>

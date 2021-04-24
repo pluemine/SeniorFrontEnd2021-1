@@ -24,6 +24,8 @@ import {
   Image,
 } from 'react-native';
 
+import { connect } from 'react-redux';
+
 import styles, { MyColor } from '../Styles';
 
 const LicensePlateWaitingCard = (props) => {
@@ -34,13 +36,14 @@ const LicensePlateWaitingCard = (props) => {
     usage_log_id,
     usage_log_uid,
     setWaitingLists,
+    constantValue,
   } = props;
 
-  const [fontLoaded, fontError] = useFonts({
-    KanitLight: require('../../assets/fonts/Kanit-Light.ttf'),
-  });
+  // const [fontLoaded, fontError] = useFonts({
+  //   KanitLight: require('../../assets/fonts/Kanit-Light.ttf'),
+  // });
 
-  if (!fontLoaded || fontError) return null;
+  // if (!fontLoaded || fontError) return null;
 
   //   const claimLicensePlate = async (usage_log_id, usage_log_uid) => {
   //     const token =
@@ -108,7 +111,7 @@ const LicensePlateWaitingCard = (props) => {
                 {license_plate_category} {license_plate_number}
               </Text>
               <Text style={styles.licensePlateWaitingCardInfoLicenseProvince}>
-                {province_id}
+                {constantValue.current.idToProvinces[parseInt(province_id)]}
               </Text>
             </View>
           </View>
@@ -156,4 +159,9 @@ const LicensePlateWaitingCard = (props) => {
 
 const styles1 = StyleSheet.create({});
 
-export default LicensePlateWaitingCard;
+const mapStateToProps = (state) => {
+  const { constantValue } = state;
+  return { constantValue };
+};
+
+export default connect(mapStateToProps)(LicensePlateWaitingCard);
