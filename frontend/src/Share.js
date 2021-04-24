@@ -38,6 +38,7 @@ const Share = (props) => {
     chargeprovider,
     sharable,
     propid,
+    paid,
   } = props;
 
   const [email, setEmail] = useState("");
@@ -258,6 +259,7 @@ const Share = (props) => {
       .post(
         `http://localhost:4000/auth/pamapi/share`,
         {
+          parking_access_id: paid,
           email: email,
           license_plate_category: category,
           license_plate_number: number,
@@ -276,7 +278,6 @@ const Share = (props) => {
         console.log(res);
         console.log(res.data);
         if (res.data.status === "OK") {
-          alert("Access was shared!");
           Actions.popTo("accesshome");
         }
       })

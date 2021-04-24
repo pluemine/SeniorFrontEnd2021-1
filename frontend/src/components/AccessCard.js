@@ -47,8 +47,10 @@ const AccessCard = (props) => {
         </View>
         <View style={styles1.col60}>
           <View style={styles1.col60_flex}>
-            <Text style={{ ...styles.textHeader }}>
-              {placename} ({paid})
+            <Text style={[styles.textHeader,{marginBottom: 0}]}>{placename}</Text>
+            <Text style={[styles.textMenuDesBold,{marginBottom: 10}]}>
+              {placename.toUpperCase().replace(" ", "")}
+              {paid}
             </Text>
             <Text style={styles.textDes}>
               <Text style={styles.textMenuDesBold}>Valid </Text>

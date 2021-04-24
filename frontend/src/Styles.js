@@ -23,7 +23,8 @@ export const MyColor = {
 };
 
 export const Fonts = {
-  TitleFont: 'NunitoBold',
+  FontBold: 'NunitoBold',
+  Font: 'NunitoRegular',
 };
 
 const styles = StyleSheet.create({
@@ -65,40 +66,45 @@ const styles = StyleSheet.create({
   },
   sectionTitlewoNav: {
     fontSize: 32,
-    fontFamily: Fonts.TitleFont,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '600',
     color: MyColor.black,
     marginBottom: 20,
     paddingTop: 40,
   },
   sectionSubTitleActivity: {
     fontSize: 24,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '600',
     color: MyColor.black,
     marginBottom: 12,
   },
   sectionTitlewoNavWhite: {
     fontSize: 32,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '600',
     color: MyColor.white,
     marginBottom: 20,
     paddingTop: 40,
   },
   sectionSubtitle: {
     fontSize: 14,
-    fontWeight: '800',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '800',
     color: MyColor.highlight,
   },
   sectionDescription: {
     marginTop: 8,
     fontSize: 14,
-    fontWeight: '400',
+    fontFamily: Fonts.Font,
+    //fontWeight: '400',
     color: MyColor.gray1,
   },
   sectionOption: {
     marginTop: 20,
     fontSize: 14,
-    fontWeight: '400',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '400',
     color: MyColor.gray1,
     textAlign: 'center',
   },
@@ -126,6 +132,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingLeft: 5,
     fontSize: 10,
+    fontFamily: Fonts.Font,
     color: MyColor.red2,
   },
 
@@ -153,7 +160,8 @@ const styles = StyleSheet.create({
   buttonText: {
     color: MyColor.white,
     textAlign: 'center',
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '600',
     fontSize: 16,
   },
   buttonbdr: {
@@ -168,7 +176,8 @@ const styles = StyleSheet.create({
   buttonbdrText: {
     color: MyColor.button,
     textAlign: 'center',
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '600',
     fontSize: 16,
   },
   buttonbdrRed: {
@@ -183,7 +192,8 @@ const styles = StyleSheet.create({
   buttonTextRed: {
     color: MyColor.buttonred,
     textAlign: 'center',
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '600',
     fontSize: 16,
   },
   buttonPicker: {
@@ -208,90 +218,107 @@ const styles = StyleSheet.create({
   },
   textButtonPicker: {
     fontSize: 15,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '600',
     color: MyColor.black,
   },
   textButtonPickerSelect: {
     fontSize: 15,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '600',
     color: MyColor.white,
   },
 
   //text
   textHeader: {
     fontSize: 20,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '600',
     color: Colors.black,
     marginBottom: 10,
   },
   textHeaderBlue: {
     fontSize: 18,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '600',
     color: MyColor.blue,
     marginBottom: 5,
   },
   textTitle: {
     fontSize: 32,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '600',
     color: MyColor.black,
   },
   textTitleBlue: {
     fontSize: 32,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '600',
     color: MyColor.blue,
   },
   textPreTitle: {
     fontSize: 28,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '600',
     color: MyColor.black,
   },
   textSubtitle: {
     fontSize: 18,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '600',
     color: Colors.black,
   },
   textDes: {
     fontSize: 12,
+    fontFamily: Fonts.Font,
     color: Colors.dark,
   },
   textSubtitleWhite: {
     fontSize: 18,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '600',
     color: Colors.white,
   },
   textDesWhite: {
     fontSize: 12,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '600',
     color: Colors.white,
   },
   textMenuTitle: {
     fontSize: 15,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '600',
     color: MyColor.black,
   },
   textMenuTitleRed: {
     fontSize: 15,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '600',
     color: MyColor.red1,
   },
   textMenuTitleBlue: {
     fontSize: 15,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '600',
     color: MyColor.blue,
   },
   textMenuTitleOrange: {
     fontSize: 15,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '600',
     color: MyColor.pressedOrange,
   },
   textMenuDes: {
     fontSize: 12,
-    fontWeight: '400',
+    fontFamily: Fonts.Font,
+    //fontWeight: '400',
     color: MyColor.gray1,
   },
   textMenuDesBold: {
     fontSize: 12,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '600',
     color: MyColor.black,
   },
 
@@ -514,8 +541,7 @@ const styles = StyleSheet.create({
   },
   licensePlateWaitingCardInfoLicenseNumber: {
     fontSize: 26,
-    fontFamily: 'KanitLight',
-    fontWeight: '600',
+    fontFamily: Fonts.Font,
     color: MyColor.black,
   },
   licensePlateWaitingCardInfoLicenseProvince: {
@@ -729,6 +755,15 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     justifyContent: 'space-between',
   },
+  modalAccessArea: {
+    width: '100%',
+    height: 500,
+    backgroundColor: '#FFFFFF',
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    borderRadius: 25,
+    justifyContent: 'space-between',
+  },
   modalCancel: {
     width: '100%',
     height: 60,
@@ -741,31 +776,31 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     fontSize: 32,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
     color: MyColor.black,
     marginVertical: 20,
     marginHorizontal: 20,
   },
   modalTitleRed: {
     fontSize: 32,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
     color: MyColor.red2,
     marginVertical: 20,
     marginHorizontal: 20,
   },
   modalTextTitle: {
     fontSize: 15,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
     color: MyColor.black,
   },
   modalTextTitleHighlight: {
     fontSize: 15,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
     color: MyColor.black,
   },
   modalTextDes: {
     fontSize: 12,
-    fontWeight: '400',
+    fontFamily: Fonts.Font,
     color: MyColor.gray1,
   },
   modalTextBlock: {
@@ -789,7 +824,7 @@ const styles = StyleSheet.create({
     //color: "#444444",
     textAlign: 'center',
     fontSize: 18,
-    fontWeight: '600',
+    fontFamily: Fonts.FontBold,
     marginVertical: 40,
   },
 

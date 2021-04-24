@@ -12,6 +12,7 @@ import {
   Button,
   TouchableHighlight,
   Image,
+  RefreshControl,
 } from "react-native";
 import { Router, Scene } from "react-native-router-flux";
 import {
@@ -31,7 +32,7 @@ import Register from "./Register";
 import Login from "./Login";
 import Home from "./Home";
 import AccessCard from "./components/AccessCard";
-import * as Helper from './components/Helper';
+import * as Helper from "./components/Helper";
 
 import styles from "./Styles";
 import axios from "axios";
@@ -42,10 +43,24 @@ const Access = (props) => {
   const [accesses, setAccesses] = useState([]);
   const [filteredAccessePlaceName, setFilteredAccessePlaceName] = useState("");
   const [des, setDes] = useState("Loading");
+  const [refresh, setRefresh] = useState(false);
   const { constantValue } = props;
 
   const getSecureStoreItem = async (key) => {
     return await SecureStore.getItemAsync(key);
+  };
+
+  const refreshPage = async () => {
+    const token = await SecureStore.getItemAsync("pms_token");
+    axios
+      .get(`http://localhost:4000/auth/pamapi`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        setAccesses(res.data.data.accesses);
+        setDes("No access available");
+        console.log(res.data.data.accesses);
+      });
   };
 
   useEffect(() => {
@@ -77,7 +92,12 @@ const Access = (props) => {
     );
   } else if (accesses.length > 0) {
     screen = (
-      <ScrollView style={styles.sectionContainerScroll}>
+      <ScrollView
+        style={styles.sectionContainerScroll}
+        refreshControl={
+          <RefreshControl refreshing={refresh} onRefresh={refreshPage} />
+        }
+      >
         <View>
           {accesses
             .filter(

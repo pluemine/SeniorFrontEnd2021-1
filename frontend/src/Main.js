@@ -36,6 +36,8 @@ const TabIcon = ({ selected, title }) => {
 const App = () => {
   const [fontLoaded, fontError] = useFonts({
     NunitoBold: require('../assets/fonts/Nunito-Bold.ttf'),
+    NunitoLight: require('../assets/fonts/Nunito-Light.ttf'),
+    NunitoRegular: require('../assets/fonts/Nunito-Regular.ttf')
   });
 
   if (!fontLoaded || fontError) return null;
