@@ -24,6 +24,8 @@ import {
   Image,
 } from 'react-native';
 
+import { connect } from 'react-redux';
+
 import styles, { MyColor } from '../Styles';
 
 const LicensePlateWaitingCard = (props) => {

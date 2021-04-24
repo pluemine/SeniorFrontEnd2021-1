@@ -508,13 +508,13 @@ const styles = StyleSheet.create({
     // marginLeft: 20,
   },
   licensePlateWaitingCardInfoLicenseNumber: {
-    fontSize: 32,
+    fontSize: 26,
     fontFamily: 'KanitLight',
     fontWeight: '600',
     color: MyColor.black,
   },
   licensePlateWaitingCardInfoLicenseProvince: {
-    fontSize: 24,
+    fontSize: 16,
     fontWeight: '400',
     color: MyColor.gray2,
   },
