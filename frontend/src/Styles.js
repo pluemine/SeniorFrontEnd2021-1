@@ -20,10 +20,12 @@ export const MyColor = {
   pressedOrange: '#D99154',
   dark_orange: '#c2722f',
   disable: '#cccccc',
+  tabBarUnFocus: '#c4c4c4',
 };
 
 export const Fonts = {
   TitleFont: 'NunitoBold',
+  thaiFontLight: 'KanitLight',
 };
 
 const styles = StyleSheet.create({
@@ -295,6 +297,31 @@ const styles = StyleSheet.create({
     color: MyColor.black,
   },
 
+  //tabbar
+  tabBarStyle: {
+    backgroundColor: '#fff',
+    borderColor: 'rgba(255, 255, 255, 1)',
+    borderTopColor: null,
+    // shadowColor: MyColor.gray2,
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.25,
+    // shadowRadius: 8,
+    // elevation: 5,
+  },
+  tabBarTitle: {
+    color: MyColor.gray3,
+    fontSize: 12,
+    fontFamily: Fonts.TitleFont,
+  },
+  tabBarTitleActive: {
+    color: MyColor.blue,
+    fontSize: 12,
+    fontFamily: Fonts.TitleFont,
+  },
+
   //card
   itemcard: {
     borderRadius: 10,
@@ -459,7 +486,11 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'space-between',
   },
-
+  picParkingBg: {
+    width: '70%',
+    height: '70%',
+    resizeMode: 'cover',
+  },
   /* LicensePlateWaitingCard Style */
   licensePlateWaitingCardWrapper: {
     position: 'relative',
@@ -514,7 +545,7 @@ const styles = StyleSheet.create({
   },
   licensePlateWaitingCardInfoLicenseNumber: {
     fontSize: 26,
-    fontFamily: 'KanitLight',
+    fontFamily: Fonts.thaiFontLight,
     fontWeight: '600',
     color: MyColor.black,
   },

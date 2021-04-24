@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Text, Image } from "react-native";
-import { Actions, Router, Scene } from "react-native-router-flux";
+import React, { Component } from 'react';
+import { Text, Image, View } from 'react-native';
+import { Actions, Router, Scene } from 'react-native-router-flux';
 import { useFonts } from 'expo-font';
 
 import Register from './Register';
@@ -25,17 +25,61 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 import ConstantReducer from './redux/ConstantReducer';
+import styles, { MyColor } from './Styles';
 
 const store = createStore(ConstantReducer);
 
-// Simple component to render something in place of icon
-const TabIcon = ({ selected, title }) => {
-  return <Text style={{ color: selected ? 'red' : 'black' }}>{title}</Text>;
+const iconImgSrc = {
+  Home: {
+    active: require('../assets/tab-home-focus.png'),
+    inactive: require('../assets/tab-home.png'),
+  },
+  Activity: {
+    active: require('../assets/tab-activity-focus.png'),
+    inactive: require('../assets/tab-activity.png'),
+  },
+  Access: {
+    active: require('../assets/tab-access-focus.png'),
+    inactive: require('../assets/tab-access.png'),
+  },
+  Search: {
+    active: require('../assets/tab-search-focus.png'),
+    inactive: require('../assets/tab-search.png'),
+  },
+  Account: {
+    active: require('../assets/tab-account-focus.png'),
+    inactive: require('../assets/tab-account.png'),
+  },
+};
+
+const TabBarIcon = ({ focused, title }) => {
+  const imgSrcInactive = iconImgSrc[title].inactive;
+  const imgSrcActive = iconImgSrc[title].active;
+  return (
+    <View
+      style={{
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        alignSelf: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Image
+        source={focused ? imgSrcActive : imgSrcInactive}
+        style={{ width: 20, height: 20, marginBottom: 2 }}
+      />
+      <Text style={focused ? styles.tabBarTitleActive : styles.tabBarTitle}>
+        {title}
+      </Text>
+    </View>
+  );
 };
 
 const App = () => {
   const [fontLoaded, fontError] = useFonts({
     NunitoBold: require('../assets/fonts/Nunito-Bold.ttf'),
+    KanitLight: require('../assets/fonts/Kanit-Light.ttf'),
   });
 
   if (!fontLoaded || fontError) return null;
@@ -68,22 +112,12 @@ const App = () => {
           <Scene
             key='tabbar'
             tabs={true}
-            tabBarStyle={{ backgroundColor: '#FFFFFF' }}
+            tabBarStyle={styles.tabBarStyle}
+            titleStyle={{ display: 'none' }}
+            showLabel={false}
             hideNavBar
           >
-            <Scene
-              key="Home"
-              icon={({ focused }) => (
-                <Image
-                  source={
-                    focused
-                      ? require("../assets/tab-home-focus.png")
-                      : require("../assets/tab-home.png")
-                  }
-                  style={{ width: 20, height: 20 }}
-                />
-              )}
-            >
+            <Scene key='Home' title='Home' icon={TabBarIcon}>
               <Scene
                 key='homehome'
                 component={Homeuser}
@@ -133,19 +167,7 @@ const App = () => {
                 hideTabBar={true}
               />
             </Scene>
-            <Scene
-              key="Activity"
-              icon={({ focused }) => (
-                <Image
-                  source={
-                    focused
-                      ? require("../assets/tab-activity-focus.png")
-                      : require("../assets/tab-activity.png")
-                  }
-                  style={{ width: 20, height: 20 }}
-                />
-              )}
-            >
+            <Scene key='Activity' title='Activity' icon={TabBarIcon}>
               <Scene
                 key='activity'
                 component={Activity}
@@ -164,19 +186,7 @@ const App = () => {
                 hideTabBar={true}
               />
             </Scene>
-            <Scene
-              key="Access"
-              icon={({ focused }) => (
-                <Image
-                  source={
-                    focused
-                      ? require("../assets/tab-access-focus.png")
-                      : require("../assets/tab-access.png")
-                  }
-                  style={{ width: 20, height: 20 }}
-                />
-              )}
-            >
+            <Scene key='Access' title='Access' icon={TabBarIcon}>
               <Scene
                 key='accesshome'
                 component={Access}
@@ -204,19 +214,7 @@ const App = () => {
                 hideTabBar={true}
               />
             </Scene>
-            <Scene
-              key="Search"
-              icon={({ focused }) => (
-                <Image
-                  source={
-                    focused
-                      ? require("../assets/tab-search-focus.png")
-                      : require("../assets/tab-search.png")
-                  }
-                  style={{ width: 20, height: 20 }}
-                />
-              )}
-            >
+            <Scene key='Search' title='Search' icon={TabBarIcon}>
               <Scene
                 key='search'
                 component={Search}
@@ -227,19 +225,7 @@ const App = () => {
                 rightButtonIconStyle={{ width: 24, height: 24 }}
               />
             </Scene>
-            <Scene
-              key="Account"
-              icon={({ focused }) => (
-                <Image
-                  source={
-                    focused
-                      ? require("../assets/tab-account-focus.png")
-                      : require("../assets/tab-account.png")
-                  }
-                  style={{ width: 20, height: 20 }}
-                />
-              )}
-            >
+            <Scene key='Account' title='Account' icon={TabBarIcon}>
               <Scene
                 key='account'
                 component={Other}

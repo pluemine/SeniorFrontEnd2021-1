@@ -1,6 +1,6 @@
-import React, { Component, useState, useEffect } from "react";
-import * as SecureStore from "expo-secure-store";
-import { Actions } from "react-native-router-flux";
+import React, { Component, useState, useEffect } from 'react';
+import * as SecureStore from 'expo-secure-store';
+import { Actions } from 'react-native-router-flux';
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,10 +14,10 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
-} from "react-native";
+} from 'react-native';
 import * as Helper from './components/Helper';
-import styles from "./Styles";
-import axios from "axios";
+import styles from './Styles';
+import axios from 'axios';
 
 const Parking = (props) => {
   const { usage_log_id } = props;
@@ -26,7 +26,7 @@ const Parking = (props) => {
 
   useEffect(() => {
     const getUser = async () => {
-      const token = await SecureStore.getItemAsync("pms_token");
+      const token = await SecureStore.getItemAsync('pms_token');
       axios
         .get(`http://localhost:4000/auth/aapi?id=${usage_log_id}`, {
           headers: { Authorization: `Bearer ${token}` },
@@ -41,10 +41,11 @@ const Parking = (props) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="default" />
+      <StatusBar barStyle='default' />
       <ImageBackground
         style={styles.picBg}
-        source={require("../assets/parking.jpg")}
+        // imageStyle={styles.picParkingBg}
+        source={require('../assets/car_driver.gif')}
       >
         <View style={styles.sectionContainerHeader}>
           <Text style={styles.sectionTitlewoNav}>Parking Info</Text>
@@ -54,35 +55,33 @@ const Parking = (props) => {
             <View style={styles.cardMenuBlock}>
               <View
                 style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
                 }}
               >
                 <Text style={styles.textTitle}>{data.property_name}</Text>
                 <Text style={styles.textMenuTitleOrange}>
-                  {data.exit_at === null
-                    ? "Parking Ongoing"
-                    : "Completed"}
+                  {data.exit_at === null ? 'Parking Ongoing' : 'Completed'}
                 </Text>
               </View>
             </View>
             <TouchableHighlight
               style={styles.cardMenuBlock}
-              underlayColor="none"
+              underlayColor='none'
             >
               <View>
                 <View
                   style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
                   }}
                 >
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Image
                       style={{ width: 25, height: 25, marginRight: 10 }}
-                      source={require("../assets/icon-fee.png")}
+                      source={require('../assets/icon-fee.png')}
                     />
                     <Text style={styles.textMenuTitle}>Fee</Text>
                   </View>
@@ -92,26 +91,26 @@ const Parking = (props) => {
             </TouchableHighlight>
             <View
               style={{
-                borderBottomColor: "#EEEEEE",
+                borderBottomColor: '#EEEEEE',
                 borderBottomWidth: 1,
               }}
             />
             <TouchableHighlight
               style={styles.cardMenuBlock}
-              underlayColor="none"
+              underlayColor='none'
             >
               <View>
                 <View
                   style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
                   }}
                 >
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Image
                       style={{ width: 25, height: 25, marginRight: 10 }}
-                      source={require("../assets/icon-clock.png")}
+                      source={require('../assets/icon-clock.png')}
                     />
                     <Text style={styles.textMenuTitle}>Time used</Text>
                   </View>
@@ -119,34 +118,40 @@ const Parking = (props) => {
                 </View>
                 <Text style={styles.textMenuTitle}> </Text>
                 <Text style={styles.textMenuTitle}>From</Text>
-                <Text style={styles.textMenuDes}>{Helper.dateMonth(data.entrance_at)}</Text>
+                <Text style={styles.textMenuDes}>
+                  {Helper.dateMonth(data.entrance_at)}
+                </Text>
                 <Text style={styles.textMenuTitle}>↓</Text>
                 <Text style={styles.textMenuTitle}>Until</Text>
-                <Text style={styles.textMenuDes}>{data.exit_at != null ? Helper.dateMonth(data.exit_at) : "Now"}</Text>
+                <Text style={styles.textMenuDes}>
+                  {data.exit_at != null
+                    ? Helper.dateMonth(data.exit_at)
+                    : 'Now'}
+                </Text>
               </View>
             </TouchableHighlight>
             <View
               style={{
-                borderBottomColor: "#EEEEEE",
+                borderBottomColor: '#EEEEEE',
                 borderBottomWidth: 1,
               }}
             />
             <TouchableHighlight
               style={styles.cardMenuBlock}
-              underlayColor="none"
+              underlayColor='none'
             >
               <View>
                 <View
                   style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
                   }}
                 >
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Image
                       style={{ width: 25, height: 20, marginRight: 10 }}
-                      source={require("../assets/icon-lc.png")}
+                      source={require('../assets/icon-lc.png')}
                     />
                     <Text style={styles.textMenuTitle}>License Plate</Text>
                   </View>
@@ -158,26 +163,26 @@ const Parking = (props) => {
             </TouchableHighlight>
             <View
               style={{
-                borderBottomColor: "#EEEEEE",
+                borderBottomColor: '#EEEEEE',
                 borderBottomWidth: 1,
               }}
             />
             <TouchableHighlight
               style={styles.cardMenuBlock}
-              underlayColor="none"
+              underlayColor='none'
             >
               <View>
                 <View
                   style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
                   }}
                 >
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Image
                       style={{ width: 25, height: 14, marginRight: 10 }}
-                      source={require("../assets/icon-coupon-focus.png")}
+                      source={require('../assets/icon-coupon-focus.png')}
                     />
                     <Text style={styles.textMenuTitleBlue}>Coupon in-use</Text>
                   </View>
