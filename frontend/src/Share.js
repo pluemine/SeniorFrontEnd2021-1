@@ -1,6 +1,6 @@
-import React, { Component, useState } from "react";
-import * as SecureStore from "expo-secure-store";
-import { Actions } from "react-native-router-flux";
+import React, { Component, useState } from 'react';
+import * as SecureStore from 'expo-secure-store';
+import { Actions } from 'react-native-router-flux';
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,16 +14,16 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
-} from "react-native";
-import styles from "./Styles";
-import axios from "axios";
-import ProvinceModal from "./components/ProvinceModal";
-import DateModal from "./components/DateModal";
-import ListModal from "./components/ListModal";
-import TextField from "./components/TextField";
-import * as Helper from "./components/Helper";
+} from 'react-native';
+import styles from './Styles';
+import axios from 'axios';
+import ProvinceModal from './components/ProvinceModal';
+import DateModal from './components/DateModal';
+import ListModal from './components/ListModal';
+import TextField from './components/TextField';
+import * as Helper from './components/Helper';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 const Share = (props) => {
   const {
@@ -40,14 +40,14 @@ const Share = (props) => {
     propid,
   } = props;
 
-  const [email, setEmail] = useState("");
-  const [category, setCategory] = useState("");
-  const [number, setNumber] = useState("");
-  const [province, setProvince] = useState("เลือกจังหวัด");
+  const [email, setEmail] = useState('');
+  const [category, setCategory] = useState('');
+  const [number, setNumber] = useState('');
+  const [province, setProvince] = useState('เลือกจังหวัด');
   const [nowValid, setValid] = useState(new Date());
   const [nowExpire, setExpire] = useState(new Date());
-  const [quota, setQuota] = useState("เลือกจำนวน");
-  const [usage, setUsage] = useState("เลือกจำนวน");
+  const [quota, setQuota] = useState('เลือกจำนวน');
+  const [usage, setUsage] = useState('เลือกจำนวน');
 
   const [emailError, setEmailError] = useState(false);
   const [categoryError, setCategoryError] = useState(false);
@@ -60,9 +60,9 @@ const Share = (props) => {
 
   const [validSelector, setValidSelector] = useState(new Date());
   const [expireSelector, setExpireSelector] = useState(new Date());
-  const [provinceSelector, setProvinceSelector] = useState("กรุงเทพมหานคร");
-  const [quotaSelector, setQuotaSelector] = useState("เลือกจำนวน");
-  const [usageSelector, setUsageSelector] = useState("เลือกจำนวน");
+  const [provinceSelector, setProvinceSelector] = useState('กรุงเทพมหานคร');
+  const [quotaSelector, setQuotaSelector] = useState('เลือกจำนวน');
+  const [usageSelector, setUsageSelector] = useState('เลือกจำนวน');
 
   const [isValidPickerVisible, setValidPickerVisible] = useState(false);
   const [isExpirePickerVisible, setExpirePickerVisible] = useState(false);
@@ -106,8 +106,8 @@ const Share = (props) => {
   }
   function cancelProvince() {
     toggleProvinceModal();
-    if (province === "เลือกจังหวัด") {
-      setProvinceSelector("กรุงเทพมหานคร");
+    if (province === 'เลือกจังหวัด') {
+      setProvinceSelector('กรุงเทพมหานคร');
     } else {
       setProvinceSelector(province);
     }
@@ -192,28 +192,28 @@ const Share = (props) => {
   }
 
   const sent = () => {
-    if (email === "") {
+    if (email === '') {
       setEmailError(true);
     }
-    if (category === "") {
+    if (category === '') {
       setCategoryError(true);
     }
-    if (number === "") {
+    if (number === '') {
       setNumberError(true);
     }
-    if (province === "เลือกจังหวัด") {
+    if (province === 'เลือกจังหวัด') {
       setProvinceError(true);
     }
-    if (nowValid === "") {
+    if (nowValid === '') {
       setValidError(true);
     }
-    if (nowExpire === "") {
+    if (nowExpire === '') {
       setExpireError(true);
     }
-    if (quota === "") {
+    if (quota === '') {
       setQuotaError(true);
     }
-    if (usage === "") {
+    if (usage === '') {
       setUsageError(true);
     }
     if (nowExpire < nowValid) {
@@ -221,21 +221,21 @@ const Share = (props) => {
       setExpireError(true);
     }
     if (!isEmailValid()) {
-      console.warn("Invalid Email");
+      console.warn('Invalid Email');
       setEmailError(true);
-    } else if (category === "") {
+    } else if (category === '') {
       setCategoryError(true);
-    } else if (number === "") {
+    } else if (number === '') {
       setNumberError(true);
-    } else if (province === "เลือกจังหวัด") {
+    } else if (province === 'เลือกจังหวัด') {
       setProvinceError(true);
-    } else if (nowValid === "") {
+    } else if (nowValid === '') {
       setValidError(true);
-    } else if (nowExpire === "") {
+    } else if (nowExpire === '') {
       setExpireError(true);
-    } else if (quota === "") {
+    } else if (quota === '') {
       setQuotaError(true);
-    } else if (usage === "") {
+    } else if (usage === '') {
       setUsageError(true);
     } else if (
       !emailError &&
@@ -247,13 +247,13 @@ const Share = (props) => {
       !quotaError &&
       !usageError
     ) {
-      console.warn("Complete");
+      console.warn('Complete');
       shareAccess();
     }
   };
 
   const shareAccess = async () => {
-    const token = await SecureStore.getItemAsync("pms_token");
+    const token = await SecureStore.getItemAsync('pms_token');
     axios
       .post(
         `http://localhost:4000/auth/pamapi/share`,
@@ -275,14 +275,14 @@ const Share = (props) => {
       .then((res) => {
         console.log(res);
         console.log(res.data);
-        if (res.data.status === "OK") {
-          alert("Access was shared!");
-          Actions.popTo("accesshome");
+        if (res.data.status === 'OK') {
+          alert('Access was shared!');
+          Actions.popTo('accesshome');
         }
       })
       .catch((error) => {
-        if (res.data.status === "FAILED") {
-          alert("Email or License Plate Does not exist");
+        if (res.data.status === 'FAILED') {
+          alert('Email or License Plate Does not exist');
         }
         throw error;
       });
@@ -295,11 +295,11 @@ const Share = (props) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="default" />
+      <StatusBar barStyle='default' />
       <View style={styles.container}>
         <ImageBackground
           style={styles.picBg}
-          source={require("../assets/parking.jpg")}
+          source={require('../assets/parking.jpg')}
         >
           <View style={styles.sectionContainerHeader}>
             <Text style={styles.sectionTitlewoNav}>Confirm Sharing</Text>
@@ -309,8 +309,8 @@ const Share = (props) => {
               <View style={styles.cardMenuBlock}>
                 <View
                   style={{
-                    flexDirection: "row",
-                    alignItems: "center",
+                    flexDirection: 'row',
+                    alignItems: 'center',
                   }}
                 >
                   <View style={styles.picShareOuter}>
@@ -327,44 +327,44 @@ const Share = (props) => {
               <View style={styles.cardContainer}>
                 <View style={styles.cardMenuBlock}>
                   <TextField
-                    label="Email"
+                    label='Email'
                     error1={emailError}
                     value={email}
-                    error="* Please enter a valid email address."
-                    hint="example@address.com"
+                    error='* Please enter a valid email address.'
+                    hint='example@address.com'
                     onChangeText={handleChange_email}
-                    autoCapitalize="none"
+                    autoCapitalize='none'
                   />
                   <TextField
-                    label="License Category"
+                    label='License Category'
                     error1={categoryError}
                     value={category}
-                    error="* Please enter a valid license category."
-                    hint="กข"
+                    error='* Please enter a valid license category.'
+                    hint='กข'
                     maxLength={3}
                     onChangeText={handleChange_category}
-                    autoCapitalize="none"
+                    autoCapitalize='none'
                   />
                   <TextField
-                    label="License Number"
+                    label='License Number'
                     error1={numberError}
                     value={number}
-                    error="* Please enter a valid license number."
-                    hint="1234"
-                    mask="9999"
-                    keyboardType="numeric"
+                    error='* Please enter a valid license number.'
+                    hint='1234'
+                    mask='9999'
+                    keyboardType='numeric'
                     onChangeText={handleChange_number}
-                    autoCapitalize="none"
+                    autoCapitalize='none'
                   />
                   <TouchableOpacity onPress={toggleProvinceModal}>
-                    <View pointerEvents="none">
+                    <View pointerEvents='none'>
                       <TextField
-                        label="License Province"
+                        label='License Province'
                         error1={provinceError}
                         value={province}
-                        error="* Please select province."
-                        hint="กรุงเทพมหานคร"
-                        autoCapitalize="none"
+                        error='* Please select province.'
+                        hint='กรุงเทพมหานคร'
+                        autoCapitalize='none'
                       />
                     </View>
                   </TouchableOpacity>
@@ -376,69 +376,69 @@ const Share = (props) => {
                     cancel={cancelProvince}
                   />
                   <TouchableOpacity onPress={toggleValidModal}>
-                    <View pointerEvents="none">
+                    <View pointerEvents='none'>
                       <TextField
-                        label="Valid"
+                        label='Valid'
                         error1={validError}
                         value={Helper.dateHyphen(nowValid)}
-                        error="* Valid is incorrect."
-                        autoCapitalize="none"
+                        error='* Valid is incorrect.'
+                        autoCapitalize='none'
                       />
                     </View>
                   </TouchableOpacity>
                   <DateModal
-                    mode="valid-expire"
-                    title="Select Valid"
+                    mode='valid-expire'
+                    title='Select Valid'
                     visible={isValidPickerVisible}
                     selector={validSelector}
                     handleChange={handleChange_validSelector}
                     confirm={confirmValid}
                     cancel={cancelValid}
-                    valid={valid > today ? Helper.dateMonth(valid) : "Today"}
+                    valid={valid > today ? Helper.dateMonth(valid) : 'Today'}
                     expire={Helper.dateMonth(expire)}
                     validR={valid > today ? valid : today}
                     expireR={expire}
                   />
                   <TouchableOpacity onPress={toggleExpireModal}>
-                    <View pointerEvents="none">
+                    <View pointerEvents='none'>
                       <TextField
-                        label="Expire"
+                        label='Expire'
                         error1={expireError}
                         value={Helper.dateHyphen(nowExpire)}
-                        error="* Expire is incorrect."
-                        autoCapitalize="none"
+                        error='* Expire is incorrect.'
+                        autoCapitalize='none'
                       />
                     </View>
                   </TouchableOpacity>
                   <DateModal
-                    mode="valid-expire"
-                    title="Select Expire"
+                    mode='valid-expire'
+                    title='Select Expire'
                     visible={isExpirePickerVisible}
                     selector={expireSelector}
                     handleChange={handleChange_expireSelector}
                     confirm={confirmExpire}
                     cancel={cancelExpire}
-                    valid={valid > today ? Helper.dateMonth(valid) : "Today"}
+                    valid={valid > today ? Helper.dateMonth(valid) : 'Today'}
                     expire={Helper.dateMonth(expire)}
                     validR={valid > today ? valid : today}
                     expireR={expire}
                   />
                   <TouchableOpacity onPress={toggleQuotaModal}>
-                    <View pointerEvents="none">
+                    <View pointerEvents='none'>
                       <TextField
-                        label="Share Quota"
+                        label='Share Quota'
                         error1={quotaError}
                         value={quota}
-                        error="* Please enter a valid quota."
-                        keyboardType="numeric"
+                        error='* Please enter a valid quota.'
+                        keyboardType='numeric'
                         onChangeText={handleChange_quota}
-                        autoCapitalize="none"
+                        autoCapitalize='none'
                       />
                     </View>
                   </TouchableOpacity>
                   <ListModal
                     data={Array.from(Array(sharequota - 1).keys())}
-                    title="Share Quota"
+                    title='Share Quota'
                     visible={isQuotaPickerVisible}
                     selector={quotaSelector}
                     handleChange={handleChange_quotaSelector}
@@ -446,21 +446,21 @@ const Share = (props) => {
                     cancel={cancelQuota}
                   />
                   <TouchableOpacity onPress={toggleUsageModal}>
-                    <View pointerEvents="none">
+                    <View pointerEvents='none'>
                       <TextField
-                        label="Usage Count"
+                        label='Usage Count'
                         error1={usageError}
                         value={usage}
-                        error="* Please enter a valid usage."
-                        keyboardType="numeric"
+                        error='* Please enter a valid usage.'
+                        keyboardType='numeric'
                         onChangeText={handleChange_usage}
-                        autoCapitalize="none"
+                        autoCapitalize='none'
                       />
                     </View>
                   </TouchableOpacity>
                   <ListModal
                     data={Array.from(Array(usagecount).keys())}
-                    title="Usage Count"
+                    title='Usage Count'
                     visible={isUsagePickerVisible}
                     selector={usageSelector}
                     handleChange={handleChange_usageSelector}
@@ -470,7 +470,7 @@ const Share = (props) => {
                   <View style={styles.cardMenuBlockButton}>
                     <TouchableHighlight
                       style={styles.button}
-                      underlayColor="none"
+                      underlayColor='none'
                       onPress={sent}
                     >
                       <View>
@@ -492,50 +492,50 @@ const styles1 = StyleSheet.create({
   logo: {
     width: 300,
     height: 300,
-    resizeMode: "stretch",
+    resizeMode: 'stretch',
     margin: 50,
   },
   content: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   texthead: {
-    color: "#444444",
-    fontWeight: "800",
-    textAlign: "center",
+    color: '#444444',
+    fontWeight: '800',
+    textAlign: 'center',
     marginBottom: 10,
   },
   textdes: {
-    color: "#444444",
-    textAlign: "center",
+    color: '#444444',
+    textAlign: 'center',
     fontSize: 12,
     marginBottom: 40,
   },
   container: {
     flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "flex-start", // if you want to fill rows left to right
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start', // if you want to fill rows left to right
   },
   item1: {
     paddingRight: 10,
-    width: "70%",
+    width: '70%',
   },
   item2: {
-    width: "30%",
+    width: '30%',
   },
   col50: {
-    width: "50%",
+    width: '50%',
     paddingHorizontal: 4,
   },
   pic: {
     width: 110,
     height: 110,
-    margin: "auto",
+    margin: 'auto',
     //resizeMode: "stretch",
   },
   pic1: {
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 10,

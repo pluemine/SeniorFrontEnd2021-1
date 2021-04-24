@@ -1,13 +1,13 @@
-import React, { Component, useState, useEffect } from "react";
-import * as SecureStore from "expo-secure-store";
-import { Actions } from "react-native-router-flux";
+import React, { Component, useState, useEffect } from 'react';
+import * as SecureStore from 'expo-secure-store';
+import { Actions } from 'react-native-router-flux';
 import {
   Header,
   LearnMoreLinks,
   Colors,
   DebugInstructions,
   ReloadInstructions,
-} from "react-native/Libraries/NewAppScreen";
+} from 'react-native/Libraries/NewAppScreen';
 import {
   SafeAreaView,
   StyleSheet,
@@ -20,37 +20,29 @@ import {
   TouchableHighlight,
   Image,
   ImageBackground,
-} from "react-native";
+} from 'react-native';
 import * as Helper from './components/Helper';
-import styles from "./Styles";
-import axios from "axios";
+import styles from './Styles';
+import axios from 'axios';
 
 const Time = (props) => {
-  const {
-    paid,
-    propimg,
-    proptype,
-    placename,
-    time,
-    valid,
-    expire,
-  } = props;
+  const { paid, propimg, proptype, placename, time, valid, expire } = props;
 
   const [accesses, setAccesses] = useState([]);
-  const [des, setDes] = useState("Loading");
+  const [des, setDes] = useState('Loading');
 
   useEffect(() => {
     const getAccess = async () => {
       console.log(paid);
-      const token = await SecureStore.getItemAsync("pms_token");
+      const token = await SecureStore.getItemAsync('pms_token');
       axios
         .get(`http://localhost:4000/auth/pamapi/access?id=${paid}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
           setAccesses(res.data.data.accesses[0]);
-          setDes("No access available");
-          console.log("TIME", res.data.data.accesses[0]);
+          setDes('No access available');
+          console.log('TIME', res.data.data.accesses[0]);
         });
     };
     getAccess();
@@ -58,10 +50,11 @@ const Time = (props) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="default" />
+      <StatusBar barStyle='default' />
       <ImageBackground
         style={styles.picBg}
-        source={require("../assets/parking.jpg")}
+        imageStyle={styles.picAccessBg}
+        source={require('../assets/inbox_pana.png')}
       >
         <View style={styles.sectionContainerHeader}>
           <Text style={styles.sectionTitlewoNav}>Share Access</Text>
@@ -71,15 +64,17 @@ const Time = (props) => {
             <View style={styles.cardMenuBlock}>
               <View
                 style={{
-                  flexDirection: "row",
-                  alignItems: "center",
+                  flexDirection: 'row',
+                  alignItems: 'center',
                 }}
               >
                 <View style={styles.picShareOuter}>
                   <Image style={styles.picShare} source={{ uri: propimg }} />
                 </View>
                 <View>
-                  <Text style={styles.textPreTitle}>{placename} ({paid})</Text>
+                  <Text style={styles.textPreTitle}>
+                    {placename} ({paid})
+                  </Text>
                   <Text style={styles.textMenuTitleOrange}>{proptype}</Text>
                 </View>
               </View>
@@ -90,32 +85,36 @@ const Time = (props) => {
               <View style={styles.cardMenuBlock}>
                 <View
                   style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
                   }}
                 >
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Image
                       style={{ width: 25, height: 25, marginRight: 10 }}
-                      source={require("../assets/icon-clock.png")}
+                      source={require('../assets/icon-clock.png')}
                     />
                     <Text style={styles.textMenuTitle}>Time</Text>
                   </View>
                   <Text style={styles.textMenuTitle}>
-                    {time === "NaN Hour" ? "Unlimited" : time}
+                    {time === 'NaN Hour' ? 'Unlimited' : time}
                   </Text>
                 </View>
                 <Text style={styles.textMenuTitle}> </Text>
                 <Text style={styles.textMenuTitle}>Valid</Text>
-                <Text style={styles.textMenuDes}>{Helper.dateMonth(valid)}</Text>
+                <Text style={styles.textMenuDes}>
+                  {Helper.dateMonth(valid)}
+                </Text>
                 <Text style={styles.textMenuTitle}>↓</Text>
                 <Text style={styles.textMenuTitle}>Expire</Text>
-                <Text style={styles.textMenuDes}>{Helper.dateMonth(expire)}</Text>
+                <Text style={styles.textMenuDes}>
+                  {Helper.dateMonth(expire)}
+                </Text>
               </View>
               <View
                 style={{
-                  borderBottomColor: "#EEEEEE",
+                  borderBottomColor: '#EEEEEE',
                   borderBottomWidth: 1,
                 }}
               />
@@ -132,7 +131,7 @@ const Time = (props) => {
                   style={
                     !accesses.is_sharable ? styles.buttonDisable : styles.button
                   }
-                  underlayColor="none"
+                  underlayColor='none'
                   onPress={() =>
                     Actions.share({
                       propimg,
@@ -166,12 +165,12 @@ const styles1 = StyleSheet.create({
   logo: {
     width: 300,
     height: 300,
-    resizeMode: "stretch",
+    resizeMode: 'stretch',
     margin: 50,
   },
   content: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   sectionContainer: {
     marginTop: 20,
@@ -183,50 +182,50 @@ const styles1 = StyleSheet.create({
     marginBottom: 10,
   },
   texthead: {
-    color: "#444444",
-    fontWeight: "800",
-    textAlign: "center",
+    color: '#444444',
+    fontWeight: '800',
+    textAlign: 'center',
     marginBottom: 10,
   },
   textdes: {
-    color: "#444444",
-    textAlign: "center",
+    color: '#444444',
+    textAlign: 'center',
     fontSize: 12,
     marginBottom: 40,
   },
   container: {
     flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "flex-start", // if you want to fill rows left to right
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start', // if you want to fill rows left to right
   },
   item1: {
     paddingRight: 10,
-    width: "70%",
+    width: '70%',
   },
   item2: {
-    width: "30%",
+    width: '30%',
   },
   col30: {
-    width: "30%",
+    width: '30%',
   },
   col50: {
-    width: "50%",
+    width: '50%',
     paddingHorizontal: 4,
   },
   col70: {
-    width: "70%",
+    width: '70%',
   },
   pic: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
     //margin: "auto",
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
     //alignItems: "center",
     //paddingBottom: 20,
   },
   pic1: {
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 10,
@@ -242,8 +241,8 @@ const styles1 = StyleSheet.create({
   },
   piccard: {
     borderRadius: 10,
-    backgroundColor: "#ffffff",
-    shadowColor: "#000",
+    backgroundColor: '#ffffff',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -252,11 +251,11 @@ const styles1 = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
     height: 200,
-    width: "100%",
-    margin: "auto",
+    width: '100%',
+    margin: 'auto',
   },
   item: {
-    width: "100%",
+    width: '100%',
     height: 30,
   },
 });

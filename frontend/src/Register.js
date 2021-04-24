@@ -1,5 +1,5 @@
-import React, { useState, Component } from "react";
-import { Actions } from "react-native-router-flux";
+import React, { useState, Component } from 'react';
+import { Actions } from 'react-native-router-flux';
 import {
   SafeAreaView,
   StyleSheet,
@@ -13,22 +13,22 @@ import {
   TouchableOpacity,
   Pressable,
   Image,
-} from "react-native";
-import styles from "./Styles";
-import axios from "axios";
-import styled from "styled-components";
-import DateModal from "./components/DateModal";
-import TextField from "./components/TextField";
+} from 'react-native';
+import styles from './Styles';
+import axios from 'axios';
+import styled from 'styled-components';
+import DateModal from './components/DateModal';
+import TextField from './components/TextField';
 import * as Helper from './components/Helper';
 
 const Register = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirm, setConfirm] = useState("");
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirm, setConfirm] = useState('');
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
   const [date, setDate] = useState(new Date());
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const [emailError, setEmailError] = useState(false);
@@ -80,22 +80,22 @@ const Register = () => {
   };
 
   const sent = () => {
-    if (email === "") {
+    if (email === '') {
       setEmailError(true);
     }
-    if (password === "") {
+    if (password === '') {
       setPasswordError(true);
     }
-    if (confirm === "") {
+    if (confirm === '') {
       setConfirmError(true);
     }
-    if (firstname === "") {
+    if (firstname === '') {
       setFirstnameError(true);
     }
-    if (lastname === "") {
+    if (lastname === '') {
       setLastnameError(true);
     }
-    if (phone === "") {
+    if (phone === '') {
       setPhoneError(true);
     }
     if (!isEmailValid()) {
@@ -114,16 +114,16 @@ const Register = () => {
       !lastnameError &&
       !phoneError
     ) {
-      console.warn("Complete");
+      console.warn('Complete');
       createUser();
     }
   };
 
   function emailStatus() {
     if (emailError) {
-      return "* Please enter a valid email address.";
+      return '* Please enter a valid email address.';
     } else if (dupEmail) {
-      return "* This email is already in-use, please try again.";
+      return '* This email is already in-use, please try again.';
     }
   }
 
@@ -140,10 +140,10 @@ const Register = () => {
       .then((res) => {
         //console.log(res);
         console.log(res.data.data);
-        if (res.data.status === "OK") {
+        if (res.data.status === 'OK') {
           Actions.login();
         } else {
-          if (res.data.data === "DUPLICATED EMAIL") {
+          if (res.data.data === 'DUPLICATED EMAIL') {
             setDupEmail(true);
           }
         }
@@ -157,64 +157,61 @@ const Register = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="default" />
+      <StatusBar barStyle='default' />
       <View style={styles.sectionContainerHeader}>
         <Text style={styles.sectionTitlewoNav}>Create Account</Text>
         <TextField
-          label="Email"
+          label='Email'
           error1={emailError}
           error2={dupEmail}
           value={email}
           error={emailStatus()}
-          hint="example@address.com"
+          hint='example@address.com'
           onChangeText={handleChange_email}
-          autoCapitalize="none"
+          autoCapitalize='none'
         />
         <TextField
-          label="Password"
+          label='Password'
           error1={passwordError}
           value={password}
-          error="* Please enter a valid password. (At least 8 characters)"
+          error='* Please enter a valid password. (At least 8 characters)'
           isPassword={false}
           secureText={false}
           onChangeText={handleChange_password}
-          autoCapitalize="none"
+          autoCapitalize='none'
         />
         <TextField
-          label="Confirm Password"
+          label='Confirm Password'
           error1={confirmError}
           value={confirm}
-          error="* Please enter the same password."
+          error='* Please enter the same password.'
           isPassword={false}
           secureText={false}
           onChangeText={handleChange_confirm}
-          autoCapitalize="none"
+          autoCapitalize='none'
         />
         <TextField
-          label="Firstname"
+          label='Firstname'
           error1={firstnameError}
           value={firstname}
-          error="* Please enter your firstname."
+          error='* Please enter your firstname.'
           onChangeText={handleChange_firstname}
         />
         <TextField
-          label="Lastname"
+          label='Lastname'
           error1={lastnameError}
           value={lastname}
-          error="* Please enter your lastname."
+          error='* Please enter your lastname.'
           onChangeText={handleChange_lastname}
         />
         <TouchableOpacity onPress={toggleDatePicker}>
-          <View pointerEvents="none">
-            <TextField
-              label="Date of birth"
-              value={Helper.dateHyphen(date)}
-            />
+          <View pointerEvents='none'>
+            <TextField label='Date of birth' value={Helper.dateHyphen(date)} />
           </View>
         </TouchableOpacity>
         <DateModal
-          mode="time"
-          title="Date of Birth"
+          mode='time'
+          title='Date of Birth'
           visible={isDatePickerVisible}
           selector={dateSelector}
           handleChange={setDateSelector}
@@ -222,19 +219,19 @@ const Register = () => {
           cancel={cancelDate}
         />
         <TextField
-          label="Phone Number"
+          label='Phone Number'
           error1={phoneError}
           value={phone}
-          error="* Please enter a valid phone number."
-          hint="0999999999"
-          mask="0999999999"
+          error='* Please enter a valid phone number.'
+          hint='0999999999'
+          mask='0999999999'
           onChangeText={handleChange_phone}
-          keyboardType="numeric"
+          keyboardType='numeric'
         />
         <Text style={styles.sectionDescription}></Text>
         <TouchableHighlight
           style={styles.button}
-          underlayColor="none"
+          underlayColor='none'
           onPress={sent}
         >
           <View>
@@ -242,6 +239,10 @@ const Register = () => {
           </View>
         </TouchableHighlight>
       </View>
+      <Image
+        style={styles.bgRegisterPic}
+        source={require('../assets/Forms_pana.png')}
+      />
     </View>
   );
 };

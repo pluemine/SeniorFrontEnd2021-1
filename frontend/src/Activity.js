@@ -277,7 +277,7 @@ const Activity = () => {
           <View style={styles.activityWrapper}>
             <View style={styles.noDataImageWrapper}>
               <Image
-                style={styles.noDataImage}
+                style={styles.activityNoDataImage}
                 source={require('../assets/No-data-rafiki.png')}
               />
             </View>

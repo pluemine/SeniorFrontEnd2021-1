@@ -1,6 +1,6 @@
-import React, { Component, useState, useEffect } from "react";
-import * as SecureStore from "expo-secure-store";
-import { Actions } from "react-native-router-flux";
+import React, { Component, useState, useEffect } from 'react';
+import * as SecureStore from 'expo-secure-store';
+import { Actions } from 'react-native-router-flux';
 import {
   SafeAreaView,
   StyleSheet,
@@ -12,7 +12,7 @@ import {
   Button,
   TouchableHighlight,
   Image,
-} from "react-native";
+} from 'react-native';
 import {
   BallIndicator,
   BarIndicator,
@@ -23,23 +23,23 @@ import {
   SkypeIndicator,
   UIActivityIndicator,
   WaveIndicator,
-} from "react-native-indicators";
+} from 'react-native-indicators';
 
-import LicenseCard from "./components/LicenseCard";
+import LicenseCard from './components/LicenseCard';
 
-import styles from "./Styles";
-import axios from "axios";
+import styles from './Styles';
+import axios from 'axios';
 
 import { connect } from 'react-redux';
 
 const License = (props) => {
   const [licenses, setLicenses] = useState([]);
-  const [des, setDes] = useState("Loading");
-  const {constantValue} = props
+  const [des, setDes] = useState('Loading');
+  const { constantValue } = props;
 
   useEffect(() => {
     const getLicense = async () => {
-      const token = await SecureStore.getItemAsync("pms_token");
+      const token = await SecureStore.getItemAsync('pms_token');
       axios
         .get(`http://localhost:4000/auth/lpapi`, {
           headers: { Authorization: `Bearer ${token}` },
@@ -47,23 +47,23 @@ const License = (props) => {
         .then((res) => {
           setLicenses(res.data.data.license_plates);
           console.log(res.data.data.license_plates);
-          setDes("No License Plate");
+          setDes('No License Plate');
         });
     };
     getLicense();
   }, []);
 
   const goAddLicense = (event) => {
-    if (licenses.length <= 4 && des != "Loading") {
+    if (licenses.length <= 4 && des != 'Loading') {
       Actions.addlc();
     }
   };
 
   let screen;
-  if (des === "Loading") {
+  if (des === 'Loading') {
     screen = (
       <View style={styles.sectionContainerScroll}>
-        <PulseIndicator color="#78aac2" />
+        <PulseIndicator color='#78aac2' />
       </View>
     );
   } else if (licenses.length > 0) {
@@ -73,10 +73,12 @@ const License = (props) => {
           {licenses.map((license, index) => {
             return (
               <LicenseCard
-                key={"licensecard" + index}
+                key={'licensecard' + index}
                 cat={license.license_plate_category}
                 number={license.license_plate_number}
-                province={constantValue.current.idToProvinces[license.province_id]}
+                province={
+                  constantValue.current.idToProvinces[license.province_id]
+                }
                 lpid={license.license_plate_id}
               />
             );
@@ -87,27 +89,28 @@ const License = (props) => {
   } else {
     screen = (
       <View style={styles.sectionContainerScroll}>
-        <Image
-          style={styles.noDataPic}
-          source={require("../assets/pic-nolicense.png")}
-        />
         <Text style={styles.noDataDes}>{des}</Text>
+        <Image
+          // style={styles.noDataImage}
+          style={styles.noDataImage}
+          source={require('../assets/No-data-rafiki.png')}
+        />
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="default" />
+      <StatusBar barStyle='default' />
       <View style={styles.sectionContainerHeader}>
         <Text style={styles.sectionTitlewoNav}>License Plate</Text>
       </View>
       {screen}
       <View style={styles.sectionContainerButton}>
-        {des != "Loading" ? (
+        {des != 'Loading' ? (
           <TouchableHighlight
             style={licenses.length <= 4 ? styles.button : styles.buttonDisable}
-            underlayColor="none"
+            underlayColor='none'
             /*onPress={() => Actions.addlc()}*/
             onPress={() => goAddLicense()}
           >
@@ -124,8 +127,8 @@ const License = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  const { constantValue } = state
-  return { constantValue }
+  const { constantValue } = state;
+  return { constantValue };
 };
 
 const styles1 = StyleSheet.create({});

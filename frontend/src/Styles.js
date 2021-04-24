@@ -492,6 +492,16 @@ const styles = StyleSheet.create({
     top: 15,
     resizeMode: 'cover',
   },
+  picAccessBg: {
+    width: '100%',
+    height: '70%',
+    top: 50,
+  },
+  picAccountBg: {
+    width: '100%',
+    height: '60%',
+    top: 20,
+  },
   /* LicensePlateWaitingCard Style */
   licensePlateWaitingCardWrapper: {
     position: 'relative',
@@ -602,10 +612,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  noDataImage: {
+  activityNoDataImage: {
     width: '100%',
     height: '70%',
-    resizeMode: 'contain',
+    resizeMode: 'cover',
+  },
+  noDataImage: {
+    width: '100%',
+    height: 400,
+    bottom: 100,
+    resizeMode: 'cover',
   },
   loadingImage: {
     width: '30%',
@@ -827,11 +843,22 @@ const styles = StyleSheet.create({
 
   //Background Pic Add
   bgCardPic: {
+    width: '120%',
+    height: '80%',
+    bottom: 60,
+    resizeMode: 'contain',
+  },
+  bgRegisterPic: {
     width: '100%',
-    height: 300,
-    justifyContent: 'center',
-    alignSelf: 'center',
-    alignItems: 'center',
+    height: '50%',
+    bottom: 80,
+    resizeMode: 'contain',
+  },
+  bgAddLcPic: {
+    width: '100%',
+    height: '100%',
+    bottom: 150,
+    resizeMode: 'cover',
   },
 });
 

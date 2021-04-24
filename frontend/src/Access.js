@@ -1,6 +1,6 @@
-import React, { Component, useState, useEffect } from "react";
-import * as SecureStore from "expo-secure-store";
-import { Actions } from "react-native-router-flux";
+import React, { Component, useState, useEffect } from 'react';
+import * as SecureStore from 'expo-secure-store';
+import { Actions } from 'react-native-router-flux';
 import {
   SafeAreaView,
   StyleSheet,
@@ -12,8 +12,8 @@ import {
   Button,
   TouchableHighlight,
   Image,
-} from "react-native";
-import { Router, Scene } from "react-native-router-flux";
+} from 'react-native';
+import { Router, Scene } from 'react-native-router-flux';
 import {
   BallIndicator,
   BarIndicator,
@@ -24,24 +24,24 @@ import {
   SkypeIndicator,
   UIActivityIndicator,
   WaveIndicator,
-} from "react-native-indicators";
-import { FloatingLabelInput } from "react-native-floating-label-input";
+} from 'react-native-indicators';
+import { FloatingLabelInput } from 'react-native-floating-label-input';
 
-import Register from "./Register";
-import Login from "./Login";
-import Home from "./Home";
-import AccessCard from "./components/AccessCard";
+import Register from './Register';
+import Login from './Login';
+import Home from './Home';
+import AccessCard from './components/AccessCard';
 import * as Helper from './components/Helper';
 
-import styles from "./Styles";
-import axios from "axios";
+import styles from './Styles';
+import axios from 'axios';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 const Access = (props) => {
   const [accesses, setAccesses] = useState([]);
-  const [filteredAccessePlaceName, setFilteredAccessePlaceName] = useState("");
-  const [des, setDes] = useState("Loading");
+  const [filteredAccessePlaceName, setFilteredAccessePlaceName] = useState('');
+  const [des, setDes] = useState('Loading');
   const { constantValue } = props;
 
   const getSecureStoreItem = async (key) => {
@@ -50,14 +50,14 @@ const Access = (props) => {
 
   useEffect(() => {
     const getAccess = async () => {
-      const token = await SecureStore.getItemAsync("pms_token");
+      const token = await SecureStore.getItemAsync('pms_token');
       axios
         .get(`http://localhost:4000/auth/pamapi`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
           setAccesses(res.data.data.accesses);
-          setDes("No access available");
+          setDes('No access available');
           console.log(res.data.data.accesses);
         });
     };
@@ -69,10 +69,10 @@ const Access = (props) => {
   }
 
   let screen;
-  if (des === "Loading") {
+  if (des === 'Loading') {
     screen = (
       <View style={styles.sectionContainerScroll}>
-        <PulseIndicator color="#78aac2" />
+        <PulseIndicator color='#78aac2' />
       </View>
     );
   } else if (accesses.length > 0) {
@@ -83,8 +83,8 @@ const Access = (props) => {
             .filter(
               (access) =>
                 !filteredAccessePlaceName ||
-                filteredAccessePlaceName == "" ||
-                String(access["property_name"])
+                filteredAccessePlaceName == '' ||
+                String(access['property_name'])
                   .toLowerCase()
                   .includes(filteredAccessePlaceName)
             )
@@ -94,7 +94,7 @@ const Access = (props) => {
 
               return (
                 <AccessCard
-                  key={"accesscard" + index}
+                  key={'accesscard' + index}
                   paid={access.parking_access_id}
                   propimg={access.property_img}
                   proptype={proptype}
@@ -111,41 +111,41 @@ const Access = (props) => {
   } else {
     screen = (
       <View style={styles.sectionContainerScroll}>
-        <Image
-          style={styles.noDataPic}
-          source={require("../assets/No-data-rafiki.png")}
-        />
         <Text style={styles.noDataDes}>{des}</Text>
+        <Image
+          style={styles.noDataImage}
+          source={require('../assets/No-data-rafiki.png')}
+        />
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="default" />
+      <StatusBar barStyle='default' />
       <View style={styles.sectionContainerHeader}>
         <Text style={styles.sectionTitlewoNav}>Access</Text>
         <FloatingLabelInput
-          label={"Search by place name"}
+          label={'Search by place name'}
           containerStyles={styles.textbox}
           customLabelStyles={{
-            colorFocused: "#898989",
-            colorBlurred: "#898989",
+            colorFocused: '#898989',
+            colorBlurred: '#898989',
           }}
           inputStyles={{
-            color: "#000000",
+            color: '#000000',
             paddingHorizontal: 5,
           }}
           leftComponent={
             <Image
               style={{ height: 16, width: 16 }}
-              source={require("../assets/icon-search.png")}
+              source={require('../assets/icon-search.png')}
             />
           }
           value={filteredAccessePlaceName}
           isPassword={false}
           onChangeText={(text) => setFilteredAccessePlaceName(text)}
-          autoCapitalize="none"
+          autoCapitalize='none'
         />
       </View>
       {screen}

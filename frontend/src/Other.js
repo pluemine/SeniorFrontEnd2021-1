@@ -1,6 +1,6 @@
-import React, { Component, useState, useEffect } from "react";
-import * as SecureStore from "expo-secure-store";
-import { Actions } from "react-native-router-flux";
+import React, { Component, useState, useEffect } from 'react';
+import * as SecureStore from 'expo-secure-store';
+import { Actions } from 'react-native-router-flux';
 import {
   SafeAreaView,
   StyleSheet,
@@ -13,21 +13,21 @@ import {
   TouchableHighlight,
   Image,
   ImageBackground,
-} from "react-native";
-import styles from "./Styles";
-import axios from "axios";
+} from 'react-native';
+import styles from './Styles';
+import axios from 'axios';
 
 const Other = () => {
-  const [userId, setUserId] = useState("");
-  const [email, setEmail] = useState("");
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [credit, setCredit] = useState("");
+  const [userId, setUserId] = useState('');
+  const [email, setEmail] = useState('');
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [credit, setCredit] = useState('');
   const [img, setImg] = useState(null);
 
   useEffect(() => {
     const getUser = async () => {
-      const token = await SecureStore.getItemAsync("pms_token");
+      const token = await SecureStore.getItemAsync('pms_token');
       axios
         .get(`http://localhost:4000/auth/uapi/userById`, {
           headers: { Authorization: `Bearer ${token}` },
@@ -38,7 +38,7 @@ const Other = () => {
           setEmail(res.data.data.user.email);
           setFirstname(res.data.data.user.firstname);
           setLastname(res.data.data.user.lastname);
-          setCredit("฿" + res.data.data.user.credits);
+          setCredit('฿' + res.data.data.user.credits);
           setImg(res.data.data.user.profile_img);
         });
     };
@@ -47,10 +47,11 @@ const Other = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="default" />
+      <StatusBar barStyle='default' />
       <ImageBackground
         style={styles.picBg}
-        source={require("../assets/parking.jpg")}
+        imageStyle={styles.picAccountBg}
+        source={require('../assets/Telecommuting_pana.png')}
       >
         <View style={styles.sectionContainerHeader}>
           <Text style={styles.sectionTitlewoNav}>Account</Text>
@@ -60,14 +61,14 @@ const Other = () => {
             <View style={styles.cardMenuBlock}>
               <View
                 style={{
-                  flexDirection: "row",
-                  alignItems: "center",
+                  flexDirection: 'row',
+                  alignItems: 'center',
                 }}
               >
                 <Image
                   style={styles.iconAvatar}
                   source={
-                    img != null ? { uri: img } : require("../assets/user.png")
+                    img != null ? { uri: img } : require('../assets/user.png')
                   }
                 />
                 <View>
@@ -83,14 +84,14 @@ const Other = () => {
             <View style={styles.cardContainer}>
               <TouchableHighlight
                 style={styles.cardMenuBlock}
-                underlayColor="none"
+                underlayColor='none'
                 onPress={() => Actions.topup({ credit: credit })}
               >
                 <View
                   style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
                   }}
                 >
                   <View>
@@ -100,11 +101,11 @@ const Other = () => {
                     </Text>
                   </View>
                   <View>
-                    <Text style={[styles.textMenuDes, { textAlign: "right" }]}>
+                    <Text style={[styles.textMenuDes, { textAlign: 'right' }]}>
                       Credit Balance
                     </Text>
                     <Text
-                      style={[styles.textMenuTitle, { textAlign: "right" }]}
+                      style={[styles.textMenuTitle, { textAlign: 'right' }]}
                     >
                       {credit}
                     </Text>
@@ -113,13 +114,13 @@ const Other = () => {
               </TouchableHighlight>
               <View
                 style={{
-                  borderBottomColor: "#EEEEEE",
+                  borderBottomColor: '#EEEEEE',
                   borderBottomWidth: 1,
                 }}
               />
               <TouchableHighlight
                 style={styles.cardMenuBlock}
-                underlayColor="none"
+                underlayColor='none'
                 onPress={() =>
                   Actions.edit({
                     firstname: firstname,
@@ -138,13 +139,13 @@ const Other = () => {
               </TouchableHighlight>
               <View
                 style={{
-                  borderBottomColor: "#EEEEEE",
+                  borderBottomColor: '#EEEEEE',
                   borderBottomWidth: 1,
                 }}
               />
               <TouchableHighlight
                 style={styles.cardMenuBlock}
-                underlayColor="none"
+                underlayColor='none'
                 onPress={() => Actions.license()}
               >
                 <View>
@@ -156,13 +157,13 @@ const Other = () => {
               </TouchableHighlight>
               <View
                 style={{
-                  borderBottomColor: "#EEEEEE",
+                  borderBottomColor: '#EEEEEE',
                   borderBottomWidth: 1,
                 }}
               />
               <TouchableHighlight
                 style={styles.cardMenuBlock}
-                underlayColor="none"
+                underlayColor='none'
                 onPress={() => Actions.payment()}
               >
                 <View>
@@ -172,7 +173,7 @@ const Other = () => {
               </TouchableHighlight>
               <View
                 style={{
-                  borderBottomColor: "#EEEEEE",
+                  borderBottomColor: '#EEEEEE',
                   borderBottomWidth: 1,
                 }}
               />
@@ -180,8 +181,8 @@ const Other = () => {
             <View style={styles.cardContainer}>
               <TouchableHighlight
                 style={styles.cardMenuBlock}
-                onPress={() => Actions.replace("home")}
-                underlayColor="none"
+                onPress={() => Actions.replace('home')}
+                underlayColor='none'
               >
                 <View>
                   <Text style={styles.textMenuTitleRed}>Sign Out</Text>
@@ -200,10 +201,10 @@ const Other = () => {
 
 const styles1 = StyleSheet.create({
   pic: {
-    width: "100%",
-    height: "100%",
-    justifyContent: "space-between",
-    backgroundColor: "rgba(255,255,255,0.92)",
+    width: '100%',
+    height: '100%',
+    justifyContent: 'space-between',
+    backgroundColor: 'rgba(255,255,255,0.92)',
   },
 });
 
