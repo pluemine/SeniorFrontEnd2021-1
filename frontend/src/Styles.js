@@ -22,6 +22,10 @@ export const MyColor = {
   disable: '#cccccc',
 };
 
+export const Fonts = {
+  TitleFont: 'NunitoBold',
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -61,6 +65,7 @@ const styles = StyleSheet.create({
   },
   sectionTitlewoNav: {
     fontSize: 32,
+    fontFamily: Fonts.TitleFont,
     fontWeight: '600',
     color: MyColor.black,
     marginBottom: 20,

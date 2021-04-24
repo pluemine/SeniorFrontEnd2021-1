@@ -39,11 +39,11 @@ const LicensePlateWaitingCard = (props) => {
     constantValue,
   } = props;
 
-  const [fontLoaded, fontError] = useFonts({
-    KanitLight: require('../../assets/fonts/Kanit-Light.ttf'),
-  });
+  // const [fontLoaded, fontError] = useFonts({
+  //   KanitLight: require('../../assets/fonts/Kanit-Light.ttf'),
+  // });
 
-  if (!fontLoaded || fontError) return null;
+  // if (!fontLoaded || fontError) return null;
 
   //   const claimLicensePlate = async (usage_log_id, usage_log_uid) => {
   //     const token =
