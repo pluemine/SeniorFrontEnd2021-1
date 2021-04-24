@@ -109,7 +109,7 @@ const Activity = () => {
             usage_log_uid: snapshot.key,
           };
           if (!waitingLogUid.has(parseInt(new_added_license['usage_log_id']))) {
-            console.log('Added');
+            // console.log('Added');
             setWaitingLogUid(
               waitingLogUid.add(parseInt(new_added_license['usage_log_id']))
             );
