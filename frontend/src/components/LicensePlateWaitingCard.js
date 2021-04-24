@@ -34,6 +34,7 @@ const LicensePlateWaitingCard = (props) => {
     usage_log_id,
     usage_log_uid,
     setWaitingLists,
+    constantValue,
   } = props;
 
   const [fontLoaded, fontError] = useFonts({
@@ -108,7 +109,7 @@ const LicensePlateWaitingCard = (props) => {
                 {license_plate_category} {license_plate_number}
               </Text>
               <Text style={styles.licensePlateWaitingCardInfoLicenseProvince}>
-                {province_id}
+                {constantValue.current.idToProvinces[parseInt(province_id)]}
               </Text>
             </View>
           </View>
@@ -156,4 +157,9 @@ const LicensePlateWaitingCard = (props) => {
 
 const styles1 = StyleSheet.create({});
 
-export default LicensePlateWaitingCard;
+const mapStateToProps = (state) => {
+  const { constantValue } = state;
+  return { constantValue };
+};
+
+export default connect(mapStateToProps)(LicensePlateWaitingCard);
