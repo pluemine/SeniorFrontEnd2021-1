@@ -90,7 +90,7 @@ const Parking = (props) => {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
-          console.log(res.data.data.usage_log);
+          // console.log(res.data.data.usage_log);
           setData(res.data.data.usage_log);
           if (res.data.data.usage_log.parking_access_id != null) {
             setAccess({
@@ -117,11 +117,19 @@ const Parking = (props) => {
           setTime(res.data.data.usage_log.usage_hours);
           setComplete(res.data.data.usage_log.is_completed);
           const getAccess = async () => {
-            console.log(res.data.data.usage_log.property_id);
-            const token = await SecureStore.getItemAsync('pms_token');
+            // console.log(res.data.data.usage_log.property_id);
+            // const token = await SecureStore.getItemAsync('pms_token');
             axios
-              .get(
-                `http://localhost:4000/auth/pamapi/property?id=${res.data.data.usage_log.property_id}`,
+              .post(
+                `http://localhost:4000/auth/pamapi/property`,
+                {
+                  property_id: res.data.data.usage_log.property_id,
+                  license_plate_category:
+                    res.data.data.usage_log.license_plate_category,
+                  license_plate_number:
+                    res.data.data.usage_log.license_plate_number,
+                  province_id: res.data.data.usage_log.province_id,
+                },
                 {
                   headers: { Authorization: `Bearer ${token}` },
                 }
@@ -159,14 +167,15 @@ const Parking = (props) => {
   };
 
   const refresh = async () => {
+    setDes('Loading');
     const token = await SecureStore.getItemAsync('pms_token');
     axios
       .get(`http://localhost:4000/auth/aapi/fees?id=${data.usage_log_id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
-        console.log(res);
-        console.log(res.data);
+        // console.log(res);
+        // console.log(res.data);
         if (res.data.data.usage_log.parking_access_id != null) {
           setAccess({
             name:
@@ -186,6 +195,7 @@ const Parking = (props) => {
         setExit(res.data.data.usage_log.exit_at);
         setTime(res.data.data.usage_log.usage_hours);
         setComplete(res.data.data.usage_log.is_completed);
+        setDes('');
       });
   };
 
@@ -371,7 +381,10 @@ const Parking = (props) => {
       <StatusBar barStyle='default' />
       <ImageBackground
         style={styles.picBg}
-        source={require('../assets/parking.jpg')}
+        imageStyle={
+          des === 'Loading' ? { display: 'none' } : styles.picParkingBg
+        }
+        source={require('../assets/car_driver.gif')}
       >
         <View style={styles.sectionContainerHeader}>
           <Text style={styles.sectionTitlewoNav}>Parking Info</Text>
