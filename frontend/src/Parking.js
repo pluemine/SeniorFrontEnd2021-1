@@ -67,18 +67,22 @@ const Parking = (props) => {
   };
 
   function confirmAccess() {
-    toggleModal();
-    setAccess({ name: accessSelector.name, id: accessSelector.id });
-    updateAccess();
-    console.log(accessSelector.name, accessSelector.id);
+    if (!complete) {
+      toggleModal();
+      setAccess({ name: accessSelector.name, id: accessSelector.id });
+      updateAccess();
+    }
+    // console.log(accessSelector.name, accessSelector.id);
   }
 
   function cancelAccess() {
-    toggleModal();
-    if (access === 'None') {
-      setAccessSelector({ name: 'None', id: null });
-    } else {
-      setAccessSelector({ name: access.name, id: access.id });
+    if (!complete) {
+      toggleModal();
+      if (access === 'None') {
+        setAccessSelector({ name: 'None', id: null });
+      } else {
+        setAccessSelector({ name: access.name, id: access.id });
+      }
     }
   }
 
@@ -90,7 +94,7 @@ const Parking = (props) => {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
-          // console.log(res.data.data.usage_log);
+          console.log(res.data.data.usage_log);
           setData(res.data.data.usage_log);
           if (res.data.data.usage_log.parking_access_id != null) {
             setAccess({
@@ -137,11 +141,13 @@ const Parking = (props) => {
               .then((res) => {
                 setAccesses(res.data.data.accesses);
                 setDes('Loaded');
-                console.log('SS', res.data.data.accesses);
+                // console.log('SS', res.data.data.accesses);
               });
           };
-          getAccess();
-        });
+          if (!res.data.data.usage_log.is_completed) getAccess();
+          setDes('Loaded');
+        })
+        .catch((error) => console.log(error));
     };
     getUser();
   }, []);
@@ -321,7 +327,7 @@ const Parking = (props) => {
           <TouchableHighlight
             style={styles.cardMenuBlock}
             underlayColor='none'
-            onPress={toggleModal}
+            onPress={!complete ? toggleModal : null}
           >
             <View>
               <View

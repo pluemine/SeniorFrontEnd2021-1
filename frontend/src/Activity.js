@@ -200,37 +200,40 @@ const Activity = () => {
           {onGoingActivity && onGoingActivity.length ? (
             <Text style={styles.sectionSubTitleActivity}>Ongoing</Text>
           ) : null}
-          <SafeAreaView>
-            {onGoingActivity.map((ongoingItem) => {
-              return (
-                <OnGoingActivityCard
-                  key={ongoingItem['usage_log_id']}
-                  usage_log_id={ongoingItem['usage_log_id']}
-                  usage_log_uid={ongoingItem['usage_log_uid']}
-                />
-              );
-            })}
-          </SafeAreaView>
+          {onGoingActivity && onGoingActivity.length ? (
+            <SafeAreaView>
+              {onGoingActivity.map((ongoingItem) => {
+                return (
+                  <OnGoingActivityCard
+                    key={ongoingItem['usage_log_id']}
+                    usage_log_id={ongoingItem['usage_log_id']}
+                    usage_log_uid={ongoingItem['usage_log_uid']}
+                  />
+                );
+              })}
+            </SafeAreaView>
+          ) : null}
           {waitingLists && waitingLists.length ? (
             <Text style={styles.sectionSubTitleActivity}>Waiting</Text>
           ) : null}
-          <SafeAreaView>
-            <FlatList
-              style={styles.waitingActivityFlatListContainer}
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-              data={waitingLists}
-              renderItem={renderOnWaitingActivityItem}
-              keyExtractor={(item) => item.usage_log_id.toString()}
-              // refreshControl={
-              //   <RefreshControl
-              //     refreshing={isRefreshing}
-              //     onRefresh={onHistoryRefresh}
-              //   />
-              // }
-            />
-          </SafeAreaView>
-
+          {waitingLists && waitingLists.length ? (
+            <SafeAreaView>
+              <FlatList
+                style={styles.waitingActivityFlatListContainer}
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
+                data={waitingLists}
+                renderItem={renderOnWaitingActivityItem}
+                keyExtractor={(item) => item.usage_log_id.toString()}
+                // refreshControl={
+                //   <RefreshControl
+                //     refreshing={isRefreshing}
+                //     onRefresh={onHistoryRefresh}
+                //   />
+                // }
+              />
+            </SafeAreaView>
+          ) : null}
           {history && history.length ? (
             <Text style={styles.sectionSubTitleActivity}>History</Text>
           ) : null}
