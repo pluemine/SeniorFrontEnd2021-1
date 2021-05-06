@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { Actions } from "react-native-router-flux";
 import {
   SafeAreaView,
@@ -15,6 +15,7 @@ import {
 } from "react-native";
 
 import styles from "../Styles";
+import PropertyModal from "./PropertyModal";
 
 const PropertyCard = (props) => {
   const {
@@ -26,42 +27,65 @@ const PropertyCard = (props) => {
     propimg,
     propprovince,
   } = props;
+
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
+  const cancel = () => {
+    toggleModal();
+  };
+
   return (
-    <TouchableHighlight
-      underlayColor="none"
-      style={styles.itemcard}
-      //onPress={}
-    >
-      <View style={styles1.container}>
-        <View style={styles1.col40}>
-          <Image
-            style={styles1.pic}
-            source={{ uri: propimg }}
-            resizeMode="cover"
-          />
-          <View style={styles1.property_type_badge}>
-            <Text style={styles1.property_type_badge_text}>{proptype}</Text>
+    <View>
+      <TouchableHighlight
+        underlayColor="none"
+        style={styles.itemcard}
+        onPress={toggleModal}
+      >
+        <View style={styles1.container}>
+          <View style={styles1.col40}>
+            <Image
+              style={styles1.pic}
+              source={{ uri: propimg }}
+              resizeMode="cover"
+            />
+            <View style={styles1.property_type_badge}>
+              <Text style={styles1.property_type_badge_text}>{proptype}</Text>
+            </View>
+          </View>
+          <View style={styles1.col60}>
+            <View style={styles1.col60_flex}>
+              <Text style={{ ...styles.textHeader }}>{propname}</Text>
+              {/*<Text style={styles.textDes}>
+                <Text style={styles.textMenuDesBold}>Location </Text>
+                {proplocation.x} {proplocation.y}
+  </Text>*/}
+              <Text style={styles.textDes}>
+                <Text style={styles.textMenuDesBold}>Capacity </Text>
+                {propcapa}
+              </Text>
+              <Text style={styles.textDes}>
+                <Text style={styles.textMenuDesBold}>Province </Text>
+                {propprovince}
+              </Text>
+            </View>
           </View>
         </View>
-        <View style={styles1.col60}>
-          <View style={styles1.col60_flex}>
-            <Text style={{ ...styles.textHeader }}>{propname}</Text>
-            <Text style={styles.textDes}>
-              <Text style={styles.textMenuDesBold}>Location </Text>
-              {proplocation.x} {proplocation.y}
-            </Text>
-            <Text style={styles.textDes}>
-              <Text style={styles.textMenuDesBold}>Capacity </Text>
-              {propcapa}
-            </Text>
-            <Text style={styles.textDes}>
-              <Text style={styles.textMenuDesBold}>Province </Text>
-              {propprovince}
-            </Text>
-          </View>
-        </View>
-      </View>
-    </TouchableHighlight>
+      </TouchableHighlight>
+      <PropertyModal
+        propid={propid}
+        propname={propname}
+        proptype={proptype}
+        propcapa={propcapa}
+        propimg={propimg}
+        propprovince={propprovince}
+        visible={isModalVisible}
+        cancel={cancel}
+      />
+    </View>
   );
 };
 

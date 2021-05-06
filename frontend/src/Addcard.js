@@ -207,10 +207,10 @@ const Addcard = (props) => {
           </View>
         </TouchableHighlight>
       </View>
-      <Image
+      {/*<Image
         style={styles.bgCardPic}
         source={require('../assets/Mobile_payments_pana.png')}
-      />
+      />*/}
     </View>
   );
 };

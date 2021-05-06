@@ -239,10 +239,10 @@ const Register = () => {
           </View>
         </TouchableHighlight>
       </View>
-      <Image
+      {/*<Image
         style={styles.bgRegisterPic}
         source={require('../assets/Forms_pana.png')}
-      />
+      />*/}
     </View>
   );
 };

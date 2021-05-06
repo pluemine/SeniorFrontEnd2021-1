@@ -20,6 +20,7 @@ import Parking from './Parking';
 import Topup from './Topup';
 import Search from './Search';
 import EditProfile from './EditProfile';
+import ForgotPass from './ForgotPass';
 
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -112,6 +113,13 @@ const App = () => {
             hideTabBar
           />
           <Scene
+            key='forgot'
+            component={ForgotPass}
+            headerTintColor='#5394b5'
+            navTransparent={true}
+            hideTabBar
+          />
+          <Scene
             key='tabbar'
             tabs={true}
             tabBarStyle={styles.tabBarStyle}
@@ -133,9 +141,9 @@ const App = () => {
                 headerTintColor='#5394b5'
                 navTransparent={true}
                 hideTabBar={true}
-                onRight={() => Actions.refresh({ key: Math.random() })}
-                rightButtonImage={require('../assets/icon-refresh.png')}
-                rightButtonIconStyle={{ width: 24, height: 24 }}
+                //onRight={() => Actions.refresh({ key: Math.random() })}
+                //rightButtonImage={require('../assets/icon-refresh.png')}
+                //rightButtonIconStyle={{ width: 24, height: 24 }}
               />
               <Scene
                 key='addlc'
@@ -150,9 +158,9 @@ const App = () => {
                 headerTintColor='#5394b5'
                 navTransparent={true}
                 hideTabBar={true}
-                onRight={() => Actions.refresh({ key: Math.random() })}
-                rightButtonImage={require('../assets/icon-refresh.png')}
-                rightButtonIconStyle={{ width: 24, height: 24 }}
+                //onRight={() => Actions.refresh({ key: Math.random() })}
+                //rightButtonImage={require('../assets/icon-refresh.png')}
+                //rightButtonIconStyle={{ width: 24, height: 24 }}
               />
               <Scene
                 key='addcard'
@@ -195,9 +203,9 @@ const App = () => {
                 initial={true}
                 navTransparent={true}
                 headerTintColor='#5394b5'
-                onRight={() => Actions.refresh({ key: Math.random() })}
-                rightButtonImage={require('../assets/icon-refresh.png')}
-                rightButtonIconStyle={{ width: 24, height: 24 }}
+                //onRight={() => Actions.refresh({ key: Math.random() })}
+                //rightButtonImage={require('../assets/icon-refresh.png')}
+                //rightButtonIconStyle={{ width: 24, height: 24 }}
               />
               <Scene
                 key='time'
@@ -233,9 +241,9 @@ const App = () => {
                 component={Other}
                 navTransparent={true}
                 headerTintColor='#5394b5'
-                onRight={() => Actions.refresh({ key: Math.random() })}
-                rightButtonImage={require('../assets/icon-refresh.png')}
-                rightButtonIconStyle={{ width: 24, height: 24 }}
+                //onRight={() => Actions.refresh({ key: Math.random() })}
+                //rightButtonImage={require('../assets/icon-refresh.png')}
+                //rightButtonIconStyle={{ width: 24, height: 24 }}
                 initial={true}
               />
               <Scene

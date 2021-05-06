@@ -28,6 +28,7 @@ import {
 
 import TextField from "./components/TextField";
 import CardModal from "./components/CardModal";
+import MyCheckBox from './components/MyCheckBox';
 
 import styles from "./Styles";
 import axios from "axios";
@@ -53,6 +54,8 @@ const Topup = (props) => {
 
   const [data, setData] = useState([]);
   const [buttonDis, setButtonDis] = useState(true);
+
+  const [toggleCheckBox, setToggleCheckBox] = useState(true);
 
   useEffect(() => {
     const getData = async () => {
@@ -210,13 +213,18 @@ const Topup = (props) => {
             <Text style={styles.textHeaderBlue}>Your Balance</Text>
             <Text style={styles.textTitle}>฿{balance}</Text>
           </View>
-          <View style={{ alignItems: "flex-end" }}>
+          {toggleCheckBox ? <View style={{ alignItems: "flex-end" }}>
             <Text style={styles.textHeaderBlue}>New Balance</Text>
             <Text style={[styles.textTitle, { color: "#D99154" }]}>
               ฿{balance + amount}
             </Text>
-          </View>
+          </View> : undefined}
         </View>
+        <MyCheckBox
+          title='Calculate your new balance?'
+          value={toggleCheckBox}
+          onValueChange={setToggleCheckBox}
+        />
         <View style={styles.cardMenuBlockSpace}>
           <Text style={styles.textSubtitle}>Select the amount</Text>
         </View>

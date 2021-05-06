@@ -529,6 +529,21 @@ const styles = StyleSheet.create({
     height: '60%',
     top: 20,
   },
+  picPropertyOuter: {
+    shadowColor: MyColor.black,
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.51,
+    shadowRadius: 13.16,
+    elevation: 20,
+  },
+  picProperty: {
+    borderRadius: 4,
+    width: 300,
+    height: 300,
+  },
   /* LicensePlateWaitingCard Style */
   licensePlateWaitingCardWrapper: {
     position: 'relative',
@@ -778,7 +793,7 @@ const styles = StyleSheet.create({
   },
   modalTimeArea: {
     width: '100%',
-    height: 450,
+    height: 460,
     backgroundColor: '#FFFFFF',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
@@ -806,6 +821,15 @@ const styles = StyleSheet.create({
   modalAccessArea: {
     width: '100%',
     height: 500,
+    backgroundColor: '#FFFFFF',
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    borderRadius: 25,
+    justifyContent: 'space-between',
+  },
+  modalPropertyArea: {
+    width: '100%',
+    height: 620,
     backgroundColor: '#FFFFFF',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,

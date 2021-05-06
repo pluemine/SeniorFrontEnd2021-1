@@ -1,6 +1,6 @@
-import React, { Component, useState } from 'react';
-import * as SecureStore from 'expo-secure-store';
-import { Actions } from 'react-native-router-flux';
+import React, { Component, useState } from "react";
+import * as SecureStore from "expo-secure-store";
+import { Actions } from "react-native-router-flux";
 import {
   SafeAreaView,
   StyleSheet,
@@ -12,14 +12,14 @@ import {
   Button,
   TouchableHighlight,
   Image,
-} from 'react-native';
-import styles from './Styles';
-import axios from 'axios';
-import TextField from './components/TextField';
+} from "react-native";
+import styles from "./Styles";
+import axios from "axios";
+import TextField from "./components/TextField";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
@@ -57,8 +57,8 @@ const Login = () => {
         password: password,
       })
       .then(async (res) => {
-        if (res.data.status === 'OK') {
-          saveSecureStoreItem('pms_token', res.data.data.token);
+        if (res.data.status === "OK") {
+          saveSecureStoreItem("pms_token", res.data.data.token);
           Actions.tabbar();
         }
       })
@@ -69,10 +69,10 @@ const Login = () => {
   };
 
   const sent = () => {
-    if (email === '') {
+    if (email === "") {
       setEmailError(true);
     }
-    if (password === '') {
+    if (password === "") {
       setPasswordError(true);
     }
     if (!isEmailValid()) {
@@ -91,58 +91,62 @@ const Login = () => {
 
   function loginStatus() {
     if (passwordError) {
-      return '* Please enter a valid password. (At least 8 characters)';
+      return "* Please enter a valid password. (At least 8 characters)";
     } else if (fail) {
-      return '* Incorrect email or password, please try again.';
+      return "* Incorrect email or password, please try again.";
     }
   }
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle='default' />
+      <StatusBar barStyle="default" />
       <View style={styles.sectionContainerHeader}>
         <Text style={styles.sectionTitlewoNav}>Sign In</Text>
         <TextField
-          label='Email'
+          label="Email"
           error1={emailError}
           error2={fail}
           value={email}
-          error={fail ? ' ' : '* Please enter a valid email address.'}
-          hint='example@address.com'
+          error={fail ? " " : "* Please enter a valid email address."}
+          hint="example@address.com"
           onChangeText={handleChange_email}
-          autoCapitalize='none'
+          autoCapitalize="none"
         />
         <TextField
-          label='Password'
+          label="Password"
           error1={passwordError}
           error2={fail}
           value={password}
           error={
             fail
-              ? '* Incorrect email or password, please try again.'
-              : '* Please enter a valid password. (At least 8 characters)'
+              ? "* Incorrect email or password, please try again."
+              : "* Please enter a valid password. (At least 8 characters)"
           }
           isPassword={true}
           secureText={true}
           onChangeText={handleChange_password}
-          autoCapitalize='none'
+          autoCapitalize="none"
         />
         <Text style={styles.sectionDescription}></Text>
         <TouchableHighlight
           style={styles.button}
-          underlayColor='none'
+          underlayColor="none"
           onPress={sent}
         >
           <View>
             <Text style={styles.buttonText}>Sign In</Text>
           </View>
         </TouchableHighlight>
-        <Text style={styles.sectionOption}>Forgot Password</Text>
+        <TouchableHighlight underlayColor="none" onPress={() => Actions.forgot()}>
+          <View>
+            <Text style={styles.sectionOption}>Forgot Password</Text>
+          </View>
+        </TouchableHighlight>
       </View>
-      <Image
+      {/*<Image
         style={styles.bgCardPic}
-        source={require('../assets/Secure_login_pana.png')}
-      />
+        source={require("../assets/Secure_login_pana.png")}
+      />*/}
     </View>
   );
 };

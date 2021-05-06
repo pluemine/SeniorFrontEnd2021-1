@@ -131,7 +131,7 @@ const Addlc = (props) => {
               error1={categoryError}
               value={category}
               error='* Incorrect'
-              hint='กข'
+              hint='หมวดหมู่ เช่น กข'
               maxLength={3}
               onChangeText={handleChange_category}
               autoCapitalize='none'
@@ -143,8 +143,8 @@ const Addlc = (props) => {
               error1={numberError}
               value={number}
               error='* Incorrect'
-              hint='1234'
-              mask='9999'
+              hint='เลขทะเบียน เช่น 1234 (สูงสุด 5 ตัว)'
+              mask='99999'
               keyboardType='numeric'
               onChangeText={handleChange_number}
               autoCapitalize='none'
@@ -181,10 +181,10 @@ const Addlc = (props) => {
           </View>
         </TouchableHighlight>
       </View>
-      <Image
+      {/*<Image
         style={styles.bgAddLcPic}
         source={require('../assets/Winter_road_pana.png')}
-      />
+      />*/}
     </View>
   );
 };
