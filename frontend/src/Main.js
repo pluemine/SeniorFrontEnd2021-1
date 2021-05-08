@@ -21,6 +21,8 @@ import Topup from './Topup';
 import Search from './Search';
 import EditProfile from './EditProfile';
 import ForgotPass from './ForgotPass';
+import ForgotOtp from './ForgotOtp';
+import ForgotNew from './ForgotNew';
 
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -115,6 +117,20 @@ const App = () => {
           <Scene
             key='forgot'
             component={ForgotPass}
+            headerTintColor='#5394b5'
+            navTransparent={true}
+            hideTabBar
+          />
+          <Scene
+            key='forgototp'
+            component={ForgotOtp}
+            headerTintColor='#5394b5'
+            navTransparent={true}
+            hideTabBar
+          />
+          <Scene
+            key='forgotnew'
+            component={ForgotNew}
             headerTintColor='#5394b5'
             navTransparent={true}
             hideTabBar

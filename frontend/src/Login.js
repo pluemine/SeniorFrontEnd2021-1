@@ -15,6 +15,7 @@ import {
 } from "react-native";
 import styles from "./Styles";
 import axios from "axios";
+import userApis from "./apis/user.api";
 import TextField from "./components/TextField";
 
 const Login = () => {
@@ -67,6 +68,21 @@ const Login = () => {
         throw error;
       });
   };
+
+  /*const userLogin = async () => {
+    await userApis
+      .userLogin(email, password)
+      .then((token) => {
+        if (token != null) {
+          saveSecureStoreItem("pms_token", token);
+          Actions.tabbar();
+        }
+      })
+      .catch((error) => {
+        setFail(true);
+        throw error;
+      });
+  };*/
 
   const sent = () => {
     if (email === "") {
@@ -137,7 +153,10 @@ const Login = () => {
             <Text style={styles.buttonText}>Sign In</Text>
           </View>
         </TouchableHighlight>
-        <TouchableHighlight underlayColor="none" onPress={() => Actions.forgot()}>
+        <TouchableHighlight
+          underlayColor="none"
+          onPress={() => Actions.forgot()}
+        >
           <View>
             <Text style={styles.sectionOption}>Forgot Password</Text>
           </View>

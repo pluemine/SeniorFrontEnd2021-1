@@ -17,34 +17,33 @@ import styles from "./Styles";
 import axios from "axios";
 import TextField from "./components/TextField";
 
-const ForgotPass = () => {
-  const [email, setEmail] = useState("");
+const ForgotOtp = (props) => {
+  const { email } = props;
+  const [otp, setOtp] = useState("");
 
-  const [emailError, setEmailError] = useState(false);
+  const [otpError, setOtpError] = useState(false);
 
-  const handleChange_email = (event) => {
-    setEmail(event);
-    setEmailError(false);
+  const handleChange_otp = (event) => {
+    setOtp(event);
+    setOtpError(false);
   };
 
   const sent = () => {
-    if (email === "") {
-      setEmailError(true);
-    }
-    if (!isEmailValid()) {
-      setEmailError(true);
-    } else if (!emailError) {
-      forgot();
+    if (otp === "" || otp.length < 6) {
+      setOtpError(true);
+    } else if (!otpError) {
+      checkOtp();
     }
   };
 
-  const forgot = async () => {
+  const checkOtp = async () => {
     const token = await SecureStore.getItemAsync("pms_token");
     axios
       .post(
-        `http://localhost:4000/public/uapi/forgetPassword`,
+        `http://localhost:4000/public/uapi/otp`,
         {
           email: email,
+          reset_otp: otp,
         },
         { headers: { Authorization: `Bearer ${token}` } }
       )
@@ -52,8 +51,13 @@ const ForgotPass = () => {
         console.log(res);
         console.log(res.data);
         if (res.data.status === "OK") {
-          alert("Sent");
-          Actions.forgototp({ email: email });
+          alert("OTP confirmed");
+          Actions.forgotnew({
+            email: email,
+            fid: res.data.data.reset_password_data.reset_password_id,
+          });
+        } else {
+          setOtpError(true);
         }
       })
       .catch((error) => {
@@ -61,23 +65,19 @@ const ForgotPass = () => {
       });
   };
 
-  const isEmailValid = () => {
-    let pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return pattern.test(String(email).toLowerCase());
-  };
-
   return (
     <View style={styles.container}>
       <StatusBar barStyle="default" />
       <View style={styles.sectionContainerHeader}>
-        <Text style={styles.sectionTitlewoNav}>Forgot Password</Text>
+        <Text style={styles.sectionTitlewoNav}>Confirmation</Text>
+        <Text style={styles.textMenuTitle}>Email : {email}</Text>
         <TextField
-          label="Email"
-          error1={emailError}
-          value={email}
-          error="* Please enter a valid email address."
-          hint="example@address.com"
-          onChangeText={handleChange_email}
+          label="OTP"
+          error1={otpError}
+          value={otp}
+          error="* Please enter a valid OTP."
+          hint="123456"
+          onChangeText={handleChange_otp}
           autoCapitalize="none"
         />
         <Text style={styles.sectionDescription}></Text>
@@ -87,7 +87,7 @@ const ForgotPass = () => {
           onPress={sent}
         >
           <View>
-            <Text style={styles.buttonText}>Reset Password</Text>
+            <Text style={styles.buttonText}>Confirm</Text>
           </View>
         </TouchableHighlight>
       </View>
@@ -99,4 +99,4 @@ const ForgotPass = () => {
   );
 };
 
-export default ForgotPass;
+export default ForgotOtp;

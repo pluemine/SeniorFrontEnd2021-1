@@ -28,7 +28,7 @@ import {
 
 import TextField from "./components/TextField";
 import CardModal from "./components/CardModal";
-import MyCheckBox from './components/MyCheckBox';
+import MyCheckBox from "./components/MyCheckBox";
 
 import styles from "./Styles";
 import axios from "axios";
@@ -44,8 +44,11 @@ const Topup = (props) => {
 
   const [value, setValue] = useState("");
   const [customvalue, setCustomValue] = useState("");
-  const [card, setCard] = useState("เลือกบัตร");
-  const [cardSelector, setCardSelector] = useState("");
+  const [card, setCard] = useState({ card: "เลือกบัตร", id: null });
+  const [cardSelector, setCardSelector] = useState({
+    card: "เลือกบัตร",
+    id: null,
+  });
 
   const [valueError, setValueError] = useState(false);
   const [cardError, setCardError] = useState(false);
@@ -79,7 +82,7 @@ const Topup = (props) => {
       .post(
         `http://localhost:4000/auth/pmapi`,
         {
-          cid: card,
+          cid: card.id,
           amount: amount,
         },
         {
@@ -106,7 +109,7 @@ const Topup = (props) => {
     }
     setValue(event);
     setValueError(false);
-    if (card != "เลือกบัตร" && event != "custom") {
+    if (card.card != "เลือกบัตร" && event != "custom") {
       setButtonDis(false);
     } else if (event === "custom") {
       setButtonDis(true);
@@ -120,7 +123,7 @@ const Topup = (props) => {
     if (parseFloat(event) >= 20 && parseFloat(event) <= 5000) {
       setAmount(parseFloat(event));
       setValueError(false);
-      if (card != "เลือกบัตร") {
+      if (card.card != "เลือกบัตร") {
         setButtonDis(false);
       }
     } else {
@@ -143,7 +146,7 @@ const Topup = (props) => {
     toggleModal();
     setCard(cardSelector);
     setCardError(false);
-    if (amount > 0) {
+    if (amount > 0 && cardSelector.card != "เลือกบัตร") {
       setButtonDis(false);
     }
   }
@@ -178,7 +181,7 @@ const Topup = (props) => {
             <TextField
               label="Select Card"
               error1={cardError}
-              value={card}
+              value={"**** " + card.card.substring(12, 16)}
               error="* Please select your card."
               autoCapitalize="none"
             />
@@ -187,7 +190,7 @@ const Topup = (props) => {
         <CardModal
           data={data}
           visible={isModalVisible}
-          selector={cardSelector}
+          selector={cardSelector.card}
           handleChange={handleChange_cardSelector}
           confirm={confirmCard}
           cancel={cancelCard}
@@ -213,15 +216,17 @@ const Topup = (props) => {
             <Text style={styles.textHeaderBlue}>Your Balance</Text>
             <Text style={styles.textTitle}>฿{balance}</Text>
           </View>
-          {toggleCheckBox ? <View style={{ alignItems: "flex-end" }}>
-            <Text style={styles.textHeaderBlue}>New Balance</Text>
-            <Text style={[styles.textTitle, { color: "#D99154" }]}>
-              ฿{balance + amount}
-            </Text>
-          </View> : undefined}
+          {toggleCheckBox ? (
+            <View style={{ alignItems: "flex-end" }}>
+              <Text style={styles.textHeaderBlue}>New Balance</Text>
+              <Text style={[styles.textTitle, { color: "#D99154" }]}>
+                ฿{balance + amount}
+              </Text>
+            </View>
+          ) : undefined}
         </View>
         <MyCheckBox
-          title='Calculate your new balance?'
+          title="Calculate your new balance?"
           value={toggleCheckBox}
           onValueChange={setToggleCheckBox}
         />

@@ -21,7 +21,6 @@ import axios from "axios";
 
 const CardModal = (props) => {
   const { data, visible, selector, handleChange, confirm, cancel } = props;
-
   return (
     <Modal isVisible={visible}>
       <View style={styles.modalCover}>
@@ -33,7 +32,12 @@ const CardModal = (props) => {
           />
           <Picker
             selectedValue={selector}
-            onValueChange={(itemValue, itemIndex) => handleChange(itemValue)}
+            onValueChange={(itemValue, itemIndex) =>
+              handleChange({
+                card: data[itemIndex].credit_card_number,
+                id: data[itemIndex].credit_card_id,
+              })
+            }
           >
             {data.map((data, index) => {
               const number = data.credit_card_number;
@@ -41,11 +45,11 @@ const CardModal = (props) => {
                 <Picker.Item
                   key={"card" + index}
                   label={
-                    number.substring(0, 4) +
-                    "********" +
-                    number.substring(12, 16)
+                    //number.substring(0, 4) +
+                    "**** " + number.substring(12, 16)
                   }
-                  value={data.credit_card_id.toString()}
+                  //value={data.credit_card_id.toString()}
+                  value={data.credit_card_number}
                 />
               );
             })}

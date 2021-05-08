@@ -18,6 +18,7 @@ export const MyColor = {
   pressedBlued: '#5893AF',
   orange: '#eeab73',
   pressedOrange: '#D99154',
+  green: '#86ba3a',
   dark_orange: '#c2722f',
   disable: '#cccccc',
   tabBarUnFocus: '#c4c4c4',
@@ -311,6 +312,12 @@ const styles = StyleSheet.create({
     //fontWeight: '600',
     color: MyColor.pressedOrange,
   },
+  textMenuTitleGreen: {
+    fontSize: 15,
+    fontFamily: Fonts.FontBold,
+    //fontWeight: '600',
+    color: MyColor.green,
+  },
   textMenuDes: {
     fontSize: 12,
     fontFamily: Fonts.Font,
@@ -541,8 +548,8 @@ const styles = StyleSheet.create({
   },
   picProperty: {
     borderRadius: 4,
-    width: 300,
-    height: 300,
+    width: 120,
+    height: 120,
   },
   /* LicensePlateWaitingCard Style */
   licensePlateWaitingCardWrapper: {
@@ -830,6 +837,15 @@ const styles = StyleSheet.create({
   modalPropertyArea: {
     width: '100%',
     height: 620,
+    backgroundColor: '#FFFFFF',
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    borderRadius: 25,
+    justifyContent: 'space-between',
+  },
+  modalPropertyShorterArea: {
+    width: '100%',
+    height: 490,
     backgroundColor: '#FFFFFF',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
