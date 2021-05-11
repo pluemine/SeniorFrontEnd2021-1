@@ -160,6 +160,18 @@ const Topup = (props) => {
     }
   }
 
+  function namebrand() {
+    if (card.card[0] == '3') {
+      return require('../assets/icon-jcb.png');
+    } else if (card.card[0] == '4') {
+      return require('../assets/icon-visa.png');
+    } else if (card.card[0] == '5') {
+      return require('../assets/icon-mastercard.png');
+    } else {
+      return require('../assets/icon-nocard.png');
+    }
+  }
+
   let screen;
   if (des === "Loading") {
     screen = <View style={styles.cardMenuBlockSpace}></View>;
@@ -181,9 +193,12 @@ const Topup = (props) => {
             <TextField
               label="Select Card"
               error1={cardError}
-              value={"**** " + card.card.substring(12, 16)}
+              value={card.card === "เลือกบัตร" ? card.card : "" + card.card.substring(12, 16)}
               error="* Please select your card."
               autoCapitalize="none"
+              leftComponent={
+                <Image style={{ height: 30, width: 30 }} source={namebrand()} />
+              }
             />
           </View>
         </TouchableOpacity>
