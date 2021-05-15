@@ -124,7 +124,7 @@ const LicensePlateWaitingCard = (props) => {
               >
                 <View>
                   <Text style={styles.licensePlateWaitingCardClaimText}>
-                    Claim
+                    Approve
                   </Text>
                 </View>
               </TouchableHighlight>

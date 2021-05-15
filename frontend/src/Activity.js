@@ -214,7 +214,9 @@ const Activity = () => {
             </SafeAreaView>
           ) : null}
           {waitingLists && waitingLists.length ? (
-            <Text style={styles.sectionSubTitleActivity}>Waiting</Text>
+            <Text style={styles.sectionSubTitleActivity}>
+              License Plate In Use
+            </Text>
           ) : null}
           {waitingLists && waitingLists.length ? (
             <SafeAreaView>
