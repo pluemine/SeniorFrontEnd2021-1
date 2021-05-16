@@ -101,7 +101,7 @@ const PropertyModal = (props) => {
               {fees.map((fee, index) => {
                 const newfee = fee.split("/");
                 return (
-                  <View style={styles.cardMenuBlock}>
+                  <View style={styles.cardMenuBlock} key={"propmodal" + index}>
                     <View
                       style={{
                         flexDirection: "row",

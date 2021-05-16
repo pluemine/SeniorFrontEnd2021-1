@@ -131,8 +131,7 @@ const PaymentCard = (props) => {
                 />
                 <View>
                   <Text style={styles.textSubtitle}>
-                    {number.substring(0, 4) +
-                      "********" +
+                    {"**** **** **** " +
                       number.substring(12, 16)}
                   </Text>
                   <Text style={styles.textDes}>
@@ -169,8 +168,7 @@ const PaymentCard = (props) => {
               <View style={styles.modalTextBlock}>
                 <Text style={styles.modalTextTitle}>Your card</Text>
                 <Text style={styles.modalTextDes}>
-                  {number.substring(0, 4) +
-                    '********' +
+                  {'**** **** **** ' +
                     number.substring(12, 16) +
                     ' (' +
                     brand +

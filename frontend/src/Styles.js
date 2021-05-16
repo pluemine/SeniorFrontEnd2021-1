@@ -918,21 +918,21 @@ const styles = StyleSheet.create({
 
   //Background Pic Add
   bgCardPic: {
-    width: '120%',
+    width: '100%',
     height: '80%',
-    bottom: 60,
+    bottom: 0,
     resizeMode: 'contain',
   },
   bgRegisterPic: {
     width: '100%',
     height: '50%',
-    bottom: 80,
+    bottom: 0,
     resizeMode: 'contain',
   },
   bgAddLcPic: {
     width: '100%',
-    height: '100%',
-    bottom: 150,
+    height: '80%',
+    bottom: 0,
     resizeMode: 'cover',
   },
 });

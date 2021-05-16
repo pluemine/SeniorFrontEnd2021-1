@@ -21,7 +21,7 @@ import styles from "../Styles";
 import axios from "axios";
 
 const AccessModal = (props) => {
-  const { data, visible, selector, handleChange, confirm, cancel } = props;
+  const { data, propId, visible, selector, handleChange, confirm, cancel } = props;
   const [des, setDes] = useState("");
 
   return (
@@ -29,7 +29,7 @@ const AccessModal = (props) => {
       <View style={styles.modalCover}>
         <View style={styles.modalAccessArea}>
           <Text style={styles.modalTitle}>Select Access</Text>
-          <ScrollView style={{height: 400}}>
+          <ScrollView style={{ height: 400 }}>
             <AccessList
               paid={null}
               propname={"None"}

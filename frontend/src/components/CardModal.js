@@ -46,7 +46,7 @@ const CardModal = (props) => {
                   key={"card" + index}
                   label={
                     //number.substring(0, 4) +
-                    "◦◦◦◦ ◦◦◦◦ ◦◦◦◦ " + number.substring(12, 16)
+                    "**** **** **** " + number.substring(12, 16)
                   }
                   //value={data.credit_card_id.toString()}
                   value={data.credit_card_number}

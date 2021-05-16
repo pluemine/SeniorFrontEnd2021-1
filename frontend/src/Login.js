@@ -162,10 +162,10 @@ const Login = () => {
           </View>
         </TouchableHighlight>
       </View>
-      {/*<Image
+      <Image
         style={styles.bgCardPic}
         source={require("../assets/Secure_login_pana.png")}
-      />*/}
+      />
     </View>
   );
 };

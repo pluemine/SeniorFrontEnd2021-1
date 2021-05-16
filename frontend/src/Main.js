@@ -199,9 +199,9 @@ const App = () => {
                 component={Activity}
                 navTransparent={true}
                 headerTintColor='#5394b5'
-                //onRight={() => Actions.refresh({ key: Math.random() })}
-                //rightButtonImage={require('../assets/icon-refresh.png')}
-                //rightButtonIconStyle={{ width: 24, height: 24 }}
+                onRight={() => Actions.refresh({ key: Math.random() })}
+                rightButtonImage={require('../assets/icon-refresh.png')}
+                rightButtonIconStyle={{ width: 24, height: 24 }}
                 initial={true}
               />
               <Scene

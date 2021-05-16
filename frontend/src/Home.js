@@ -41,8 +41,11 @@ const Home = () => {
       <View style={styles.sectionContainerHeader}>
         <Text style={styles.sectionTitlewoNav}>Welcome</Text>
       </View>
-      <View style={styles.sectionContainer}>
-        <PacmanIndicator color="#5394b5" size={180} />
+      <View style={[styles.sectionContainer, { alignItems: "center" }]}>
+        <Image
+          style={{ width: 300, height: 300 }}
+          source={require("../assets/logo.png")}
+        />
       </View>
       <View style={styles.sectionContainer}>
         <Text style={styles1.texthead}>Getting Started</Text>

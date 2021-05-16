@@ -202,8 +202,8 @@ const Homeuser = () => {
               </View>
             </TouchableHighlight>
           </View>
-          <View style={styles.cardMenuBlockSpaceTop}>
-            <Text style={styles.textSubtitle}>Nearby Parking</Text>
+          {/*<View style={styles.cardMenuBlockSpaceTop}>
+            <Text style={styles.textSubtitle}>Available Parking</Text>
           </View>
           <SafeAreaView style={styles.nearByFlatListContainer}>
             <FlatList
@@ -214,7 +214,7 @@ const Homeuser = () => {
               horizontal={true}
               initialNumToRender={2}
             />
-          </SafeAreaView>
+          </SafeAreaView>*/}
         </View>
       </ImageBackground>
     </View>

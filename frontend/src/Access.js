@@ -130,13 +130,18 @@ const Access = (props) => {
     );
   } else {
     screen = (
-      <View style={styles.sectionContainerScroll}>
+      <ScrollView
+        style={styles.sectionContainerScroll}
+        refreshControl={
+          <RefreshControl refreshing={refresh} onRefresh={refreshPage} />
+        }
+      >
         <Text style={styles.noDataDes}>{des}</Text>
         <Image
           style={styles.noDataImage}
           source={require('../assets/No-data-rafiki.png')}
         />
-      </View>
+      </ScrollView>
     );
   }
 

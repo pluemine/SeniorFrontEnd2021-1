@@ -1,6 +1,6 @@
-import React, { Component, useState, useEffect } from 'react';
-import * as SecureStore from 'expo-secure-store';
-import { Actions } from 'react-native-router-flux';
+import React, { Component, useState, useEffect } from "react";
+import * as SecureStore from "expo-secure-store";
+import { Actions } from "react-native-router-flux";
 import {
   SafeAreaView,
   StyleSheet,
@@ -13,20 +13,20 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   Image,
-} from 'react-native';
-import ProvinceModal from './components/ProvinceModal';
-import TextField from './components/TextField';
+} from "react-native";
+import ProvinceModal from "./components/ProvinceModal";
+import TextField from "./components/TextField";
 
-import styles from './Styles';
-import axios from 'axios';
+import styles from "./Styles";
+import axios from "axios";
 
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
 const Addlc = (props) => {
-  const [category, setCategory] = useState('');
-  const [number, setNumber] = useState('');
-  const [province, setProvince] = useState('เลือกจังหวัด');
-  const [provinceSelector, setProvinceSelector] = useState('กรุงเทพมหานคร');
+  const [category, setCategory] = useState("");
+  const [number, setNumber] = useState("");
+  const [province, setProvince] = useState("เลือกจังหวัด");
+  const [provinceSelector, setProvinceSelector] = useState("กรุงเทพมหานคร");
   const { constantValue } = props;
 
   const [categoryError, setCategoryError] = useState(false);
@@ -60,37 +60,37 @@ const Addlc = (props) => {
 
   function cancelProvince() {
     toggleModal();
-    if (province === 'เลือกจังหวัด') {
-      setProvinceSelector('กรุงเทพมหานคร');
+    if (province === "เลือกจังหวัด") {
+      setProvinceSelector("กรุงเทพมหานคร");
     } else {
       setProvinceSelector(province);
     }
   }
 
   const sent = () => {
-    if (category === '') {
+    if (category === "") {
       setCategoryError(true);
     }
-    if (number === '') {
+    if (number === "") {
       setNumberError(true);
     }
-    if (province === 'เลือกจังหวัด') {
+    if (province === "เลือกจังหวัด") {
       setProvinceError(true);
     }
-    if (category === '') {
+    if (category === "") {
       setCategoryError(true);
-    } else if (number === '') {
+    } else if (number === "") {
       setNumberError(true);
-    } else if (province === 'เลือกจังหวัด') {
+    } else if (province === "เลือกจังหวัด") {
       setProvinceError(true);
     } else if (!categoryError && !numberError && !provinceError) {
-      console.warn('Complete');
+      console.warn("Complete");
       addLicense();
     }
   };
 
   const addLicense = async () => {
-    const token = await SecureStore.getItemAsync('pms_token');
+    const token = await SecureStore.getItemAsync("pms_token");
     axios
       .post(
         `http://localhost:4000/auth/lpapi`,
@@ -104,7 +104,7 @@ const Addlc = (props) => {
       .then((res) => {
         console.log(res);
         console.log(res.data);
-        if (res.data.status === 'OK') {
+        if (res.data.status === "OK") {
           Actions.pop();
           setTimeout(() => {
             Actions.refresh({ key: Math.random() });
@@ -115,51 +115,55 @@ const Addlc = (props) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle='default' />
+      <StatusBar barStyle="default" />
       <View style={styles.sectionContainerHeader}>
         <Text style={styles.sectionTitlewoNav}>Add License Plate</Text>
+        <Image
+          style={{ width: 300, height: 120, marginBottom: 40 }}
+          source={require("../assets/license.jpeg")}
+        />
         <View
           style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
           }}
         >
-          <View style={{ width: '38%' }}>
+          <View style={{ width: "38%" }}>
             <TextField
-              label='Category'
+              label="Category"
               error1={categoryError}
               value={category}
-              error='* Incorrect'
-              hint='หมวดหมู่ เช่น กข'
+              error="* Incorrect"
+              hint="หมวดหมู่ เช่น กข"
               maxLength={3}
               onChangeText={handleChange_category}
-              autoCapitalize='none'
+              autoCapitalize="none"
             />
           </View>
-          <View style={{ width: '64%' }}>
+          <View style={{ width: "64%" }}>
             <TextField
-              label='Number'
+              label="Number"
               error1={numberError}
               value={number}
-              error='* Incorrect'
-              hint='เลขทะเบียน เช่น 1234 (สูงสุด 5 ตัว)'
-              mask='99999'
-              keyboardType='numeric'
+              error="* Incorrect"
+              hint="เลขทะเบียน เช่น 1234 (สูงสุด 4 ตัว)"
+              mask="9999"
+              keyboardType="numeric"
               onChangeText={handleChange_number}
-              autoCapitalize='none'
+              autoCapitalize="none"
             />
           </View>
         </View>
         <TouchableOpacity onPress={toggleModal}>
-          <View pointerEvents='none'>
+          <View pointerEvents="none">
             <TextField
-              label='Province'
+              label="Province"
               error1={provinceError}
               value={province}
-              error='* Please select a province.'
-              hint='กรุงเทพมหานคร'
-              autoCapitalize='none'
+              error="* Please select a province."
+              hint="กรุงเทพมหานคร"
+              autoCapitalize="none"
             />
           </View>
         </TouchableOpacity>
@@ -173,7 +177,7 @@ const Addlc = (props) => {
         <Text> </Text>
         <TouchableHighlight
           style={styles.button}
-          underlayColor='none'
+          underlayColor="none"
           onPress={sent}
         >
           <View>
@@ -181,10 +185,10 @@ const Addlc = (props) => {
           </View>
         </TouchableHighlight>
       </View>
-      {/*<Image
+      <Image
         style={styles.bgAddLcPic}
-        source={require('../assets/Winter_road_pana.png')}
-      />*/}
+        source={require("../assets/Winter_road_pana.png")}
+      />
     </View>
   );
 };

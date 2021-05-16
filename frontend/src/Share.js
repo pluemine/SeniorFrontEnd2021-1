@@ -280,6 +280,9 @@ const Share = (props) => {
         if (res.data.status === "OK") {
           Actions.popTo("accesshome");
         }
+        else {
+          alert("Cannot share access");
+        }
       })
       .catch((error) => {
         if (res.data.status === "FAILED") {

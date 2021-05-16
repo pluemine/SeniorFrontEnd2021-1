@@ -121,6 +121,12 @@ const Parking = (props) => {
               id: res.data.data.usage_log.parking_access_id,
             });
           }
+          console.log(
+            res.data.data.usage_log.property_name
+              .toUpperCase()
+              .replace(" ", "") + res.data.data.usage_log.parking_access_id,
+            res.data.data.usage_log.parking_access_id
+          );
           setPropId(res.data.data.usage_log.property_id);
           setPropName(res.data.data.usage_log.property_name);
           setLicenseCat(res.data.data.usage_log.license_plate_category);
@@ -151,7 +157,7 @@ const Parking = (props) => {
               .then((res) => {
                 setAccesses(res.data.data.accesses);
                 setDes("Loaded");
-                // console.log('SS', res.data.data.accesses);
+                console.log("SS", res.data.data.accesses);
               });
           };
           if (!res.data.data.usage_log.is_completed) getAccess();
@@ -407,6 +413,7 @@ const Parking = (props) => {
           </TouchableHighlight>
           <AccessModal
             data={accesses}
+            propId={propId}
             visible={isModalVisible}
             selector={accessSelector}
             handleChange={handleChange_accessSelector}
